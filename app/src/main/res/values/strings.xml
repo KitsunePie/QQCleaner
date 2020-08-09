@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">QQ Cleaner</string>
+    <string name="tips">Give me disk space back QQ!!!!</string>
+    <string name="tips2">JUST SUPPORTED QQ8.2.8+(Data in Android/Data)</string>
+    <string name="tips3">Settings -> About ->一键瘦身</string>
+    <string name="xposeddescription">QQ Cleaner by KyuubiRan</string>
+    <string name="tips4">Open-source on github \n By KyuubiRan</string>
+</resources>
