@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">QQ瘦身</string>
-    <string name="tips">由于QQ越来越过粪了 动不动就十几甚至几十个G 你一个聊天软件搞这么大干什么???所以我就搞了这个软件 帮大家一键清理QQ常年累积的垃圾(自带的缓存清理还没什么屌用 清理完还变大了就很弱智)</string>
-    <string name="tips2">注意:本软件保留聊天记录 仅清理缓存 并且仅支持8.2.8+(QQ把数据放在Android/data目录下之后的版本)的QQ版本(最好用8.4.1)低版本请不要使用本软件 避免出现神奇的Bug</string>
-    <string name="tips3">\nQQ设置->关于->一键瘦身\n</string>
-    <string name="xposeddescription">清理QQ的缓存文件 By.KyuubiRan</string>
-    <string name="tips4">本项目已在Github上开源 \n作者:@KyuubiRan</string>
+    <string name="xposeddescription">QQ设置->关于->一键瘦身 本项目已在Github上开源 作者:KyuubiRan</string>
 </resources>

@@ -36,31 +36,47 @@ public class MainHook implements IXposedHookLoadPackage {
                         Class<?> FormSimpleItem = XposedHelpers.findClass("com.tencent.mobileqq.widget.FormSimpleItem", lpparam.classLoader);
                         View item = (View) Utils.iget_object_or_null(param.thisObject, "a", FormSimpleItem);
                         final Context context = (Context) item.getContext();
-                        View entity = (View) Utils.new_instance(FormSimpleItem, param.thisObject, Context.class);
-                        Utils.invoke_virtual(entity, "setLeftText", "一键瘦身", CharSequence.class);
+                        View clean = (View) Utils.new_instance(FormSimpleItem, param.thisObject, Context.class);
+                        View cleanAll = (View) Utils.new_instance(FormSimpleItem, param.thisObject, Context.class);
+                        Utils.invoke_virtual(clean, "setLeftText", "一键瘦身", CharSequence.class);
+                        Utils.invoke_virtual(cleanAll, "setLeftText", "彻底瘦身(彻底清理缓存)", CharSequence.class);
                         ViewGroup vg = (ViewGroup) item.getParent();
-                        vg.addView(entity, 2);
-                        entity.setOnClickListener(new View.OnClickListener() {
+                        vg.addView(clean, 2);
+                        vg.addView(cleanAll, 3);
+                        clean.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Toast.makeText(context, "长按以清除缓存", LENGTH_SHORT).show();
                             }
                         });
-                        entity.setOnLongClickListener(new View.OnLongClickListener() {
+                        clean.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
                             public boolean onLongClick(View view) {
-                                cleanCache(context);
+                                cleanCache(context, false);
                                 return true;
                             }
                         });
+                        cleanAll.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(context, "长按清理所有缓存(某些缓存会在重启QQ后重新加载)", LENGTH_SHORT).show();
+                            }
+                        });
+                        cleanAll.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                cleanCache(context, true);
+                                return true;
+                            }
+                        });
+
                     }
                 });
             }
         }
     }
 
-
-    public void cleanCache(final Context context) {
+    public void cleanCache(final Context context, final boolean cleanAll) {
         Toast.makeText(context, "正在清理缓存", LENGTH_SHORT).show();
         new Thread(new Runnable() {
             @Override
@@ -90,27 +106,72 @@ public class MainHook implements IXposedHookLoadPackage {
                     //编辑过的图片
                     File QQEditPic = new File(QQ_Images + "/QQEditPic");
 
-                    //执行清理
+                    //清理
                     Utils.deleteAllFiles(cache);
-//                    XposedBridge.log("清理cache成功");
                     Utils.deleteAllFiles(diskcache);
-//                    XposedBridge.log("清理diskcache成功");
                     Utils.deleteAllFiles(ScribbleCache);
-//                    XposedBridge.log("清理ScribbleCache成功");
                     Utils.deleteAllFiles(photo);
-//                    XposedBridge.log("清理photo成功");
                     Utils.deleteAllFiles(shortVideo);
-//                    XposedBridge.log("清理shortVideo成功");
                     Utils.deleteAllFiles(thumb);
-//                    XposedBridge.log("清理thumb成功");
                     Utils.deleteAllFiles(qbosssplahAD);
-//                    XposedBridge.log("清理qbosssplahAD成功");
                     Utils.deleteAllFiles(pddata);
-//                    XposedBridge.log("清理pddata成功");
                     Utils.deleteAllFiles(chatpic);
-//                    XposedBridge.log("清理chatpic成功");
                     Utils.deleteAllFiles(QQEditPic);
-//                    XposedBridge.log("清理QQEditPic成功");
+
+                    //特殊缓存目录
+                    if (cleanAll) {
+                        //字体
+                        File font_info = new File(MobileQQ + "/.font_info");
+                        //送礼物
+                        File gift = new File(MobileQQ + "/.gift");
+                        //头像挂件
+                        File pendant = new File(MobileQQ + "/.pendant");
+                        //资料卡背景
+                        File profilecard = new File(MobileQQ + "/.profilecard");
+                        //表情推荐
+                        File sticker_recommended_pics = new File(MobileQQ + "/.sticker_recommended_pics");
+                        //进场特效
+                        File enter_effects = new File(MobileQQ + "/.troop/enter_effects");
+                        //戳一戳
+                        File vaspoke = new File(MobileQQ + "/.vaspoke");
+                        File newpoke = new File(MobileQQ + "/newpoke");
+                        File poke = new File(MobileQQ + "/poke");
+                        //vip图标
+                        File vipicon = new File(MobileQQ + "/.vipicon");
+                        //斗图相关
+                        File DoutuRes = new File(MobileQQ + "/DoutuRes");
+                        //QQ电话动画背景
+                        File funcall = new File(MobileQQ + "/funcall");
+                        //头像缓存
+                        File head = new File(MobileQQ + "/head");
+                        //热图?
+                        File hotpic = new File(MobileQQ + "/hotpic");
+                        //貌似也是表情
+                        File pe = new File(MobileQQ + "/pe");
+                        //暂时不知道的东西
+                        File qav = new File(MobileQQ + "/qav");
+                        //qq音乐
+                        File qqmusic = new File(MobileQQ + "/qqmusic");
+
+                        //清理
+                        Utils.deleteAllFiles(font_info);
+                        Utils.deleteAllFiles(gift);
+                        Utils.deleteAllFiles(pendant);
+                        Utils.deleteAllFiles(profilecard);
+                        Utils.deleteAllFiles(sticker_recommended_pics);
+                        Utils.deleteAllFiles(enter_effects);
+                        Utils.deleteAllFiles(vaspoke);
+                        Utils.deleteAllFiles(newpoke);
+                        Utils.deleteAllFiles(poke);
+                        Utils.deleteAllFiles(vipicon);
+                        Utils.deleteAllFiles(DoutuRes);
+                        Utils.deleteAllFiles(funcall);
+                        Utils.deleteAllFiles(head);
+                        Utils.deleteAllFiles(hotpic);
+                        Utils.deleteAllFiles(pe);
+                        Utils.deleteAllFiles(qav);
+                        Utils.deleteAllFiles(qqmusic);
+                    }
                 } catch (Throwable t) {
                     XposedBridge.log(TAG + t);
                 }
