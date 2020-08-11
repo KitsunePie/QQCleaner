@@ -16,7 +16,7 @@ QQ太弱智了 只要你不手动清理 他就会一直膨胀 所以整了这个
 
 cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | pddata | chatpic | QQEditPic | mini
 
-彻底瘦身:
+彻底瘦身(包括一键瘦身):
 
 .font_info | .hiboom_font | .gift | .pendant | .profilecard | .sticker_recommended_pics | .troop/enter_effects | .vaspoke | newpoke | poke | .vipicon | DoutuRes | funcall | head | hotpic | pe | qav | qqmusic | QQfile_recv/thumbnails | QQfile_recv/tmp | QQfile_recv/trooptmp
 
