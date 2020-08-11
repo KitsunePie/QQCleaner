@@ -14,10 +14,10 @@ QQ太弱智了 只要你不手动清理 他就会一直膨胀 所以整了这个
 ### 瘦身内容如下
 一键瘦身:
 
-cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | pddata | chatpic | QQEditPic 
+cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | pddata | chatpic | QQEditPic | mini
 
 彻底瘦身:
 
-.font_info | .gift | .pendant | .profilecard | .sticker_recommended_pics | .troop/enter_effects | .vaspoke | newpoke | poke | .vipicon | DoutuRes | funcall | head | hotpic | pe | qav | qqmusic
+.font_info | .hiboom_font | .gift | .pendant | .profilecard | .sticker_recommended_pics | .troop/enter_effects | .vaspoke | newpoke | poke | .vipicon | DoutuRes | funcall | head | hotpic | pe | qav | qqmusic | QQfile_recv/thumbnails | QQfile_recv/tmp | QQfile_recv/trooptmp
 
 具体目录请看MainHook类中的cleanCache方法
