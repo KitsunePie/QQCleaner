@@ -84,9 +84,11 @@ public class MainHook implements IXposedHookLoadPackage {
                 try {
                     //根目录
                     String rootFile = context.getExternalCacheDir().getParentFile().getPath();
-                    String MobileQQ = rootFile + "/Tencent/MobileQQ";
+                    String Tencent = rootFile + "/Tencent";
+                    String MobileQQ = Tencent + "/MobileQQ";
                     String QQ_Images = rootFile + "/QQ_Images";
-                    //需要清理的目录
+                    String QQfile_recv = Tencent + "/QQfile_recv";
+
                     //缓存
                     File cache = new File(rootFile + "/cache");
                     File diskcache = new File(MobileQQ + "/diskcache");
@@ -94,7 +96,7 @@ public class MainHook implements IXposedHookLoadPackage {
                     //被QQ压缩过的图片
                     File photo = new File(MobileQQ + "/photo");
                     //短视频
-                    File shortVideo = new File(MobileQQ + "/shortVideo");
+                    File shortvideo = new File(MobileQQ + "/shortvideo");
                     //也是QQ遗留下来的图片缓存
                     File thumb = new File(MobileQQ + "/thumb");
                     //横幅广告
@@ -105,23 +107,26 @@ public class MainHook implements IXposedHookLoadPackage {
                     File chatpic = new File(MobileQQ + "/chatpic");
                     //编辑过的图片
                     File QQEditPic = new File(QQ_Images + "/QQEditPic");
+                    //小程序缓存
+                    File mini = new File(Tencent + "/mini");
 
-                    //清理
                     Utils.deleteAllFiles(cache);
                     Utils.deleteAllFiles(diskcache);
                     Utils.deleteAllFiles(ScribbleCache);
                     Utils.deleteAllFiles(photo);
-                    Utils.deleteAllFiles(shortVideo);
+                    Utils.deleteAllFiles(shortvideo);
                     Utils.deleteAllFiles(thumb);
                     Utils.deleteAllFiles(qbosssplahAD);
                     Utils.deleteAllFiles(pddata);
                     Utils.deleteAllFiles(chatpic);
                     Utils.deleteAllFiles(QQEditPic);
+                    Utils.deleteAllFiles(mini);
 
-                    //特殊缓存目录
                     if (cleanAll) {
                         //字体
                         File font_info = new File(MobileQQ + "/.font_info");
+                        //嗨爆字体
+                        File hiboom_font = new File(MobileQQ + "/.hiboom_font");
                         //送礼物
                         File gift = new File(MobileQQ + "/.gift");
                         //头像挂件
@@ -152,9 +157,13 @@ public class MainHook implements IXposedHookLoadPackage {
                         File qav = new File(MobileQQ + "/qav");
                         //qq音乐
                         File qqmusic = new File(MobileQQ + "/qqmusic");
+                        //接收文件缓存
+                        File trooptmp = new File(QQfile_recv + "/trooptmp");
+                        File tmp = new File(QQfile_recv + "/tmp");
+                        File thumbnails = new File(QQfile_recv + "/thumbnails");
 
-                        //清理
                         Utils.deleteAllFiles(font_info);
+                        Utils.deleteAllFiles(hiboom_font);
                         Utils.deleteAllFiles(gift);
                         Utils.deleteAllFiles(pendant);
                         Utils.deleteAllFiles(profilecard);
@@ -171,6 +180,9 @@ public class MainHook implements IXposedHookLoadPackage {
                         Utils.deleteAllFiles(pe);
                         Utils.deleteAllFiles(qav);
                         Utils.deleteAllFiles(qqmusic);
+                        Utils.deleteAllFiles(trooptmp);
+                        Utils.deleteAllFiles(tmp);
+                        Utils.deleteAllFiles(thumbnails);
                     }
                 } catch (Throwable t) {
                     XposedBridge.log(TAG + t);
