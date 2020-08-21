@@ -44,7 +44,6 @@ public class MainHook implements IXposedHookLoadPackage {
                         vg.addView(clean, 2);
                         vg.addView(cleanAll, 3);
                         clean.setOnClickListener(new View.OnClickListener() {
-                            @Override
                             public void onClick(View view) {
                                 Toast.makeText(context, "长按以清除缓存", LENGTH_SHORT).show();
                             }
@@ -83,14 +82,16 @@ public class MainHook implements IXposedHookLoadPackage {
             public void run() {
                 try {
                     //根目录
-                    String rootFile = context.getExternalCacheDir().getParentFile().getPath();
-                    String Tencent = rootFile + "/Tencent";
-                    String MobileQQ = Tencent + "/MobileQQ";
-                    String QQ_Images = rootFile + "/QQ_Images";
-                    String QQfile_recv = Tencent + "/QQfile_recv";
+                    String rootDataDir = context.getExternalCacheDir().getParentFile().getPath();
+                    String rootDir = context.getObbDir().getParentFile().getParentFile().getParentFile().getPath();
+                    String rootTencentDir = rootDir + "/tencent";
+                    String TencentDir = rootDataDir + "/Tencent";
+                    String MobileQQ = TencentDir + "/MobileQQ";
+                    String QQ_Images = rootDataDir + "/QQ_Images";
+                    String QQfile_recv = TencentDir + "/QQfile_recv";
 
                     //缓存
-                    File cache = new File(rootFile + "/cache");
+                    File cache = new File(rootDataDir + "/cache");
                     File diskcache = new File(MobileQQ + "/diskcache");
                     File ScribbleCache = new File(MobileQQ + "/Scribble/ScribbleCache");
                     //被QQ压缩过的图片
@@ -108,7 +109,9 @@ public class MainHook implements IXposedHookLoadPackage {
                     //编辑过的图片
                     File QQEditPic = new File(QQ_Images + "/QQEditPic");
                     //小程序缓存
-                    File mini = new File(Tencent + "/mini");
+                    File mini = new File(TencentDir + "/mini");
+                    //网页登录缓存
+                    File msflogs = new File(rootTencentDir + "/msflogs/com/tencent/mobileqq");
 
                     Utils.deleteAllFiles(cache);
                     Utils.deleteAllFiles(diskcache);
@@ -121,6 +124,7 @@ public class MainHook implements IXposedHookLoadPackage {
                     Utils.deleteAllFiles(chatpic);
                     Utils.deleteAllFiles(QQEditPic);
                     Utils.deleteAllFiles(mini);
+                    Utils.deleteAllFiles(msflogs);
 
                     if (cleanAll) {
                         //字体
