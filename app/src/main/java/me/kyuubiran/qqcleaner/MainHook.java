@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -81,6 +82,7 @@ public class MainHook implements IXposedHookLoadPackage {
             @Override
             public void run() {
                 try {
+                    ArrayList<File> filesDir = new ArrayList<>();
                     //根目录
                     String rootDataDir = context.getExternalCacheDir().getParentFile().getPath();
                     String rootDir = context.getObbDir().getParentFile().getParentFile().getParentFile().getPath();
@@ -91,102 +93,71 @@ public class MainHook implements IXposedHookLoadPackage {
                     String QQfile_recv = TencentDir + "/QQfile_recv";
 
                     //缓存
-                    File cache = new File(rootDataDir + "/cache");
-                    File diskcache = new File(MobileQQ + "/diskcache");
-                    File ScribbleCache = new File(MobileQQ + "/Scribble/ScribbleCache");
+                    filesDir.add(new File(rootDataDir + "/cache"));
+                    filesDir.add(new File(MobileQQ + "/diskcache"));
+                    filesDir.add(new File(MobileQQ + "/Scribble/ScribbleCache"));
                     //被QQ压缩过的图片
-                    File photo = new File(MobileQQ + "/photo");
+                    filesDir.add(new File(MobileQQ + "/photo"));
                     //短视频
-                    File shortvideo = new File(MobileQQ + "/shortvideo");
+                    filesDir.add(new File(MobileQQ + "/shortvideo"));
                     //也是QQ遗留下来的图片缓存
-                    File thumb = new File(MobileQQ + "/thumb");
+                    filesDir.add(new File(MobileQQ + "/thumb"));
                     //横幅广告
-                    File qbosssplahAD = new File(MobileQQ + "/qbosssplahAD");
+                    filesDir.add(new File(MobileQQ + "/qbosssplahAD"));
                     //貌似也是广告
-                    File pddata = new File(MobileQQ + "/pddata");
+                    filesDir.add(new File(MobileQQ + "/pddata"));
                     //就是这玩意几千个图片大的一批 删就完事了 删完就小了
-                    File chatpic = new File(MobileQQ + "/chatpic");
+                    filesDir.add(new File(MobileQQ + "/chatpic"));
                     //编辑过的图片
-                    File QQEditPic = new File(QQ_Images + "/QQEditPic");
+                    filesDir.add(new File(QQ_Images + "/QQEditPic"));
                     //小程序缓存
-                    File mini = new File(TencentDir + "/mini");
+                    filesDir.add(new File(TencentDir + "/mini"));
                     //网页登录缓存
-                    File msflogs = new File(rootTencentDir + "/msflogs/com/tencent/mobileqq");
-
-                    Utils.deleteAllFiles(cache);
-                    Utils.deleteAllFiles(diskcache);
-                    Utils.deleteAllFiles(ScribbleCache);
-                    Utils.deleteAllFiles(photo);
-                    Utils.deleteAllFiles(shortvideo);
-                    Utils.deleteAllFiles(thumb);
-                    Utils.deleteAllFiles(qbosssplahAD);
-                    Utils.deleteAllFiles(pddata);
-                    Utils.deleteAllFiles(chatpic);
-                    Utils.deleteAllFiles(QQEditPic);
-                    Utils.deleteAllFiles(mini);
-                    Utils.deleteAllFiles(msflogs);
+                    filesDir.add(new File(rootTencentDir + "/msflogs/com/tencent/mobileqq"));
 
                     if (cleanAll) {
                         //字体
-                        File font_info = new File(MobileQQ + "/.font_info");
+                        filesDir.add(new File(MobileQQ + "/.font_info"));
                         //嗨爆字体
-                        File hiboom_font = new File(MobileQQ + "/.hiboom_font");
+                        filesDir.add(new File(MobileQQ + "/.hiboom_font"));
                         //送礼物
-                        File gift = new File(MobileQQ + "/.gift");
+                        filesDir.add(new File(MobileQQ + "/.gift"));
                         //头像挂件
-                        File pendant = new File(MobileQQ + "/.pendant");
+                        filesDir.add(new File(MobileQQ + "/.pendant"));
                         //资料卡背景
-                        File profilecard = new File(MobileQQ + "/.profilecard");
+                        filesDir.add(new File(MobileQQ + "/.profilecard"));
                         //表情推荐
-                        File sticker_recommended_pics = new File(MobileQQ + "/.sticker_recommended_pics");
+                        filesDir.add(new File(MobileQQ + "/.sticker_recommended_pics"));
                         //进场特效
-                        File enter_effects = new File(MobileQQ + "/.troop/enter_effects");
+                        filesDir.add(new File(MobileQQ + "/.troop/enter_effects"));
                         //戳一戳
-                        File vaspoke = new File(MobileQQ + "/.vaspoke");
-                        File newpoke = new File(MobileQQ + "/newpoke");
-                        File poke = new File(MobileQQ + "/poke");
+                        filesDir.add(new File(MobileQQ + "/.vaspoke"));
+                        filesDir.add(new File(MobileQQ + "/newpoke"));
+                        filesDir.add(new File(MobileQQ + "/poke"));
                         //vip图标
-                        File vipicon = new File(MobileQQ + "/.vipicon");
+                        filesDir.add(new File(MobileQQ + "/.vipicon"));
                         //斗图相关
-                        File DoutuRes = new File(MobileQQ + "/DoutuRes");
+                        filesDir.add(new File(MobileQQ + "/DoutuRes"));
                         //QQ电话动画背景
-                        File funcall = new File(MobileQQ + "/funcall");
+                        filesDir.add(new File(MobileQQ + "/funcall"));
                         //头像缓存
-                        File head = new File(MobileQQ + "/head");
+                        filesDir.add(new File(MobileQQ + "/head"));
                         //热图?
-                        File hotpic = new File(MobileQQ + "/hotpic");
+                        filesDir.add(new File(MobileQQ + "/hotpic"));
                         //貌似也是表情
-                        File pe = new File(MobileQQ + "/pe");
+                        filesDir.add(new File(MobileQQ + "/pe"));
                         //暂时不知道的东西
-                        File qav = new File(MobileQQ + "/qav");
+                        filesDir.add(new File(MobileQQ + "/qav"));
                         //qq音乐
-                        File qqmusic = new File(MobileQQ + "/qqmusic");
+                        filesDir.add(new File(MobileQQ + "/qqmusic"));
                         //接收文件缓存
-                        File trooptmp = new File(QQfile_recv + "/trooptmp");
-                        File tmp = new File(QQfile_recv + "/tmp");
-                        File thumbnails = new File(QQfile_recv + "/thumbnails");
-
-                        Utils.deleteAllFiles(font_info);
-                        Utils.deleteAllFiles(hiboom_font);
-                        Utils.deleteAllFiles(gift);
-                        Utils.deleteAllFiles(pendant);
-                        Utils.deleteAllFiles(profilecard);
-                        Utils.deleteAllFiles(sticker_recommended_pics);
-                        Utils.deleteAllFiles(enter_effects);
-                        Utils.deleteAllFiles(vaspoke);
-                        Utils.deleteAllFiles(newpoke);
-                        Utils.deleteAllFiles(poke);
-                        Utils.deleteAllFiles(vipicon);
-                        Utils.deleteAllFiles(DoutuRes);
-                        Utils.deleteAllFiles(funcall);
-                        Utils.deleteAllFiles(head);
-                        Utils.deleteAllFiles(hotpic);
-                        Utils.deleteAllFiles(pe);
-                        Utils.deleteAllFiles(qav);
-                        Utils.deleteAllFiles(qqmusic);
-                        Utils.deleteAllFiles(trooptmp);
-                        Utils.deleteAllFiles(tmp);
-                        Utils.deleteAllFiles(thumbnails);
+                        filesDir.add(new File(QQfile_recv + "/trooptmp"));
+                        filesDir.add(new File(QQfile_recv + "/tmp"));
+                        filesDir.add(new File(QQfile_recv + "/thumbnails"));
+                    }
+                    //执行删除
+                    for (File f : filesDir) {
+                        Utils.deleteAllFiles(f);
                     }
                 } catch (Throwable t) {
                     XposedBridge.log(TAG + t);
@@ -196,6 +167,7 @@ public class MainHook implements IXposedHookLoadPackage {
                     @Override
                     public void run() {
                         Toast.makeText(context, "清理完成,请重启QQ", LENGTH_SHORT).show();
+                        XposedBridge.log(TAG + "清理完成");
                     }
                 });
             }
