@@ -16,7 +16,7 @@ QQ太弱智了 只要你不手动清理 他就会一直膨胀 所以整了这个
 ### 瘦身内容如下
 一键瘦身:
 
-cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | pddata | chatpic | QQEditPic | mini | msflogs
+cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | pddata | chatpic | QQEditPic | mini | msflogs | .apollo
 
 彻底瘦身(包括一键瘦身):
 
