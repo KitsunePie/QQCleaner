@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 
 import de.robv.android.xposed.XposedBridge;
 
-//笨比的我不会造轮子从QNotified那里掏过来的
+//from QNotified
 public class Utils {
     public static Field findField(Class<?> clazz, Class<?> type, String name) {
         if (clazz != null && name.length() > 0) {
@@ -151,5 +151,4 @@ public class Utils {
             file.delete();
         }
     }
-
 }

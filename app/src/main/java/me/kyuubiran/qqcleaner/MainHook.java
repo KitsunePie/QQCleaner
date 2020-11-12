@@ -114,6 +114,8 @@ public class MainHook implements IXposedHookLoadPackage {
                     filesDir.add(new File(TencentDir + "/mini"));
                     //网页登录缓存
                     filesDir.add(new File(rootTencentDir + "/msflogs/com/tencent/mobileqq"));
+                    //名片缓存
+                    filesDir.add(new File((MobileQQ + "/.apollo")));
 
                     if (cleanAll) {
                         //字体
