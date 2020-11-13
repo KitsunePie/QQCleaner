@@ -25,3 +25,10 @@ cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | 
 .font_info | .hiboom_font | .gift | .pendant | .profilecard | .sticker_recommended_pics | .troop/enter_effects | .vaspoke | newpoke | poke | .vipicon | DoutuRes | funcall | head | hotpic | pe | qav | qqmusic | QQfile_recv/thumbnails | QQfile_recv/tmp | QQfile_recv/trooptmp
 
 具体目录请看MainHook类中的cleanCache方法
+
+### TODO List
+1.自定义瘦身
+
+2.定时瘦身
+
+3.有个好康一点的UI
