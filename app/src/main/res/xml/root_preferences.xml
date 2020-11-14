@@ -1,0 +1,45 @@
+<PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+            app:title="@string/auto_clean_switch_title">
+        <SwitchPreferenceCompat
+                app:key="AutoClean"
+                app:title="@string/auto_clean_switch_key"/>
+        <Preference
+                app:key="CleanedTime"
+                app:title="@string/auto_clean_time"
+                app:summary="@string/auto_clean_time_hint"
+                app:isPreferenceVisible="false"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:title="@string/clean_title">
+        <Preference
+                app:key="HalfClean"
+                app:title="@string/clean_half"
+                app:summary="@string/clean_half_hint"/>
+        <Preference
+                app:key="FullClean"
+                app:title="@string/clean_full"
+                app:summary="@string/clean_full_hint"/>
+        <Preference
+                app:key="CustomerClean"
+                app:title="@string/clean_cus"
+                app:summary="@string/clean_cus_hint"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+            app:title="@string/other_title">
+        <Preference
+                app:key="ModuleInfo"
+                app:title="@string/module_version"
+                app:summary="@string/version_name"/>
+        <Preference
+                app:key="GotoGithub"
+                app:title="@string/goto_github"
+                app:summary="@string/author"/>
+        <Preference
+                app:key="SupportMe"
+                app:title="@string/support_me"
+                app:summary="@string/support_me_hint"/>
+    </PreferenceCategory>
+</PreferenceScreen>

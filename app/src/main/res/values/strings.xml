@@ -1,4 +1,26 @@
 <resources>
-    <string name="app_name">QQ Cleaner</string>
-    <string name="xposeddescription">Settings->About->一键清理 by KyuubiRan</string>
+    <string name="app_name">QQ瘦身</string>
+    <string name="title_activity_settings">QQ瘦身</string>
+    <string name="res_inject_success">注入资源成功</string>
+
+    <string name="auto_clean_switch_title">定时清理</string>
+    <string name="auto_clean_switch_key">启用定时清理</string>
+    <string name="auto_clean_time">上次清理时间</string>
+    <string name="auto_clean_time_hint">还没有记录哦~</string>
+    <string name="clean_title">清理缓存</string>
+
+    <string name="clean_half">一键瘦身</string>
+    <string name="clean_half_hint">清理QQ的部分缓存</string>
+    <string name="clean_full">全面瘦身</string>
+    <string name="clean_full_hint">把QQ能清理的都给他清理了</string>
+    <string name="clean_cus">自定义瘦身</string>
+    <string name="clean_cus_hint">我要自己选!</string>
+
+    <string name="other_title">其他</string>
+    <string name="module_version">模块版本</string>
+    <string name="version_name">1.0</string>
+    <string name="goto_github">点我前往项目地址</string>
+    <string name="author">模块作者:KyuubiRan</string>
+    <string name="support_me">扶贫</string>
+    <string name="support_me_hint">本模块完全免费 喜欢的话可以捐赠我 谢谢支持~</string>
 </resources>

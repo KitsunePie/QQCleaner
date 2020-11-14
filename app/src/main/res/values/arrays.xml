@@ -1,0 +1,48 @@
+<resources>
+    <attr name="themeColor" format="color"/>
+    <string-array name="customer_clean_list">
+        <item>各类缓存</item>
+        <item>图片</item>
+        <item>短视频</item>
+        <item>广告</item>
+        <item>小程序</item>
+        <item>网页</item>
+        <item>DIY名片</item>
+        <item>字体</item>
+        <item>送礼物</item>
+        <item>进场特效</item>
+        <item>头像</item>
+        <item>头像挂件</item>
+        <item>资料卡</item>
+        <item>表情推荐</item>
+        <item>戳一戳</item>
+        <item>vip图标</item>
+        <item>斗图</item>
+        <item>QQ电话动态背景</item>
+        <item>接受文件缓存</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="customer_clean_list_value">
+        <item>caches</item>
+        <item>picture</item>
+        <item>short_video</item>
+        <item>ads</item>
+        <item>ark_app</item>
+        <item>web</item>
+        <item>diy_card</item>
+        <item>font</item>
+        <item>gift</item>
+        <item>entry_effect</item>
+        <item>user_icon</item>
+        <item>icon_pendant</item>
+        <item>user_background</item>
+        <item>sticker_recommend</item>
+        <item>poke</item>
+        <item>vip_icon</item>
+        <item>dou_tu</item>
+        <item>video_background</item>
+        <item>receive_file_cache</item>
+        <item>others</item>
+    </string-array>
+</resources>
