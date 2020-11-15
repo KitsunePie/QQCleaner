@@ -30,8 +30,13 @@ class ModuleEntryHook {
                         val vg = item?.parent as ViewGroup
                         vg.addView(entry, 2)
                         entry.setOnClickListener {
-                            val intent = Intent(qqContext, SettingsActivity::class.java)
-                            context?.startActivity(intent)
+                            try {
+                                val intent = Intent(qqContext, SettingsActivity::class.java)
+                                context?.startActivity(intent)
+                            } catch (e: Exception) {
+                                qqContext?.showToastBySystem("坏耶 启动失败了 请尝试重启QQ")
+                                loge(e)
+                            }
                         }
                     } catch (e: Exception) {
                         loge(e)

@@ -14,6 +14,7 @@ import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
+import java.lang.Exception
 import java.text.SimpleDateFormat
 
 
@@ -71,7 +72,12 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
-                ConfigManager.setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
+                try {
+                    ConfigManager.setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
+                    qqContext?.showToastBySystem("好耶 保存自定义瘦身列表成功了!")
+                } catch (e: Exception) {
+                    loge(e)
+                }
                 true
             }
             doCustomerClean.setOnPreferenceClickListener {
@@ -100,6 +106,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 } else {
                     clicked = 0
                     ConfigManager.setConfig(CFG_CURRENT_CLEANED_TIME, 0)
+                    cleanedTime.setSummary(R.string.auto_clean_time_hint)
                     qqContext?.showToastBySystem("已重置清理时间")
                 }
                 true

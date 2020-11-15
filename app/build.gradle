@@ -10,8 +10,8 @@ android {
         applicationId "me.kyuubiran.qqcleaner"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 12
-        versionName "1.2"
+        versionCode 13
+        versionName "1.2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

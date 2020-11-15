@@ -4,13 +4,15 @@
             app:title="@string/auto_clean_switch_title">
         <SwitchPreferenceCompat
                 app:key="AutoClean"
-                app:title="@string/auto_clean_switch_key"/>
+                app:title="@string/auto_clean_switch_key"
+                app:summary="@string/auto_clean_switch_hint"/>
         <ListPreference
                 app:entries="@array/auto_clean_mode"
                 app:entryValues="@array/auto_clean_mode_value"
                 app:defaultValue="half_mode"
                 app:key="AutoCleanMode"
                 app:title="@string/auto_clean_mode"
+                app:summary="@string/auto_clean_mode_hint"
                 app:isPreferenceVisible="false"/>
         <Preference
                 app:key="CleanedTime"
@@ -37,7 +39,8 @@
                 app:summary="@string/clean_cus_hint"/>
         <Preference
                 app:key="DoCustomerClean"
-                app:title="@string/do_clean_cus"/>
+                app:title="@string/do_clean_cus"
+                app:summary="@string/do_clean_cus_hint"/>
     </PreferenceCategory>
     <PreferenceCategory
             app:title="@string/other_title">
@@ -53,5 +56,9 @@
                 app:key="SupportMe"
                 app:title="@string/support_me"
                 app:summary="@string/support_me_hint"/>
+        <Preference
+                app:key="About"
+                app:title="@string/about"
+                app:summary="@string/about_hint"/>
     </PreferenceCategory>
 </PreferenceScreen>
