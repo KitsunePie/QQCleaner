@@ -22,6 +22,8 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
         ModuleEntryHook()
         ResInject.initForStubActivity()
         ResInject.injectModuleResources(qqContext?.resources)
+        ConfigManager.checkConfigIsExists()
+        CleanManager.AutoClean()
     }
 
     private fun doInit(rtLoader: ClassLoader) {

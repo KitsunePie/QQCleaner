@@ -1,12 +1,12 @@
 <resources>
     <attr name="themeColor" format="color"/>
-    <string-array name="clean_method">
+    <string-array name="auto_clean_mode">
         <item>一键瘦身</item>
         <item>完全瘦身</item>
         <item>自定义瘦身</item>
     </string-array>
 
-    <string-array name="clean_method_value">
+    <string-array name="auto_clean_mode_value">
         <item>half_mode</item>
         <item>full_mode</item>
         <item>customer_mode</item>

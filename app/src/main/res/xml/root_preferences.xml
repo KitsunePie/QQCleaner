@@ -5,10 +5,12 @@
         <SwitchPreferenceCompat
                 app:key="AutoClean"
                 app:title="@string/auto_clean_switch_key"/>
-        <Preference
-                app:key="AutoCleanMethod"
-                app:title="@string/auto_clean_time"
-                app:summary="@string/auto_clean_time_hint"
+        <ListPreference
+                app:entries="@array/auto_clean_mode"
+                app:entryValues="@array/auto_clean_mode_value"
+                app:defaultValue="half_mode"
+                app:key="AutoCleanMode"
+                app:title="@string/auto_clean_mode"
                 app:isPreferenceVisible="false"/>
         <Preference
                 app:key="CleanedTime"

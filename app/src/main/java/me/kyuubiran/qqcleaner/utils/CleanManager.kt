@@ -1,5 +1,11 @@
 package me.kyuubiran.qqcleaner.utils
 
+
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
+import com.alibaba.fastjson.JSONArray
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_MODE
 import java.io.File
 import kotlin.concurrent.thread
 
@@ -28,8 +34,6 @@ object CleanManager {
     const val VIDEO_BACKGROUND = "video_background"
     const val RECEIVE_FILE_CACHE = "receive_file_cache"
     const val OTHERS = "others"
-
-    lateinit var customerList: Set<String>
 
     private fun getFiles(item: String): ArrayList<File> {
         val arr = ArrayList<File>()
@@ -112,8 +116,6 @@ object CleanManager {
         return arr
     }
 
-
-    //根目录
     private var rootDataDir: String? = qqContext?.externalCacheDir?.parentFile?.path
     private var rootDir: String? = qqContext?.obbDir?.parentFile?.parentFile?.parentFile?.path
     private var rootTencentDir = "$rootDir/tencent"
@@ -154,44 +156,37 @@ object CleanManager {
     }
 
     private fun getCustomerList(): ArrayList<File> {
+        val customerList = ConfigManager.getConfig(CFG_CUSTOMER_CLEAN_LIST) as JSONArray
         val arr = ArrayList<File>()
         for (s in customerList) {
-            arr.addAll(getFiles(s))
+            arr.addAll(getFiles(s.toString()))
         }
         return arr
     }
 
-    fun autoClean(mode: String) {
-        when (mode) {
-            HALF_MODE -> halfClean()
-            FULL_MODE -> fullClean()
-            CUSTOMER_MODE -> customerClean()
-        }
+    fun halfClean(showToast: Boolean = true) {
+        doClean(getHalfList(), showToast)
     }
 
-    fun halfClean() {
-        doClean(getHalfList())
+    fun fullClean(showToast: Boolean = true) {
+        doClean(getFullList(), showToast)
     }
 
-    fun fullClean() {
-        doClean(getFullList())
+    fun customerClean(showToast: Boolean = true) {
+        doClean(getCustomerList(), showToast)
     }
 
-    fun customerClean() {
-        doClean(getCustomerList())
-    }
-
-    private fun doClean(files: ArrayList<File>) {
+    private fun doClean(files: ArrayList<File>, showToast: Boolean = true) {
         thread {
+            if (showToast) qqContext?.showToastBySystem("好耶 开始清理了!")
             try {
-                qqContext?.showToastBySystem("好耶 开始清理了")
                 for (f in files) {
                     deleteAllFiles(f)
                 }
-                qqContext?.showToastBySystem("好耶 清理完毕了")
+                qqContext?.showToastBySystem("好耶 清理完毕了!")
             } catch (e: Exception) {
                 loge(e)
-                qqContext?.showToastBySystem("坏耶 清理失败了")
+                qqContext?.showToastBySystem("坏耶 清理失败了!")
             }
         }
     }
@@ -211,6 +206,36 @@ object CleanManager {
                 deleteAllFiles(f)
             }
             file.delete()
+        }
+    }
+
+    class AutoClean {
+        private var time = 0L
+        private var mode = ""
+
+        init {
+            time = ConfigManager.getLong(CFG_CURRENT_CLEANED_TIME) ?: 0L
+            if (ConfigManager.getConfig(CFG_AUTO_CLEAN_ENABLED) as Boolean && System.currentTimeMillis() - time > 86400000) {
+                mode = ConfigManager.getConfig(CFG_CUSTOMER_CLEAN_MODE).toString()
+                autoClean()
+                time = System.currentTimeMillis()
+                ConfigManager.setConfig(CFG_CURRENT_CLEANED_TIME, time)
+            }
+        }
+
+        private fun autoClean() {
+            qqContext?.showToastBySystem("好耶 开始自动清理了!")
+            when (mode) {
+                FULL_MODE -> {
+                    fullClean(false)
+                }
+                CUSTOMER_MODE -> {
+                    customerClean(false)
+                }
+                else -> {
+                    halfClean(false)
+                }
+            }
         }
     }
 }

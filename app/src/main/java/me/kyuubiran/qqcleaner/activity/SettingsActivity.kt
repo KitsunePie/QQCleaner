@@ -3,18 +3,18 @@ package me.kyuubiran.qqcleaner.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.preference.MultiSelectListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
+import androidx.preference.*
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.dialog.CUSTOMER_MODE
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
 import me.kyuubiran.qqcleaner.dialog.FULL_MODE
 import me.kyuubiran.qqcleaner.dialog.HALF_MODE
-import me.kyuubiran.qqcleaner.utils.CleanManager
-import me.kyuubiran.qqcleaner.utils.qqContext
-import me.kyuubiran.qqcleaner.utils.showToastBySystem
+import me.kyuubiran.qqcleaner.dialog.SupportMeDialog
+import me.kyuubiran.qqcleaner.utils.*
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
+import java.text.SimpleDateFormat
 
 
 class SettingsActivity : AppCompatTransferActivity() {
@@ -31,6 +31,7 @@ class SettingsActivity : AppCompatTransferActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat() {
         private lateinit var autoClean: SwitchPreferenceCompat
+        private lateinit var autoCleanMode: ListPreference
         private lateinit var cleanedTime: Preference
         private lateinit var halfClean: Preference
         private lateinit var fullClean: Preference
@@ -39,9 +40,12 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var supportMe: Preference
         private lateinit var gotoGithub: Preference
 
+        var clicked = 0
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             autoClean = findPreference("AutoClean")!!
+            autoCleanMode = findPreference("AutoCleanMode")!!
             cleanedTime = findPreference("CleanedTime")!!
             halfClean = findPreference("HalfClean")!!
             fullClean = findPreference("FullClean")!!
@@ -66,11 +70,11 @@ class SettingsActivity : AppCompatTransferActivity() {
                 onClickCleanFull()
                 true
             }
-            customerCleanList.setOnPreferenceChangeListener { _, _ ->
+            customerCleanList.setOnPreferenceChangeListener { _, newValue ->
+                ConfigManager.setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
                 true
             }
             doCustomerClean.setOnPreferenceClickListener {
-                CleanManager.customerList = customerCleanList.values
                 showConfirmDialog(CUSTOMER_MODE, this.activity!!)
                 true
             }
@@ -82,15 +86,22 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             supportMe.setOnPreferenceClickListener {
-                val urlCode = "fkx10658svai9rgm46mk9de"
-                val intent = Intent.parseUri(
-                    "intent://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=https%3A%2F%2Fqr.alipay.com%2F{urlCode}%3F_s%3Dweb-other&_t=1472443966571#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end".replace(
-                        "{urlCode}",
-                        urlCode
-                    ), 1
-                )
-                startActivity(intent)
-                qqContext?.showToastBySystem("感谢资瓷> <")
+                SupportMeDialog.showSupportMeDialog(this.activity!!)
+                true
+            }
+            cleanedTime.setOnPreferenceClickListener {
+                if (clicked < 6) {
+                    clicked++
+                    if (clicked > 3) {
+                        qqContext?.showToastBySystem(
+                            "再点${7 - clicked}次重置清理时间"
+                        )
+                    }
+                } else {
+                    clicked = 0
+                    ConfigManager.setConfig(CFG_CURRENT_CLEANED_TIME, 0)
+                    qqContext?.showToastBySystem("已重置清理时间")
+                }
                 true
             }
         }
@@ -103,13 +114,22 @@ class SettingsActivity : AppCompatTransferActivity() {
             showConfirmDialog(FULL_MODE, this.activity!!)
         }
 
-
         private fun toggleCleanedTimeShow() {
+            if (ConfigManager.getLong(CFG_CURRENT_CLEANED_TIME).toString() == "null" ||
+                ConfigManager.getLong(CFG_CURRENT_CLEANED_TIME) == 0L
+            ) {
+                cleanedTime.setSummary(R.string.auto_clean_time_hint)
+            } else {
+                val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                cleanedTime.summary = format.format(ConfigManager.getLong(CFG_CURRENT_CLEANED_TIME))
+            }
             cleanedTime.isVisible = autoClean.isChecked
+            autoCleanMode.isVisible = autoClean.isChecked
             autoClean.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { _, newValue ->
-                    qqContext?.showToastBySystem("还在制作中> <")
                     cleanedTime.isVisible = newValue as Boolean
+                    autoCleanMode.isVisible = newValue
+                    ConfigManager.setConfig(CFG_AUTO_CLEAN_ENABLED, newValue)
                     true
                 }
         }
