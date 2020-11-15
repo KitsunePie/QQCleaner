@@ -3,13 +3,16 @@ package me.kyuubiran.qqcleaner.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.dialog.CUSTOMER_MODE
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
 import me.kyuubiran.qqcleaner.dialog.FULL_MODE
 import me.kyuubiran.qqcleaner.dialog.HALF_MODE
+import me.kyuubiran.qqcleaner.utils.CleanManager
 import me.kyuubiran.qqcleaner.utils.qqContext
 import me.kyuubiran.qqcleaner.utils.showToastBySystem
 
@@ -31,7 +34,8 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var cleanedTime: Preference
         private lateinit var halfClean: Preference
         private lateinit var fullClean: Preference
-        private lateinit var customerClean: Preference
+        private lateinit var customerCleanList: MultiSelectListPreference
+        private lateinit var doCustomerClean: Preference
         private lateinit var supportMe: Preference
         private lateinit var gotoGithub: Preference
 
@@ -41,7 +45,8 @@ class SettingsActivity : AppCompatTransferActivity() {
             cleanedTime = findPreference("CleanedTime")!!
             halfClean = findPreference("HalfClean")!!
             fullClean = findPreference("FullClean")!!
-            customerClean = findPreference("CustomerClean")!!
+            customerCleanList = findPreference("CustomerClean")!!
+            doCustomerClean = findPreference("DoCustomerClean")!!
             gotoGithub = findPreference("GotoGithub")!!
             supportMe = findPreference("SupportMe")!!
             init()
@@ -61,8 +66,12 @@ class SettingsActivity : AppCompatTransferActivity() {
                 onClickCleanFull()
                 true
             }
-            customerClean.setOnPreferenceClickListener {
-                onClickCustomer()
+            customerCleanList.setOnPreferenceChangeListener { _, _ ->
+                true
+            }
+            doCustomerClean.setOnPreferenceClickListener {
+                CleanManager.customerList = customerCleanList.values
+                showConfirmDialog(CUSTOMER_MODE, this.activity!!)
                 true
             }
             gotoGithub.setOnPreferenceClickListener {
@@ -92,11 +101,6 @@ class SettingsActivity : AppCompatTransferActivity() {
 
         private fun onClickCleanFull() {
             showConfirmDialog(FULL_MODE, this.activity!!)
-        }
-
-        private fun onClickCustomer() {
-//            showCustomerDialog(this.activity!!)
-            qqContext?.showToastBySystem("还在制作中> <")
         }
 
 

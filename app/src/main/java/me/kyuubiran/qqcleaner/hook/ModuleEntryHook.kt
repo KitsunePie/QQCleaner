@@ -30,7 +30,7 @@ class ModuleEntryHook {
                         val vg = item?.parent as ViewGroup
                         vg.addView(entry, 2)
                         entry.setOnClickListener {
-                            val intent = Intent(context, SettingsActivity::class.java)
+                            val intent = Intent(qqContext, SettingsActivity::class.java)
                             context?.startActivity(intent)
                         }
                     } catch (e: Exception) {

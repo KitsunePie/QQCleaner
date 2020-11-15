@@ -1,7 +1,24 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:id="@+id/toolbar"
+            android:background="?attr/themeColor"
+            android:elevation="0dp">
+        <TextView
+                android:id="@+id/title"
+                android:text="@string/title_activity_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="@android:color/white"/>
+
+    </androidx.appcompat.widget.Toolbar>
     <FrameLayout
             android:id="@+id/settings"
             android:layout_width="match_parent"

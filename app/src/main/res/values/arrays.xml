@@ -1,5 +1,17 @@
 <resources>
     <attr name="themeColor" format="color"/>
+    <string-array name="clean_method">
+        <item>一键瘦身</item>
+        <item>完全瘦身</item>
+        <item>自定义瘦身</item>
+    </string-array>
+
+    <string-array name="clean_method_value">
+        <item>half_mode</item>
+        <item>full_mode</item>
+        <item>customer_mode</item>
+    </string-array>
+
     <string-array name="customer_clean_list">
         <item>各类缓存</item>
         <item>图片</item>

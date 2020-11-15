@@ -4,6 +4,10 @@ import java.io.File
 import kotlin.concurrent.thread
 
 object CleanManager {
+    const val HALF_MODE = "half_mode"
+    const val FULL_MODE = "full_mode"
+    const val CUSTOMER_MODE = "customer_mode"
+
     const val CACHES = "caches"
     const val PICTURE = "picture"
     const val SHORT_VIDEO = "short_video"
@@ -24,6 +28,8 @@ object CleanManager {
     const val VIDEO_BACKGROUND = "video_background"
     const val RECEIVE_FILE_CACHE = "receive_file_cache"
     const val OTHERS = "others"
+
+    lateinit var customerList: Set<String>
 
     private fun getFiles(item: String): ArrayList<File> {
         val arr = ArrayList<File>()
@@ -147,9 +153,20 @@ object CleanManager {
         return arr
     }
 
+    private fun getCustomerList(): ArrayList<File> {
+        val arr = ArrayList<File>()
+        for (s in customerList) {
+            arr.addAll(getFiles(s))
+        }
+        return arr
+    }
 
-    fun autoClean() {
-
+    fun autoClean(mode: String) {
+        when (mode) {
+            HALF_MODE -> halfClean()
+            FULL_MODE -> fullClean()
+            CUSTOMER_MODE -> customerClean()
+        }
     }
 
     fun halfClean() {
@@ -161,10 +178,10 @@ object CleanManager {
     }
 
     fun customerClean() {
-
+        doClean(getCustomerList())
     }
 
-    fun doClean(files: ArrayList<File>) {
+    private fun doClean(files: ArrayList<File>) {
         thread {
             try {
                 qqContext?.showToastBySystem("好耶 开始清理了")
