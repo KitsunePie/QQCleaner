@@ -26,6 +26,6 @@ cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | 
 ### TODO List
 [√]1.自定义瘦身
 
-[·]2.定时瘦身
+[√]2.定时瘦身
 
 [√]3.有个好康一点的UI
