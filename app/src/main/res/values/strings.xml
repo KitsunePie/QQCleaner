@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">QQ瘦身</string>
+    <string name="version_name">1.2.2</string>
     <string name="title_activity_settings">QQ瘦身</string>
     <string name="res_inject_success">注入资源成功</string>
 
@@ -9,7 +10,7 @@
     <string name="auto_clean_switch_key">启用自动瘦身</string>
     <string name="auto_clean_time">上次自动瘦身时间</string>
     <string name="auto_clean_mode">瘦身方案</string>
-    <string name="auto_clean_time_hint">还没有记录哦~</string>
+    <string name="no_cleaned_his_hint">还没有记录哦~</string>
     <string name="auto_clean_mode_hint">三选一哦</string>
 
     <string name="clean_title">清理缓存</string>
@@ -25,8 +26,8 @@
 
     <string name="other_title">其他</string>
 
+    <string name="enable_cleaned_history">清理统计(点我可刷新)</string>
     <string name="module_version">模块版本</string>
-    <string name="version_name">1.2.1</string>
     <string name="goto_github">点我前往项目地址</string>
     <string name="author">模块作者:KyuubiRan</string>
     <string name="support_me">点我扶贫</string>
@@ -34,11 +35,7 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录以及接收文件等重要东西\n
         [更新日志]\n
-        -1.2.1\n
-        修改提示\n
-        -1.2\n
-        修改UI 增加自动瘦身\n
-        -1.1\n
-        增加自定义瘦身
+        -1.2.2\n
+        增加瘦身统计
     </string>
 </resources>

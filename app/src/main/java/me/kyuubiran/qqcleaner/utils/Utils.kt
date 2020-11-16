@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
+import java.math.BigDecimal
 
 private lateinit var mHandler: Handler
 lateinit var clzLoader: ClassLoader
@@ -161,6 +162,44 @@ fun newInstance(clazz: Class<*>, vararg argsAndTypes: Any?): Any? {
         constructor.newInstance(*argValues)
     } catch (e: IllegalAccessException) {
         throw RuntimeException(e)
+    }
+}
+
+fun formatSize(size: Long): String {
+    return formatSize(size.toString())
+}
+
+fun formatSize(size: String): String {
+    val sl = BigDecimal(size)
+    val b: BigDecimal
+    val result: Double
+    return when {
+        size.length in 0..3 -> {
+            " $sl Byte "
+        }
+        size.length in 4..6 -> {
+            b = sl.divide(BigDecimal(1_024.0))
+            result = b.setScale(2, BigDecimal.ROUND_HALF_UP).toDouble()
+            " $result KB "
+        }
+        size.length in 7..9 -> {
+            b = sl.divide(BigDecimal(1_048_576.0))
+            result = b.setScale(2, BigDecimal.ROUND_HALF_UP).toDouble()
+            " $result MB "
+        }
+        size.length in 10..12 -> {
+            b = sl.divide(BigDecimal(1_073_741_824.0))
+            result = b.setScale(2, BigDecimal.ROUND_HALF_UP).toDouble()
+            " $result GB "
+        }
+        size.length > 12 -> {
+            b = sl.divide(BigDecimal(1_099_511_627_776.0))
+            result = b.setScale(2, BigDecimal.ROUND_HALF_UP).toDouble()
+            " $result TB "
+        }
+        else -> {
+            ""
+        }
     }
 }
 

@@ -14,18 +14,38 @@ object ConfigManager {
     const val CFG_CURRENT_CLEANED_TIME = "cleanedTime"
     const val CFG_CUSTOMER_CLEAN_LIST = "customerList"
     const val CFG_CUSTOMER_CLEAN_MODE = "customerCleanMode"
+    const val CFG_TOTAL_CLEANED_SIZE = "totalCleanedSize"
 
     fun checkConfigIsExists() {
         if (!config.exists()) {
             config.createNewFile()
             save("{}")
-            setConfig(CFG_CURRENT_CLEANED_TIME, 0)
         }
+    }
+
+    fun checkCfg() {
+        checkConfigIsExists()
+        checkConfigKeyHasValue(CFG_CURRENT_CLEANED_TIME, 0)
+        checkConfigKeyHasValue(CFG_TOTAL_CLEANED_SIZE, 0)
+    }
+
+    private fun checkConfigKeyHasValue(key: String, defValue: Any): Boolean {
+        return if (getConfig(key) == null || getConfig(key).toString() == "null") {
+            setConfig(key, defValue)
+            false
+        } else true
     }
 
     private fun getConfig(): JSONObject? {
         checkConfigIsExists()
-        return JSONObject.parseObject(config.readText(Charsets.UTF_8))
+        return try {
+            JSONObject.parseObject(config.readText(Charsets.UTF_8))
+        } catch (e: Exception) {
+            loge(e)
+            config.delete()
+            checkCfg()
+            JSONObject.parseObject(config.readText(Charsets.UTF_8))
+        }
     }
 
     fun getConfig(key: String): Any? {

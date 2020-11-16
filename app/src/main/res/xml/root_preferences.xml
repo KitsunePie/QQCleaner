@@ -17,7 +17,7 @@
         <Preference
                 app:key="CleanedTime"
                 app:title="@string/auto_clean_time"
-                app:summary="@string/auto_clean_time_hint"
+                app:summary="@string/no_cleaned_his_hint"
                 app:isPreferenceVisible="false"/>
     </PreferenceCategory>
 
@@ -44,6 +44,10 @@
     </PreferenceCategory>
     <PreferenceCategory
             app:title="@string/other_title">
+        <Preference
+                app:key="CleanedHistory"
+                app:title="@string/enable_cleaned_history"
+                app:summary="@string/no_cleaned_his_hint"/>
         <Preference
                 app:key="ModuleInfo"
                 app:title="@string/module_version"

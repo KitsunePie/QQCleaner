@@ -6,6 +6,9 @@ import com.alibaba.fastjson.JSONArray
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_MODE
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import java.io.File
 import kotlin.concurrent.thread
 
@@ -34,6 +37,8 @@ object CleanManager {
     const val VIDEO_BACKGROUND = "video_background"
     const val RECEIVE_FILE_CACHE = "receive_file_cache"
     const val OTHERS = "others"
+
+    private var size = 0L
 
     private fun getFiles(item: String): ArrayList<File> {
         val arr = ArrayList<File>()
@@ -155,8 +160,13 @@ object CleanManager {
         return arr
     }
 
+    private fun saveSize() {
+        val totalSize = getLong(CFG_TOTAL_CLEANED_SIZE)?.plus(size) ?: 0
+        ConfigManager.setConfig(CFG_TOTAL_CLEANED_SIZE, totalSize)
+    }
+
     private fun getCustomerList(): ArrayList<File> {
-        val customerList = ConfigManager.getConfig(CFG_CUSTOMER_CLEAN_LIST) as JSONArray
+        val customerList = getConfig(CFG_CUSTOMER_CLEAN_LIST) as JSONArray
         val arr = ArrayList<File>()
         for (s in customerList) {
             arr.addAll(getFiles(s.toString()))
@@ -178,12 +188,14 @@ object CleanManager {
 
     private fun doClean(files: ArrayList<File>, showToast: Boolean = true) {
         thread {
+            size = 0L
             if (showToast) qqContext?.showToastBySystem("好耶 开始清理了!")
             try {
                 for (f in files) {
                     deleteAllFiles(f)
                 }
-                qqContext?.showToastBySystem("好耶 清理完毕了!")
+                qqContext?.showToastBySystem("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
+                saveSize()
             } catch (e: Exception) {
                 loge(e)
                 qqContext?.showToastBySystem("坏耶 清理失败了!")
@@ -193,6 +205,7 @@ object CleanManager {
 
     private fun deleteAllFiles(file: File) {
         if (file.isFile) {
+            size += file.length()
             file.delete()
             return
         }
@@ -214,9 +227,9 @@ object CleanManager {
         private var mode = ""
 
         init {
-            time = ConfigManager.getLong(CFG_CURRENT_CLEANED_TIME) ?: 0L
-            if (ConfigManager.getConfig(CFG_AUTO_CLEAN_ENABLED) as Boolean && System.currentTimeMillis() - time > 86400000) {
-                mode = ConfigManager.getConfig(CFG_CUSTOMER_CLEAN_MODE).toString()
+            time = getLong(CFG_CURRENT_CLEANED_TIME) ?: 0L
+            if (getConfig(CFG_AUTO_CLEAN_ENABLED) as Boolean && System.currentTimeMillis() - time > 86400000) {
+                mode = getConfig(CFG_CUSTOMER_CLEAN_MODE).toString()
                 autoClean()
                 time = System.currentTimeMillis()
                 ConfigManager.setConfig(CFG_CURRENT_CLEANED_TIME, time)

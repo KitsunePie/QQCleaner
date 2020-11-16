@@ -14,6 +14,11 @@ import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
+import me.kyuubiran.qqcleaner.utils.ConfigManager.checkCfg
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
+import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
 import java.lang.Exception
 import java.text.SimpleDateFormat
 
@@ -28,10 +33,12 @@ class SettingsActivity : AppCompatTransferActivity() {
             .replace(R.id.settings, SettingsFragment())
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        checkCfg()
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
         private lateinit var autoClean: SwitchPreferenceCompat
+        private lateinit var cleanedHistory: Preference
         private lateinit var autoCleanMode: ListPreference
         private lateinit var cleanedTime: Preference
         private lateinit var halfClean: Preference
@@ -46,6 +53,7 @@ class SettingsActivity : AppCompatTransferActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             autoClean = findPreference("AutoClean")!!
+            cleanedHistory = findPreference("CleanedHistory")!!
             autoCleanMode = findPreference("AutoCleanMode")!!
             cleanedTime = findPreference("CleanedTime")!!
             halfClean = findPreference("HalfClean")!!
@@ -58,6 +66,7 @@ class SettingsActivity : AppCompatTransferActivity() {
         }
 
         private fun init() {
+            setHistorySummary()
             toggleCleanedTimeShow()
             setClickable()
         }
@@ -73,7 +82,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             }
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
                 try {
-                    ConfigManager.setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
+                    setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
                     qqContext?.showToastBySystem("好耶 保存自定义瘦身列表成功了!")
                 } catch (e: Exception) {
                     loge(e)
@@ -105,10 +114,15 @@ class SettingsActivity : AppCompatTransferActivity() {
                     }
                 } else {
                     clicked = 0
-                    ConfigManager.setConfig(CFG_CURRENT_CLEANED_TIME, 0)
-                    cleanedTime.setSummary(R.string.auto_clean_time_hint)
+                    setConfig(CFG_CURRENT_CLEANED_TIME, 0)
+                    cleanedTime.setSummary(R.string.no_cleaned_his_hint)
                     qqContext?.showToastBySystem("已重置清理时间")
                 }
+                true
+            }
+            cleanedHistory.setOnPreferenceClickListener {
+                qqContext?.showToastBySystem("已刷新统计信息")
+                setHistorySummary()
                 true
             }
         }
@@ -122,13 +136,14 @@ class SettingsActivity : AppCompatTransferActivity() {
         }
 
         private fun toggleCleanedTimeShow() {
-            if (ConfigManager.getLong(CFG_CURRENT_CLEANED_TIME).toString() == "null" ||
-                ConfigManager.getLong(CFG_CURRENT_CLEANED_TIME) == 0L
+            setConfig(CFG_AUTO_CLEAN_ENABLED, autoClean.isChecked)
+            if (getLong(CFG_CURRENT_CLEANED_TIME).toString() == "null" ||
+                getLong(CFG_CURRENT_CLEANED_TIME) == 0L
             ) {
-                cleanedTime.setSummary(R.string.auto_clean_time_hint)
+                cleanedTime.setSummary(R.string.no_cleaned_his_hint)
             } else {
                 val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                cleanedTime.summary = format.format(ConfigManager.getLong(CFG_CURRENT_CLEANED_TIME))
+                cleanedTime.summary = format.format(getLong(CFG_CURRENT_CLEANED_TIME))
             }
             cleanedTime.isVisible = autoClean.isChecked
             autoCleanMode.isVisible = autoClean.isChecked
@@ -136,9 +151,18 @@ class SettingsActivity : AppCompatTransferActivity() {
                 Preference.OnPreferenceChangeListener { _, newValue ->
                     cleanedTime.isVisible = newValue as Boolean
                     autoCleanMode.isVisible = newValue
-                    ConfigManager.setConfig(CFG_AUTO_CLEAN_ENABLED, newValue)
+                    setConfig(CFG_AUTO_CLEAN_ENABLED, newValue)
                     true
                 }
+        }
+
+        private fun setHistorySummary() {
+            if (getConfig(CFG_TOTAL_CLEANED_SIZE) != 0) {
+                cleanedHistory.summary =
+                    "总共为您腾出:${getLong(CFG_TOTAL_CLEANED_SIZE)?.let { it2 -> formatSize(it2) }}空间"
+            } else {
+                cleanedHistory.setSummary(R.string.no_cleaned_his_hint)
+            }
         }
     }
 }
