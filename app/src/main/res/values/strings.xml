@@ -6,7 +6,7 @@
 
     <string name="auto_clean_switch_title">自动瘦身</string>
 
-    <string name="auto_clean_switch_hint">自动瘦身将会重启QQ后执行\n两次清理的时间间隔不小于24小时</string>
+    <string name="auto_clean_switch_hint">两次清理的间隔为24小时</string>
     <string name="auto_clean_switch_key">启用自动瘦身</string>
     <string name="auto_clean_time">上次自动瘦身时间</string>
     <string name="auto_clean_mode">瘦身方案</string>

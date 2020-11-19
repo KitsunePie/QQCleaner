@@ -22,7 +22,6 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
 import java.lang.Exception
 import java.text.SimpleDateFormat
 
-
 class SettingsActivity : AppCompatTransferActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_Ftb)
@@ -69,6 +68,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             setHistorySummary()
             toggleCleanedTimeShow()
             setClickable()
+            setConfig(CFG_CUSTOMER_CLEAN_LIST, customerCleanList.values)
         }
 
         private fun setClickable() {

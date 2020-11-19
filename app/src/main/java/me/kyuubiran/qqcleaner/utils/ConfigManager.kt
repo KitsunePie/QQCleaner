@@ -27,6 +27,7 @@ object ConfigManager {
         checkConfigIsExists()
         checkConfigKeyHasValue(CFG_CURRENT_CLEANED_TIME, 0)
         checkConfigKeyHasValue(CFG_TOTAL_CLEANED_SIZE, 0)
+        checkConfigKeyHasValue(CFG_CUSTOMER_CLEAN_LIST, ArrayList<String>())
     }
 
     private fun checkConfigKeyHasValue(key: String, defValue: Any): Boolean {
