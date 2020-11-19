@@ -35,7 +35,8 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录以及接收文件等重要东西\n
         [更新日志]\n
-        -1.2.2\n
-        增加瘦身统计
+        -1.2.3\n
+        1.修改提示\n
+        2.修复Bug
     </string>
 </resources>
