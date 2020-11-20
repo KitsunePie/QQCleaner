@@ -45,22 +45,22 @@ object CleanManager {
         when (item) {
             CACHES -> {
                 arr.add(File("$rootDataDir/cache"))
-                arr.add(File("$MobileQQ/diskcache"))
-                arr.add(File("$MobileQQ/Scribble/ScribbleCache"))
+                arr.add(File("$MobileQQDir/diskcache"))
+                arr.add(File("$MobileQQDir/Scribble/ScribbleCache"))
             }
             PICTURE -> {
-                arr.add(File("$MobileQQ/photo"))
-                arr.add(File("$MobileQQ/chatpic"))
-                arr.add(File("$MobileQQ/thumb"))
+                arr.add(File("$MobileQQDir/photo"))
+                arr.add(File("$MobileQQDir/chatpic"))
+                arr.add(File("$MobileQQDir/thumb"))
                 arr.add(File("$QQ_Images/QQEditPic"))
-                arr.add(File("$MobileQQ/hotpic"))
+                arr.add(File("$MobileQQDir/hotpic"))
             }
             SHORT_VIDEO -> {
-                arr.add(File("$TencentDir/shortvideo"))
+                arr.add(File("$MobileQQDir/shortvideo"))
             }
             ADS -> {
-                arr.add(File("$MobileQQ/qbosssplahAD"))
-                arr.add(File("$MobileQQ/pddata"))
+                arr.add(File("$MobileQQDir/qbosssplahAD"))
+                arr.add(File("$MobileQQDir/pddata"))
             }
             ARK_APP -> {
                 arr.add(File("$TencentDir/mini"))
@@ -69,44 +69,44 @@ object CleanManager {
                 arr.add(File("$rootTencentDir/msflogs/com/tencent/mobileqq"))
             }
             DIY_CARD -> {
-                arr.add(File("$MobileQQ/.apollo"))
+                arr.add(File("$MobileQQDir/.apollo"))
             }
             FONT -> {
-                arr.add(File("$MobileQQ/.font_info"))
-                arr.add(File("$MobileQQ/.hiboom_font"))
+                arr.add(File("$MobileQQDir/.font_info"))
+                arr.add(File("$MobileQQDir/.hiboom_font"))
             }
             GIFT -> {
-                arr.add(File("$MobileQQ/.gift"))
+                arr.add(File("$MobileQQDir/.gift"))
             }
             ENTRY_EFFECT -> {
-                arr.add(File("$MobileQQ/.troop/enter_effects"))
+                arr.add(File("$MobileQQDir/.troop/enter_effects"))
             }
             USER_ICON -> {
-                arr.add(File("$MobileQQ/head"))
+                arr.add(File("$MobileQQDir/head"))
             }
             ICON_PENDANT -> {
-                arr.add(File("$MobileQQ/.pendant"))
+                arr.add(File("$MobileQQDir/.pendant"))
             }
             USER_BACKGROUND -> {
-                arr.add(File("$MobileQQ/.profilecard"))
+                arr.add(File("$MobileQQDir/.profilecard"))
             }
             STICKER_RECOMMEND -> {
-                arr.add(File("$MobileQQ/.sticker_recommended_pics"))
-                arr.add(File("$MobileQQ/pe"))
+                arr.add(File("$MobileQQDir/.sticker_recommended_pics"))
+                arr.add(File("$MobileQQDir/pe"))
             }
             POKE -> {
-                arr.add(File("$MobileQQ/.vaspoke"))
-                arr.add(File("$MobileQQ/newpoke"))
-                arr.add(File("$MobileQQ/poke"))
+                arr.add(File("$MobileQQDir/.vaspoke"))
+                arr.add(File("$MobileQQDir/newpoke"))
+                arr.add(File("$MobileQQDir/poke"))
             }
             VIP_ICON -> {
-                arr.add(File("$MobileQQ/.vipicon"))
+                arr.add(File("$MobileQQDir/.vipicon"))
             }
             DOU_TU -> {
-                arr.add(File("$MobileQQ/DoutuRes"))
+                arr.add(File("$MobileQQDir/DoutuRes"))
             }
             VIDEO_BACKGROUND -> {
-                arr.add(File("$MobileQQ/funcall"))
+                arr.add(File("$MobileQQDir/funcall"))
             }
             RECEIVE_FILE_CACHE -> {
                 arr.add(File("$QQfile_recv/trooptmp"))
@@ -114,19 +114,33 @@ object CleanManager {
                 arr.add(File("$QQfile_recv/thumbnails"))
             }
             OTHERS -> {
-                arr.add(File("$MobileQQ/qav"))
-                arr.add(File("$MobileQQ/qqmusic"))
+                arr.add(File("$MobileQQDir/qav"))
+                arr.add(File("$MobileQQDir/qqmusic"))
+                arr.add(File("$TencentDir/TMAssistantSDK"))
             }
         }
         return arr
     }
 
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq
     private var rootDataDir: String? = qqContext?.externalCacheDir?.parentFile?.path
+
+    //    storage/emulated/0/
     private var rootDir: String? = qqContext?.obbDir?.parentFile?.parentFile?.parentFile?.path
+
+    //    storage/emulated/0/tencent
     private var rootTencentDir = "$rootDir/tencent"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent
     private var TencentDir = "$rootDataDir/Tencent"
-    private var MobileQQ = "$TencentDir/MobileQQ"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ
+    private var MobileQQDir = "$TencentDir/MobileQQ"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq/QQ_Images
     private var QQ_Images = "$rootDataDir/QQ_Images"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv
     private var QQfile_recv = "$TencentDir/QQfile_recv"
 
     private fun getHalfList(): ArrayList<File> {

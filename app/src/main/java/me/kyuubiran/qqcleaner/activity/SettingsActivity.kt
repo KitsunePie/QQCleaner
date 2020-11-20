@@ -136,14 +136,18 @@ class SettingsActivity : AppCompatTransferActivity() {
         }
 
         private fun toggleCleanedTimeShow() {
+            val currentCleanedTime = getLong(CFG_CURRENT_CLEANED_TIME)
             setConfig(CFG_AUTO_CLEAN_ENABLED, autoClean.isChecked)
-            if (getLong(CFG_CURRENT_CLEANED_TIME).toString() == "null" ||
-                getLong(CFG_CURRENT_CLEANED_TIME) == 0L
-            ) {
+            if (currentCleanedTime == 0L) {
                 cleanedTime.setSummary(R.string.no_cleaned_his_hint)
             } else {
-                val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                cleanedTime.summary = format.format(getLong(CFG_CURRENT_CLEANED_TIME))
+                try {
+                    val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    cleanedTime.summary = format.format(currentCleanedTime)
+                } catch (e: Exception) {
+                    loge(e)
+                    cleanedTime.summary = "喵喵喵"
+                }
             }
             cleanedTime.isVisible = autoClean.isChecked
             autoCleanMode.isVisible = autoClean.isChecked
@@ -159,7 +163,7 @@ class SettingsActivity : AppCompatTransferActivity() {
         private fun setHistorySummary() {
             if (getConfig(CFG_TOTAL_CLEANED_SIZE) != 0) {
                 cleanedHistory.summary =
-                    "总共为您腾出:${getLong(CFG_TOTAL_CLEANED_SIZE)?.let { it2 -> formatSize(it2) }}空间"
+                    "总共为您腾出:${formatSize(getLong(CFG_TOTAL_CLEANED_SIZE))}空间"
             } else {
                 cleanedHistory.setSummary(R.string.no_cleaned_his_hint)
             }

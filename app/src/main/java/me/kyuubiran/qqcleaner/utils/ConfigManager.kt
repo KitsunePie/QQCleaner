@@ -53,8 +53,8 @@ object ConfigManager {
         return getConfig()?.get(key)
     }
 
-    fun getLong(key: String): Long? {
-        return getConfig()?.getLong(key)
+    fun getLong(key: String): Long {
+        return getConfig()?.getLong(key) ?: 0L
     }
 
     fun <T> setConfig(key: String, value: T) {

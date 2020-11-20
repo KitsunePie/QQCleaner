@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">QQ瘦身</string>
-    <string name="version_name">1.2.3</string>
+    <string name="version_name">1.2.4</string>
     <string name="title_activity_settings">QQ瘦身</string>
     <string name="res_inject_success">注入资源成功</string>
 
@@ -33,10 +33,11 @@
     <string name="support_me">点我扶贫</string>
     <string name="support_me_hint">本模块完全免费开源 一切开发旨在学习 请勿用于非法用途 喜欢本模块的可以捐赠支持我 谢谢~</string>
     <string name="about">公告</string>
-    <string name="about_hint">注意:本模块不会清理聊天记录以及接收文件等重要东西\n
+    <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
-        -1.2.3\n
-        1.修改提示\n
-        2.修复Bug
+        -1.2.4\n
+        1.修复:短视频目录不正确\n
+        2.可能修复:打开模块设置界面导致QQ闪退\n
+        3.添加一个其他目录
     </string>
 </resources>
