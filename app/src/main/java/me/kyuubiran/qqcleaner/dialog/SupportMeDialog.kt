@@ -9,6 +9,7 @@ import me.kyuubiran.qqcleaner.utils.qqContext
 import me.kyuubiran.qqcleaner.utils.showToastBySystem
 import java.lang.Exception
 
+//捐赠相关dialog
 object SupportMeDialog {
 
     fun showSupportMeDialog(context: Context) {

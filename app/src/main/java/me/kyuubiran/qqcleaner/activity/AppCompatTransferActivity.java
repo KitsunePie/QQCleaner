@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+//From QNotified
 public class AppCompatTransferActivity extends AppCompatActivity {
     @Override
     public ClassLoader getClassLoader() {

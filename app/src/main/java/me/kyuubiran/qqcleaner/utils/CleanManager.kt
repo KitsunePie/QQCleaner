@@ -13,10 +13,12 @@ import java.io.File
 import kotlin.concurrent.thread
 
 object CleanManager {
+    //瘦身模式
     const val HALF_MODE = "half_mode"
     const val FULL_MODE = "full_mode"
     const val CUSTOMER_MODE = "customer_mode"
 
+    //瘦身目录
     const val CACHES = "caches"
     const val PICTURE = "picture"
     const val SHORT_VIDEO = "short_video"
@@ -38,16 +40,24 @@ object CleanManager {
     const val RECEIVE_FILE_CACHE = "receive_file_cache"
     const val OTHERS = "others"
 
+    //清理完毕后的释放的空间
     private var size = 0L
 
+    /**
+     * 根据tag获取文件列表
+     * @param item Tag
+     * @return ArrayList<File>
+     */
     private fun getFiles(item: String): ArrayList<File> {
         val arr = ArrayList<File>()
         when (item) {
+            //缓存
             CACHES -> {
                 arr.add(File("$rootDataDir/cache"))
                 arr.add(File("$MobileQQDir/diskcache"))
                 arr.add(File("$MobileQQDir/Scribble/ScribbleCache"))
             }
+            //图片缓存
             PICTURE -> {
                 arr.add(File("$MobileQQDir/photo"))
                 arr.add(File("$MobileQQDir/chatpic"))
@@ -55,64 +65,82 @@ object CleanManager {
                 arr.add(File("$QQ_Images/QQEditPic"))
                 arr.add(File("$MobileQQDir/hotpic"))
             }
+            //短视频
             SHORT_VIDEO -> {
                 arr.add(File("$MobileQQDir/shortvideo"))
             }
+            //广告
             ADS -> {
                 arr.add(File("$MobileQQDir/qbosssplahAD"))
                 arr.add(File("$MobileQQDir/pddata"))
             }
+            //小程序
             ARK_APP -> {
                 arr.add(File("$TencentDir/mini"))
             }
+            //网页
             WEB -> {
                 arr.add(File("$rootTencentDir/msflogs/com/tencent/mobileqq"))
             }
+            //diy名片
             DIY_CARD -> {
                 arr.add(File("$MobileQQDir/.apollo"))
             }
+            //字体
             FONT -> {
                 arr.add(File("$MobileQQDir/.font_info"))
                 arr.add(File("$MobileQQDir/.hiboom_font"))
             }
+            //礼物
             GIFT -> {
                 arr.add(File("$MobileQQDir/.gift"))
             }
+            //进场特效
             ENTRY_EFFECT -> {
                 arr.add(File("$MobileQQDir/.troop/enter_effects"))
             }
+            //头像
             USER_ICON -> {
                 arr.add(File("$MobileQQDir/head"))
             }
+            //挂件
             ICON_PENDANT -> {
                 arr.add(File("$MobileQQDir/.pendant"))
             }
+            //背景
             USER_BACKGROUND -> {
                 arr.add(File("$MobileQQDir/.profilecard"))
             }
+            //表情推荐
             STICKER_RECOMMEND -> {
                 arr.add(File("$MobileQQDir/.sticker_recommended_pics"))
                 arr.add(File("$MobileQQDir/pe"))
             }
+            //戳一戳
             POKE -> {
                 arr.add(File("$MobileQQDir/.vaspoke"))
                 arr.add(File("$MobileQQDir/newpoke"))
                 arr.add(File("$MobileQQDir/poke"))
             }
+            //vip图标
             VIP_ICON -> {
                 arr.add(File("$MobileQQDir/.vipicon"))
             }
+            //斗图
             DOU_TU -> {
                 arr.add(File("$MobileQQDir/DoutuRes"))
             }
+            //视频通话背景
             VIDEO_BACKGROUND -> {
                 arr.add(File("$MobileQQDir/funcall"))
             }
+            //接收的文件缓存
             RECEIVE_FILE_CACHE -> {
                 arr.add(File("$QQfile_recv/trooptmp"))
                 arr.add(File("$QQfile_recv/tmp"))
                 arr.add(File("$QQfile_recv/thumbnails"))
             }
+            //其他
             OTHERS -> {
                 arr.add(File("$MobileQQDir/qav"))
                 arr.add(File("$MobileQQDir/qqmusic"))
@@ -143,6 +171,9 @@ object CleanManager {
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv
     private var QQfile_recv = "$TencentDir/QQfile_recv"
 
+    /**
+     * @return 获取普通(一键)瘦身的列表
+     */
     private fun getHalfList(): ArrayList<File> {
         val arr = ArrayList<File>()
         arr.addAll(getFiles(CACHES))
@@ -157,6 +188,9 @@ object CleanManager {
         return arr
     }
 
+    /**
+     * @return 获取全部(彻底)瘦身的列表
+     */
     private fun getFullList(): ArrayList<File> {
         val arr = ArrayList<File>()
         arr.addAll(getHalfList())
@@ -174,11 +208,15 @@ object CleanManager {
         return arr
     }
 
+    //保存清理的内存
     private fun saveSize() {
-        val totalSize = getLong(CFG_TOTAL_CLEANED_SIZE)?.plus(size) ?: 0
+        val totalSize = getLong(CFG_TOTAL_CLEANED_SIZE).plus(size)
         ConfigManager.setConfig(CFG_TOTAL_CLEANED_SIZE, totalSize)
     }
 
+    /**
+     * @return 获取用户自定义的瘦身列表
+     */
     private fun getCustomerList(): ArrayList<File> {
         val customerList = getConfig(CFG_CUSTOMER_CLEAN_LIST) as JSONArray
         val arr = ArrayList<File>()
@@ -188,18 +226,35 @@ object CleanManager {
         return arr
     }
 
+    /**
+     * @param showToast 是否显示Toast
+     * 一键瘦身
+     */
     fun halfClean(showToast: Boolean = true) {
         doClean(getHalfList(), showToast)
     }
 
+    /**
+     * @param showToast 是否显示Toast
+     * 彻底瘦身
+     */
     fun fullClean(showToast: Boolean = true) {
         doClean(getFullList(), showToast)
     }
 
+    /**
+     * @param showToast 是否显示Toast
+     * 自定义瘦身
+     */
     fun customerClean(showToast: Boolean = true) {
         doClean(getCustomerList(), showToast)
     }
 
+    /**
+     * @param files 瘦身列表
+     * @param showToast 是否显示toast
+     * 执行瘦身的函数
+     */
     private fun doClean(files: ArrayList<File>, showToast: Boolean = true) {
         thread {
             size = 0L
@@ -217,6 +272,10 @@ object CleanManager {
         }
     }
 
+    /**
+     * @param file 文件/文件夹
+     * 递归删除文件
+     */
     private fun deleteAllFiles(file: File) {
         if (file.isFile) {
             size += file.length()
@@ -236,12 +295,15 @@ object CleanManager {
         }
     }
 
+    //自动瘦身的类
     class AutoClean {
         private var time = 0L
         private var mode = ""
 
+        //在QQ加载模块的时候会检测并执行一次
         init {
-            time = getLong(CFG_CURRENT_CLEANED_TIME) ?: 0L
+            time = getLong(CFG_CURRENT_CLEANED_TIME)
+            //判断间隔是否大于24小时
             if (getConfig(CFG_AUTO_CLEAN_ENABLED) as Boolean && System.currentTimeMillis() - time > 86400000) {
                 mode = getConfig(CFG_CUSTOMER_CLEAN_MODE).toString()
                 autoClean()
@@ -250,6 +312,7 @@ object CleanManager {
             }
         }
 
+        //自动瘦身的函数
         private fun autoClean() {
             qqContext?.showToastBySystem("好耶 开始自动清理了!")
             when (mode) {

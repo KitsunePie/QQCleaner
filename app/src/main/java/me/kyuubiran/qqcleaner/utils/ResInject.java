@@ -28,7 +28,7 @@ import static me.kyuubiran.qqcleaner.utils.LogUtilsKt.logi;
 import static me.kyuubiran.qqcleaner.utils.UtilsKt.getObjectOrNull;
 import static me.kyuubiran.qqcleaner.utils.UtilsKt.getQqContext;
 
-//from qn
+//From QNotified
 public class ResInject {
     private static String sModulePath = null;
 

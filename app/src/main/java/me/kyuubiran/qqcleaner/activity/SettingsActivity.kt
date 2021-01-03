@@ -36,6 +36,7 @@ class SettingsActivity : AppCompatTransferActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        //延迟初始化Preference
         private lateinit var autoClean: SwitchPreferenceCompat
         private lateinit var cleanedHistory: Preference
         private lateinit var autoCleanMode: ListPreference
@@ -47,9 +48,11 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var supportMe: Preference
         private lateinit var gotoGithub: Preference
 
-        var clicked = 0
+        //重置清理时间计数器
+        private var clicked = 0
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            //初始化
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             autoClean = findPreference("AutoClean")!!
             cleanedHistory = findPreference("CleanedHistory")!!
@@ -64,6 +67,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             init()
         }
 
+        //初始化函数
         private fun init() {
             setHistorySummary()
             toggleCleanedTimeShow()
@@ -71,13 +75,14 @@ class SettingsActivity : AppCompatTransferActivity() {
             setConfig(CFG_CUSTOMER_CLEAN_LIST, customerCleanList.values)
         }
 
+        //设置Item点击事件
         private fun setClickable() {
             halfClean.setOnPreferenceClickListener {
-                onClickCleanHalf()
+                showConfirmDialog(HALF_MODE, this.activity!!)
                 true
             }
             fullClean.setOnPreferenceClickListener {
-                onClickCleanFull()
+                showConfirmDialog(FULL_MODE, this.activity!!)
                 true
             }
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
@@ -127,14 +132,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             }
         }
 
-        private fun onClickCleanHalf() {
-            showConfirmDialog(HALF_MODE, this.activity!!)
-        }
-
-        private fun onClickCleanFull() {
-            showConfirmDialog(FULL_MODE, this.activity!!)
-        }
-
+        //切换自动瘦身时间是否显示
         private fun toggleCleanedTimeShow() {
             val currentCleanedTime = getLong(CFG_CURRENT_CLEANED_TIME)
             setConfig(CFG_AUTO_CLEAN_ENABLED, autoClean.isChecked)
@@ -160,6 +158,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 }
         }
 
+        //刷新总清理空间的函数
         private fun setHistorySummary() {
             if (getConfig(CFG_TOTAL_CLEANED_SIZE) != 0) {
                 cleanedHistory.summary =

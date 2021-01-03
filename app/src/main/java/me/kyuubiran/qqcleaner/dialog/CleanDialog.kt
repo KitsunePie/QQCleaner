@@ -18,6 +18,7 @@ object CleanDialog {
         }
     }
 
+    //显示确认瘦身时的dialog
     fun showConfirmDialog(mode: Int, context: Context) {
         val msg = getMessage(mode)
         if (msg.isEmpty()) throw IllegalAccessException("你不对劲 你有问题")

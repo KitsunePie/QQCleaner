@@ -21,3 +21,4 @@ fun logi(info: String) {
     Log.i(TAG, info)
 }
 
+/* 日志工具类 Top-Level */

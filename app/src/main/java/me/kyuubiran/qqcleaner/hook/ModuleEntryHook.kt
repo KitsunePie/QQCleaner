@@ -9,7 +9,7 @@ import de.robv.android.xposed.XposedBridge
 import me.kyuubiran.qqcleaner.activity.SettingsActivity
 import me.kyuubiran.qqcleaner.utils.*
 
-
+//模块入口Hook
 class ModuleEntryHook {
     init {
         hook()
