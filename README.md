@@ -1,10 +1,14 @@
 # QQCleaner(Xposed Module)
 如你所见 这是一个低技术力的xposed模块 如果有hxd觉得这玩意好使的话 帮我点个小星星吧
 
+有bug的话欢迎提交pr和issue(由于本人技术力过于低下的原因可能不会修复
+
 (仅支持8.2.8+的QQ)
 本模块不会删除消息记录以及QQ接收的文件 只会清理堆积在那里的图片、视频、广告等缓存
 
 注:本模块完全免费且开源，一切开发旨在学习，请勿用于非法用途。
+
+![pic](https://i.loli.net/2020/12/03/7Jnxv4ORbpNhQiV.jpg)
 ## 使用方法
 1.勾上模块
 
@@ -21,7 +25,7 @@ cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | 
 
 .font_info | .hiboom_font | .gift | .pendant | .profilecard | .sticker_recommended_pics | .troop/enter_effects | .vaspoke | newpoke | poke | .vipicon | DoutuRes | funcall | head | hotpic | pe | qav | qqmusic | QQfile_recv/thumbnails | QQfile_recv/tmp | QQfile_recv/trooptmp
 
-具体目录请看MainHook类中的cleanCache方法
+具体目录请看工具类CleanManager.kt
 
 ### TODO List
 [√]1.自定义瘦身
