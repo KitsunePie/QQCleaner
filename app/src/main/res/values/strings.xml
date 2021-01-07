@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">QQ瘦身</string>
-    <string name="version_name">1.2.4</string>
+    <string name="version_name">1.2.5</string>
     <string name="title_activity_settings">QQ瘦身</string>
     <string name="res_inject_success">注入资源成功</string>
 
@@ -22,7 +22,7 @@
     <string name="clean_cus">自定义瘦身</string>
     <string name="clean_cus_hint">我的瘦身我做主!</string>
     <string name="do_clean_cus">执行自定义瘦身</string>
-    <string name="do_clean_cus_hint">芜湖~</string>
+    <string name="do_clean_cus_hint">芜狐~起飞!</string>
 
     <string name="other_title">其他</string>
 
@@ -35,9 +35,8 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
-        -1.2.4\n
-        1.修复:短视频目录不正确\n
-        2.可能修复:打开模块设置界面导致QQ闪退\n
-        3.添加一个其他目录
+        -1.2.5\n
+        1.添加目录:聊天表情缓存\n
+        2.添加目录:DIY名片目录
     </string>
 </resources>

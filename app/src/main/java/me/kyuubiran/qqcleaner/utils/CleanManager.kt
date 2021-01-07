@@ -12,6 +12,13 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import java.io.File
 import kotlin.concurrent.thread
 
+/**
+ * 如果需要定义一个新的分类 请在瘦身目录那块区域定义一个常量
+ * 并且在res/values/arrays.xml下的customer_clean_list和customer_clean_list_value添加对应键值
+ * @see getHalfList 添加目录到一键瘦身
+ * @see getFullList 添加目录到彻底瘦身
+ * @see getFiles 添加清理目录用
+ */
 object CleanManager {
     //瘦身模式
     const val HALF_MODE = "half_mode"
@@ -33,6 +40,7 @@ object CleanManager {
     const val ICON_PENDANT = "icon_pendant"
     const val USER_BACKGROUND = "user_background"
     const val STICKER_RECOMMEND = "sticker_recommend"
+    const val STICKER_EMOTION = "sticker_emotion"
     const val POKE = "poke"
     const val VIP_ICON = "vip_icon"
     const val DOU_TU = "dou_tu"
@@ -40,7 +48,7 @@ object CleanManager {
     const val RECEIVE_FILE_CACHE = "receive_file_cache"
     const val OTHERS = "others"
 
-    //清理完毕后的释放的空间
+    //计算清理完毕后的释放的空间
     private var size = 0L
 
     /**
@@ -85,6 +93,7 @@ object CleanManager {
             //diy名片
             DIY_CARD -> {
                 arr.add(File("$MobileQQDir/.apollo"))
+                arr.add(File("$MobileQQDir/vas/lottie"))
             }
             //字体
             FONT -> {
@@ -116,6 +125,10 @@ object CleanManager {
                 arr.add(File("$MobileQQDir/.sticker_recommended_pics"))
                 arr.add(File("$MobileQQDir/pe"))
             }
+            //聊天表情缓存
+            STICKER_EMOTION -> {
+                arr.add(File("$MobileQQDir/.emotionsm"))
+            }
             //戳一戳
             POKE -> {
                 arr.add(File("$MobileQQDir/.vaspoke"))
@@ -144,6 +157,7 @@ object CleanManager {
             OTHERS -> {
                 arr.add(File("$MobileQQDir/qav"))
                 arr.add(File("$MobileQQDir/qqmusic"))
+                arr.add(File("$MobileQQDir/pddata"))
                 arr.add(File("$TencentDir/TMAssistantSDK"))
             }
         }
@@ -200,6 +214,7 @@ object CleanManager {
         arr.addAll(getFiles(USER_ICON))
         arr.addAll(getFiles(ICON_PENDANT))
         arr.addAll(getFiles(STICKER_RECOMMEND))
+        arr.addAll(getFiles(STICKER_EMOTION))
         arr.addAll(getFiles(POKE))
         arr.addAll(getFiles(VIP_ICON))
         arr.addAll(getFiles(DOU_TU))
