@@ -33,3 +33,7 @@ cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | 
 [√]2.定时瘦身
 
 [√]3.有个好康一点的UI
+
+[]4.适配TIM
+
+[]5.自定义瘦身间隔
