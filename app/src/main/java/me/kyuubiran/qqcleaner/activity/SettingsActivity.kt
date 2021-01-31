@@ -78,11 +78,11 @@ class SettingsActivity : AppCompatTransferActivity() {
         //设置Item点击事件
         private fun setClickable() {
             halfClean.setOnPreferenceClickListener {
-                showConfirmDialog(HALF_MODE, this.activity!!)
+                showConfirmDialog(HALF_MODE, this.requireActivity())
                 true
             }
             fullClean.setOnPreferenceClickListener {
-                showConfirmDialog(FULL_MODE, this.activity!!)
+                showConfirmDialog(FULL_MODE, this.requireActivity())
                 true
             }
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
@@ -95,7 +95,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             doCustomerClean.setOnPreferenceClickListener {
-                showConfirmDialog(CUSTOMER_MODE, this.activity!!)
+                showConfirmDialog(CUSTOMER_MODE, this.requireActivity())
                 true
             }
             gotoGithub.setOnPreferenceClickListener {
@@ -106,7 +106,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             supportMe.setOnPreferenceClickListener {
-                SupportMeDialog.showSupportMeDialog(this.activity!!)
+                SupportMeDialog.showSupportMeDialog(this.requireActivity())
                 true
             }
             cleanedTime.setOnPreferenceClickListener {
@@ -140,7 +140,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 cleanedTime.setSummary(R.string.no_cleaned_his_hint)
             } else {
                 try {
-                    val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    val format = SimpleDateFormat.getInstance()
                     cleanedTime.summary = format.format(currentCleanedTime)
                 } catch (e: Exception) {
                     loge(e)
