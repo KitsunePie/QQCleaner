@@ -10,7 +10,6 @@ import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
 import me.kyuubiran.qqcleaner.dialog.FULL_MODE
 import me.kyuubiran.qqcleaner.dialog.HALF_MODE
 import me.kyuubiran.qqcleaner.dialog.SupportMeDialog
-import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
@@ -19,7 +18,10 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.checkCfg
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
-import java.lang.Exception
+import me.kyuubiran.qqcleaner.utils.formatSize
+import me.kyuubiran.qqcleaner.utils.loge
+import me.kyuubiran.qqcleaner.utils.qqContext
+import me.kyuubiran.qqcleaner.utils.showToastBySystem
 import java.text.SimpleDateFormat
 
 class SettingsActivity : AppCompatTransferActivity() {
@@ -47,6 +49,7 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var doCustomerClean: Preference
         private lateinit var supportMe: Preference
         private lateinit var gotoGithub: Preference
+        private lateinit var joinQQGroup: Preference
 
         //重置清理时间计数器
         private var clicked = 0
@@ -64,6 +67,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             doCustomerClean = findPreference("DoCustomerClean")!!
             gotoGithub = findPreference("GotoGithub")!!
             supportMe = findPreference("SupportMe")!!
+            joinQQGroup = findPreference("JoinQQGroup")!!
             init()
         }
 
@@ -103,6 +107,12 @@ class SettingsActivity : AppCompatTransferActivity() {
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)
                 qqContext?.showToastBySystem("喜欢的话给我点个小星星吧~")
+                true
+            }
+            joinQQGroup.setOnPreferenceClickListener {
+                val uri = Uri.parse("https://jq.qq.com/?_wv=1027&k=VnwmAAGA")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(intent)
                 true
             }
             supportMe.setOnPreferenceClickListener {

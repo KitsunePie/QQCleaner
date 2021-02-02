@@ -1,5 +1,4 @@
-<PreferenceScreen
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
             app:title="@string/auto_clean_switch_title">
         <SwitchPreferenceCompat
@@ -56,6 +55,10 @@
                 app:key="GotoGithub"
                 app:title="@string/goto_github"
                 app:summary="@string/author"/>
+        <Preference
+                app:key="JoinQQGroup"
+                app:title="@string/join_qq_group"
+                app:summary="@string/join_qq_group_hint" />
         <Preference
                 app:key="SupportMe"
                 app:title="@string/support_me"
