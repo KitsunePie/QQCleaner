@@ -1,6 +1,8 @@
 # QQCleaner(Xposed Module)
 如你所见 这是一个低技术力的xposed模块 如果有hxd觉得这玩意好使的话 帮我点个小星星吧
 
+建了个群 有问题可以来这里反馈:827356240
+
 有bug的话欢迎提交pr和issue(由于本人技术力过于低下的原因可能不会修复
 
 (仅支持8.2.8+的QQ)
@@ -34,6 +36,8 @@ cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | 
 
 [√]3.有个好康一点的UI
 
-[]4.适配TIM
+[?]4.添加微信瘦身
 
-[]5.自定义瘦身间隔
+[]5.适配TIM
+
+[]6.自定义瘦身间隔
