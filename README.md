@@ -30,14 +30,14 @@ cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | 
 具体目录请看工具类CleanManager.kt
 
 ### TODO List
-[√]1.自定义瘦身
+[√]自定义瘦身
 
-[√]2.定时瘦身
+[√]定时瘦身
 
-[√]3.有个好康一点的UI
+[√]有个好康一点的UI
 
-[?]4.添加微信瘦身
+[√]自定义瘦身间隔
 
-[]5.适配TIM
+[]适配TIM
 
-[]6.自定义瘦身间隔
+[?]添加微信瘦身
