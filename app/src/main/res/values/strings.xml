@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">QQ瘦身</string>
-    <string name="version_name">1.2.5.1</string>
+    <string name="version_name">1.2.6</string>
     <string name="title_activity_settings">QQ瘦身</string>
     <string name="res_inject_success">注入资源成功</string>
 
@@ -35,10 +35,11 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
-        -1.2.5.1\n
-        1.加入加群按钮\n
-        2.修改时间样式
+        -1.2.6\n
+        1.允许自定义瘦身间隔(单位小时) 最小为1小时 最大为99999小时 设为0时默认24小时
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
+    <string name="auto_clean_delay">自动瘦身间隔</string>
+    <string name="auto_clean_delay_hint">单位:小时 默认24小时(即一天) 设置为0时默认24小时</string>
 </resources>

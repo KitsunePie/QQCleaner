@@ -4,6 +4,7 @@ package me.kyuubiran.qqcleaner.utils
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
 import com.alibaba.fastjson.JSONArray
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_MODE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
@@ -313,13 +314,14 @@ object CleanManager {
     //自动瘦身的类
     class AutoClean {
         private var time = 0L
+        private val delay = ConfigManager.getInt(CFG_CLEAN_DELAY, 24) * 3600L * 1000L
         private var mode = ""
 
         //在QQ加载模块的时候会检测并执行一次
         init {
             time = getLong(CFG_CURRENT_CLEANED_TIME)
-            //判断间隔是否大于24小时
-            if (getConfig(CFG_AUTO_CLEAN_ENABLED) as Boolean && System.currentTimeMillis() - time > 86400000) {
+            //判断间隔
+            if (getConfig(CFG_AUTO_CLEAN_ENABLED) as Boolean && System.currentTimeMillis() - time > if (delay < 3600_000L) 24 * 3600L * 1000L else delay) {
                 mode = getConfig(CFG_CUSTOMER_CLEAN_MODE).toString()
                 autoClean()
                 time = System.currentTimeMillis()

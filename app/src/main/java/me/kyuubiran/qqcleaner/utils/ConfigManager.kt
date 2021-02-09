@@ -15,6 +15,7 @@ object ConfigManager {
     const val CFG_CUSTOMER_CLEAN_LIST = "customerList"
     const val CFG_CUSTOMER_CLEAN_MODE = "customerCleanMode"
     const val CFG_TOTAL_CLEANED_SIZE = "totalCleanedSize"
+    const val CFG_CLEAN_DELAY = "cleanDelay"
 
     fun checkConfigIsExists() {
         if (!config.exists()) {
@@ -53,8 +54,12 @@ object ConfigManager {
         return getConfig()?.get(key)
     }
 
-    fun getLong(key: String): Long {
-        return getConfig()?.getLong(key) ?: 0L
+    fun getLong(key: String, defValue: Long = 0L): Long {
+        return getConfig()?.getLong(key) ?: defValue
+    }
+
+    fun getInt(key: String, defValue: Int = 0): Int {
+        return getConfig()?.getInteger(key) ?: defValue
     }
 
     fun <T> setConfig(key: String, value: T) {

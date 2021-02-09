@@ -5,11 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.preference.*
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.dialog.CUSTOMER_MODE
+import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
-import me.kyuubiran.qqcleaner.dialog.FULL_MODE
-import me.kyuubiran.qqcleaner.dialog.HALF_MODE
-import me.kyuubiran.qqcleaner.dialog.SupportMeDialog
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
@@ -43,6 +40,7 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var cleanedHistory: Preference
         private lateinit var autoCleanMode: ListPreference
         private lateinit var cleanedTime: Preference
+        private lateinit var cleanDelay: Preference
         private lateinit var halfClean: Preference
         private lateinit var fullClean: Preference
         private lateinit var customerCleanList: MultiSelectListPreference
@@ -61,6 +59,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             cleanedHistory = findPreference("CleanedHistory")!!
             autoCleanMode = findPreference("AutoCleanMode")!!
             cleanedTime = findPreference("CleanedTime")!!
+            cleanDelay = findPreference("CleanDelay")!!
             halfClean = findPreference("HalfClean")!!
             fullClean = findPreference("FullClean")!!
             customerCleanList = findPreference("CustomerClean")!!
@@ -82,11 +81,11 @@ class SettingsActivity : AppCompatTransferActivity() {
         //设置Item点击事件
         private fun setClickable() {
             halfClean.setOnPreferenceClickListener {
-                showConfirmDialog(HALF_MODE, this.requireActivity())
+                showConfirmDialog(HALF_MODE, this.requireContext())
                 true
             }
             fullClean.setOnPreferenceClickListener {
-                showConfirmDialog(FULL_MODE, this.requireActivity())
+                showConfirmDialog(FULL_MODE, this.requireContext())
                 true
             }
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
@@ -99,7 +98,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             doCustomerClean.setOnPreferenceClickListener {
-                showConfirmDialog(CUSTOMER_MODE, this.requireActivity())
+                showConfirmDialog(CUSTOMER_MODE, this.requireContext())
                 true
             }
             gotoGithub.setOnPreferenceClickListener {
@@ -116,7 +115,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             supportMe.setOnPreferenceClickListener {
-                SupportMeDialog.showSupportMeDialog(this.requireActivity())
+                SupportMeDialog.showSupportMeDialog(this.requireContext())
                 true
             }
             cleanedTime.setOnPreferenceClickListener {
@@ -140,6 +139,10 @@ class SettingsActivity : AppCompatTransferActivity() {
                 setHistorySummary()
                 true
             }
+            cleanDelay.setOnPreferenceClickListener {
+                CleanDialog.showCleanDelayDialog(this.requireContext())
+                true
+            }
         }
 
         //切换自动瘦身时间是否显示
@@ -159,10 +162,12 @@ class SettingsActivity : AppCompatTransferActivity() {
             }
             cleanedTime.isVisible = autoClean.isChecked
             autoCleanMode.isVisible = autoClean.isChecked
+            cleanDelay.isVisible = autoClean.isChecked
             autoClean.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { _, newValue ->
                     cleanedTime.isVisible = newValue as Boolean
                     autoCleanMode.isVisible = newValue
+                    cleanDelay.isVisible = newValue
                     setConfig(CFG_AUTO_CLEAN_ENABLED, newValue)
                     true
                 }

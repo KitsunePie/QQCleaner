@@ -14,6 +14,11 @@
                 app:summary="@string/auto_clean_mode_hint"
                 app:isPreferenceVisible="false"/>
         <Preference
+                app:key="CleanDelay"
+                app:title="@string/auto_clean_delay"
+                app:summary="@string/auto_clean_delay_hint"
+                app:isPreferenceVisible="false"/>
+        <Preference
                 app:key="CleanedTime"
                 app:title="@string/auto_clean_time"
                 app:summary="@string/no_cleaned_his_hint"
