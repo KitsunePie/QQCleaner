@@ -1,11 +1,14 @@
 package me.kyuubiran.qqcleaner.utils
 
 
-import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
 import com.alibaba.fastjson.JSONArray
+import me.kyuubiran.qqcleaner.utils.CleanManager.getFiles
+import me.kyuubiran.qqcleaner.utils.CleanManager.getFullList
+import me.kyuubiran.qqcleaner.utils.CleanManager.getHalfList
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_MODE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
-import java.lang.Exception
 import kotlin.concurrent.thread
 
 object ConfigManager {

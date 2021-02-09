@@ -1,10 +1,9 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-    <PreferenceCategory
-            app:title="@string/auto_clean_switch_title">
+    <PreferenceCategory app:title="@string/auto_clean_switch_title">
         <SwitchPreferenceCompat
                 app:key="AutoClean"
                 app:title="@string/auto_clean_switch_key"
-                app:summary="@string/auto_clean_switch_hint"/>
+                app:summary="@string/auto_clean_switch_hint" />
         <ListPreference
                 app:entries="@array/auto_clean_mode"
                 app:entryValues="@array/auto_clean_mode_value"
@@ -12,54 +11,52 @@
                 app:key="AutoCleanMode"
                 app:title="@string/auto_clean_mode"
                 app:summary="@string/auto_clean_mode_hint"
-                app:isPreferenceVisible="false"/>
+                app:isPreferenceVisible="false" />
         <Preference
                 app:key="CleanDelay"
                 app:title="@string/auto_clean_delay"
                 app:summary="@string/auto_clean_delay_hint"
-                app:isPreferenceVisible="false"/>
+                app:isPreferenceVisible="false" />
         <Preference
                 app:key="CleanedTime"
                 app:title="@string/auto_clean_time"
                 app:summary="@string/no_cleaned_his_hint"
-                app:isPreferenceVisible="false"/>
+                app:isPreferenceVisible="false" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-            app:title="@string/clean_title">
+    <PreferenceCategory app:title="@string/clean_title">
         <Preference
                 app:key="HalfClean"
                 app:title="@string/clean_half"
-                app:summary="@string/clean_half_hint"/>
+                app:summary="@string/clean_half_hint" />
         <Preference
                 app:key="FullClean"
                 app:title="@string/clean_full"
-                app:summary="@string/clean_full_hint"/>
+                app:summary="@string/clean_full_hint" />
         <MultiSelectListPreference
                 app:entries="@array/customer_clean_list"
                 app:entryValues="@array/customer_clean_list_value"
                 app:key="CustomerClean"
                 app:title="@string/clean_cus"
-                app:summary="@string/clean_cus_hint"/>
+                app:summary="@string/clean_cus_hint" />
         <Preference
                 app:key="DoCustomerClean"
                 app:title="@string/do_clean_cus"
-                app:summary="@string/do_clean_cus_hint"/>
+                app:summary="@string/do_clean_cus_hint" />
     </PreferenceCategory>
-    <PreferenceCategory
-            app:title="@string/other_title">
+    <PreferenceCategory app:title="@string/other_title">
         <Preference
                 app:key="CleanedHistory"
                 app:title="@string/enable_cleaned_history"
-                app:summary="@string/no_cleaned_his_hint"/>
+                app:summary="@string/no_cleaned_his_hint" />
         <Preference
                 app:key="ModuleInfo"
                 app:title="@string/module_version"
-                app:summary="@string/version_name"/>
+                app:summary="@string/version_name" />
         <Preference
                 app:key="GotoGithub"
                 app:title="@string/goto_github"
-                app:summary="@string/author"/>
+                app:summary="@string/author" />
         <Preference
                 app:key="JoinQQGroup"
                 app:title="@string/join_qq_group"
@@ -67,10 +64,10 @@
         <Preference
                 app:key="SupportMe"
                 app:title="@string/support_me"
-                app:summary="@string/support_me_hint"/>
+                app:summary="@string/support_me_hint" />
         <Preference
                 app:key="About"
                 app:title="@string/about"
-                app:summary="@string/about_hint"/>
+                app:summary="@string/about_hint" />
     </PreferenceCategory>
 </PreferenceScreen>
