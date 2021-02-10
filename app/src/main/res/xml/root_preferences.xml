@@ -51,8 +51,7 @@
                 app:summary="@string/no_cleaned_his_hint" />
         <Preference
                 app:key="ModuleInfo"
-                app:title="@string/module_version"
-                app:summary="@string/version_name" />
+                app:title="@string/module_version" />
         <Preference
                 app:key="GotoGithub"
                 app:title="@string/goto_github"

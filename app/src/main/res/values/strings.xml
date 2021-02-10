@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">QQ瘦身</string>
-    <string name="version_name">1.2.6</string>
     <string name="title_activity_settings">QQ瘦身</string>
     <string name="res_inject_success">注入资源成功</string>
 

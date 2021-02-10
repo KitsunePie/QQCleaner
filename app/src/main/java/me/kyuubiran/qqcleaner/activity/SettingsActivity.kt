@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.preference.*
+import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
@@ -48,6 +49,7 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var supportMe: Preference
         private lateinit var gotoGithub: Preference
         private lateinit var joinQQGroup: Preference
+        private lateinit var moduleInfo: Preference
 
         //重置清理时间计数器
         private var clicked = 0
@@ -67,6 +69,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             gotoGithub = findPreference("GotoGithub")!!
             supportMe = findPreference("SupportMe")!!
             joinQQGroup = findPreference("JoinQQGroup")!!
+            moduleInfo = findPreference("ModuleInfo")!!
             init()
         }
 
@@ -75,6 +78,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             setHistorySummary()
             toggleCleanedTimeShow()
             setClickable()
+            setVersionName()
             setConfig(CFG_CUSTOMER_CLEAN_LIST, customerCleanList.values)
         }
 
@@ -181,6 +185,10 @@ class SettingsActivity : AppCompatTransferActivity() {
             } else {
                 cleanedHistory.setSummary(R.string.no_cleaned_his_hint)
             }
+        }
+
+        private fun setVersionName() {
+            moduleInfo.summary = BuildConfig.VERSION_NAME
         }
     }
 }
