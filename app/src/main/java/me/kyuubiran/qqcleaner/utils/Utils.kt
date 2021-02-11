@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -12,8 +13,15 @@ import java.math.BigDecimal
 
 private lateinit var mHandler: Handler
 lateinit var clzLoader: ClassLoader
-var qqContext: Context? = null
+
+@SuppressLint("StaticFieldLeak")
+//宿主全局Context
+var appContext: Context? = null
+
 var sModulePath: String = ""
+
+//宿主App
+lateinit var hostApp: Host
 
 class Utils(classLoader: ClassLoader) {
     //初始化
@@ -33,10 +41,10 @@ fun runOnUiThread(r: Runnable) {
 }
 
 //扩展函数 给Context加上显示toast的函数
-fun Context.showToastBySystem(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+fun Context.makeToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     if (Looper.getMainLooper() == Looper.myLooper())
         Toast.makeText(this, text, duration).show()
-    else runOnUiThread { showToastBySystem(text, duration) }
+    else runOnUiThread { makeToast(text, duration) }
 }
 
 //加载类
@@ -56,7 +64,12 @@ fun getMethods(clazz: Class<*>): Array<Method> {
 }
 
 //From QNotified
-fun getMethod(obj: Any, methodName: String, returnType: Class<*>?, vararg types: Class<*>?): Method? {
+fun getMethod(
+    obj: Any,
+    methodName: String,
+    returnType: Class<*>?,
+    vararg types: Class<*>?
+): Method? {
     for (m in getMethods(obj.javaClass)) {
         val argTypes = m.parameterTypes
         if (m.name != methodName) continue

@@ -21,7 +21,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
         Utils(classLoader)
         ModuleEntryHook()
         ResInject.initForStubActivity()
-        ResInject.injectModuleResources(qqContext?.resources)
+        ResInject.injectModuleResources(appContext?.resources)
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean()
     }
@@ -36,7 +36,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                         val clazz = rtLoader.loadClass("com.tencent.common.app.BaseApplicationImpl")
                         val ctx: Context =
                             clazz!!.let { getField(it, "sApplication", clazz)?.get(null) } as Context
-                        qqContext = ctx
+                        appContext = ctx
                         if ("true" == System.getProperty(QQ_CLEANER_TAG)) return
                         val classLoader = ctx.classLoader
                         System.setProperty(QQ_CLEANER_TAG, "true")

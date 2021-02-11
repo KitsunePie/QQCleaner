@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter
 import kotlin.concurrent.thread
 
 object ConfigManager {
-    private val config = File("${qqContext?.filesDir?.absolutePath}/qqcleaner.json")
+    private val config = File("${appContext?.filesDir?.absolutePath}/qqcleaner.json")
 
     const val CFG_AUTO_CLEAN_ENABLED = "autoCleanEnabled"
     const val CFG_CURRENT_CLEANED_TIME = "cleanedTime"

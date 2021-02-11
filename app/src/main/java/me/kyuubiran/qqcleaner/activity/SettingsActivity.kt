@@ -18,8 +18,8 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
 import me.kyuubiran.qqcleaner.utils.formatSize
 import me.kyuubiran.qqcleaner.utils.loge
-import me.kyuubiran.qqcleaner.utils.qqContext
-import me.kyuubiran.qqcleaner.utils.showToastBySystem
+import me.kyuubiran.qqcleaner.utils.appContext
+import me.kyuubiran.qqcleaner.utils.makeToast
 import java.text.SimpleDateFormat
 
 class SettingsActivity : AppCompatTransferActivity() {
@@ -95,7 +95,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
                 try {
                     setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
-                    qqContext?.showToastBySystem("好耶 保存自定义瘦身列表成功了!")
+                    appContext?.makeToast("好耶 保存自定义瘦身列表成功了!")
                 } catch (e: Exception) {
                     loge(e)
                 }
@@ -109,7 +109,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 val uri = Uri.parse("https://github.com/KyuubiRan/QQCleaner")
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)
-                qqContext?.showToastBySystem("喜欢的话给我点个小星星吧~")
+                appContext?.makeToast("喜欢的话给我点个小星星吧~")
                 true
             }
             joinQQGroup.setOnPreferenceClickListener {
@@ -126,7 +126,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 if (clicked < 6) {
                     clicked++
                     if (clicked > 3) {
-                        qqContext?.showToastBySystem(
+                        appContext?.makeToast(
                             "再点${7 - clicked}次重置清理时间"
                         )
                     }
@@ -134,12 +134,12 @@ class SettingsActivity : AppCompatTransferActivity() {
                     clicked = 0
                     setConfig(CFG_CURRENT_CLEANED_TIME, 0)
                     cleanedTime.setSummary(R.string.no_cleaned_his_hint)
-                    qqContext?.showToastBySystem("已重置清理时间")
+                    appContext?.makeToast("已重置清理时间")
                 }
                 true
             }
             cleanedHistory.setOnPreferenceClickListener {
-                qqContext?.showToastBySystem("已刷新统计信息")
+                appContext?.makeToast("已刷新统计信息")
                 setHistorySummary()
                 true
             }

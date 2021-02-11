@@ -31,10 +31,10 @@ class ModuleEntryHook {
                         vg.addView(entry, 2)
                         entry.setOnClickListener {
                             try {
-                                val intent = Intent(qqContext, SettingsActivity::class.java)
+                                val intent = Intent(appContext, SettingsActivity::class.java)
                                 context?.startActivity(intent)
                             } catch (e: Exception) {
-                                qqContext?.showToastBySystem("坏耶 启动失败了 请尝试重启QQ")
+                                appContext?.makeToast("坏耶 启动失败了 请尝试重启QQ")
                                 loge(e)
                             }
                         }

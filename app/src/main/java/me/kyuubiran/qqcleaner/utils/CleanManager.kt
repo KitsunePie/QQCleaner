@@ -30,27 +30,27 @@ object CleanManager {
     const val CUSTOMER_MODE = "customer_mode"
 
     //瘦身目录
-    const val CACHES = "caches"
-    const val PICTURE = "picture"
-    const val SHORT_VIDEO = "short_video"
-    const val ADS = "ads"
-    const val ARK_APP = "ark_app"
-    const val WEB = "web"
-    const val DIY_CARD = "diy_card"
-    const val FONT = "font"
-    const val GIFT = "gift"
-    const val ENTRY_EFFECT = "entry_effect"
-    const val USER_ICON = "user_icon"
-    const val ICON_PENDANT = "icon_pendant"
-    const val USER_BACKGROUND = "user_background"
-    const val STICKER_RECOMMEND = "sticker_recommend"
-    const val STICKER_EMOTION = "sticker_emotion"
-    const val POKE = "poke"
-    const val VIP_ICON = "vip_icon"
-    const val DOU_TU = "dou_tu"
-    const val VIDEO_BACKGROUND = "video_background"
-    const val RECEIVE_FILE_CACHE = "receive_file_cache"
-    const val OTHERS = "others"
+    private const val CACHES = "caches"
+    private const val PICTURE = "picture"
+    private const val SHORT_VIDEO = "short_video"
+    private const val ADS = "ads"
+    private const val ARK_APP = "ark_app"
+    private const val WEB = "web"
+    private const val DIY_CARD = "diy_card"
+    private const val FONT = "font"
+    private const val GIFT = "gift"
+    private const val ENTRY_EFFECT = "entry_effect"
+    private const val USER_ICON = "user_icon"
+    private const val ICON_PENDANT = "icon_pendant"
+    private const val USER_BACKGROUND = "user_background"
+    private const val STICKER_RECOMMEND = "sticker_recommend"
+    private const val STICKER_EMOTION = "sticker_emotion"
+    private const val POKE = "poke"
+    private const val VIP_ICON = "vip_icon"
+    private const val DOU_TU = "dou_tu"
+    private const val VIDEO_BACKGROUND = "video_background"
+    private const val RECEIVE_FILE_CACHE = "receive_file_cache"
+    private const val OTHERS = "others"
 
     //计算清理完毕后的释放的空间
     private var size = 0L
@@ -169,10 +169,10 @@ object CleanManager {
     }
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq
-    private var rootDataDir: String? = qqContext?.externalCacheDir?.parentFile?.path
+    private var rootDataDir: String? = appContext?.externalCacheDir?.parentFile?.path
 
     //    storage/emulated/0/
-    private var rootDir: String? = qqContext?.obbDir?.parentFile?.parentFile?.parentFile?.path
+    private var rootDir: String? = appContext?.obbDir?.parentFile?.parentFile?.parentFile?.path
 
     //    storage/emulated/0/tencent
     private var rootTencentDir = "$rootDir/tencent"
@@ -192,39 +192,35 @@ object CleanManager {
     /**
      * @return 获取普通(一键)瘦身的列表
      */
-    private fun getHalfList(): ArrayList<File> {
-        val arr = ArrayList<File>()
-        arr.addAll(getFiles(CACHES))
-        arr.addAll(getFiles(PICTURE))
-        arr.addAll(getFiles(SHORT_VIDEO))
-        arr.addAll(getFiles(ADS))
-        arr.addAll(getFiles(ARK_APP))
-        arr.addAll(getFiles(WEB))
-        arr.addAll(getFiles(DIY_CARD))
-        arr.addAll(getFiles(USER_BACKGROUND))
-        arr.addAll(getFiles(VIDEO_BACKGROUND))
-        return arr
+    private fun getHalfList() = ArrayList<File>().apply {
+        addAll(getFiles(CACHES))
+        addAll(getFiles(PICTURE))
+        addAll(getFiles(SHORT_VIDEO))
+        addAll(getFiles(ADS))
+        addAll(getFiles(ARK_APP))
+        addAll(getFiles(WEB))
+        addAll(getFiles(DIY_CARD))
+        addAll(getFiles(USER_BACKGROUND))
+        addAll(getFiles(VIDEO_BACKGROUND))
     }
 
     /**
      * @return 获取全部(彻底)瘦身的列表
      */
-    private fun getFullList(): ArrayList<File> {
-        val arr = ArrayList<File>()
-        arr.addAll(getHalfList())
-        arr.addAll(getFiles(FONT))
-        arr.addAll(getFiles(GIFT))
-        arr.addAll(getFiles(ENTRY_EFFECT))
-        arr.addAll(getFiles(USER_ICON))
-        arr.addAll(getFiles(ICON_PENDANT))
-        arr.addAll(getFiles(STICKER_RECOMMEND))
-        arr.addAll(getFiles(STICKER_EMOTION))
-        arr.addAll(getFiles(POKE))
-        arr.addAll(getFiles(VIP_ICON))
-        arr.addAll(getFiles(DOU_TU))
-        arr.addAll(getFiles(RECEIVE_FILE_CACHE))
-        arr.addAll(getFiles(OTHERS))
-        return arr
+    private fun getFullList() = ArrayList<File>().apply {
+        addAll(getHalfList())
+        addAll(getFiles(FONT))
+        addAll(getFiles(GIFT))
+        addAll(getFiles(ENTRY_EFFECT))
+        addAll(getFiles(USER_ICON))
+        addAll(getFiles(ICON_PENDANT))
+        addAll(getFiles(STICKER_RECOMMEND))
+        addAll(getFiles(STICKER_EMOTION))
+        addAll(getFiles(POKE))
+        addAll(getFiles(VIP_ICON))
+        addAll(getFiles(DOU_TU))
+        addAll(getFiles(RECEIVE_FILE_CACHE))
+        addAll(getFiles(OTHERS))
     }
 
     //保存清理的内存
@@ -277,16 +273,16 @@ object CleanManager {
     private fun doClean(files: ArrayList<File>, showToast: Boolean = true) {
         thread {
             size = 0L
-            if (showToast) qqContext?.showToastBySystem("好耶 开始清理了!")
+            if (showToast) appContext?.makeToast("好耶 开始清理了!")
             try {
                 for (f in files) {
                     deleteAllFiles(f)
                 }
-                qqContext?.showToastBySystem("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
+                appContext?.makeToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
                 saveSize()
             } catch (e: Exception) {
                 loge(e)
-                qqContext?.showToastBySystem("坏耶 清理失败了!")
+                appContext?.makeToast("坏耶 清理失败了!")
             }
         }
     }
@@ -334,7 +330,7 @@ object CleanManager {
 
         //自动瘦身的函数
         private fun autoClean() {
-            qqContext?.showToastBySystem("好耶 开始自动清理了!")
+            appContext?.makeToast("好耶 开始自动清理了!")
             when (mode) {
                 FULL_MODE -> {
                     fullClean(false)

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import me.kyuubiran.qqcleaner.utils.CleanManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
-import me.kyuubiran.qqcleaner.utils.showToastBySystem
+import me.kyuubiran.qqcleaner.utils.makeToast
 
 const val HALF_MODE = 0
 const val FULL_MODE = 1
@@ -55,7 +55,7 @@ object CleanDialog {
             .setPositiveButton("确定") { _, _ ->
                 val num = input.text.toString().toInt()
                 ConfigManager.setConfig(CFG_CLEAN_DELAY, if (num < 1) 24 else num)
-                context.showToastBySystem("保存成功!")
+                context.makeToast("保存成功!")
             }
             .setNegativeButton("取消") { _, _ -> }
             .create()

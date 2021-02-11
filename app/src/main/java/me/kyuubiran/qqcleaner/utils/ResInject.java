@@ -26,7 +26,7 @@ import java.util.List;
 import static me.kyuubiran.qqcleaner.utils.LogUtilsKt.loge;
 import static me.kyuubiran.qqcleaner.utils.LogUtilsKt.logi;
 import static me.kyuubiran.qqcleaner.utils.UtilsKt.getObjectOrNull;
-import static me.kyuubiran.qqcleaner.utils.UtilsKt.getQqContext;
+import static me.kyuubiran.qqcleaner.utils.UtilsKt.getAppContext;
 
 //From QNotified
 public class ResInject {
@@ -557,7 +557,7 @@ public class ResInject {
                         loge(e);
                     }
                     if (bundle != null) {
-                        bundle.setClassLoader(getQqContext().getClassLoader());
+                        bundle.setClassLoader(getAppContext().getClassLoader());
                         if (intent.hasExtra(ActProxyMgr.ACTIVITY_PROXY_INTENT)) {
                             Intent realIntent = intent.getParcelableExtra(ActProxyMgr.ACTIVITY_PROXY_INTENT);
                             field_intent.set(record, realIntent);
@@ -590,7 +590,7 @@ public class ResInject {
                                         loge(e);
                                     }
                                     if (bundle != null) {
-                                        bundle.setClassLoader(getQqContext().getClassLoader());
+                                        bundle.setClassLoader(getAppContext().getClassLoader());
                                         if (wrapper.hasExtra(ActProxyMgr.ACTIVITY_PROXY_INTENT)) {
                                             Intent realIntent = wrapper.getParcelableExtra(ActProxyMgr.ACTIVITY_PROXY_INTENT);
                                             fmIntent.set(item, realIntent);
@@ -630,7 +630,7 @@ public class ResInject {
                 if (index != -1) {
                     Intent raw = (Intent) args[index];
                     ComponentName component = raw.getComponent();
-                    Context hostApp = getQqContext();
+                    Context hostApp = getAppContext();
                     //log("startActivity, rawIntent=" + raw);
                     if (hostApp != null && component != null
                             && hostApp.getPackageName().equals(component.getPackageName())
