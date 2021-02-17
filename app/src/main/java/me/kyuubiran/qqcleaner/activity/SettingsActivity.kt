@@ -8,18 +8,18 @@ import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
+import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.checkCfg
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
-import me.kyuubiran.qqcleaner.utils.formatSize
-import me.kyuubiran.qqcleaner.utils.loge
-import me.kyuubiran.qqcleaner.utils.appContext
-import me.kyuubiran.qqcleaner.utils.makeToast
+import java.lang.annotation.Native
 import java.text.SimpleDateFormat
 
 class SettingsActivity : AppCompatTransferActivity() {
@@ -75,7 +75,7 @@ class SettingsActivity : AppCompatTransferActivity() {
 
         //初始化函数
         private fun init() {
-            setHistorySummary()
+            initSummary()
             toggleCleanedTimeShow()
             setClickable()
             setVersionName()
@@ -140,11 +140,11 @@ class SettingsActivity : AppCompatTransferActivity() {
             }
             cleanedHistory.setOnPreferenceClickListener {
                 appContext?.makeToast("已刷新统计信息")
-                setHistorySummary()
+                initSummary()
                 true
             }
             cleanDelay.setOnPreferenceClickListener {
-                CleanDialog.showCleanDelayDialog(this.requireContext())
+                CleanDialog.showCleanDelayDialog(this.requireContext(), autoClean)
                 true
             }
         }
@@ -178,13 +178,16 @@ class SettingsActivity : AppCompatTransferActivity() {
         }
 
         //刷新总清理空间的函数
-        private fun setHistorySummary() {
+        private fun initSummary() {
             if (getConfig(CFG_TOTAL_CLEANED_SIZE) != 0) {
                 cleanedHistory.summary =
                     "总共为您腾出:${formatSize(getLong(CFG_TOTAL_CLEANED_SIZE))}空间"
             } else {
                 cleanedHistory.setSummary(R.string.no_cleaned_his_hint)
             }
+
+            val delayTmp = getInt(CFG_CLEAN_DELAY)
+            autoClean.summary = if (delayTmp == 0) "当前清理的间隔为24小时" else "当前清理的间隔为${delayTmp}小时"
         }
 
         private fun setVersionName() {

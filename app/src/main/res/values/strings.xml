@@ -5,7 +5,6 @@
 
     <string name="auto_clean_switch_title">自动瘦身</string>
 
-    <string name="auto_clean_switch_hint">两次清理的间隔为24小时</string>
     <string name="auto_clean_switch_key">启用自动瘦身</string>
     <string name="auto_clean_time">上次自动瘦身时间</string>
     <string name="auto_clean_mode">瘦身方案</string>
@@ -34,6 +33,8 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
+        -1.2.6.1\n
+        1.修复自定义瘦身间隔后提示未改变的bug\n
         -1.2.6\n
         1.允许自定义瘦身间隔(单位小时) 最小为1小时 最大为99999小时 设为0时默认24小时
     </string>

@@ -2,8 +2,7 @@
     <PreferenceCategory app:title="@string/auto_clean_switch_title">
         <SwitchPreferenceCompat
                 app:key="AutoClean"
-                app:title="@string/auto_clean_switch_key"
-                app:summary="@string/auto_clean_switch_hint" />
+                app:title="@string/auto_clean_switch_key" />
         <ListPreference
                 app:entries="@array/auto_clean_mode"
                 app:entryValues="@array/auto_clean_mode_value"

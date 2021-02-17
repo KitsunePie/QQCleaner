@@ -50,6 +50,7 @@ object CleanManager {
     private const val DOU_TU = "dou_tu"
     private const val VIDEO_BACKGROUND = "video_background"
     private const val RECEIVE_FILE_CACHE = "receive_file_cache"
+    private const val TBS = "tbs"
     private const val OTHERS = "others"
 
     //计算清理完毕后的释放的空间
@@ -220,6 +221,7 @@ object CleanManager {
         addAll(getFiles(VIP_ICON))
         addAll(getFiles(DOU_TU))
         addAll(getFiles(RECEIVE_FILE_CACHE))
+        addAll(getFiles(TBS))
         addAll(getFiles(OTHERS))
     }
 
@@ -276,7 +278,8 @@ object CleanManager {
             if (showToast) appContext?.makeToast("好耶 开始清理了!")
             try {
                 for (f in files) {
-                    deleteAllFiles(f)
+//                    appContext?.makeToast("开始清理${f.path}")
+                    delFiles(f)
                 }
                 appContext?.makeToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
                 saveSize()
@@ -289,24 +292,22 @@ object CleanManager {
 
     /**
      * @param file 文件/文件夹
-     * 递归删除文件
+     * 删除文件/文件夹的函数
      */
-    private fun deleteAllFiles(file: File) {
+    private fun delFiles(file: File) {
+        if (!file.exists()) return
         if (file.isFile) {
             size += file.length()
             file.delete()
-            return
-        }
-        if (file.isDirectory) {
-            val childFile = file.listFiles()
-            if (childFile == null || childFile.isEmpty()) {
+        } else {
+            val list = file.listFiles()
+            if (list == null || list.isEmpty()) {
                 file.delete()
-                return
+            } else {
+                for (f in list) {
+                    delFiles(f)
+                }
             }
-            for (f in childFile) {
-                deleteAllFiles(f)
-            }
-            file.delete()
         }
     }
 
