@@ -10,7 +10,7 @@
 
 注:本模块完全免费且开源，一切开发旨在学习，请勿用于非法用途。
 
-![pic](https://i.loli.net/2020/12/03/7Jnxv4ORbpNhQiV.jpg)
+![pic](https://i.loli.net/2021/02/19/tGnfySCoqE93KFz.jpg)
 ## 使用方法
 1.勾上模块
 
@@ -18,16 +18,14 @@
 
 3.设置->关于->QQ瘦身
 
-### 瘦身内容如下
-一键瘦身:
+## 功能
+1.普通瘦身(日常聊天产生的垃圾清理)
 
-cache | diskcache | ScribbleCache | photo | shortVideo | thumb | qbosssplahAD | pddata | chatpic | QQEditPic | mini | msflogs | .apollo
+2.完全瘦身(尽可能的清理缓存 最大限度腾出空间)
 
-彻底瘦身(包括一键瘦身):
+3.自定义瘦身(手动选择清理部分缓存)
 
-.font_info | .hiboom_font | .gift | .pendant | .profilecard | .sticker_recommended_pics | .troop/enter_effects | .vaspoke | newpoke | poke | .vipicon | DoutuRes | funcall | head | hotpic | pe | qav | qqmusic | QQfile_recv/thumbnails | QQfile_recv/tmp | QQfile_recv/trooptmp
-
-具体目录请看工具类CleanManager.kt
+4.定时瘦身(自动执行瘦身操作)
 
 ### TODO List
 [√]自定义瘦身
