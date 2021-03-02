@@ -13,7 +13,7 @@ class HookEntry : IXposedHookLoadPackage {
                 HookLoader(lpparam)
             }
 //            "com.tencent.tim" -> {
-//                hostApp = Host.QQ
+//                hostApp = Host.TIM
 //                TODO("Support tim")
 //            }
         }
