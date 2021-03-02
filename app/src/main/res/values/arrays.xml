@@ -59,4 +59,8 @@
         <item>receive_file_cache</item>
         <item>others</item>
     </string-array>
+
+    <string-array name="xposedscope">
+        <item>com.tencent.mobileqq</item>
+    </string-array>
 </resources>
