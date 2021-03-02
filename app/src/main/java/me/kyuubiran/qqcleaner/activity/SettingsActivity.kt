@@ -8,7 +8,6 @@ import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
-import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
@@ -19,7 +18,10 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
-import java.lang.annotation.Native
+import me.kyuubiran.qqcleaner.utils.appContext
+import me.kyuubiran.qqcleaner.utils.formatSize
+import me.kyuubiran.qqcleaner.utils.loge
+import me.kyuubiran.qqcleaner.utils.makeToast
 import java.text.SimpleDateFormat
 
 class SettingsActivity : AppCompatTransferActivity() {

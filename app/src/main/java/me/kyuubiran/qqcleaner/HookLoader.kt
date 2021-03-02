@@ -10,7 +10,8 @@ import java.lang.reflect.Method
 
 private const val QQ_CLEANER_TAG = "QQ_CLEANER_TAG"
 private var firstInit = false
-private var secondInit = false
+var secondInit = false
+    private set
 
 class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
     init {
@@ -35,7 +36,13 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                         if (secondInit) return
                         val clazz = rtLoader.loadClass("com.tencent.common.app.BaseApplicationImpl")
                         val ctx: Context =
-                            clazz!!.let { getField(it, "sApplication", clazz)?.get(null) } as Context
+                            clazz!!.let {
+                                getField(
+                                    it,
+                                    "sApplication",
+                                    clazz
+                                )?.get(null)
+                            } as Context
                         appContext = ctx
                         if ("true" == System.getProperty(QQ_CLEANER_TAG)) return
                         val classLoader = ctx.classLoader

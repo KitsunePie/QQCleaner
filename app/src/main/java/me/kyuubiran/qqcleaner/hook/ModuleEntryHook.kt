@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
+import me.kyuubiran.qqcleaner.HookLoader
 import me.kyuubiran.qqcleaner.activity.SettingsActivity
+import me.kyuubiran.qqcleaner.secondInit
 import me.kyuubiran.qqcleaner.utils.*
 
 //模块入口Hook
@@ -24,18 +26,21 @@ class ModuleEntryHook {
                         val FormSimpleItem = loadClass("com.tencent.mobileqq.widget.FormSimpleItem")
                         val item = getObjectOrNull<View>(param.thisObject, "a", FormSimpleItem)
                         val context = item?.context
-                        val entry = newInstance(FormSimpleItem, param.thisObject, Context::class.java) as View
+                        val entry = newInstance(
+                            FormSimpleItem,
+                            param.thisObject,
+                            Context::class.java
+                        ) as View
                         invokeMethod(entry, "setLeftText", "QQ瘦身", CharSequence::class.java)
                         invokeMethod(entry, "setRightText", "芜狐~", CharSequence::class.java)
                         val vg = item?.parent as ViewGroup
                         vg.addView(entry, 2)
                         entry.setOnClickListener {
-                            try {
+                            if (secondInit) {
                                 val intent = Intent(appContext, SettingsActivity::class.java)
                                 context?.startActivity(intent)
-                            } catch (e: Exception) {
-                                appContext?.makeToast("坏耶 启动失败了 请尝试重启QQ")
-                                loge(e)
+                            } else {
+                                appContext?.makeToast("还没有加载好哦~等下再点我吧> <")
                             }
                         }
                     } catch (e: Exception) {
