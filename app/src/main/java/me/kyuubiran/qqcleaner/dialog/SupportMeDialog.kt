@@ -13,12 +13,10 @@ import java.lang.Exception
 object SupportMeDialog {
 
     fun showSupportMeDialog(context: Context) {
-        val arr = ArrayList<CharSequence>()
-        arr.add("支付宝")
-        arr.add("微信")
         AlertDialog.Builder(context)
             .setTitle("请选择扶贫方式")
             .setItems(arrayOf("QQ", "支付宝", "微信")) { _, index ->
+                appContext?.makeToast("感谢资瓷~")
                 when (index) {
                     0 -> gotoQQPay(context)
                     1 -> gotoAliPay(context)
@@ -59,7 +57,6 @@ object SupportMeDialog {
 
     private fun gotoAliPay(context: Context) {
         try {
-            appContext?.makeToast("感谢资瓷~")
             val urlCode = "fkx10658svai9rgm46mk9de"
             val intent = Intent.parseUri(
                 "intent://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=https%3A%2F%2Fqr.alipay.com%2F{urlCode}%3F_s%3Dweb-other&_t=1472443966571#Intent;scheme=alipayqr;package=com.eg.android.AlipayGphone;end".replace(
@@ -74,7 +71,6 @@ object SupportMeDialog {
     }
 
     private fun gotoWeChat(context: Context) {
-        appContext?.makeToast("感谢资瓷~")
         AlertDialog.Builder(context)
             .setView(R.layout.wechat_pay_image)
             .setTitle("使用微信扫一扫")
