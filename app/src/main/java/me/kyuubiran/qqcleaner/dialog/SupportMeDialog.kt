@@ -18,14 +18,43 @@ object SupportMeDialog {
         arr.add("微信")
         AlertDialog.Builder(context)
             .setTitle("请选择扶贫方式")
-            .setItems(arrayOf("支付宝", "微信")) { _, index ->
+            .setItems(arrayOf("QQ", "支付宝", "微信")) { _, index ->
                 when (index) {
-                    0 -> gotoAliPay(context)
-                    1 -> gotoWeChat(context)
+                    0 -> gotoQQPay(context)
+                    1 -> gotoAliPay(context)
+                    2 -> gotoWeChat(context)
                 }
             }
             .create()
             .show()
+    }
+
+    private fun gotoQQPay(context: Context) {
+        try {
+            val qq = "623055567"
+            val nickname = "芜狐"
+            val intent = Intent()
+            intent.run {
+                setClassName(context.packageName, "com.tencent.mobileqq.activity.qwallet.TransactionActivity")
+                putExtra("come_from", 5)
+                putExtra("fling_action_key", 2)
+                putExtra("fromJump", true)
+                putExtra("preAct", "TenpayJumpActivity")
+                putExtra("leftViewText", "返回")
+                putExtra("fling_code_key", 96049325)
+                putExtra("preAct_time", System.currentTimeMillis())
+                putExtra(
+                    "extra_data",
+                    "{\"targetUin\":\"$qq\",\"targetNickname\":\"$nickname\",\"trans_fee\":\"\",\"sign\":\"\",\"source\":\"1\",\"desc\":\"\"}"
+                )
+                putExtra("app_info", "appid#20000001|bargainor_id#1000026901|channel#wallet")
+                putExtra("callbackSn", "0")
+            }
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            loge(e)
+        }
+
     }
 
     private fun gotoAliPay(context: Context) {
