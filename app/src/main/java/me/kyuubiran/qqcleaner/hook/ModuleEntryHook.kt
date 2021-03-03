@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.hook
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -10,6 +11,7 @@ import me.kyuubiran.qqcleaner.HookLoader
 import me.kyuubiran.qqcleaner.activity.SettingsActivity
 import me.kyuubiran.qqcleaner.secondInit
 import me.kyuubiran.qqcleaner.utils.*
+import me.kyuubiran.qqcleaner.view.forEach
 
 //模块入口Hook
 class ModuleEntryHook {
@@ -24,7 +26,11 @@ class ModuleEntryHook {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     try {
                         val FormSimpleItem = loadClass("com.tencent.mobileqq.widget.FormSimpleItem")
-                        val item = getObjectOrNull<View>(param.thisObject, "a", FormSimpleItem)
+                        var item = getObjectOrNull<View>(param.thisObject, "a", FormSimpleItem)
+                        if (item == null) {
+                            val ctx = param.thisObject as Activity
+                            item = findViewByType(ctx.window.decorView as ViewGroup, FormSimpleItem)
+                        }
                         val context = item?.context
                         val entry = newInstance(
                             FormSimpleItem,
@@ -49,5 +55,19 @@ class ModuleEntryHook {
                 }
             })
         }
+    }
+
+    private fun findViewByType(view: ViewGroup, clazz: Class<*>) : View? {
+        view.forEach {
+            if (it.javaClass == clazz)
+                return it
+            val ret = if (it is ViewGroup) {
+                findViewByType(it, clazz)
+            } else null
+            ret?.let {
+                return ret
+            }
+        }
+        return null
     }
 }
