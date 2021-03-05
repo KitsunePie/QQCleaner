@@ -9,6 +9,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import me.kyuubiran.qqcleaner.HookLoader
 import me.kyuubiran.qqcleaner.activity.SettingsActivity
+import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.secondInit
 import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.view.forEach
@@ -37,7 +38,7 @@ class ModuleEntryHook {
                             param.thisObject,
                             Context::class.java
                         ) as View
-                        invokeMethod(entry, "setLeftText", "QQ瘦身", CharSequence::class.java)
+                        invokeMethod(entry, "setLeftText", "${hostInfo.hostName}瘦身", CharSequence::class.java)
                         invokeMethod(entry, "setRightText", "芜狐~", CharSequence::class.java)
                         val vg = item?.parent as ViewGroup
                         vg.addView(entry, 2)

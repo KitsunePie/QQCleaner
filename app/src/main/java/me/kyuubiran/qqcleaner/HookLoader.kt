@@ -1,9 +1,13 @@
 package me.kyuubiran.qqcleaner
 
+import android.app.Application
 import android.content.Context
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import me.kyuubiran.qqcleaner.data.HostInformationProvider
+import me.kyuubiran.qqcleaner.data.hostInfo
+import me.kyuubiran.qqcleaner.data.init
 import me.kyuubiran.qqcleaner.hook.ModuleEntryHook
 import me.kyuubiran.qqcleaner.utils.*
 import java.lang.reflect.Method
@@ -22,7 +26,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
         Utils(classLoader)
         ModuleEntryHook()
         ResInject.initForStubActivity()
-        ResInject.injectModuleResources(appContext?.resources)
+        ResInject.injectModuleResources(hostInfo.application.resources)
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean()
     }
@@ -35,15 +39,16 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                     try {
                         if (secondInit) return
                         val clazz = rtLoader.loadClass("com.tencent.common.app.BaseApplicationImpl")
-                        val ctx: Context =
+                        val ctx =
                             clazz!!.let {
                                 getField(
                                     it,
                                     "sApplication",
                                     clazz
                                 )?.get(null)
-                            } as Context
-                        appContext = ctx
+                            } as Application
+                        init(ctx)
+                        appContext = hostInfo.application
                         if ("true" == System.getProperty(QQ_CLEANER_TAG)) return
                         val classLoader = ctx.classLoader
                         System.setProperty(QQ_CLEANER_TAG, "true")

@@ -3,9 +3,11 @@ package me.kyuubiran.qqcleaner.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.TextView
 import androidx.preference.*
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
@@ -34,6 +36,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             .replace(R.id.settings, SettingsFragment())
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        findViewById<TextView>(R.id.title).text = "${hostInfo.hostName}瘦身"
         checkCfg()
     }
 
@@ -77,6 +80,7 @@ class SettingsActivity : AppCompatTransferActivity() {
 
         //初始化函数
         private fun init() {
+            changeText()
             initSummary()
             toggleCleanedTimeShow()
             setClickable()
@@ -194,6 +198,10 @@ class SettingsActivity : AppCompatTransferActivity() {
 
         private fun setVersionName() {
             moduleInfo.summary = BuildConfig.VERSION_NAME
+        }
+
+        private fun changeText() {
+            halfClean.summary = "清理${hostInfo.hostName}的部分缓存"
         }
     }
 }

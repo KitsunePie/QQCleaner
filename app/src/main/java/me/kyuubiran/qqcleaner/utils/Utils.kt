@@ -20,9 +20,6 @@ var appContext: Context? = null
 
 var sModulePath: String = ""
 
-//宿主App
-lateinit var hostApp: Host
-
 class Utils(classLoader: ClassLoader) {
     //初始化
     init {
