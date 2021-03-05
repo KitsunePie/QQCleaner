@@ -39,15 +39,9 @@ object CleanManager {
         val arr = ArrayList<File>()
         for (s in customerList) {
             when (hostApp) {
-                HostApp.QQ -> {
-                    arr.addAll(CleanQQ.getFiles(s.toString()))
-                }
-                HostApp.TIM -> {
-                    arr.addAll(CleanTIM.getFiles(s.toString()))
-                }
-                HostApp.WE_CHAT -> {
-                    arr.addAll(CleanWeChat.getFiles(s.toString()))
-                }
+                HostApp.QQ -> arr.addAll(CleanQQ.getFiles(s.toString()))
+                HostApp.TIM -> arr.addAll(CleanTIM.getFiles(s.toString()))
+                HostApp.WE_CHAT -> arr.addAll(CleanWeChat.getFiles(s.toString()))
             }
         }
         return arr
@@ -96,7 +90,7 @@ object CleanManager {
             if (showToast) appContext?.makeToast("好耶 开始清理了!")
             try {
                 for (f in files) {
-//                    appContext?.makeToast("开始清理${f.path}")
+//                    logi("开始清理${f.path}")
                     delFiles(f)
                 }
                 appContext?.makeToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
