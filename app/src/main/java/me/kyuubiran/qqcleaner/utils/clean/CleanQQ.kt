@@ -207,7 +207,7 @@ object CleanQQ {
     }
 
     /**
-     * @return 获取普通(一键)瘦身的列表
+     * @return 获取QQ普通(一键)瘦身的列表
      */
     fun getHalfList() = ArrayList<File>().apply {
         addAll(getFiles(CACHES))
@@ -222,7 +222,7 @@ object CleanQQ {
     }
 
     /**
-     * @return 获取全部(彻底)瘦身的列表
+     * @return 获取QQ全部(彻底)瘦身的列表
      */
     fun getFullList() = ArrayList<File>().apply {
         addAll(getHalfList())

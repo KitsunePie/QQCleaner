@@ -30,7 +30,7 @@ object CleanTIM {
     }
 
     /**
-     * @return 获取普通(一键)瘦身的列表
+     * @return 获取TIM普通(一键)瘦身的列表
      */
     fun getHalfList() = ArrayList<File>().apply {
         addAll(getFiles(CACHES))
@@ -38,6 +38,9 @@ object CleanTIM {
         addAll(getFiles(SHORT_VIDEO))
     }
 
+    /**
+     * @return 获取TIM全部(彻底)瘦身的列表
+     */
     fun getFullList() = ArrayList<File>().apply {
         addAll(getFiles(CACHES))
         addAll(getFiles(PICTURE))
