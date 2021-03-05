@@ -58,10 +58,3 @@ private fun getHostInfo(context: Context): PackageInfo {
         throw AssertionError("Can not get PackageInfo!")
     }
 }
-fun getHostAppName(): String {
-    return when (hostApp) {
-        HostApp.QQ -> "QQ"
-        HostApp.TIM -> "TIM"
-        HostApp.WE_CHAT -> "微信"
-    }
-}
