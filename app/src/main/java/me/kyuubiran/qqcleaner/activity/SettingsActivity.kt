@@ -95,9 +95,13 @@ class SettingsActivity : AppCompatTransferActivity() {
                     customerCleanList.setEntryValues(R.array.qq_customer_clean_list_value)
                 }
                 HostApp.TIM -> {
-                } //TODO
+                    customerCleanList.setEntries(R.array.tim_customer_clean_list)
+                    customerCleanList.setEntryValues(R.array.tim_customer_clean_list_values)
+                }
                 HostApp.WE_CHAT -> {
-                } //TODO
+                    customerCleanList.setEntries(R.array.we_chat_customer_clean_list)
+                    customerCleanList.setEntryValues(R.array.we_chat_customer_clean_list_values)
+                }
             }
         }
 
