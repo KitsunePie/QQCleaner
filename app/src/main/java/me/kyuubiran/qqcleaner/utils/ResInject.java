@@ -40,6 +40,7 @@ import static me.kyuubiran.qqcleaner.utils.UtilsKt.getAppContext;
 import static me.kyuubiran.qqcleaner.utils.UtilsKt.getObjectOrNull;
 
 //From QNotified
+@SuppressWarnings("JavaReflectionMemberAccess")
 public class ResInject {
     private static String sModulePath = null;
 
@@ -112,7 +113,7 @@ public class ResInject {
         if (stubHooked) return;
         try {
             Class<?> clazz_ActivityThread = Class.forName("android.app.ActivityThread");
-            Method currentActivityThread = clazz_ActivityThread.getDeclaredMethod("currentActivityThread");
+            @SuppressLint("DiscouragedPrivateApi") Method currentActivityThread = clazz_ActivityThread.getDeclaredMethod("currentActivityThread");
             currentActivityThread.setAccessible(true);
             Object sCurrentActivityThread = currentActivityThread.invoke(null);
             Field mInstrumentation = clazz_ActivityThread.getDeclaredField("mInstrumentation");
@@ -584,10 +585,10 @@ public class ResInject {
                     if (clientTransaction != null) {
                         @SuppressLint({"PrivateApi", "DiscouragedPrivateApi"}) Method getCallbacks = Class.forName("android.app.servertransaction.ClientTransaction").getDeclaredMethod("getCallbacks");
                         getCallbacks.setAccessible(true);
-                        List clientTransactionItems = (List) getCallbacks.invoke(clientTransaction);
+                        List<?> clientTransactionItems = (List<?>) getCallbacks.invoke(clientTransaction);
                         if (clientTransactionItems != null && clientTransactionItems.size() > 0) {
                             for (Object item : clientTransactionItems) {
-                                Class c = item.getClass();
+                                Class<?> c = item.getClass();
                                 if (c.getName().contains("LaunchActivityItem")) {
                                     Field fmIntent = c.getDeclaredField("mIntent");
                                     fmIntent.setAccessible(true);

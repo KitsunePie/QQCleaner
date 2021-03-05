@@ -89,11 +89,11 @@ class SettingsActivity : AppCompatTransferActivity() {
             when (hostApp) {
                 HostApp.QQ -> {
                     customerCleanList.setEntries(R.array.qq_customer_clean_list)
-                    customerCleanList.setEntryValues(R.array.qq_customer_clean_list_value)
+                    customerCleanList.setEntryValues(R.array.qq_customer_clean_list_values)
                 }
                 HostApp.TIM -> {
-                    customerCleanList.setEntries(R.array.tim_customer_clean_list)
-                    customerCleanList.setEntryValues(R.array.tim_customer_clean_list_values)
+                    customerCleanList.setEntries(R.array.qq_customer_clean_list)
+                    customerCleanList.setEntryValues(R.array.qq_customer_clean_list_values)
                 }
                 HostApp.WE_CHAT -> {
                     customerCleanList.setEntries(R.array.we_chat_customer_clean_list)

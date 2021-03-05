@@ -36,7 +36,7 @@
         <item>其他</item>
     </string-array>
     <!--QQ 清理列表的键值 请务必务必与CleanQQ下定义的常量的值相同-->
-    <string-array name="qq_customer_clean_list_value">
+    <string-array name="qq_customer_clean_list_values">
         <item>caches</item>
         <item>picture</item>
         <item>short_video</item>

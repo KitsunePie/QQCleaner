@@ -40,7 +40,7 @@ object CleanManager {
         for (s in customerList) {
             when (hostApp) {
                 HostApp.QQ -> arr.addAll(CleanQQ.getFiles(s.toString()))
-                HostApp.TIM -> arr.addAll(CleanTIM.getFiles(s.toString()))
+                HostApp.TIM -> arr.addAll(CleanQQ.getFiles(s.toString()))
                 HostApp.WE_CHAT -> arr.addAll(CleanWeChat.getFiles(s.toString()))
             }
         }
@@ -54,7 +54,7 @@ object CleanManager {
     fun halfClean(showToast: Boolean = true) {
         when (hostApp) {
             HostApp.QQ -> doClean(CleanQQ.getHalfList(), showToast)
-            HostApp.TIM -> doClean(CleanTIM.getHalfList(), showToast)
+            HostApp.TIM -> doClean(CleanQQ.getHalfList(), showToast)
             HostApp.WE_CHAT -> doClean(CleanWeChat.getHalfList(), showToast)
         }
     }
@@ -66,7 +66,7 @@ object CleanManager {
     fun fullClean(showToast: Boolean = true) {
         when (hostApp) {
             HostApp.QQ -> doClean(CleanQQ.getFullList(), showToast)
-            HostApp.TIM -> doClean(CleanTIM.getFullList(), showToast)
+            HostApp.TIM -> doClean(CleanQQ.getFullList(), showToast)
             HostApp.WE_CHAT -> doClean(CleanWeChat.getFullList(), showToast)
         }
     }
@@ -123,7 +123,6 @@ object CleanManager {
         }
     }
 
-    //自动瘦身的类
     class AutoClean {
         private var time = 0L
         private val delay = ConfigManager.getInt(CFG_CLEAN_DELAY, 24) * 3600L * 1000L
