@@ -6,7 +6,7 @@ import me.kyuubiran.qqcleaner.utils.appContext
 import java.io.File
 
 object CleanQQ {
-    //瘦身目录 键值请于arrays.xml里的qq_customer_clean_list相同
+    //瘦身目录 键值请于arrays.xml里的qq_customer_clean_list_values相同
     private const val CACHES = "caches"
     private const val PICTURE = "picture"
     private const val SHORT_VIDEO = "short_video"
@@ -56,7 +56,7 @@ object CleanQQ {
      * @param item Tag
      * @return ArrayList<File>
      */
-    private fun getFiles(item: String): ArrayList<File> {
+    fun getFiles(item: String): ArrayList<File> {
         val arr = ArrayList<File>()
         when (item) {
             //缓存
@@ -239,18 +239,5 @@ object CleanQQ {
         addAll(getFiles(RECEIVE_FILE_CACHE))
         addAll(getFiles(TBS))
         addAll(getFiles(OTHERS))
-    }
-
-    /**
-     * @return 获取用户自定义的瘦身列表
-     */
-    fun getCustomerList(): ArrayList<File> {
-        val customerList =
-            ConfigManager.getConfig(ConfigManager.CFG_CUSTOMER_CLEAN_LIST) as JSONArray
-        val arr = ArrayList<File>()
-        for (s in customerList) {
-            arr.addAll(getFiles(s.toString()))
-        }
-        return arr
     }
 }

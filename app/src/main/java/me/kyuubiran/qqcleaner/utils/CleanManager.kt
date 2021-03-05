@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.utils
 
 
+import com.alibaba.fastjson.JSONArray
 import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
@@ -10,6 +11,8 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.clean.CleanQQ
+import me.kyuubiran.qqcleaner.utils.clean.CleanTIM
+import me.kyuubiran.qqcleaner.utils.clean.CleanWeChat
 import java.io.File
 import kotlin.concurrent.thread
 
@@ -29,16 +32,36 @@ object CleanManager {
     }
 
     /**
+     * @return 获取用户自定义的瘦身列表
+     */
+    private fun getCustomerList(): ArrayList<File> {
+        val customerList = getConfig(ConfigManager.CFG_CUSTOMER_CLEAN_LIST) as JSONArray
+        val arr = ArrayList<File>()
+        for (s in customerList) {
+            when (hostApp) {
+                HostApp.QQ -> {
+                    arr.addAll(CleanQQ.getFiles(s.toString()))
+                }
+                HostApp.TIM -> {
+                    arr.addAll(CleanTIM.getFiles(s.toString()))
+                }
+                HostApp.WE_CHAT -> {
+                    arr.addAll(CleanWeChat.getFiles(s.toString()))
+                }
+            }
+        }
+        return arr
+    }
+
+    /**
      * @param showToast 是否显示Toast
      * 一键瘦身
      */
     fun halfClean(showToast: Boolean = true) {
         when (hostApp) {
             HostApp.QQ -> doClean(CleanQQ.getHalfList(), showToast)
-            HostApp.TIM -> {
-            } //TODO
-            HostApp.WE_CHAT -> {
-            } //TODO
+            HostApp.TIM -> doClean(CleanTIM.getHalfList(), showToast)
+            HostApp.WE_CHAT -> doClean(CleanWeChat.getHalfList(), showToast)
         }
     }
 
@@ -49,10 +72,8 @@ object CleanManager {
     fun fullClean(showToast: Boolean = true) {
         when (hostApp) {
             HostApp.QQ -> doClean(CleanQQ.getFullList(), showToast)
-            HostApp.TIM -> {
-            } //TODO
-            HostApp.WE_CHAT -> {
-            } //TODO
+            HostApp.TIM -> doClean(CleanTIM.getFullList(), showToast)
+            HostApp.WE_CHAT -> doClean(CleanWeChat.getFullList(), showToast)
         }
     }
 
@@ -61,13 +82,7 @@ object CleanManager {
      * 自定义瘦身
      */
     fun customerClean(showToast: Boolean = true) {
-        when (hostApp) {
-            HostApp.QQ -> doClean(CleanQQ.getCustomerList(), showToast)
-            HostApp.TIM -> {
-            } //TODO
-            HostApp.WE_CHAT -> {
-            } //TODO
-        }
+        doClean(getCustomerList(), showToast)
     }
 
     /**
