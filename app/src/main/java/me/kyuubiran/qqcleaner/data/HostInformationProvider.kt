@@ -23,6 +23,7 @@ lateinit var hostApp: HostApp
     private set
 
 lateinit var hostInfo: HostInformationProvider
+    private set
 
 fun init(applicationContext: Application) {
     if (::hostInfo.isInitialized) throw IllegalStateException("Host Information Provider has been already initialized")
