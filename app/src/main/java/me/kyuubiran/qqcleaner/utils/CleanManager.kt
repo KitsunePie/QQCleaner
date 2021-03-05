@@ -321,7 +321,7 @@ object CleanManager {
         init {
             time = getLong(CFG_CURRENT_CLEANED_TIME)
             //判断间隔
-            if (getConfig(CFG_AUTO_CLEAN_ENABLED) as Boolean && System.currentTimeMillis() - time > if (delay < 3600_000L) 24 * 3600L * 1000L else delay) {
+            if ((getConfig(CFG_AUTO_CLEAN_ENABLED) ?: false) as Boolean && System.currentTimeMillis() - time > if (delay < 3600_000L) 24 * 3600L * 1000L else delay) {
                 mode = getConfig(CFG_CUSTOMER_CLEAN_MODE).toString()
                 autoClean()
                 time = System.currentTimeMillis()
