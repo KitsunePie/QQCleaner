@@ -62,5 +62,6 @@
 
     <string-array name="xposedscope">
         <item>com.tencent.mobileqq</item>
+        <item>com.tencent.tim</item>
     </string-array>
 </resources>
