@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,9 +8,12 @@ import android.widget.TextView
 import androidx.preference.*
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.data.getHostAppName
+import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
+import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
@@ -20,13 +24,10 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
-import me.kyuubiran.qqcleaner.utils.appContext
-import me.kyuubiran.qqcleaner.utils.formatSize
-import me.kyuubiran.qqcleaner.utils.loge
-import me.kyuubiran.qqcleaner.utils.makeToast
 import java.text.SimpleDateFormat
 
 class SettingsActivity : AppCompatTransferActivity() {
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_Ftb)
         super.onCreate(savedInstanceState)
@@ -36,7 +37,6 @@ class SettingsActivity : AppCompatTransferActivity() {
             .replace(R.id.settings, SettingsFragment())
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        findViewById<TextView>(R.id.title).text = "${hostInfo.hostName}瘦身"
         checkCfg()
     }
 
@@ -80,12 +80,25 @@ class SettingsActivity : AppCompatTransferActivity() {
 
         //初始化函数
         private fun init() {
-            changeText()
             initSummary()
             toggleCleanedTimeShow()
             setClickable()
             setVersionName()
+            setCustomerCleanList()
             setConfig(CFG_CUSTOMER_CLEAN_LIST, customerCleanList.values)
+        }
+
+        private fun setCustomerCleanList() {
+            when (hostApp) {
+                HostApp.QQ -> {
+                    customerCleanList.setEntries(R.array.qq_customer_clean_list)
+                    customerCleanList.setEntryValues(R.array.qq_customer_clean_list_value)
+                }
+                HostApp.TIM -> {
+                } //TODO
+                HostApp.WE_CHAT -> {
+                } //TODO
+            }
         }
 
         //设置Item点击事件
@@ -183,7 +196,6 @@ class SettingsActivity : AppCompatTransferActivity() {
                 }
         }
 
-        //刷新总清理空间的函数
         private fun initSummary() {
             if (getConfig(CFG_TOTAL_CLEANED_SIZE) != 0) {
                 cleanedHistory.summary =
@@ -198,10 +210,6 @@ class SettingsActivity : AppCompatTransferActivity() {
 
         private fun setVersionName() {
             moduleInfo.summary = BuildConfig.VERSION_NAME
-        }
-
-        private fun changeText() {
-            halfClean.summary = "清理${hostInfo.hostName}的部分缓存"
         }
     }
 }

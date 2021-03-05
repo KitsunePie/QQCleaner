@@ -11,8 +11,8 @@
         <item>full_mode</item>
         <item>customer_mode</item>
     </string-array>
-    <!--清理列表 请与下方的key的index一一对应-->
-    <string-array name="customer_clean_list">
+    <!--QQ 清理列表 请与下方的key的index一一对应-->
+    <string-array name="qq_customer_clean_list">
         <item>各类缓存</item>
         <item>图片</item>
         <item>短视频</item>
@@ -35,8 +35,8 @@
         <item>接受文件缓存</item>
         <item>其他</item>
     </string-array>
-    <!--清理列表的键值 请务必务必与CleanManager下定义的常量的值相同-->
-    <string-array name="customer_clean_list_value">
+    <!--QQ 清理列表的键值 请务必务必与CleanQQ下定义的常量的值相同-->
+    <string-array name="qq_customer_clean_list_value">
         <item>caches</item>
         <item>picture</item>
         <item>short_video</item>
@@ -58,6 +58,34 @@
         <item>video_background</item>
         <item>receive_file_cache</item>
         <item>others</item>
+    </string-array>
+
+    <!--TIM 清理列表 请与下方的key的index一一对应-->
+    <string-array name="tim_customer_clean_list">
+        <item>各类缓存</item>
+        <item>图片</item>
+        <item>短视频</item>
+    </string-array>
+
+    <!--TIM 清理列表的键值 请务必务必与CleanTim下定义的常量的值相同-->
+    <string-array name="tim_customer_clean_list_values">
+        <item>caches</item>
+        <item>picture</item>
+        <item>short_video</item>
+    </string-array>
+
+    <!--微信 清理列表 请与下方的key的index一一对应-->
+    <string-array name="we_chat_customer_clean_list">
+        <item>各类缓存</item>
+        <item>图片</item>
+        <item>短视频</item>
+    </string-array>
+
+    <!--微信 清理列表的键值 请务必务必与CleanTim下定义的常量的值相同-->
+    <string-array name="we_chat_customer_clean_list_values">
+        <item>caches</item>
+        <item>picture</item>
+        <item>short_video</item>
     </string-array>
 
     <string-array name="xposedscope">

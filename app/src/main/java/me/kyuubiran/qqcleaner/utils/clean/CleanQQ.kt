@@ -1,0 +1,256 @@
+package me.kyuubiran.qqcleaner.utils.clean
+
+import com.alibaba.fastjson.JSONArray
+import me.kyuubiran.qqcleaner.utils.ConfigManager
+import me.kyuubiran.qqcleaner.utils.appContext
+import java.io.File
+
+object CleanQQ {
+    //瘦身目录 键值请于arrays.xml里的qq_customer_clean_list相同
+    private const val CACHES = "caches"
+    private const val PICTURE = "picture"
+    private const val SHORT_VIDEO = "short_video"
+    private const val ADS = "ads"
+    private const val ARK_APP = "ark_app"
+    private const val WEB = "web"
+    private const val DIY_CARD = "diy_card"
+    private const val FONT = "font"
+    private const val GIFT = "gift"
+    private const val ENTRY_EFFECT = "entry_effect"
+    private const val USER_ICON = "user_icon"
+    private const val ICON_PENDANT = "icon_pendant"
+    private const val USER_BACKGROUND = "user_background"
+    private const val STICKER_RECOMMEND = "sticker_recommend"
+    private const val STICKER_EMOTION = "sticker_emotion"
+    private const val POKE = "poke"
+    private const val VIP_ICON = "vip_icon"
+    private const val DOU_TU = "dou_tu"
+    private const val VIDEO_BACKGROUND = "video_background"
+    private const val RECEIVE_FILE_CACHE = "receive_file_cache"
+    private const val TBS = "tbs"
+    private const val OTHERS = "others"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq
+    private var rootDataDir: String? = appContext?.externalCacheDir?.parentFile?.path
+
+    //    storage/emulated/0/
+    private var rootDir: String? = appContext?.obbDir?.parentFile?.parentFile?.parentFile?.path
+
+    //    storage/emulated/0/tencent
+    private var rootTencentDir = "$rootDir/tencent"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent
+    private var TencentDir = "$rootDataDir/Tencent"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ
+    private var MobileQQDir = "$TencentDir/MobileQQ"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq/QQ_Images
+    private var QQ_Images = "$rootDataDir/QQ_Images"
+
+    //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv
+    private var QQfile_recv = "$TencentDir/QQfile_recv"
+
+    /**
+     * 根据tag获取文件列表
+     * @param item Tag
+     * @return ArrayList<File>
+     */
+    private fun getFiles(item: String): ArrayList<File> {
+        val arr = ArrayList<File>()
+        when (item) {
+            //缓存
+            CACHES -> {
+                arr.apply {
+                    add(File("$rootDataDir/cache"))
+                    add(File("$MobileQQDir/diskcache"))
+                    add(File("$MobileQQDir/Scribble/ScribbleCache"))
+                }
+            }
+            //图片缓存
+            PICTURE -> {
+                arr.apply {
+                    add(File("$MobileQQDir/photo"))
+                    add(File("$MobileQQDir/chatpic"))
+                    add(File("$MobileQQDir/thumb"))
+                    add(File("$QQ_Images/QQEditPic"))
+                    add(File("$MobileQQDir/hotpic"))
+                }
+            }
+            //短视频
+            SHORT_VIDEO -> {
+                arr.apply {
+                    add(File("$MobileQQDir/shortvideo"))
+                }
+            }
+            //广告
+            ADS -> {
+                arr.apply {
+                    add(File("$MobileQQDir/pddata"))
+                    add(File("$MobileQQDir/qbosssplahAD"))
+                }
+            }
+            //小程序
+            ARK_APP -> {
+                arr.apply {
+                    add(File("$TencentDir/mini"))
+                }
+            }
+            //网页
+            WEB -> {
+                arr.apply {
+                    add(File("$rootTencentDir/msflogs/com/tencent/mobileqq"))
+                }
+            }
+            //diy名片
+            DIY_CARD -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.apollo"))
+                    add(File("$MobileQQDir/vas/lottie"))
+                }
+            }
+            //字体
+            FONT -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.hiboom_font"))
+                    add(File("$MobileQQDir/.font_info"))
+                }
+            }
+            //礼物
+            GIFT -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.gift"))
+                }
+            }
+            //进场特效
+            ENTRY_EFFECT -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.troop/enter_effects"))
+                }
+            }
+            //头像
+            USER_ICON -> {
+                arr.apply {
+                    add(File("$MobileQQDir/head"))
+                }
+            }
+            //挂件
+            ICON_PENDANT -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.pendant"))
+                }
+            }
+            //背景
+            USER_BACKGROUND -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.profilecard"))
+                }
+            }
+            //表情推荐
+            STICKER_RECOMMEND -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.sticker_recommended_pics"))
+                    add(File("$MobileQQDir/pe"))
+                }
+            }
+            //聊天表情缓存
+            STICKER_EMOTION -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.emotionsm"))
+                }
+            }
+            //戳一戳
+            POKE -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.vaspoke"))
+                    add(File("$MobileQQDir/newpoke"))
+                    add(File("$MobileQQDir/poke"))
+                }
+            }
+            //vip图标
+            VIP_ICON -> {
+                arr.apply {
+                    add(File("$MobileQQDir/.vipicon"))
+                }
+            }
+            //斗图
+            DOU_TU -> {
+                arr.apply {
+                    add(File("$MobileQQDir/DoutuRes"))
+                }
+            }
+            //视频通话背景
+            VIDEO_BACKGROUND -> {
+                arr.apply {
+                    add(File("$MobileQQDir/funcall"))
+                }
+            }
+            //接收的文件缓存
+            RECEIVE_FILE_CACHE -> {
+                arr.apply {
+                    add(File("$QQfile_recv/trooptmp"))
+                    add(File("$QQfile_recv/tmp"))
+                    add(File("$QQfile_recv/thumbnails"))
+                }
+            }
+            //其他
+            OTHERS -> {
+                arr.apply {
+                    add(File("$MobileQQDir/qav"))
+                    add(File("$MobileQQDir/qqmusic"))
+                    add(File("$MobileQQDir/pddata"))
+                    add(File("$TencentDir/TMAssistantSDK"))
+                }
+            }
+        }
+        return arr
+    }
+
+    /**
+     * @return 获取普通(一键)瘦身的列表
+     */
+    fun getHalfList() = ArrayList<File>().apply {
+        addAll(getFiles(CACHES))
+        addAll(getFiles(PICTURE))
+        addAll(getFiles(SHORT_VIDEO))
+        addAll(getFiles(ADS))
+        addAll(getFiles(ARK_APP))
+        addAll(getFiles(WEB))
+        addAll(getFiles(DIY_CARD))
+        addAll(getFiles(USER_BACKGROUND))
+        addAll(getFiles(VIDEO_BACKGROUND))
+    }
+
+    /**
+     * @return 获取全部(彻底)瘦身的列表
+     */
+    fun getFullList() = ArrayList<File>().apply {
+        addAll(getHalfList())
+        addAll(getFiles(FONT))
+        addAll(getFiles(GIFT))
+        addAll(getFiles(ENTRY_EFFECT))
+        addAll(getFiles(USER_ICON))
+        addAll(getFiles(ICON_PENDANT))
+        addAll(getFiles(STICKER_RECOMMEND))
+        addAll(getFiles(STICKER_EMOTION))
+        addAll(getFiles(POKE))
+        addAll(getFiles(VIP_ICON))
+        addAll(getFiles(DOU_TU))
+        addAll(getFiles(RECEIVE_FILE_CACHE))
+        addAll(getFiles(TBS))
+        addAll(getFiles(OTHERS))
+    }
+
+    /**
+     * @return 获取用户自定义的瘦身列表
+     */
+    fun getCustomerList(): ArrayList<File> {
+        val customerList =
+            ConfigManager.getConfig(ConfigManager.CFG_CUSTOMER_CLEAN_LIST) as JSONArray
+        val arr = ArrayList<File>()
+        for (s in customerList) {
+            arr.addAll(getFiles(s.toString()))
+        }
+        return arr
+    }
+}

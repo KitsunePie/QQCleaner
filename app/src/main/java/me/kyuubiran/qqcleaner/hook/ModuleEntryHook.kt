@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
-import me.kyuubiran.qqcleaner.HookLoader
 import me.kyuubiran.qqcleaner.activity.SettingsActivity
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.secondInit
@@ -47,7 +46,7 @@ class ModuleEntryHook {
                                 val intent = Intent(appContext, SettingsActivity::class.java)
                                 context?.startActivity(intent)
                             } else {
-                                appContext?.makeToast("还没有加载好哦~等下再点我吧> <")
+                                appContext?.makeToast("坏耶 资源加载失败惹 重启QQ试试吧> <")
                             }
                         }
                     } catch (e: Exception) {
