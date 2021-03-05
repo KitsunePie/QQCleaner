@@ -5,7 +5,6 @@ import android.text.InputFilter
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.preference.SwitchPreference
 import androidx.preference.SwitchPreferenceCompat
 import me.kyuubiran.qqcleaner.utils.CleanManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager

@@ -12,21 +12,32 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.os.*;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
+import android.os.PersistableBundle;
+import android.os.TestLooperManager;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.List;
+
 import dalvik.system.BaseDexClassLoader;
 import me.kyuubiran.qqcleaner.HookEntry;
 import me.kyuubiran.qqcleaner.R;
 
-import java.io.File;
-import java.lang.reflect.*;
-import java.util.List;
-
 import static me.kyuubiran.qqcleaner.utils.LogUtilsKt.loge;
 import static me.kyuubiran.qqcleaner.utils.LogUtilsKt.logi;
-import static me.kyuubiran.qqcleaner.utils.UtilsKt.getObjectOrNull;
 import static me.kyuubiran.qqcleaner.utils.UtilsKt.getAppContext;
+import static me.kyuubiran.qqcleaner.utils.UtilsKt.getObjectOrNull;
 
 //From QNotified
 public class ResInject {
@@ -610,6 +621,7 @@ public class ResInject {
             return false;
         }
     }
+
     public static class IActivityManagerHandler implements InvocationHandler {
         private final Object mOrigin;
 

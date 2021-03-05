@@ -1,11 +1,9 @@
 package me.kyuubiran.qqcleaner
 
 import android.app.Application
-import android.content.Context
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import me.kyuubiran.qqcleaner.data.HostInformationProvider
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.data.init
 import me.kyuubiran.qqcleaner.hook.ModuleEntryHook

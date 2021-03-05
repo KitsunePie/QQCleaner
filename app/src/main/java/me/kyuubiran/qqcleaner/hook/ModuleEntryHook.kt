@@ -37,7 +37,12 @@ class ModuleEntryHook {
                             param.thisObject,
                             Context::class.java
                         ) as View
-                        invokeMethod(entry, "setLeftText", "${hostInfo.hostName}瘦身", CharSequence::class.java)
+                        invokeMethod(
+                            entry,
+                            "setLeftText",
+                            "${hostInfo.hostName}瘦身",
+                            CharSequence::class.java
+                        )
                         invokeMethod(entry, "setRightText", "芜狐~", CharSequence::class.java)
                         val vg = item?.parent as ViewGroup
                         vg.addView(entry, 2)
@@ -57,7 +62,7 @@ class ModuleEntryHook {
         }
     }
 
-    private fun findViewByType(view: ViewGroup, clazz: Class<*>) : View? {
+    private fun findViewByType(view: ViewGroup, clazz: Class<*>): View? {
         view.forEach {
             if (it.javaClass == clazz)
                 return it

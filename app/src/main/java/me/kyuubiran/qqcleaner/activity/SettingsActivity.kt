@@ -4,13 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.TextView
 import androidx.preference.*
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.data.getHostAppName
 import me.kyuubiran.qqcleaner.data.hostApp
-import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
 import me.kyuubiran.qqcleaner.utils.*

@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.utils.loge
 import me.kyuubiran.qqcleaner.utils.appContext
+import me.kyuubiran.qqcleaner.utils.loge
 import me.kyuubiran.qqcleaner.utils.makeToast
-import java.lang.Exception
 
 //捐赠相关dialog
 object SupportMeDialog {
@@ -33,7 +32,10 @@ object SupportMeDialog {
             val nickname = "芜狐"
             val intent = Intent()
             intent.run {
-                setClassName(context.packageName, "com.tencent.mobileqq.activity.qwallet.TransactionActivity")
+                setClassName(
+                    context.packageName,
+                    "com.tencent.mobileqq.activity.qwallet.TransactionActivity"
+                )
                 putExtra("come_from", 5)
                 putExtra("fling_action_key", 2)
                 putExtra("fromJump", true)

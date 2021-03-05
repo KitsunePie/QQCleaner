@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner.utils
 
 import android.util.Log
-import java.lang.Exception
 
 private const val TAG = "QQCleaner"
 
