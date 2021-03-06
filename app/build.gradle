@@ -25,6 +25,10 @@ android {
     aaptOptions {
         additionalParameters '--allow-reserved-package-id', '--package-id', '0x63'
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
