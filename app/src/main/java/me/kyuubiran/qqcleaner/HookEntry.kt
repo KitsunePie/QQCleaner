@@ -10,6 +10,9 @@ class HookEntry : IXposedHookLoadPackage {
             "com.tencent.tim" -> {
                 HookLoader(lpparam)
             }
+            "com.tencent.mm" -> {
+                WeChatHookLoader(lpparam)
+            }
         }
     }
 }
