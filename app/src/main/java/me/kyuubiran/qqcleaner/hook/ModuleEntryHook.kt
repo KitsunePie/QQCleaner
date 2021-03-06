@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ListView
 import android.widget.TextView
+import androidx.core.view.forEach
 import androidx.core.view.get
 import androidx.core.widget.doAfterTextChanged
 import de.robv.android.xposed.XC_MethodHook
@@ -19,7 +20,6 @@ import me.kyuubiran.qqcleaner.secondInit
 import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.HookUtil.getMethod
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
-import me.kyuubiran.qqcleaner.view.forEach
 
 //模块入口Hook
 class ModuleEntryHook {
