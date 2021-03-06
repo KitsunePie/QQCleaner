@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner.utils
 
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.Field
@@ -28,13 +27,14 @@ object HookUtil {
         null
     }
 
-    internal inline fun Member.hookBefore(crossinline hooker: (XC_MethodHook.MethodHookParam) -> Unit) = hook(object : XC_MethodHook() {
-        override fun beforeHookedMethod(param: MethodHookParam?) = try {
-            hooker(param!!)
-        } catch (e: Throwable) {e
-            loge(e)
-        }
-    })
+    internal inline fun Member.hookBefore(crossinline hooker: (XC_MethodHook.MethodHookParam) -> Unit) = hook(
+        object : XC_MethodHook() {
+            override fun beforeHookedMethod(param: MethodHookParam?) = try {
+                hooker(param!!)
+            } catch (e: Throwable) {
+                loge(e)
+            }
+        })
 
     internal inline fun Member.hookAfter(crossinline hooker: (XC_MethodHook.MethodHookParam) -> Unit) = hook(object : XC_MethodHook() {
         override fun afterHookedMethod(param: MethodHookParam?) = try {

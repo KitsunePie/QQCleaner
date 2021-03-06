@@ -175,12 +175,11 @@ fun newInstance(clazz: Class<*>, vararg argsAndTypes: Any?): Any? {
     val argSize: Int = argsAndTypes.size / 2
     val argTypes: Array<Class<*>?> = arrayOfNulls(argSize)
     val argValues = arrayOfNulls<Any>(argSize)
-    val constructor: Constructor<*>
     for (i in 0 until argSize) {
         argTypes[i] = argsAndTypes[argSize + i] as Class<*>
         argValues[i] = argsAndTypes[i]
     }
-    constructor = clazz.getDeclaredConstructor(*argTypes)
+    val constructor: Constructor<*> = clazz.getDeclaredConstructor(*argTypes)
     constructor.isAccessible = true
     return try {
         constructor.newInstance(*argValues)
