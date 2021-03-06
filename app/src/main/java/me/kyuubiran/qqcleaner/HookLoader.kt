@@ -70,8 +70,8 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
             XposedBridge.hookMethod(m, startup)
             firstInit = true
         } catch (e: Throwable) {
-            if ((e.toString() + "").contains("com.bug.zqq")) return
-            if ((e.toString() + "").contains("com.google.android.webview")) return
+            if (e.toString().contains("com.bug.zqq")) return
+            if (e.toString().contains("com.google.android.webview")) return
             throw e
         }
     }
