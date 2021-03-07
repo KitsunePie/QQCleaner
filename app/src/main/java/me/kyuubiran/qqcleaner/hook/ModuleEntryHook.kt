@@ -49,6 +49,7 @@ class ModuleEntryHook {
                             if (v.toString() != "${hostInfo.hostName}瘦身")
                                 title.text = "${hostInfo.hostName}瘦身"
                         }
+                        title.text = "${hostInfo.hostName}瘦身"
                         entry.setOnClickListener {
                             if (secondInitWeChat) {
                                 val intent = Intent(appContext, SettingsActivity::class.java)
