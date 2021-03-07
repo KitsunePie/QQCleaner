@@ -13,7 +13,7 @@
                 android:value="true"/>
         <meta-data
                 android:name="xposeddescription"
-                android:value="设置->关于->QQ瘦身"/>
+                android:value="设置->关于->QQ/TIM/微信瘦身" />
         <meta-data
                 android:name="xposedminversion"
                 android:value="54"/>
