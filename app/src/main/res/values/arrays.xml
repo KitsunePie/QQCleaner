@@ -79,6 +79,7 @@
         <item>各类缓存</item>
         <item>图片</item>
         <item>短视频</item>
+        <item>日志</item>
     </string-array>
 
     <!--微信 清理列表的键值 请务必务必与CleanTim下定义的常量的值相同-->
@@ -86,6 +87,7 @@
         <item>caches</item>
         <item>picture</item>
         <item>short_video</item>
+        <item>log</item>
     </string-array>
 
     <string-array name="xposedscope">
