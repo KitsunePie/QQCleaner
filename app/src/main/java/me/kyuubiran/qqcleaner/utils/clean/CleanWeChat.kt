@@ -6,9 +6,12 @@ import java.io.File
 object CleanWeChat {
     //瘦身目录 键值请于arrays.xml里的we_chat_customer_clean_list_values相同
     private const val CACHES = "caches"
-    private const val PICTURE = "picture"
-    private const val SHORT_VIDEO = "short_video"
+    private const val CARD = "card"
+    private const val VIDEO = "video"
+    private const val GAME = "game"
     private const val LOG = "log"
+    private const val RES_UPDATE = "res_update"
+    private const val X5_CORE = "x5_core"
 
     //    storage/emulated/0/Android/data/com.tencent.mm
     private var rootDataDir: String? = appContext?.externalCacheDir?.parentFile?.path
@@ -22,6 +25,22 @@ object CleanWeChat {
     //    storage/emulated/0/Android/data/com.tencent.mm/files
     private var microMsgDir: String? = "${rootDataDir}/MicroMsgDir"
 
+    private var userDataDirName: String? = null
+        get() {
+            if (field == null) {
+                val dir = File(microMsgDir!!)
+                val child = dir.listFiles()
+                if (child != null) {
+                    for (file in child) {
+                        if (file.name.length == 32) {
+                            field = file.name
+                        }
+                    }
+                }
+            }
+            return field
+        }
+
 
     /**
      * 根据tag获取文件列表
@@ -32,22 +51,52 @@ object CleanWeChat {
         val arr = ArrayList<File>()
         when (item) {
             CACHES -> {
-                arr.add(File("${cacheDir}/Cache"))
-                arr.add(File("${cacheDir}/wxcache"))
+                arr.apply {
+                    add(File("$cacheDir"))
+                    add(File("${microMsgDir}/CDNTemp"))
+                    add(File("${microMsgDir}/FailMsgFileCache"))
+                    add(File("${microMsgDir}/${userDataDirName}/webcanvascache"))
+                }
             }
-            PICTURE -> {
+            CARD -> {
+                arr.apply {
+                    add(File("${microMsgDir}/card"))
+                }
 
             }
-            SHORT_VIDEO -> {
-
+            VIDEO -> {
+                arr.apply {
+                    add(File("${microMsgDir}/${userDataDirName}/video"))
+                }
+            }
+            GAME -> {
+                arr.apply {
+                    add(File("${microMsgDir}/Game"))
+                    add(File("${microMsgDir}/wagamefiles"))
+                }
             }
             LOG -> {
-                arr.add(File("${microMsgDir}/crash"))
-                arr.add(File("${microMsgDir}/xlog"))
-                arr.add(File("${filesDir}/onelog"))
-                arr.add(File("${filesDir}/tbslog"))
-                arr.add(File("${filesDir}/Tencent/tbs_common_log"))
-                arr.add(File("${filesDir}/Tencent/tbs_live_log"))
+                arr.apply {
+                    add(File("${microMsgDir}/crash"))
+                    add(File("${microMsgDir}/xlog"))
+                    add(File("${filesDir}/onelog"))
+                    add(File("${filesDir}/tbslog"))
+                    add(File("${filesDir}/Tencent/tbs_common_log"))
+                    add(File("${filesDir}/Tencent/tbs_live_log"))
+                }
+
+            }
+            RES_UPDATE -> {
+                arr.apply {
+                    add(File("${microMsgDir}/CheckResUpdate"))
+                }
+            }
+            X5_CORE -> {
+                arr.apply {
+                    add(File("${rootDataDir}/app_tbs"))
+                    add(File("${rootDataDir}/app_tbs_64"))
+                    add(File("${rootDataDir}/app_x5webview"))
+                }
             }
         }
         return arr
@@ -58,8 +107,8 @@ object CleanWeChat {
      */
     fun getHalfList() = ArrayList<File>().apply {
         addAll(getFiles(CACHES))
-        addAll(getFiles(PICTURE))
-        addAll(getFiles(SHORT_VIDEO))
+        addAll(getFiles(VIDEO))
+        addAll(getFiles(LOG))
     }
 
     /**
@@ -67,8 +116,11 @@ object CleanWeChat {
      */
     fun getFullList() = ArrayList<File>().apply {
         addAll(getFiles(CACHES))
-        addAll(getFiles(PICTURE))
-        addAll(getFiles(SHORT_VIDEO))
+        addAll(getFiles(CARD))
+        addAll(getFiles(VIDEO))
+        addAll(getFiles(GAME))
         addAll(getFiles(LOG))
+        addAll(getFiles(RES_UPDATE))
+        addAll(getFiles(X5_CORE))
     }
 }
