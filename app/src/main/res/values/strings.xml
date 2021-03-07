@@ -33,8 +33,8 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
-        -1.3.0(22)\n
-        1.适配TIM(暂时使用QQ的清理目录 TIM目录后续会根据反馈逐步完善 可以到github或者QQ群进行反馈)
+        -1.4.0(23)\n
+        1.初步适配微信(目录可能不全 也可能存在错误 请酌情使用)
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
