@@ -23,21 +23,22 @@ object CleanWeChat {
     private var filesDir: String? = "${rootDataDir}/files"
 
     //    storage/emulated/0/Android/data/com.tencent.mm/files
-    private var microMsgDir: String? = "${rootDataDir}/MicroMsgDir"
+    private var microMsgDir: String? = "${rootDataDir}/MicroMsg"
 
     private var userDataDirName: String? = null
         get() {
             if (field == null) {
                 val dir = File(microMsgDir!!)
                 val child = dir.listFiles()
-                if (child != null) {
+                if (child != null && child.isNotEmpty()) {
                     for (file in child) {
-                        if (file.name.length == 32) {
+                        if (file.name.length == 32 && file.isDirectory) {
                             field = file.name
                         }
                     }
                 }
             }
+//            logi("用户文件夹获取成功:$field")
             return field
         }
 
