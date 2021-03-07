@@ -17,8 +17,14 @@ fun ViewGroup.findViewByType(clazz: Class<*>) =
 
 fun ViewGroup.findViewByCondition(condition: (view: View) -> Boolean): View? {
     this.forEach {
-        if (condition(this))
-            return this
+        if (condition(it))
+            return it
+        val ret = if (it is ViewGroup) {
+            it.findViewByCondition(condition)
+        } else null
+        ret?.let {
+            return ret
+        }
     }
     return null
 }
