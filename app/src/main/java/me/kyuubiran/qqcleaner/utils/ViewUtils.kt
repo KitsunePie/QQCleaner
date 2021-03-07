@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.forEach
 
-fun ViewGroup.findViewByText(text: String) =
+fun ViewGroup.findViewByText(text: String, contains: Boolean = false) =
     this.findViewByCondition {
-        it.javaClass == TextView::class.java && (it as TextView).text == text
+        it.javaClass == TextView::class.java && if (!contains) (it as TextView).text == text else (it as TextView).text.contains(
+            text
+        )
     }
 
 fun ViewGroup.findViewByType(clazz: Class<*>) =

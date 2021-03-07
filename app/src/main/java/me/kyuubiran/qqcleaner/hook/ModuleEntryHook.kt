@@ -44,7 +44,7 @@ class ModuleEntryHook {
                     ViewTreeObserver.OnGlobalLayoutListener {
                     override fun onGlobalLayout() {
                         val entry = list[list.count - 2] as ViewGroup
-                        val title = entry.findViewByText("检查新版本") as TextView
+                        val title = entry.findViewByText("新", contains = true) as TextView
                         title.doAfterTextChanged { v ->
                             if (v.toString() != "${hostInfo.hostName}瘦身")
                                 title.text = "${hostInfo.hostName}瘦身"
