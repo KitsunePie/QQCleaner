@@ -12,6 +12,8 @@ import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
 
 private const val WECHAT_CLEANER_TAG = "WeChat_CLEANER_TAG"
 private var firstInit = false
+var secondInitWeChat = false
+    private set
 
 class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
     init {
@@ -21,29 +23,32 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
     private fun initItem(classLoader: ClassLoader) {
         Utils(classLoader)
         ModuleEntryHook()
-        //ResInject.initForStubActivity()
-        //ResInject.injectModuleResources(hostInfo.application.resources)
-        //ConfigManager.checkConfigIsExists()
-        //CleanManager.AutoClean()
+        ResInject.initForStubActivity()
+        ResInject.injectModuleResources(hostInfo.application.resources)
+        ConfigManager.checkConfigIsExists()
+        CleanManager.AutoClean()
     }
 
     private fun doInit(rtLoader: ClassLoader) {
         if (firstInit) return
         try {
             "Landroid/app/Application;->attach(Landroid/content/Context;)V"
-                    .getMethod(rtLoader)
-                    .hookAfter {
-                        val ctx = it.thisObject as Application
-                        init(ctx)
-                        appContext = hostInfo.application
-                        if ("true" == System.getProperty(WECHAT_CLEANER_TAG)) return@hookAfter
-                        val classLoader = ctx.classLoader
-                        System.setProperty(WECHAT_CLEANER_TAG, "true")
-                        initItem(classLoader)
-                    }
+                .getMethod(rtLoader)
+                .hookAfter {
+                    if (secondInitWeChat) return@hookAfter
+                    val ctx = it.thisObject as Application
+                    init(ctx)
+                    appContext = hostInfo.application
+                    if ("true" == System.getProperty(WECHAT_CLEANER_TAG)) return@hookAfter
+                    val classLoader = ctx.classLoader
+                    System.setProperty(WECHAT_CLEANER_TAG, "true")
+                    initItem(classLoader)
+                    secondInitWeChat = true
+                }
             firstInit = true
         } catch (e: Throwable) {
             if (e.toString().contains("com.google.android.webview")) return
+            loge(e)
             throw e
         }
     }

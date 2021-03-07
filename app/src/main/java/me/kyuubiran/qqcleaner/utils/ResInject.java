@@ -33,6 +33,7 @@ import java.util.List;
 import dalvik.system.BaseDexClassLoader;
 import me.kyuubiran.qqcleaner.HookEntry;
 import me.kyuubiran.qqcleaner.R;
+import me.kyuubiran.qqcleaner.data.HostInformationProviderKt;
 
 import static me.kyuubiran.qqcleaner.utils.LogUtilsKt.loge;
 import static me.kyuubiran.qqcleaner.utils.LogUtilsKt.logi;
@@ -649,7 +650,15 @@ public class ResInject {
                             && hostApp.getPackageName().equals(component.getPackageName())
                             && (component.getClassName().startsWith("me.kyuubiran.qqcleaner."))) {
                         Intent wrapper = new Intent();
-                        wrapper.setClassName(component.getPackageName(), ActProxyMgr.STUB_DEFAULT_ACTIVITY);
+                        switch (HostInformationProviderKt.getHostApp()) {
+                            case QQ:
+                            case TIM:
+                                wrapper.setClassName(component.getPackageName(), ActProxyMgr.STUB_DEFAULT_QQ_ACTIVITY);
+                                break;
+                            case WE_CHAT:
+                                wrapper.setClassName(component.getPackageName(), ActProxyMgr.STUB_DEFAULT_WE_CHAT_ACTIVITY);
+                                break;
+                        }
                         wrapper.putExtra(ActProxyMgr.ACTIVITY_PROXY_INTENT, raw);
                         args[index] = wrapper;
                     }

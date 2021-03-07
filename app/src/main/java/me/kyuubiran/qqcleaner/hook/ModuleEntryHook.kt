@@ -15,7 +15,8 @@ import de.robv.android.xposed.XposedBridge
 import me.kyuubiran.qqcleaner.activity.SettingsActivity
 import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.data.hostInfo
-import me.kyuubiran.qqcleaner.secondInit
+import me.kyuubiran.qqcleaner.secondInitQQ
+import me.kyuubiran.qqcleaner.secondInitWeChat
 import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.HookUtil.getMethod
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
@@ -29,14 +30,13 @@ class ModuleEntryHook {
     private fun hook() {
         when (hostApp) {
             HostApp.QQ, HostApp.TIM -> hookQQ()
-            HostApp.WE_CHAT -> hookWECHAT()
+            HostApp.WE_CHAT -> hookWeChat()
         }
     }
 
-    private fun hookWECHAT() {
+    private fun hookWeChat() {
         "Lcom/tencent/mm/plugin/setting/ui/setting/SettingsAboutMicroMsgUI;->onCreate(Landroid/os/Bundle;)V"
             .getMethod().hookAfter {
-                appContext?.makeToast("嘎嘎嘎")
                 val list =
                     "Lcom/tencent/mm/ui/base/preference/MMPreference;->getListView()Landroid/widget/ListView;"
                         .getMethod().invoke(it.thisObject) as ListView
@@ -50,8 +50,9 @@ class ModuleEntryHook {
                                 title.text = "${hostInfo.hostName}瘦身"
                         }
                         entry.setOnClickListener {
-                            if (secondInit) {
+                            if (secondInitWeChat) {
                                 val intent = Intent(appContext, SettingsActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 appContext?.startActivity(intent)
                             } else {
                                 appContext?.makeToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
@@ -92,7 +93,7 @@ class ModuleEntryHook {
                         val vg = item?.parent as ViewGroup
                         vg.addView(entry, 2)
                         entry.setOnClickListener {
-                            if (secondInit) {
+                            if (secondInitQQ) {
                                 val intent = Intent(appContext, SettingsActivity::class.java)
                                 appContext?.startActivity(intent)
                             } else {

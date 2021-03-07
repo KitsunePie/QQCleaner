@@ -12,7 +12,7 @@ import java.lang.reflect.Method
 
 private const val QQ_CLEANER_TAG = "QQ_CLEANER_TAG"
 private var firstInit = false
-var secondInit = false
+var secondInitQQ = false
     private set
 
 class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
@@ -35,7 +35,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
             val startup: XC_MethodHook = object : XC_MethodHook(51) {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     try {
-                        if (secondInit) return
+                        if (secondInitQQ) return
                         val clazz = rtLoader.loadClass("com.tencent.common.app.BaseApplicationImpl")
                         val ctx =
                             clazz!!.let {
@@ -51,7 +51,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                         val classLoader = ctx.classLoader
                         System.setProperty(QQ_CLEANER_TAG, "true")
                         initItem(classLoader)
-                        secondInit = true
+                        secondInitQQ = true
                     } catch (e: Throwable) {
                         loge(e)
                         throw e
