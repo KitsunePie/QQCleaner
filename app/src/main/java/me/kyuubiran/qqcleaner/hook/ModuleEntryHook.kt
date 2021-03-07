@@ -52,8 +52,7 @@ class ModuleEntryHook {
                         entry.setOnClickListener {
                             if (secondInitWeChat) {
                                 val intent = Intent(appContext, SettingsActivity::class.java)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                appContext?.startActivity(intent)
+                                entry.context.startActivity(intent)
                             } else {
                                 appContext?.makeToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
                             }
