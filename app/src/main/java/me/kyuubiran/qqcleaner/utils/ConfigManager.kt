@@ -61,6 +61,14 @@ object ConfigManager {
         return getConfig()?.getInteger(key) ?: defValue
     }
 
+    fun getBool(key: String, defValue: Boolean = false): Boolean {
+        return getConfig()?.getBoolean(key) ?: defValue
+    }
+
+    fun getString(key: String, defValue: String = ""): String {
+        return getConfig()?.getString(key) ?: defValue
+    }
+
     fun <T> setConfig(key: String, value: T) {
         try {
             val config = getConfig()
