@@ -10,7 +10,7 @@ import me.kyuubiran.qqcleaner.utils.HookUtil.getMethod
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
 
 
-private const val WECHAT_CLEANER_TAG = "WeChat_CLEANER_TAG"
+private const val WE_CHAT_CLEANER_TAG = "WECHAT_CLEANER_TAG"
 private var firstInit = false
 var secondInitWeChat = false
     private set
@@ -39,9 +39,9 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                     val ctx = it.thisObject as Application
                     init(ctx)
                     appContext = hostInfo.application
-                    if ("true" == System.getProperty(WECHAT_CLEANER_TAG)) return@hookAfter
+                    if ("true" == System.getProperty(WE_CHAT_CLEANER_TAG)) return@hookAfter
                     val classLoader = ctx.classLoader
-                    System.setProperty(WECHAT_CLEANER_TAG, "true")
+                    System.setProperty(WE_CHAT_CLEANER_TAG, "true")
                     initItem(classLoader)
                     secondInitWeChat = true
                 }
