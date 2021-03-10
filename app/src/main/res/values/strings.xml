@@ -33,6 +33,8 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
+        -1.4.2(25)\n
+        1.修复微信瘦身入口各种错误问题\n
         -1.4.1(24)\n
         1.解决微信处于英文环境下点击关于会崩溃的问题\n
         2.添加加入Telegram按钮 频道: @QQCleanerCh
