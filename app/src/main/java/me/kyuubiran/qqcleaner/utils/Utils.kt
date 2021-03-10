@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.Toast
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
@@ -28,7 +29,7 @@ class Utils(classLoader: ClassLoader) {
     }
 }
 
-//运行在主线程的函数
+//运行主线程
 fun runOnUiThread(r: Runnable) {
     if (Looper.myLooper() == Looper.getMainLooper()) {
         r.run()
@@ -37,7 +38,7 @@ fun runOnUiThread(r: Runnable) {
     }
 }
 
-//扩展函数 给Context加上显示toast的函数
+//显示toast
 fun Context.makeToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     if (Looper.getMainLooper() == Looper.myLooper())
         Toast.makeText(this, text, duration).show()
@@ -188,12 +189,12 @@ fun newInstance(clazz: Class<*>, vararg argsAndTypes: Any?): Any? {
     }
 }
 
-//格式化清理空间的函数
+//格式化清理空间
 fun formatSize(size: Long): String {
     return formatSize(size.toString())
 }
 
-//格式化清理空间的函数
+//格式化清理空间
 fun formatSize(size: String): String {
     val sl = BigDecimal(size)
     val b: BigDecimal
@@ -229,8 +230,6 @@ fun formatSize(size: String): String {
     }
 }
 
-
-//扩展属性 让Method这个类额外拥有以下三个属性
 val Method.isStatic: Boolean
     get() = Modifier.isStatic(this.modifiers)
 
@@ -240,19 +239,24 @@ val Method.isPublic: Boolean
 val Method.isPrivate: Boolean
     get() = Modifier.isPrivate(this.modifiers)
 
-inline fun <reified T> objcpy(srcObj: T): T {
-    val clz = T::class.java
-    val newObj = clz.newInstance()
-    val fields = clz.declaredFields
-    for (f in fields) {
-        f.isAccessible = true
-        try {
-            f.set(newObj, f.get(srcObj))
-        } catch (e: Exception) {
-            loge(e)
+inline fun <reified T : View> viewCpy(srcObj: T): T? {
+    return try {
+        var clz: Class<*> = srcObj.javaClass
+        val ret = clz.getConstructor(Context::class.java).newInstance(srcObj.context)
+        var fields: Array<Field>
+        while (Object::class.java == clz) {
+            fields = clz.declaredFields
+            for (f in fields) {
+                f.isAccessible = true
+                f.set(ret, f.get(srcObj))
+            }
+            clz = clz.superclass
         }
+        ret as T
+    } catch (e: Exception) {
+        loge(e)
+        null
     }
-    return newObj
 }
 
 /* 工具类 Top-Level */
