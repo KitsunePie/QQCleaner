@@ -240,4 +240,19 @@ val Method.isPublic: Boolean
 val Method.isPrivate: Boolean
     get() = Modifier.isPrivate(this.modifiers)
 
+inline fun <reified T> objcpy(srcObj: T): T {
+    val clz = T::class.java
+    val newObj = clz.newInstance()
+    val fields = clz.declaredFields
+    for (f in fields) {
+        f.isAccessible = true
+        try {
+            f.set(newObj, f.get(srcObj))
+        } catch (e: Exception) {
+            loge(e)
+        }
+    }
+    return newObj
+}
+
 /* 工具类 Top-Level */
