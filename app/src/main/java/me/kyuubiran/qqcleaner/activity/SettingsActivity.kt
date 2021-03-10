@@ -51,6 +51,7 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var supportMe: Preference
         private lateinit var gotoGithub: Preference
         private lateinit var joinQQGroup: Preference
+        private lateinit var joinTelegram: Preference
         private lateinit var moduleInfo: Preference
 
         //重置清理时间计数器
@@ -71,6 +72,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             gotoGithub = findPreference("GotoGithub")!!
             supportMe = findPreference("SupportMe")!!
             joinQQGroup = findPreference("JoinQQGroup")!!
+            joinTelegram = findPreference("JoinTelegram")!!
             moduleInfo = findPreference("ModuleInfo")!!
             init()
         }
@@ -126,16 +128,16 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             gotoGithub.setOnPreferenceClickListener {
-                val uri = Uri.parse("https://github.com/KyuubiRan/QQCleaner")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(intent)
+                openUrl("https://github.com/KyuubiRan/QQCleaner")
                 appContext?.makeToast("喜欢的话给我点个小星星吧~")
                 true
             }
             joinQQGroup.setOnPreferenceClickListener {
-                val uri = Uri.parse("https://jq.qq.com/?_wv=1027&k=VnwmAAGA")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(intent)
+                openUrl("https://jq.qq.com/?_wv=1027&k=VnwmAAGA")
+                true
+            }
+            joinTelegram.setOnPreferenceClickListener {
+                openUrl("https://t.me/QQCleanerCh")
                 true
             }
             supportMe.setOnPreferenceClickListener {
@@ -167,6 +169,12 @@ class SettingsActivity : AppCompatTransferActivity() {
                 CleanDialog.showCleanDelayDialog(this.requireContext(), autoClean)
                 true
             }
+        }
+
+        private fun openUrl(url: String) {
+            val uri = Uri.parse(url)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
         }
 
         //切换自动瘦身时间是否显示

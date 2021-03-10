@@ -33,11 +33,14 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
-        -1.4.0(23)\n
-        1.初步适配微信(目录可能不全 也可能存在错误 请酌情使用)
+        -1.4.1(24)\n
+        1.解决微信处于英文环境下点击关于会崩溃的问题\n
+        2.添加加入Telegram按钮 频道: @QQCleanerCh
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
     <string name="auto_clean_delay">自动瘦身间隔</string>
     <string name="auto_clean_delay_hint">单位:小时 默认24小时(即一天) 设置为0时默认24小时</string>
+    <string name="join_tg_channel">点击加入Telegram频道</string>
+    <string name="join_tg_channel_hint">频道:@QQCleanerCh\n聊天群组:@QQCleanerChat</string>
 </resources>

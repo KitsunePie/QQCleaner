@@ -47,14 +47,11 @@ internal inline fun <reified T : TextView> ViewGroup.findViewByText(
     contains: Boolean = false,
     ignoreCase: Boolean = false
 ): T? {
-    for (str in text.withIndex()) {
-        val v = this.findViewByText<T>(str.value, contains = contains, ignoreCase = ignoreCase)
-        if (str.index < text.size) {
-            if (v == null) continue
-        } else {
-            return null
+    for (str in text) {
+        val v = this.findViewByText<T>(str, contains = contains, ignoreCase = ignoreCase)
+        v?.let {
+            return v
         }
-        return v
     }
     return null
 }

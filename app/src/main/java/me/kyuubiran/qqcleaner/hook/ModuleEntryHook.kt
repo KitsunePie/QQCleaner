@@ -49,7 +49,10 @@ class ModuleEntryHook {
                             "check",
                             contains = true,
                             ignoreCase = true
-                        ) ?: TextView(appContext)
+                        ) ?: TextView(appContext).also { tv ->
+                            tv.setPadding(15, 15, 15, 15)
+                            tv.textSize = 16F
+                        }
                         title.doAfterTextChanged { v ->
                             if (v.toString() != "${hostInfo.hostName}瘦身")
                                 title.text = "${hostInfo.hostName}瘦身"

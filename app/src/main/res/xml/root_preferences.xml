@@ -58,6 +58,10 @@
                 app:title="@string/join_qq_group"
                 app:summary="@string/join_qq_group_hint" />
         <Preference
+                app:key="JoinTelegram"
+                app:title="@string/join_tg_channel"
+                app:summary="@string/join_tg_channel_hint" />
+        <Preference
                 app:key="SupportMe"
                 app:title="@string/support_me"
                 app:summary="@string/support_me_hint" />
