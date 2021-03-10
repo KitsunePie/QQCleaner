@@ -35,6 +35,7 @@ class ModuleEntryHook {
     }
 
     private fun hookWeChat() {
+        var count: Int? = null
         arrayOf(
                 "Lcom/tencent/mm/plugin/setting/ui/setting/SettingsAboutMicroMsgUI;->onCreate(Landroid/os/Bundle;)V",
                 "Lcom/tencent/mm/ui/setting/SettingsAboutMicroMsgUI;->onCreate(Landroid/os/Bundle;)V"
@@ -61,33 +62,35 @@ class ModuleEntryHook {
                                     appContext?.makeToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
                                 }
                             }
-                            return@addOnGlobalLayoutListener
                         }
-                        val update = adapter.getItem(list.size - 2)
-                        val ctx = update.javaClass.getField("mContext").get(update)
-                        val entry = update.javaClass.getConstructor(Context::class.java).newInstance(ctx)
-                        preference = fieldCpy(update, entry)
-                        invokeMethod(
-                                preference,
-                                "setKey",
-                                "QQCleaner",
-                                String::class.java
-                        )
-                        invokeMethod(
-                                preference,
-                                "setSummary",
-                                "芜狐~",
-                                CharSequence::class.java
-                        )
-                        invokeMethod(
-                                preference,
-                                "setTitle",
-                                "${hostInfo.hostName}瘦身",
-                                CharSequence::class.java
-                        )
-                        addMethod?.invoke(adapter, preference, list.size)
+                        if (count == null) count = adapter.count
+                        else if (adapter.count <= count!!) {
+                            val update = adapter.getItem(list.size - 2)
+                            val ctx = update.javaClass.getField("mContext").get(update)
+                            val entry = update.javaClass.getConstructor(Context::class.java).newInstance(ctx)
+                            preference = fieldCpy(update, entry)
+                            invokeMethod(
+                                    preference,
+                                    "setKey",
+                                    "QQCleaner",
+                                    String::class.java
+                            )
+                            invokeMethod(
+                                    preference,
+                                    "setSummary",
+                                    "芜狐~",
+                                    CharSequence::class.java
+                            )
+                            invokeMethod(
+                                    preference,
+                                    "setTitle",
+                                    "${hostInfo.hostName}瘦身",
+                                    CharSequence::class.java
+                            )
+                            addMethod?.invoke(adapter, preference, adapter.count + 1)
+                        }
                     }
-                }?.callback!!
+                }
     }
 
     private fun hookQQ() {
