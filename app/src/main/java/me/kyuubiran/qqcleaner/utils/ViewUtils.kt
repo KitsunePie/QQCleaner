@@ -4,25 +4,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.forEach
+import java.util.*
 
-fun ViewGroup.findViewByText(text: String, contains: Boolean = false) =
+internal inline fun <reified T : TextView> ViewGroup.findViewByText(
+    text: String,
+    contains: Boolean = false,
+    ignoreCase: Boolean = false
+): T? =
     this.findViewByCondition {
-        it.javaClass == TextView::class.java && if (!contains) (it as TextView).text == text else (it as TextView).text.contains(
-            text
+        val _text = if (ignoreCase) text.toLowerCase(Locale.ROOT) else text
+        it.javaClass == T::class.java && if (!contains) (it as TextView).text.toString()
+            .let { s ->
+                if (ignoreCase) s.toLowerCase(Locale.ROOT) else s
+            } == _text else (it as TextView).text.toString().let { s ->
+            if (ignoreCase) s.toLowerCase(Locale.ROOT) else s
+        }.contains(
+            _text
         )
     }
 
-fun ViewGroup.findViewByType(clazz: Class<*>) =
+internal fun ViewGroup.findViewByType(clazz: Class<*>): View? =
     this.findViewByCondition {
         it.javaClass == clazz
     }
 
-fun ViewGroup.findViewByCondition(condition: (view: View) -> Boolean): View? {
+internal fun <T : View> ViewGroup.findViewByCondition(condition: (view: View) -> Boolean): T? {
     this.forEach {
         if (condition(it))
-            return it
+            return it as T
         val ret = if (it is ViewGroup) {
-            it.findViewByCondition(condition)
+            it.findViewByCondition<T>(condition)
         } else null
         ret?.let {
             return ret
@@ -31,3 +42,19 @@ fun ViewGroup.findViewByCondition(condition: (view: View) -> Boolean): View? {
     return null
 }
 
+internal inline fun <reified T : TextView> ViewGroup.findViewByText(
+    vararg text: String,
+    contains: Boolean = false,
+    ignoreCase: Boolean = false
+): T? {
+    for (str in text.withIndex()) {
+        val v = this.findViewByText<T>(str.value, contains = contains, ignoreCase = ignoreCase)
+        if (str.index < text.size) {
+            if (v == null) continue
+        } else {
+            return null
+        }
+        return v
+    }
+    return null
+}

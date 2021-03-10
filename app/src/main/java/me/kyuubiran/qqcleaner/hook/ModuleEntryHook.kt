@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.ListView
 import android.widget.TextView
 import androidx.core.view.get
@@ -41,10 +41,15 @@ class ModuleEntryHook {
                     "Lcom/tencent/mm/ui/base/preference/MMPreference;->getListView()Landroid/widget/ListView;"
                         .getMethod().invoke(it.thisObject) as ListView
                 list.viewTreeObserver.addOnGlobalLayoutListener(object :
-                    ViewTreeObserver.OnGlobalLayoutListener {
+                    OnGlobalLayoutListener {
                     override fun onGlobalLayout() {
                         val entry = list[list.count - 2] as ViewGroup
-                        val title = entry.findViewByText("新", contains = true) as TextView
+                        val title = entry.findViewByText(
+                            "新",
+                            "check",
+                            contains = true,
+                            ignoreCase = true
+                        ) ?: TextView(appContext)
                         title.doAfterTextChanged { v ->
                             if (v.toString() != "${hostInfo.hostName}瘦身")
                                 title.text = "${hostInfo.hostName}瘦身"
