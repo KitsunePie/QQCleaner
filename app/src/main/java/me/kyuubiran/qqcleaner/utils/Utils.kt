@@ -259,6 +259,7 @@ fun <T : View> viewCpy(srcView: T): T? {
     }
 }
 
+//仅限构造无参的类型
 fun <T> objCpy(srcObj: T): T? {
     return try {
         var clz: Class<*> = srcObj!!::class.java
@@ -292,7 +293,7 @@ fun <T> fieldCpy(srcObj: T, newObj: T): T? {
             }
             clz = clz.superclass
         }
-        newObj as T
+        newObj
     } catch (e: Exception) {
         loge(e)
         null
