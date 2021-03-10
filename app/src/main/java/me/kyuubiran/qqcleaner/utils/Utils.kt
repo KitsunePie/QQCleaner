@@ -244,7 +244,7 @@ fun <T : View> viewCpy(srcObj: T): T? {
         var clz: Class<*> = srcObj.javaClass
         val newObj = clz.getConstructor(Context::class.java).newInstance(srcObj.context)
         var fields: Array<Field>
-        while (Object::class.java == clz) {
+        while (Object::class.java != clz) {
             fields = clz.declaredFields
             for (f in fields) {
                 f.isAccessible = true
