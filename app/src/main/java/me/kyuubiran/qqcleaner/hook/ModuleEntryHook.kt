@@ -5,11 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.widget.BaseAdapter
 import android.widget.ListView
-import android.widget.TextView
 import androidx.core.view.get
-import androidx.core.widget.doAfterTextChanged
+import androidx.core.view.size
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import me.kyuubiran.qqcleaner.activity.SettingsActivity
@@ -20,6 +19,7 @@ import me.kyuubiran.qqcleaner.secondInitWeChat
 import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.HookUtil.getMethod
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
+import java.lang.reflect.Method
 
 //模块入口Hook
 class ModuleEntryHook {
@@ -35,42 +35,59 @@ class ModuleEntryHook {
     }
 
     private fun hookWeChat() {
-        "Lcom/tencent/mm/plugin/setting/ui/setting/SettingsAboutMicroMsgUI;->onCreate(Landroid/os/Bundle;)V"
-            .getMethod().hookAfter {
+        arrayOf(
+                "Lcom/tencent/mm/plugin/setting/ui/setting/SettingsAboutMicroMsgUI;->onCreate(Landroid/os/Bundle;)V",
+                "Lcom/tencent/mm/ui/setting/SettingsAboutMicroMsgUI;->onCreate(Landroid/os/Bundle;)V"
+        ).getMethod()?.hookAfter {
                 val list =
                     "Lcom/tencent/mm/ui/base/preference/MMPreference;->getListView()Landroid/widget/ListView;"
-                        .getMethod().invoke(it.thisObject) as ListView
-                list.viewTreeObserver.addOnGlobalLayoutListener(object :
-                    OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        val entry = list[list.count - 2] as ViewGroup
-                        val title = entry.findViewByText(
-                            "新",
-                            "check",
-                            contains = true,
-                            ignoreCase = true
-                        ) ?: TextView(appContext).also { tv ->
-                            tv.setPadding(15, 15, 15, 15)
-                            tv.textSize = 16F
+                        .getMethod()?.invoke(it.thisObject) as ListView
+                    list.viewTreeObserver.addOnGlobalLayoutListener {
+                        val adapter = list.adapter as BaseAdapter
+                        val preferenceClass = loadClass("com.tencent.mm.ui.base.preference.Preference")
+                        var addMethod: Method? = null
+                        for (m in getMethods(adapter.javaClass)) {
+                            if (m.returnType == Void.TYPE && m.parameterTypes.contentDeepEquals(arrayOf(preferenceClass, Int::class.java)))
+                                addMethod = m
                         }
-                        title.doAfterTextChanged { v ->
-                            if (v.toString() != "${hostInfo.hostName}瘦身")
-                                title.text = "${hostInfo.hostName}瘦身"
-                        }
-                        title.text = "${hostInfo.hostName}瘦身"
-                        entry.setOnClickListener {
-                            if (secondInitWeChat) {
-                                val intent = Intent(appContext, SettingsActivity::class.java)
-                                entry.context.startActivity(intent)
-                            } else {
-                                appContext?.makeToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
+                        var preference = adapter.getItem(list.size - 2)
+                        val key = invokeMethod(preference, "getKey")
+                        if (key == "QQCleaner") {
+                            list[list.size - 2].setOnClickListener { v ->
+                                if (secondInitWeChat) {
+                                    val intent = Intent(appContext, SettingsActivity::class.java)
+                                    v.context.startActivity(intent)
+                                } else {
+                                    appContext?.makeToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
+                                }
                             }
+                            return@addOnGlobalLayoutListener
                         }
-                        list.addFooterView(entry)
-                        list.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        val update = adapter.getItem(list.size - 2)
+                        val ctx = update.javaClass.getField("mContext").get(update)
+                        val entry = update.javaClass.getConstructor(Context::class.java).newInstance(ctx)
+                        preference = fieldCpy(update, entry)
+                        invokeMethod(
+                                preference,
+                                "setKey",
+                                "QQCleaner",
+                                String::class.java
+                        )
+                        invokeMethod(
+                                preference,
+                                "setSummary",
+                                "芜狐~",
+                                CharSequence::class.java
+                        )
+                        invokeMethod(
+                                preference,
+                                "setTitle",
+                                "${hostInfo.hostName}瘦身",
+                                CharSequence::class.java
+                        )
+                        addMethod?.invoke(adapter, preference, list.size)
                     }
-                })
-            }
+                }?.callback!!
     }
 
     private fun hookQQ() {
