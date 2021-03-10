@@ -33,8 +33,8 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
-        -1.4.3(26)\n
-        1.微信瘦身超级加强 可以腾出更多的空间啦\n
+        -1.4.4(27)\n
+        1.修复微信彻底瘦身目录不全的问题\n
         注意:微信瘦身包含根目录文件夹 请谨慎清理
     </string>
     <string name="join_qq_group">点击加入QQ群</string>

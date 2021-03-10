@@ -157,6 +157,7 @@ object CleanWeChat {
      */
     fun getHalfList() = ArrayList<File>().apply {
         addAll(getFiles(CACHES))
+        addAll(getFiles(PICTURE))
         addAll(getFiles(VIDEO))
         addAll(getFiles(LOG))
     }
@@ -167,8 +168,10 @@ object CleanWeChat {
     fun getFullList() = ArrayList<File>().apply {
         addAll(getFiles(CACHES))
         addAll(getFiles(PICTURE))
+        addAll(getFiles(AVATAR))
         addAll(getFiles(VIDEO))
         addAll(getFiles(MINI))
+        addAll(getFiles(LUCKY_MONEY))
         addAll(getFiles(LOG))
         addAll(getFiles(RES_UPDATE))
         addAll(getFiles(X5_CORE))
