@@ -1,7 +1,5 @@
 package me.kyuubiran.qqcleaner.utils.clean
 
-import com.alibaba.fastjson.JSONArray
-import me.kyuubiran.qqcleaner.utils.ConfigManager
 import me.kyuubiran.qqcleaner.utils.appContext
 import java.io.File
 
@@ -31,25 +29,25 @@ object CleanQQ {
     private const val OTHERS = "others"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq
-    private var rootDataDir: String? = appContext?.externalCacheDir?.parentFile?.path
+    private val rootDataDir: String? = appContext?.externalCacheDir?.parentFile?.path
 
     //    storage/emulated/0/
-    private var rootDir: String? = appContext?.obbDir?.parentFile?.parentFile?.parentFile?.path
+    private val rootDir: String? = appContext?.obbDir?.parentFile?.parentFile?.parentFile?.path
 
     //    storage/emulated/0/tencent
-    private var rootTencentDir = "$rootDir/tencent"
+    private val rootTencentDir = "$rootDir/tencent"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent
-    private var TencentDir = "$rootDataDir/Tencent"
+    private val TencentDir = "$rootDataDir/Tencent"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ
-    private var MobileQQDir = "$TencentDir/MobileQQ"
+    private val MobileQQDir = "$TencentDir/MobileQQ"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/QQ_Images
-    private var QQ_Images = "$rootDataDir/QQ_Images"
+    private val QQ_Images = "$rootDataDir/QQ_Images"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv
-    private var QQfile_recv = "$TencentDir/QQfile_recv"
+    private val QQfile_recv = "$TencentDir/QQfile_recv"
 
     /**
      * 根据tag获取文件列表

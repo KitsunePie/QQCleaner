@@ -77,9 +77,11 @@
     <!--微信 清理列表 请与下方的key的index一一对应-->
     <string-array name="we_chat_customer_clean_list">
         <item>各类缓存</item>
-        <item>卡片</item>
+        <item>图片缓存</item>
+        <item>头像缓存</item>
         <item>视频缓存</item>
-        <item>游戏</item>
+        <item>小程序</item>
+        <item>红包皮肤</item>
         <item>日志</item>
         <item>更新缓存</item>
         <item>X5内核</item>
@@ -88,9 +90,11 @@
     <!--微信 清理列表的键值 请务必务必与CleanTim下定义的常量的值相同-->
     <string-array name="we_chat_customer_clean_list_values">
         <item>caches</item>
-        <item>card</item>
+        <item>picture</item>
+        <item>avatar</item>
         <item>video</item>
-        <item>game</item>
+        <item>mini</item>
+        <item>lucky_money</item>
         <item>log</item>
         <item>res_update</item>
         <item>x5_core</item>
