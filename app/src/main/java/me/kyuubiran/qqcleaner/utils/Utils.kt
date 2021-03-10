@@ -239,10 +239,30 @@ val Method.isPublic: Boolean
 val Method.isPrivate: Boolean
     get() = Modifier.isPrivate(this.modifiers)
 
-fun <T : View> viewCpy(srcObj: T): T? {
+fun <T : View> viewCpy(srcView: T): T? {
     return try {
-        var clz: Class<*> = srcObj.javaClass
-        val newObj = clz.getConstructor(Context::class.java).newInstance(srcObj.context)
+        var clz: Class<*> = srcView.javaClass
+        val newView = clz.getConstructor(Context::class.java).newInstance(srcView.context)
+        var fields: Array<Field>
+        while (Object::class.java != clz) {
+            fields = clz.declaredFields
+            for (f in fields) {
+                f.isAccessible = true
+                f.set(newView, f.get(srcView))
+            }
+            clz = clz.superclass
+        }
+        newView as T
+    } catch (e: Exception) {
+        loge(e)
+        null
+    }
+}
+
+fun <T> objCpy(srcObj: T): T? {
+    return try {
+        var clz: Class<*> = srcObj!!::class.java
+        val newObj = clz.newInstance()
         var fields: Array<Field>
         while (Object::class.java != clz) {
             fields = clz.declaredFields
