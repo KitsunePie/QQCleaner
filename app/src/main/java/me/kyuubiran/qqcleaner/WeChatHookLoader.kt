@@ -34,7 +34,7 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
         try {
             "Landroid/app/Application;->attach(Landroid/content/Context;)V"
                 .getMethod(rtLoader)
-                .hookAfter {
+                ?.hookAfter {
                     if (secondInitWeChat) return@hookAfter
                     val ctx = it.thisObject as Application
                     init(ctx)
