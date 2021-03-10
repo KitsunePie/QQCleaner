@@ -40,57 +40,56 @@ class ModuleEntryHook {
                 "Lcom/tencent/mm/plugin/setting/ui/setting/SettingsAboutMicroMsgUI;->onCreate(Landroid/os/Bundle;)V",
                 "Lcom/tencent/mm/ui/setting/SettingsAboutMicroMsgUI;->onCreate(Landroid/os/Bundle;)V"
         ).getMethod()?.hookAfter {
-                val list =
-                    "Lcom/tencent/mm/ui/base/preference/MMPreference;->getListView()Landroid/widget/ListView;"
-                        .getMethod()?.invoke(it.thisObject) as ListView
-                    list.viewTreeObserver.addOnGlobalLayoutListener {
-                        val adapter = list.adapter as BaseAdapter
-                        val preferenceClass = loadClass("com.tencent.mm.ui.base.preference.Preference")
-                        var addMethod: Method? = null
-                        for (m in getMethods(adapter.javaClass)) {
-                            if (m.returnType == Void.TYPE && m.parameterTypes.contentDeepEquals(arrayOf(preferenceClass, Int::class.java)))
-                                addMethod = m
-                        }
-                        var preference = adapter.getItem(list.size - 2)
-                        val key = invokeMethod(preference, "getKey")
-                        if (key == "QQCleaner") {
-                            list[list.size - 2].setOnClickListener { v ->
-                                if (secondInitWeChat) {
-                                    val intent = Intent(appContext, SettingsActivity::class.java)
-                                    v.context.startActivity(intent)
-                                } else {
-                                    appContext?.makeToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
-                                }
-                            }
-                        }
-                        if (count == null) count = adapter.count
-                        else if (adapter.count <= count!!) {
-                            val update = adapter.getItem(list.size - 2)
-                            val ctx = update.javaClass.getField("mContext").get(update)
-                            val entry = update.javaClass.getConstructor(Context::class.java).newInstance(ctx)
-                            preference = fieldCpy(update, entry)
-                            invokeMethod(
-                                    preference,
-                                    "setKey",
-                                    "QQCleaner",
-                                    String::class.java
-                            )
-                            invokeMethod(
-                                    preference,
-                                    "setSummary",
-                                    "芜狐~",
-                                    CharSequence::class.java
-                            )
-                            invokeMethod(
-                                    preference,
-                                    "setTitle",
-                                    "${hostInfo.hostName}瘦身",
-                                    CharSequence::class.java
-                            )
-                            addMethod?.invoke(adapter, preference, adapter.count + 1)
+            val list = "Lcom/tencent/mm/ui/base/preference/MMPreference;->getListView()Landroid/widget/ListView;"
+                            .getMethod()?.invoke(it.thisObject) as ListView
+            list.viewTreeObserver.addOnGlobalLayoutListener {
+                val adapter = list.adapter as BaseAdapter
+                val preferenceClass = loadClass("com.tencent.mm.ui.base.preference.Preference")
+                var addMethod: Method? = null
+                for (m in getMethods(adapter.javaClass)) {
+                    if (m.returnType == Void.TYPE && m.parameterTypes.contentDeepEquals(arrayOf(preferenceClass, Int::class.java)))
+                        addMethod = m
+                }
+                var preference = adapter.getItem(list.size - 2)
+                val key = invokeMethod(preference, "getKey")
+                if (key == "QQCleaner") {
+                    list[list.size - 2].setOnClickListener { v ->
+                        if (secondInitWeChat) {
+                            val intent = Intent(appContext, SettingsActivity::class.java)
+                            v.context.startActivity(intent)
+                        } else {
+                            appContext?.makeToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
                         }
                     }
                 }
+                if (count == null) count = adapter.count
+                else if (adapter.count <= count!!) {
+                    val update = adapter.getItem(list.size - 2)
+                    val ctx = update.javaClass.getField("mContext").get(update)
+                    val entry = update.javaClass.getConstructor(Context::class.java).newInstance(ctx)
+                    preference = fieldCpy(update, entry)
+                    invokeMethod(
+                            preference,
+                            "setKey",
+                            "QQCleaner",
+                            String::class.java
+                    )
+                    invokeMethod(
+                            preference,
+                            "setSummary",
+                            "芜狐~",
+                            CharSequence::class.java
+                    )
+                    invokeMethod(
+                            preference,
+                            "setTitle",
+                            "${hostInfo.hostName}瘦身",
+                            CharSequence::class.java
+                    )
+                    addMethod?.invoke(adapter, preference, adapter.count + 1)
+                }
+            }
+        }
     }
 
     private fun hookQQ() {
