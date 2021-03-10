@@ -279,4 +279,23 @@ fun <T> objCpy(srcObj: T): T? {
     }
 }
 
+
+fun <T> fieldCpy(srcObj: T, newObj: T): T? {
+    return try {
+        var clz: Class<*> = srcObj!!::class.java
+        var fields: Array<Field>
+        while (Object::class.java != clz) {
+            fields = clz.declaredFields
+            for (f in fields) {
+                f.isAccessible = true
+                f.set(newObj, f.get(srcObj))
+            }
+            clz = clz.superclass
+        }
+        newObj as T
+    } catch (e: Exception) {
+        loge(e)
+        null
+    }
+}
 /* 工具类 Top-Level */
