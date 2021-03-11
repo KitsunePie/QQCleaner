@@ -10,11 +10,14 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
+import me.kyuubiran.qqcleaner.dialog.CleanDialog.showSetFileDateLimitDialog
 import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.checkCfg
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
@@ -44,10 +47,16 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var autoCleanMode: ListPreference
         private lateinit var cleanedTime: Preference
         private lateinit var cleanDelay: Preference
+
         private lateinit var halfClean: Preference
         private lateinit var fullClean: Preference
         private lateinit var customerCleanList: MultiSelectListPreference
         private lateinit var doCustomerClean: Preference
+
+        private lateinit var powerMode: SwitchPreferenceCompat
+        private lateinit var enableDateLimit: SwitchPreferenceCompat
+        private lateinit var setDateLimit: Preference
+
         private lateinit var supportMe: Preference
         private lateinit var gotoGithub: Preference
         private lateinit var joinQQGroup: Preference
@@ -65,10 +74,16 @@ class SettingsActivity : AppCompatTransferActivity() {
             autoCleanMode = findPreference("AutoCleanMode")!!
             cleanedTime = findPreference("CleanedTime")!!
             cleanDelay = findPreference("CleanDelay")!!
+
             halfClean = findPreference("HalfClean")!!
             fullClean = findPreference("FullClean")!!
             customerCleanList = findPreference("CustomerClean")!!
             doCustomerClean = findPreference("DoCustomerClean")!!
+
+            powerMode = findPreference("PowerMode")!!
+            enableDateLimit = findPreference("EnableDateLimit")!!
+            setDateLimit = findPreference("SetDateLimit")!!
+
             gotoGithub = findPreference("GotoGithub")!!
             supportMe = findPreference("SupportMe")!!
             joinQQGroup = findPreference("JoinQQGroup")!!
@@ -80,7 +95,7 @@ class SettingsActivity : AppCompatTransferActivity() {
         //初始化函数
         private fun init() {
             initSummary()
-            toggleCleanedTimeShow()
+            toggleSwitchItemCtrl()
             setClickable()
             setVersionName()
             setCustomerCleanList()
@@ -123,6 +138,11 @@ class SettingsActivity : AppCompatTransferActivity() {
                 }
                 true
             }
+            setDateLimit.setOnPreferenceClickListener {
+                showSetFileDateLimitDialog(this.requireContext(), it)
+                true
+            }
+
             doCustomerClean.setOnPreferenceClickListener {
                 showConfirmDialog(CUSTOMER_MODE, this.requireContext())
                 true
@@ -177,8 +197,8 @@ class SettingsActivity : AppCompatTransferActivity() {
             startActivity(intent)
         }
 
-        //切换自动瘦身时间是否显示
-        private fun toggleCleanedTimeShow() {
+        private fun toggleSwitchItemCtrl() {
+            //自动瘦身是否显示
             val currentCleanedTime = getLong(CFG_CURRENT_CLEANED_TIME)
             setConfig(CFG_AUTO_CLEAN_ENABLED, autoClean.isChecked)
             if (currentCleanedTime == 0L) {
@@ -201,24 +221,37 @@ class SettingsActivity : AppCompatTransferActivity() {
                     autoCleanMode.isVisible = newValue
                     cleanDelay.isVisible = newValue
                     setConfig(CFG_AUTO_CLEAN_ENABLED, newValue)
+                    autoClean.summary =
+                        if (newValue) "当前清理的间隔为${getInt(CFG_CLEAN_DELAY, 24)}小时" else "未开启"
+                    true
+                }
+            //设置清理超过日期是否显示
+            setDateLimit.isVisible = enableDateLimit.isChecked
+            enableDateLimit.onPreferenceChangeListener =
+                Preference.OnPreferenceChangeListener { _, newValue ->
+                    setDateLimit.isVisible = newValue as Boolean
+                    setConfig(CFG_DATE_LIMIT_ENABLED, newValue)
                     true
                 }
         }
 
         private fun initSummary() {
+            //腾出空间
             if (getConfig(CFG_TOTAL_CLEANED_SIZE) != 0) {
                 cleanedHistory.summary =
                     "总共为您腾出:${formatSize(getLong(CFG_TOTAL_CLEANED_SIZE))}空间"
             } else {
                 cleanedHistory.setSummary(R.string.no_cleaned_his_hint)
             }
-
-            val delayTmp = getInt(CFG_CLEAN_DELAY)
-            autoClean.summary = if (delayTmp == 0) "当前清理的间隔为24小时" else "当前清理的间隔为${delayTmp}小时"
+            //自动瘦身
+            autoClean.summary =
+                if (autoClean.isVisible) "当前清理的间隔为${getInt(CFG_CLEAN_DELAY, 24)}小时" else "未开启"
+            //设置清理超过日期
+            setDateLimit.summary = "当前会清理存在超过${getInt(CFG_DATE_LIMIT, 3)}天的文件"
         }
 
         private fun setVersionName() {
-            moduleInfo.summary = BuildConfig.VERSION_NAME
+            moduleInfo.summary = "${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})"
         }
     }
 }

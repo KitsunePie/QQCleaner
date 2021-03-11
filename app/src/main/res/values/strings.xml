@@ -22,6 +22,16 @@
     <string name="do_clean_cus">执行自定义瘦身</string>
     <string name="do_clean_cus_hint">芜狐~起飞!</string>
 
+    <string name="clean_settings">瘦身设置</string>
+
+    <string name="enable_power_mode">强力模式</string>
+    <string name="enable_power_mode_hint">使用Shell命令强制删除文件</string>
+
+    <string name="file_date_limit">不删除指定时间内的文件</string>
+    <string name="file_date_limit_hint">单位:天 默认为3天</string>
+
+    <string name="set_file_date_limit">设置时间</string>
+
     <string name="other_title">其他</string>
 
     <string name="enable_cleaned_history">清理统计(点我可刷新)</string>
@@ -33,9 +43,10 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
-        -1.4.4(27)\n
-        1.修复微信彻底瘦身目录不全的问题\n
-        注意:微信瘦身包含根目录文件夹 请谨慎清理
+        -1.5.0(28)\n
+        1.新增强力模式(通过Shell命令强制删除文件 默认关闭)\n
+        2.新增天数过滤(不清理n天内的文件 默认关闭 默认3天)\n
+        3.微信获取用户文件夹时做空安全检测 获取失败则会跳过
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
@@ -43,4 +54,5 @@
     <string name="auto_clean_delay_hint">单位:小时 默认24小时(即一天) 设置为0时默认24小时</string>
     <string name="join_tg_channel">点击加入Telegram频道</string>
     <string name="join_tg_channel_hint">频道:@QQCleanerCh\n聊天群组:@QQCleanerChat</string>
+
 </resources>

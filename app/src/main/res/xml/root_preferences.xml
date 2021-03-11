@@ -41,6 +41,22 @@
                 app:title="@string/do_clean_cus"
                 app:summary="@string/do_clean_cus_hint" />
     </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/clean_settings">
+        <SwitchPreferenceCompat
+                app:key="PowerMode"
+                app:title="@string/enable_power_mode"
+                app:summary="@string/enable_power_mode_hint" />
+        <SwitchPreferenceCompat
+                app:key="EnableDateLimit"
+                app:title="@string/file_date_limit"
+                app:summary="@string/file_date_limit_hint" />
+        <Preference
+                app:key="SetDateLimit"
+                app:title="@string/set_file_date_limit"
+                app:isPreferenceVisible="false" />
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/other_title">
         <Preference
                 app:key="CleanedHistory"

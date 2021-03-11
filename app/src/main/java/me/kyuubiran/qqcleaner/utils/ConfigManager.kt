@@ -15,6 +15,9 @@ object ConfigManager {
     const val CFG_CUSTOMER_CLEAN_MODE = "customerCleanMode"
     const val CFG_TOTAL_CLEANED_SIZE = "totalCleanedSize"
     const val CFG_CLEAN_DELAY = "cleanDelay"
+    const val CFG_POWER_MODE_ENABLED = "powerModeEnabled"
+    const val CFG_DATE_LIMIT_ENABLED = "dateLimitEnabled"
+    const val CFG_DATE_LIMIT = "dateLimit"
 
     fun checkConfigIsExists() {
         if (!config.exists()) {

@@ -19,6 +19,8 @@ lateinit var clzLoader: ClassLoader
 //宿主全局Context
 var appContext: Context? = null
 
+val runtimeProc: Runtime = Runtime.getRuntime()
+
 var sModulePath: String = ""
 
 class Utils(classLoader: ClassLoader) {

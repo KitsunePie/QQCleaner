@@ -7,11 +7,15 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_MODE
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_POWER_MODE_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getBool
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.clean.CleanQQ
-import me.kyuubiran.qqcleaner.utils.clean.CleanTIM
 import me.kyuubiran.qqcleaner.utils.clean.CleanWeChat
 import java.io.File
 import kotlin.concurrent.thread
@@ -21,6 +25,8 @@ object CleanManager {
     const val HALF_MODE = "half_mode"
     const val FULL_MODE = "full_mode"
     const val CUSTOMER_MODE = "customer_mode"
+
+    private val isCleanedByShell = getBool(CFG_POWER_MODE_ENABLED)
 
     //计算清理完毕后的释放的空间
     private var size = 0L
@@ -89,9 +95,12 @@ object CleanManager {
             size = 0L
             if (showToast) appContext?.makeToast("好耶 开始清理了!")
             try {
+                val ofd = getInt(CFG_DATE_LIMIT, 3)
+                val ts = System.currentTimeMillis()
+                val lmtEnable = getBool(CFG_DATE_LIMIT_ENABLED)
                 for (f in files) {
 //                    logi("开始清理${f.path}")
-                    delFiles(f)
+                    delFiles(f, lmtEnable, ofd, ts)
                 }
                 appContext?.makeToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
                 saveSize()
@@ -102,16 +111,47 @@ object CleanManager {
         }
     }
 
+    private fun File.deleteSingleByShell() {
+        runtimeProc.exec("rm -f ${this.path}")
+    }
+
     /**
      * @param file 文件/文件夹
+     * @param limitEnable 是否开启天数过滤
+     * @param outOfDate 文件过期时间(天)
+     * @param ts 当前时间戳
      * 删除文件/文件夹的函数
      */
-    private fun delFiles(file: File) {
+    private fun delFiles(
+        file: File,
+        limitEnable: Boolean = false,
+        outOfDate: Int = 3,
+        ts: Long = System.currentTimeMillis()
+    ) {
         if (!file.exists()) return
+        //清理用
+        fun delete(f: File) {
+            size += f.length()
+            if (isCleanedByShell) {
+                f.deleteSingleByShell()
+            } else {
+                f.delete()
+            }
+        }
+        //文件
         if (file.isFile) {
-            size += file.length()
-            file.delete()
+            //如果需要过滤文件
+            if (limitEnable) {
+                val ofdTime = outOfDate * 24L * 60L * 60L * 1000L
+                if (ts - file.lastModified() > ofdTime) {
+                    delete(file)
+                }
+            } else {
+                //不需要直接删
+                delete(file)
+            }
         } else {
+            //文件夹
             val list = file.listFiles()
             if (list == null || list.isEmpty()) {
                 file.delete()
@@ -132,8 +172,7 @@ object CleanManager {
         init {
             time = getLong(CFG_CURRENT_CLEANED_TIME)
             //判断间隔
-            if ((getConfig(CFG_AUTO_CLEAN_ENABLED)
-                    ?: false) as Boolean && System.currentTimeMillis() - time > if (delay < 3600_000L) 24 * 3600L * 1000L else delay
+            if (getBool(CFG_AUTO_CLEAN_ENABLED) && System.currentTimeMillis() - time > if (delay < 3600_000L) 24 * 3600L * 1000L else delay
             ) {
                 mode = getConfig(CFG_CUSTOMER_CLEAN_MODE).toString()
                 autoClean()

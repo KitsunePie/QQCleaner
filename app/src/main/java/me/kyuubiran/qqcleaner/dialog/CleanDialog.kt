@@ -5,10 +5,12 @@ import android.text.InputFilter
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import me.kyuubiran.qqcleaner.utils.CleanManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
 import me.kyuubiran.qqcleaner.utils.makeToast
 
 const val HALF_MODE = 0
@@ -59,6 +61,26 @@ object CleanDialog {
                 ConfigManager.setConfig(CFG_CLEAN_DELAY, num)
                 context.makeToast("保存成功!")
                 spc.summary = "当前清理的间隔为${num}小时"
+            }
+            .setNegativeButton("取消") { _, _ -> }
+            .create()
+            .show()
+    }
+
+    fun showSetFileDateLimitDialog(context: Context, pf: Preference) {
+        val input = EditText(context)
+        input.setText(ConfigManager.getInt(CFG_DATE_LIMIT, 3).toString())
+        input.inputType = InputType.TYPE_CLASS_NUMBER
+        input.filters = arrayOf(InputFilter.LengthFilter(5))
+        AlertDialog.Builder(context)
+            .setView(input)
+            .setTitle("设置过期文件时间(天)")
+            .setPositiveButton("确定") { _, _ ->
+                var num = input.text.toString().toInt()
+                num = if (num < 1) 3 else num
+                ConfigManager.setConfig(CFG_DATE_LIMIT, num)
+                context.makeToast("保存成功!")
+                pf.summary = "当前会清理存在超过${num}天的文件"
             }
             .setNegativeButton("取消") { _, _ -> }
             .create()
