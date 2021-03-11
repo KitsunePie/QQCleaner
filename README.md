@@ -1,7 +1,9 @@
 # 瘦身模块(QQCleaner)
 已支持QQ、TIM、微信瘦身(1.4.0+) 大家觉得好用的话请给我点个小星星吧！   
 欢迎大家提交pr和issues扩充瘦身模块的清理范围    
-建了个群 有问题可以来这里反馈:827356240 或者去[Telegram频道](https://t.me/QQCleanerCh)   
+
+反馈QQ群:827356240 [Telegram频道](https://t.me/QQCleanerCh)   
+
 本模块不会删除消息记录以及接收的文件 只会清理堆积在那里的图片、视频、广告等缓存    
 注:本模块完全免费且开源，一切开发旨在学习，请勿用于非法用途。   
 ![pic](https://i.loli.net/2021/02/19/tGnfySCoqE93KFz.jpg)
