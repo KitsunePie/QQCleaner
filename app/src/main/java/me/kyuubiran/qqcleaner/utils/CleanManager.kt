@@ -112,7 +112,9 @@ object CleanManager {
     }
 
     private fun File.deleteSingleByShell() {
-        runtimeProc.exec("rm -f ${this.path}")
+        if (this.exists() && this.isFile) {
+            runtimeProc.exec("rm -f ${this.path}")
+        }
     }
 
     /**
