@@ -100,7 +100,7 @@ object CleanManager {
                 val lmtEnable = getBool(CFG_DATE_LIMIT_ENABLED)
                 for (f in files) {
 //                    logi("开始清理${f.path}")
-                    delFiles(f, lmtEnable, ofd, ts)
+                    delAllFiles(f, lmtEnable, ofd, ts)
                 }
                 appContext?.makeToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
                 saveSize()
@@ -124,7 +124,7 @@ object CleanManager {
      * @param ts 当前时间戳
      * 删除文件/文件夹的函数
      */
-    private fun delFiles(
+    private fun delAllFiles(
         file: File,
         limitEnable: Boolean = false,
         outOfDate: Int = 3,
@@ -159,7 +159,7 @@ object CleanManager {
                 file.delete()
             } else {
                 for (f in list) {
-                    delFiles(f)
+                    delAllFiles(f, limitEnable, outOfDate, ts)
                 }
             }
         }
