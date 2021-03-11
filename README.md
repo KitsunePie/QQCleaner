@@ -6,7 +6,7 @@
 
 本模块不会删除消息记录以及接收的文件 只会清理堆积在那里的图片、视频、广告等缓存    
 注:本模块完全免费且开源，一切开发旨在学习，请勿用于非法用途。   
-![preview](https://github.com/KyuubiRan/QQCleaner/blob/master/image/preview.png)
+![preview](https://github.com/KyuubiRan/QQCleaner/blob/master/image/module_preview.png){:height="50%" width="50%"}
 ## 使用方法
 1.勾上模块     
 2.重启QQ/TIM/微信   
