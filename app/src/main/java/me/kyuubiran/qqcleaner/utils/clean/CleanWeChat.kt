@@ -87,31 +87,31 @@ object CleanWeChat {
                     add(File(aCacheDir))
                     add(File("${aMicroMsgDir}/CDNTemp"))
                     add(File("${aMicroMsgDir}/FailMsgFileCache"))
-                    aUserDataDirName?.let { add(File("${aMicroMsgDir}/${aUserDataDirName}/webcanvascache")) }
+                    aUserDataDirName?.let { add(File("${aMicroMsgDir}/${it}/webcanvascache")) }
                     add(File("${dCache}/temp"))
                 }
             }
             PICTURE -> {
                 arr.apply {
-                    dUserDataDirName?.let { add(File("${dMicroMsgDir}/${dUserDataDirName}/image2")) }
+                    dUserDataDirName?.let { add(File("${dMicroMsgDir}/${it}/image2")) }
                     add(File("${dMicroMsgDir}/tmpScanLicense"))
                 }
 
             }
             AVATAR -> {
                 arr.apply {
-                    dUserDataDirName?.let { add(File("${dMicroMsgDir}/${dUserDataDirName}/avatar")) }
+                    dUserDataDirName?.let { add(File("${dMicroMsgDir}/${it}/avatar")) }
                 }
             }
             VIDEO -> {
                 arr.apply {
-                    aUserDataDirName?.let { add(File("${aMicroMsgDir}/${aUserDataDirName}/video")) }
+                    aUserDataDirName?.let { add(File("${aMicroMsgDir}/${it}/video")) }
                     add(File("${dCache}/mv_video"))
                 }
             }
             MINI -> {
                 arr.apply {
-                    dUserDataDirName?.let { add(File("${dMicroMsgDir}/${dUserDataDirName}/appbrand/pkg")) }
+                    dUserDataDirName?.let { add(File("${dMicroMsgDir}/${it}/appbrand/pkg")) }
                     add(File("${dMicroMsgDir}/appbrand"))
                 }
             }
