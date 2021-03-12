@@ -122,7 +122,7 @@ class ModuleEntryHook {
                         entry.setOnClickListener {
                             if (secondInitQQ) {
                                 val intent = Intent(appContext, SettingsActivity::class.java)
-                                appContext?.startActivity(intent)
+                                it.context?.startActivity(intent)
                             } else {
                                 appContext?.makeToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
                             }
