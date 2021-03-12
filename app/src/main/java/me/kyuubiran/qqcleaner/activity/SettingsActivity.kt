@@ -8,6 +8,7 @@ import androidx.preference.*
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.hostApp
+import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showSetFileDateLimitDialog
@@ -153,7 +154,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             joinQQGroup.setOnPreferenceClickListener {
-                openUrl("https://jq.qq.com/?_wv=1027&k=VnwmAAGA")
+                openQQGroup("827356240")
                 true
             }
             joinTelegram.setOnPreferenceClickListener {
@@ -194,6 +195,18 @@ class SettingsActivity : AppCompatTransferActivity() {
         private fun openUrl(url: String) {
             val uri = Uri.parse(url)
             val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+
+        private fun  openQQGroup(uin: String) {
+            val uri = Uri.parse("mqqapi://card/show_pslcard?src_type=internal&version=1&uin=$uin&card_type=group&source=qrcode")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            when (hostApp) {
+                HostApp.QQ, HostApp.TIM -> {
+                    intent.setPackage(hostInfo.packageName)
+                }
+                else -> Unit
+            }
             startActivity(intent)
         }
 
