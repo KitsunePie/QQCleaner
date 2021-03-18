@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import me.kyuubiran.qqcleaner.data.hostApp
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
@@ -65,10 +66,10 @@ fun getMethods(clazz: Class<*>): Array<Method> {
 
 //From QNotified
 fun getMethod(
-    obj: Any,
-    methodName: String,
-    returnType: Class<*>?,
-    vararg types: Class<*>?
+        obj: Any,
+        methodName: String,
+        returnType: Class<*>?,
+        vararg types: Class<*>?
 ): Method? {
     for (m in getMethods(obj.javaClass)) {
         val argTypes = m.parameterTypes
@@ -299,6 +300,37 @@ fun <T> fieldCpy(srcObj: T, newObj: T): T? {
     } catch (e: Exception) {
         loge(e)
         null
+    }
+}
+
+//必须在主进程调用
+fun getAppRuntime(): Any? {
+    return try {
+            val mAppRuntime = Class.forName("mqq.app.MobileQQ").getDeclaredField("mAppRuntime")
+        mAppRuntime.isAccessible = true
+        mAppRuntime.get(appContext)
+    } catch (e: Exception) {
+        loge(e)
+        null
+    }
+}
+
+fun isInNightMode(): Boolean {
+    return try {
+        when (hostApp) {
+            HostApp.TIM, HostApp.WE_CHAT -> {
+                false
+            }
+            HostApp.QQ -> {
+                val themeId = loadClass("com.tencent.mobileqq.theme.ThemeUtil")
+                        .getDeclaredMethod("getUserCurrentThemeId", loadClass("mqq.app.AppRuntime"))
+                        .invoke(null, getAppRuntime()) as String
+                "1103".endsWith(themeId) || "2920".endsWith(themeId)
+            }
+        }
+    } catch (e: Exception) {
+        loge(e)
+        false
     }
 }
 /* 工具类 Top-Level */
