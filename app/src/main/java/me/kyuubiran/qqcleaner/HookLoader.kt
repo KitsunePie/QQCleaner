@@ -1,13 +1,18 @@
 package me.kyuubiran.qqcleaner
 
 import android.app.Application
+import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
+import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.getStaticObjectOrNull
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.data.init
 import me.kyuubiran.qqcleaner.hook.ModuleEntryHook
-import me.kyuubiran.qqcleaner.utils.*
+import me.kyuubiran.qqcleaner.utils.CleanManager
+import me.kyuubiran.qqcleaner.utils.ConfigManager
+import me.kyuubiran.qqcleaner.utils.resinjection.ResInjector
 import java.lang.reflect.Method
 
 private const val QQ_CLEANER_TAG = "QQ_CLEANER_TAG"
@@ -20,11 +25,10 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
         doInit(lpparam.classLoader)
     }
 
-    private fun initItem(classLoader: ClassLoader) {
-        Utils(classLoader)
+    private fun initItem() {
         ModuleEntryHook()
-        ResInject.initForStubActivity()
-        ResInject.injectModuleResources(hostInfo.application.resources)
+        ResInjector.initSubActivity()
+        ResInjector.injectRes(hostInfo.application.resources)
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean()
     }
@@ -38,23 +42,16 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                         if (secondInitQQ) return
                         val clazz = rtLoader.loadClass("com.tencent.common.app.BaseApplicationImpl")
                         val ctx =
-                            clazz!!.let {
-                                getField(
-                                    it,
-                                    "sApplication",
-                                    clazz
-                                )?.get(null)
-                            } as Application
+                            clazz!!.getStaticObjectOrNull("sApplication") as Application
                         init(ctx)
-                        appContext = hostInfo.application
+                        EzXHelperInit.initAppContext(hostInfo.application)
                         if ("true" == System.getProperty(QQ_CLEANER_TAG)) return
-                        val classLoader = ctx.classLoader
                         System.setProperty(QQ_CLEANER_TAG, "true")
-                        initItem(classLoader)
+                        initItem()
                         secondInitQQ = true
-                    } catch (e: Throwable) {
-                        loge(e)
-                        throw e
+                    } catch (thr: Throwable) {
+                        Log.t(thr)
+                        throw thr
                     }
                 }
             }

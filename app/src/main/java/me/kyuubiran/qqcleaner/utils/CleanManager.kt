@@ -2,6 +2,10 @@ package me.kyuubiran.qqcleaner.utils
 
 
 import com.alibaba.fastjson.JSONArray
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.runtimeProcess
+import com.github.kyuubiran.ezxhelper.utils.showToast
 import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
@@ -93,7 +97,7 @@ object CleanManager {
     private fun doClean(files: ArrayList<File>, showToast: Boolean = true) {
         thread {
             size = 0L
-            if (showToast) appContext?.makeToast("好耶 开始清理了!")
+            if (showToast) appContext.showToast("好耶 开始清理了!")
             try {
                 val ofd = getInt(CFG_DATE_LIMIT, 3)
                 val ts = System.currentTimeMillis()
@@ -102,18 +106,18 @@ object CleanManager {
 //                    logi("开始清理${f.path}")
                     delAllFiles(f, lmtEnable, ofd, ts)
                 }
-                appContext?.makeToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
+                appContext.showToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
                 saveSize()
             } catch (e: Exception) {
-                loge(e)
-                appContext?.makeToast("坏耶 清理失败了!")
+                Log.e(e)
+                appContext.showToast("坏耶 清理失败了!")
             }
         }
     }
 
     private fun File.deleteSingleByShell() {
         if (this.exists() && this.isFile) {
-            runtimeProc.exec("rm -f ${this.path}")
+            runtimeProcess.exec("rm -f ${this.path}")
         }
     }
 
@@ -185,7 +189,7 @@ object CleanManager {
 
         //自动瘦身
         private fun autoClean() {
-            appContext?.makeToast("好耶 开始自动清理了!")
+            appContext.showToast("好耶 开始自动清理了!")
             when (mode) {
                 FULL_MODE -> {
                     fullClean(false)

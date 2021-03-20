@@ -1,6 +1,6 @@
 package me.kyuubiran.qqcleaner.utils.clean
 
-import me.kyuubiran.qqcleaner.utils.appContext
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import java.io.File
 
 object CleanQQ {
@@ -29,10 +29,10 @@ object CleanQQ {
     private const val OTHERS = "others"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq
-    private val rootDataDir: String? = appContext?.externalCacheDir?.parentFile?.path
+    private val rootDataDir: String? = appContext.externalCacheDir?.parentFile?.path
 
     //    storage/emulated/0/
-    private val rootDir: String? = appContext?.obbDir?.parentFile?.parentFile?.parentFile?.path
+    private val rootDir: String? = appContext.obbDir?.parentFile?.parentFile?.parentFile?.path
 
     //    storage/emulated/0/tencent
     private val rootTencentDir = "$rootDir/tencent"

@@ -1,6 +1,8 @@
 package me.kyuubiran.qqcleaner
 
 import android.app.Application
+import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
+import com.github.kyuubiran.ezxhelper.utils.Log
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.data.init
@@ -8,6 +10,7 @@ import me.kyuubiran.qqcleaner.hook.ModuleEntryHook
 import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.HookUtil.getMethod
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
+import me.kyuubiran.qqcleaner.utils.resinjection.ResInjector
 
 
 private const val WE_CHAT_CLEANER_TAG = "WECHAT_CLEANER_TAG"
@@ -20,11 +23,10 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
         doInit(lpparam.classLoader)
     }
 
-    private fun initItem(classLoader: ClassLoader) {
-        Utils(classLoader)
+    private fun initItem() {
         ModuleEntryHook()
-        ResInject.initForStubActivity()
-        ResInject.injectModuleResources(hostInfo.application.resources)
+        ResInjector.initSubActivity()
+        ResInjector.injectRes(hostInfo.application.resources)
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean()
     }
@@ -38,18 +40,17 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                     if (secondInitWeChat) return@hookAfter
                     val ctx = it.thisObject as Application
                     init(ctx)
-                    appContext = hostInfo.application
+                    EzXHelperInit.initAppContext(hostInfo.application)
                     if ("true" == System.getProperty(WE_CHAT_CLEANER_TAG)) return@hookAfter
-                    val classLoader = ctx.classLoader
                     System.setProperty(WE_CHAT_CLEANER_TAG, "true")
-                    initItem(classLoader)
+                    initItem()
                     secondInitWeChat = true
                 }
             firstInit = true
-        } catch (e: Throwable) {
-            if (e.toString().contains("com.google.android.webview")) return
-            loge(e)
-            throw e
+        } catch (thr: Throwable) {
+            if (thr.toString().contains("com.google.android.webview")) return
+            Log.t(thr)
+            throw thr
         }
     }
 }

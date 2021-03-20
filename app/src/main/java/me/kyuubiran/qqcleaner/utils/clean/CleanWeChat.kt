@@ -1,6 +1,6 @@
 package me.kyuubiran.qqcleaner.utils.clean
 
-import me.kyuubiran.qqcleaner.utils.appContext
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import java.io.File
 
 object CleanWeChat {
@@ -16,7 +16,7 @@ object CleanWeChat {
     private const val X5_CORE = "x5_core"
 
     //    storage/emulated/0/Android/data/com.tencent.mm
-    private val aDataDir: String? = appContext?.externalCacheDir?.parentFile?.path
+    private val aDataDir: String? = appContext.externalCacheDir?.parentFile?.path
 
     //    storage/emulated/0/Android/data/com.tencent.mm/cache
     private val aCacheDir: String = "${aDataDir}/cache"
@@ -28,7 +28,7 @@ object CleanWeChat {
     private val aMicroMsgDir: String = "${aDataDir}/MicroMsg"
 
     //    data/data/com.tencent.mm
-    private val dDataDir: String? = appContext?.filesDir?.parentFile?.path
+    private val dDataDir: String? = appContext.filesDir?.parentFile?.path
 
     //    data/data/com.tencent.mm/cache
     private val dCache: String = "${dDataDir}/cache"

@@ -3,10 +3,10 @@ package me.kyuubiran.qqcleaner.dialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.showToast
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.utils.appContext
-import me.kyuubiran.qqcleaner.utils.loge
-import me.kyuubiran.qqcleaner.utils.makeToast
 
 //捐赠相关dialog
 object SupportMeDialog {
@@ -15,7 +15,7 @@ object SupportMeDialog {
         AlertDialog.Builder(context)
             .setTitle("请选择扶贫方式")
             .setItems(arrayOf("QQ", "支付宝", "微信")) { _, index ->
-                appContext?.makeToast("感谢资瓷~")
+                appContext.showToast("感谢资瓷~")
                 when (index) {
                     0 -> gotoQQPay(context)
                     1 -> gotoAliPay(context)
@@ -52,7 +52,7 @@ object SupportMeDialog {
             }
             context.startActivity(intent)
         } catch (e: Exception) {
-            loge(e)
+            Log.e(e)
         }
 
     }
@@ -68,7 +68,7 @@ object SupportMeDialog {
             )
             context.startActivity(intent)
         } catch (e: Exception) {
-            loge(e)
+            Log.e(e)
         }
     }
 

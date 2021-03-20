@@ -5,6 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.preference.*
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.showToast
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.hostApp
@@ -12,7 +15,6 @@ import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showSetFileDateLimitDialog
-import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
@@ -25,6 +27,9 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
+import me.kyuubiran.qqcleaner.utils.HostApp
+import me.kyuubiran.qqcleaner.utils.formatSize
+import me.kyuubiran.qqcleaner.utils.resinjection.transferactivity.AppCompatTransferActivity
 import java.text.SimpleDateFormat
 
 class SettingsActivity : AppCompatTransferActivity() {
@@ -133,9 +138,9 @@ class SettingsActivity : AppCompatTransferActivity() {
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
                 try {
                     setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
-                    appContext?.makeToast("好耶 保存自定义瘦身列表成功了!")
+                    appContext.showToast("好耶 保存自定义瘦身列表成功了!")
                 } catch (e: Exception) {
-                    loge(e)
+                    Log.e(e)
                 }
                 true
             }
@@ -150,7 +155,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             }
             gotoGithub.setOnPreferenceClickListener {
                 openUrl("https://github.com/KyuubiRan/QQCleaner")
-                appContext?.makeToast("喜欢的话给我点个小星星吧~")
+                appContext.showToast("喜欢的话给我点个小星星吧~")
                 true
             }
             joinQQGroup.setOnPreferenceClickListener {
@@ -169,7 +174,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 if (clicked < 6) {
                     clicked++
                     if (clicked > 3) {
-                        appContext?.makeToast(
+                        appContext.showToast(
                             "再点${7 - clicked}次重置清理时间"
                         )
                     }
@@ -177,12 +182,12 @@ class SettingsActivity : AppCompatTransferActivity() {
                     clicked = 0
                     setConfig(CFG_CURRENT_CLEANED_TIME, 0)
                     cleanedTime.setSummary(R.string.no_cleaned_his_hint)
-                    appContext?.makeToast("已重置清理时间")
+                    appContext.showToast("已重置清理时间")
                 }
                 true
             }
             cleanedHistory.setOnPreferenceClickListener {
-                appContext?.makeToast("已刷新统计信息")
+                appContext.showToast("已刷新统计信息")
                 initSummary()
                 true
             }
@@ -198,8 +203,9 @@ class SettingsActivity : AppCompatTransferActivity() {
             startActivity(intent)
         }
 
-        private fun  openQQGroup(uin: String) {
-            val uri = Uri.parse("mqqapi://card/show_pslcard?src_type=internal&version=1&uin=$uin&card_type=group&source=qrcode")
+        private fun openQQGroup(uin: String) {
+            val uri =
+                Uri.parse("mqqapi://card/show_pslcard?src_type=internal&version=1&uin=$uin&card_type=group&source=qrcode")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             when (hostApp) {
                 HostApp.QQ, HostApp.TIM -> {
@@ -221,7 +227,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                     val format = SimpleDateFormat.getInstance()
                     cleanedTime.summary = format.format(currentCleanedTime)
                 } catch (e: Exception) {
-                    loge(e)
+                    Log.e(e)
                     cleanedTime.summary = "喵喵喵"
                 }
             }

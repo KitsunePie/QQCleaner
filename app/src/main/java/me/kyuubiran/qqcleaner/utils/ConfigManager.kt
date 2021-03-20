@@ -1,13 +1,15 @@
 package me.kyuubiran.qqcleaner.utils
 
 import com.alibaba.fastjson.JSONObject
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.utils.Log
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 import kotlin.concurrent.thread
 
 object ConfigManager {
-    private val config = File("${appContext?.filesDir?.absolutePath}/qqcleaner.json")
+    private val config = File("${appContext.filesDir.absolutePath}/qqcleaner.json")
 
     const val CFG_AUTO_CLEAN_ENABLED = "autoCleanEnabled"
     const val CFG_CURRENT_CLEANED_TIME = "cleanedTime"
@@ -45,7 +47,7 @@ object ConfigManager {
         return try {
             JSONObject.parseObject(config.readText(Charsets.UTF_8))
         } catch (e: Exception) {
-            loge(e)
+            Log.e(e)
             config.delete()
             checkCfg()
             JSONObject.parseObject(config.readText(Charsets.UTF_8))
@@ -80,7 +82,7 @@ object ConfigManager {
                 save(config)
             }
         } catch (e: Exception) {
-            loge(e)
+            Log.e(e)
         }
     }
 
@@ -92,7 +94,7 @@ object ConfigManager {
                 osw.flush()
                 osw.close()
             } catch (e: Exception) {
-                loge(e)
+                Log.e(e)
             }
         }
     }

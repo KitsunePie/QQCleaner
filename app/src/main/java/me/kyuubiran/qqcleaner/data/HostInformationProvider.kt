@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import androidx.core.content.pm.PackageInfoCompat
+import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.utils.HostApp
-import me.kyuubiran.qqcleaner.utils.loge
 import java.util.*
 
 data class HostInformationProvider(
@@ -54,8 +54,8 @@ fun init(applicationContext: Application) {
 private fun getHostInfo(context: Context): PackageInfo {
     return try {
         context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_META_DATA)
-    } catch (e: Throwable) {
-        loge("Utils--->Can not get PackageInfo!")
+    } catch (thr: Throwable) {
+        Log.t(thr, "Utils--->Can not get PackageInfo!")
         throw AssertionError("Can not get PackageInfo!")
     }
 }
