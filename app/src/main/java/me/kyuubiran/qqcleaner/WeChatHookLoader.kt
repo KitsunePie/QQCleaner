@@ -12,7 +12,6 @@ import me.kyuubiran.qqcleaner.utils.HookUtil.getMethod
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
 import me.kyuubiran.qqcleaner.utils.resinjection.ResInjector
 
-
 private const val WE_CHAT_CLEANER_TAG = "WECHAT_CLEANER_TAG"
 private var firstInit = false
 var secondInitWeChat = false

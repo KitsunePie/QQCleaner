@@ -30,6 +30,7 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.formatSize
+import me.kyuubiran.qqcleaner.utils.isInNightMode
 import me.kyuubiran.qqcleaner.utils.resinjection.transferactivity.AppCompatTransferActivity
 import java.text.SimpleDateFormat
 
