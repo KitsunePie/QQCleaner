@@ -24,9 +24,14 @@ fun isInNightMode(): Boolean {
                 false
             }
             HostApp.QQ -> {
-                val themeId = loadClass("com.tencent.mobileqq.theme.ThemeUtil")
-                    .getDeclaredMethod("getUserCurrentThemeId", loadClass("mqq.app.AppRuntime"))
-                    .invoke(null, getAppRuntime()) as String
+                val themeClass = try {
+                    loadClass("com.tencent.mobileqq.theme.ThemeUtil")
+                } catch (t: Throwable) {
+                    loadClass("com.tencent.mobileqq.vas.theme.api.ThemeUtil")
+                }
+                val themeId = themeClass
+                        .getDeclaredMethod("getUserCurrentThemeId", loadClass("mqq.app.AppRuntime"))
+                        .invoke(null, getAppRuntime()) as String
                 "1103".endsWith(themeId) || "2920".endsWith(themeId)
             }
         }
