@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.loadClass
 import com.github.kyuubiran.ezxhelper.utils.showToast
 import me.kyuubiran.qqcleaner.R
 
@@ -32,10 +33,11 @@ object SupportMeDialog {
             val nickname = "芜狐"
             val intent = Intent()
             intent.run {
-                setClassName(
-                    context.packageName,
-                    "com.tencent.mobileqq.activity.qwallet.TransactionActivity"
-                )
+                setClass(context, try {
+                    loadClass("com.tencent.mobileqq.activity.qwallet.TransactionActivity")
+                } catch (t: Throwable) {
+                    loadClass("com.tencent.mobileqq.qwallet.transaction.impl.TransactionActivity")
+                })
                 putExtra("come_from", 5)
                 putExtra("fling_action_key", 2)
                 putExtra("fromJump", true)
