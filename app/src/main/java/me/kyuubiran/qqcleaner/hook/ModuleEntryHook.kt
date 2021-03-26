@@ -138,7 +138,7 @@ private fun hookQQ() {
                     vg.addView(entry, 2)
                     entry.setOnClickListener {
                         if (secondInitQQ) {
-                            val intent = Intent(appContext, SettingsActivity::class.java)
+                            val intent = Intent(it.context, SettingsActivity::class.java)
                             it.context?.startActivity(intent)
                         } else {
                             appContext.showToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
