@@ -1,8 +1,8 @@
 ![ProjectPicture](image/Project_QQCleaner.png)
 
----
-
 # 瘦身模块(QQCleaner)
+
+---
 
 已支持QQ、TIM、微信瘦身(1.4.0+) 大家觉得好用的话请给我点个小星星吧！   
 欢迎大家提交pr和issues扩充瘦身模块的清理范围    
