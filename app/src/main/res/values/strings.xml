@@ -55,6 +55,6 @@
     <string name="auto_clean_delay">自动瘦身间隔</string>
     <string name="auto_clean_delay_hint">单位:小时 默认24小时(即一天) 设置为0时默认24小时</string>
     <string name="join_tg_channel">点击加入Telegram频道</string>
-    <string name="join_tg_channel_hint">频道:@QQCleanerCh\n聊天群组:@QQCleanerChat</string>
+    <string name="join_tg_channel_hint">频道:@QQCleaner\n聊天群组:@QQCleanerChat</string>
 
 </resources>
