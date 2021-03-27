@@ -167,7 +167,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             joinTelegram.setOnPreferenceClickListener {
-                openUrl("https://t.me/QQCleanerCh")
+                openUrl("https://t.me/QQCleaner")
                 true
             }
             supportMe.setOnPreferenceClickListener {
