@@ -18,7 +18,6 @@ import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.secondInitQQ
 import me.kyuubiran.qqcleaner.secondInitWeChat
-import me.kyuubiran.qqcleaner.utils.HookUtil.getMethod
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.findViewByType
@@ -47,9 +46,7 @@ class ModuleEntryHook {
                 loadClass("com.tencent.mm.ui.setting.SettingsAboutMicroMsgUI", classLoader)
             }
             actClass.getDeclaredMethod("onResume").hookAfter {
-                val list =
-                        "Lcom/tencent/mm/ui/base/preference/MMPreference;->getListView()Landroid/widget/ListView;"
-                                .getMethod(classLoader)?.invoke(it.thisObject) as ListView
+                val list = it.thisObject.invokeMethod("getListView") as ListView
                 list.viewTreeObserver.addOnGlobalLayoutListener {
                     val adapter = list.adapter as BaseAdapter
                     val preferenceClass = loadClass("com.tencent.mm.ui.base.preference.Preference", classLoader)
