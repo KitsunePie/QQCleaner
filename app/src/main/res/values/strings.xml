@@ -43,12 +43,12 @@
     <string name="about">公告</string>
     <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
         [更新日志]\n
-        -1.5.1(29)\n
-        1.修复强力清理不完全的问题\n
-        -1.5.0(28)\n
-        1.新增强力模式(通过Shell命令强制删除文件 默认关闭)\n
-        2.新增天数过滤(不清理n天内的文件 默认关闭 默认3天)\n
-        3.微信获取用户文件夹时做空安全检测 获取失败则会跳过
+        -1.6.0(30)\n
+        1.修复Play版有模块入口但是打不开模块的问题\n
+        2.启用apk压缩 减少体积\n
+        3.使用kotlin重构部分代码 完全移除Java部分代码\n
+        4.添加了模块图标(由Lagrio绘制)\n
+        5.修改Telegram频道链接(@QQCleaner)
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
