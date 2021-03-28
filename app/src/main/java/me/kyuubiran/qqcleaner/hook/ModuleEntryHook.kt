@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.hook
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -13,6 +14,7 @@ import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.*
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.activity.SettingsActivity
 import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.data.hostInfo
@@ -21,6 +23,7 @@ import me.kyuubiran.qqcleaner.secondInitWeChat
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.findViewByType
+import java.lang.IllegalStateException
 import java.lang.reflect.Method
 
 //模块入口Hook
@@ -62,12 +65,7 @@ class ModuleEntryHook {
                     val key = preference.invokeMethod("getKey").toString()
                     if (key == "QQCleaner") {
                         list[list.size - 2].setOnClickListener { v ->
-                            if (secondInitWeChat) {
-                                val intent = Intent(appContext, SettingsActivity::class.java)
-                                v.context.startActivity(intent)
-                            } else {
-                                appContext.showToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
-                            }
+                            openModule(secondInitWeChat, v.context)
                         }
                     }
                     if (count == null) count = adapter.count
@@ -135,12 +133,7 @@ class ModuleEntryHook {
                         val vg = item?.parent as ViewGroup
                         vg.addView(entry, 2)
                         entry.setOnClickListener {
-                            if (secondInitQQ) {
-                                val intent = Intent(it.context, SettingsActivity::class.java)
-                                it.context?.startActivity(intent)
-                            } else {
-                                appContext.showToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
-                            }
+                            openModule(secondInitQQ, it.context)
                         }
                     } catch (e: Exception) {
                         Log.e(e)
@@ -148,5 +141,37 @@ class ModuleEntryHook {
                 }
             })
         }
+    }
+
+    private fun openModule(check: Boolean, ctx: Context) {
+        if (check) {
+            try {
+                ctx.resources.getString(R.string.res_inject_success)
+                val intent = Intent(ctx, SettingsActivity::class.java)
+                ctx.startActivity(intent)
+            } catch (e: Throwable) {
+                AlertDialog.Builder(ctx)
+                        .apply {
+                            setTitle("提示")
+                            setMessage("你似乎才更新了模块,需要重启${hostInfo.hostName}生效！")
+                            setPositiveButton("立刻重启") { _, _ ->
+                                restartHost(ctx)
+                            }
+                            setNegativeButton("稍后重启", null)
+                            show()
+                        }
+            }
+        } else {
+            appContext.showToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
+        }
+    }
+
+    private fun restartHost(context: Context, intent: Intent? = null) {
+        val targetIntent = intent
+                ?: context.packageManager.getLaunchIntentForPackage(hostInfo.packageName)
+                ?: throw IllegalStateException("No launch intent for ${hostInfo.hostName}")
+        targetIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        context.startActivity(targetIntent)
+        Runtime.getRuntime().exit(0)
     }
 }
