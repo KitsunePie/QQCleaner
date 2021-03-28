@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
-import androidx.core.view.get
-import androidx.core.view.size
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.*
 import de.robv.android.xposed.XC_MethodHook
@@ -42,7 +40,7 @@ class ModuleEntryHook {
     private fun hookWeChat() {
         try {
             val classLoader = appContext.classLoader
-            var count: Int? = null
+            val preferenceClass = loadClass("com.tencent.mm.ui.base.preference.Preference", classLoader)
             val actClass = try {
                 loadClass("com.tencent.mm.plugin.setting.ui.setting.SettingsAboutMicroMsgUI", classLoader)
             } catch (e: Exception) {
@@ -50,49 +48,50 @@ class ModuleEntryHook {
             }
             actClass.getDeclaredMethod("onResume").hookAfter {
                 val list = it.thisObject.invokeMethod("getListView") as ListView
+                val adapter = list.adapter as BaseAdapter
+                val addMethod: Method = findMethodByCondition(adapter.javaClass) { m ->
+                    m.returnType == Void.TYPE && m.parameterTypes.contentDeepEquals(
+                            arrayOf(
+                                    preferenceClass,
+                                    Int::class.java
+                            )
+                    )
+                }
+                val entry = loadClass("com.tencent.mm.ui.base.preference.IconPreference", classLoader)
+                        .getConstructor(Context::class.java)
+                        .newInstance(it.thisObject)
+                entry.apply {
+                    invokeMethod(
+                            "setKey",
+                            arrayOf("QQCleaner"),
+                            arrayOf(String::class.java)
+                    )
+                    invokeMethod(
+                            "setSummary",
+                            arrayOf("芜狐~"),
+                            arrayOf(CharSequence::class.java)
+                    )
+                    invokeMethod(
+                            "setTitle",
+                            arrayOf("${hostInfo.hostName}瘦身"),
+                            arrayOf(java.lang.CharSequence::class.java)
+                    )
+                }
                 list.viewTreeObserver.addOnGlobalLayoutListener {
-                    val adapter = list.adapter as BaseAdapter
-                    val preferenceClass = loadClass("com.tencent.mm.ui.base.preference.Preference", classLoader)
-                    val addMethod: Method = findMethodByCondition(adapter.javaClass) { m ->
-                        m.returnType == Void.TYPE && m.parameterTypes.contentDeepEquals(
-                                arrayOf(
-                                        preferenceClass,
-                                        Int::class.java
-                                )
-                        )
-                    }
-                    val preference = adapter.getItem(list.size - 2)
-                    val key = preference.invokeMethod("getKey").toString()
-                    if (key == "QQCleaner") {
-                        list[list.size - 2].setOnClickListener { v ->
-                            openModule(secondInitWeChat, v.context)
-                        }
-                    }
-                    if (count == null) count = adapter.count
-                    else if (adapter.count <= count!!) {
-                        val entry = loadClass("com.tencent.mm.ui.base.preference.IconPreference", classLoader)
-                                .getConstructor(Context::class.java)
-                                .newInstance(it.thisObject)
-                        entry.apply {
-                            invokeMethod(
-                                    "setKey",
-                                    arrayOf("QQCleaner"),
-                                    arrayOf(String::class.java)
-                            )
-                            invokeMethod(
-                                    "setSummary",
-                                    arrayOf("芜狐~"),
-                                    arrayOf(CharSequence::class.java)
-                            )
-                            invokeMethod(
-                                    "setTitle",
-                                    arrayOf("${hostInfo.hostName}瘦身"),
-                                    arrayOf(java.lang.CharSequence::class.java)
-                            )
-                        }
+                    val preference = adapter.getItem(adapter.count - 2)
+                    if (preference.invokeMethod("getKey") != "QQCleaner") {
                         addMethod.invoke(adapter, entry, adapter.count + 1)
                         adapter.notifyDataSetChanged()
                     }
+                }
+            }
+            findMethodByCondition(actClass) { m ->
+                m.name == "onPreferenceTreeClick" && m.parameterTypes[1].isAssignableFrom(preferenceClass)
+            }.hookBefore {
+                val preference = it.args[1]
+                if (preference.invokeMethod("getKey") == "QQCleaner") {
+                    openModule(secondInitWeChat, it.thisObject as Activity)
+                    it.result = true
                 }
             }
         } catch (e: Exception) {
