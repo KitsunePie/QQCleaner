@@ -8,7 +8,7 @@ import java.math.BigDecimal
 
 fun getAppRuntime(): Any? {
     return try {
-        val mAppRuntime = Class.forName("mqq.app.MobileQQ").getDeclaredField("mAppRuntime")
+        val mAppRuntime = loadClass("mqq.app.MobileQQ").getDeclaredField("mAppRuntime")
         mAppRuntime.isAccessible = true
         mAppRuntime.get(appContext)
     } catch (e: Exception) {
