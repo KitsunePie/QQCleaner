@@ -40,15 +40,9 @@
     <string name="author">模块作者:KyuubiRan\n特别鸣谢:ketal178、cinit、Lagrio</string>
     <string name="support_me">点我扶贫</string>
     <string name="support_me_hint">本模块完全免费开源 一切开发旨在学习 请勿用于非法用途 喜欢本模块的可以捐赠支持我 谢谢~</string>
-    <string name="about">公告</string>
-    <string name="about_hint">注意:本模块不会清理聊天记录、接收文件、保存的图片、表情收藏等重要东西\n
-        [更新日志]\n
-        -1.6.0(30)\n
-        1.修复Play版有模块入口但是打不开模块的问题\n
-        2.启用apk压缩 减少体积\n
-        3.使用kotlin重构部分代码 完全移除Java部分代码\n
-        4.添加了模块图标(由Lagrio绘制)\n
-        5.修改Telegram频道链接(@QQCleaner)
+    <string name="update_info">更新日志</string>
+    <string name="update_info_content">-1.6.1(31)\n
+        1.修复某些情况下微信入口打不开的问题
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>

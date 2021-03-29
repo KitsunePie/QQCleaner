@@ -83,7 +83,7 @@
                 app:summary="@string/support_me_hint" />
         <Preference
                 app:key="About"
-                app:title="@string/about"
-                app:summary="@string/about_hint" />
+                app:title="@string/update_info"
+                app:summary="@string/update_info_content" />
     </PreferenceCategory>
 </PreferenceScreen>
