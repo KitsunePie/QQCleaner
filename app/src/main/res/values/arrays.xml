@@ -2,7 +2,7 @@
     <attr name="themeColor" format="color" />
     <string-array name="auto_clean_mode">
         <item>普通瘦身</item>
-        <item>完全瘦身</item>
+        <item>全面瘦身</item>
         <item>自定义瘦身</item>
     </string-array>
 
