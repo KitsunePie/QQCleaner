@@ -33,6 +33,7 @@
         <item>斗图</item>
         <item>QQ电话动态背景</item>
         <item>接受文件缓存</item>
+        <item>调试数据缓存</item>
         <item>其他</item>
     </string-array>
     <!--QQ 清理列表的键值 请务必务必与CleanQQ下定义的常量的值相同-->
@@ -57,6 +58,7 @@
         <item>dou_tu</item>
         <item>video_background</item>
         <item>receive_file_cache</item>
+        <item>av_debug</item>
         <item>others</item>
     </string-array>
 

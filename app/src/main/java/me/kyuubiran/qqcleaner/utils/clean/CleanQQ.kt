@@ -26,10 +26,11 @@ object CleanQQ {
     private const val VIDEO_BACKGROUND = "video_background"
     private const val RECEIVE_FILE_CACHE = "receive_file_cache"
     private const val TBS = "tbs"
+    private const val AV_DEBUG = "av_debug"
     private const val OTHERS = "others"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq
-    private val rootDataDir: String? = appContext.externalCacheDir?.parentFile?.path
+    private val aRootDataDir: String? = appContext.externalCacheDir?.parentFile?.path
 
     //    storage/emulated/0/
     private val rootDir: String? = appContext.obbDir?.parentFile?.parentFile?.parentFile?.path
@@ -38,13 +39,13 @@ object CleanQQ {
     private val rootTencentDir = "$rootDir/tencent"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent
-    private val TencentDir = "$rootDataDir/Tencent"
+    private val TencentDir = "$aRootDataDir/Tencent"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/MobileQQ
     private val MobileQQDir = "$TencentDir/MobileQQ"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/QQ_Images
-    private val QQ_Images = "$rootDataDir/QQ_Images"
+    private val QQ_Images = "$aRootDataDir/QQ_Images"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv
     private val QQfile_recv = "$TencentDir/QQfile_recv"
@@ -60,7 +61,7 @@ object CleanQQ {
             //缓存
             CACHES -> {
                 arr.apply {
-                    add(File("$rootDataDir/cache"))
+                    add(File("$aRootDataDir/cache"))
                     add(File("$MobileQQDir/diskcache"))
                     add(File("$MobileQQDir/Scribble/ScribbleCache"))
                 }
@@ -191,6 +192,12 @@ object CleanQQ {
                     add(File("$QQfile_recv/thumbnails"))
                 }
             }
+            //调试数据缓存
+            AV_DEBUG -> {
+                arr.apply {
+                    add(File("$aRootDataDir/avdebug"))
+                }
+            }
             //其他
             OTHERS -> {
                 arr.apply {
@@ -236,6 +243,7 @@ object CleanQQ {
         addAll(getFiles(DOU_TU))
         addAll(getFiles(RECEIVE_FILE_CACHE))
         addAll(getFiles(TBS))
+        addAll(getFiles(AV_DEBUG))
         addAll(getFiles(OTHERS))
     }
 }
