@@ -16,7 +16,11 @@ import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.dialog.*
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showConfirmDialog
 import me.kyuubiran.qqcleaner.dialog.CleanDialog.showSetFileDateLimitDialog
+import me.kyuubiran.qqcleaner.utils.CleanManager.CUSTOMER_MODE
+import me.kyuubiran.qqcleaner.utils.CleanManager.FULL_MODE
+import me.kyuubiran.qqcleaner.utils.CleanManager.HALF_MODE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_MODE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
@@ -38,7 +42,8 @@ class SettingsActivity : AppCompatTransferActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_Ftb)
-        val mode = if (isInNightMode()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        val mode =
+            if (isInNightMode()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         AppCompatDelegate.setDefaultNightMode(mode)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
@@ -132,11 +137,11 @@ class SettingsActivity : AppCompatTransferActivity() {
         //设置Item点击事件
         private fun setClickable() {
             halfClean.setOnPreferenceClickListener {
-                showConfirmDialog(HALF_MODE, this.requireContext())
+                showConfirmDialog(HALF_MODE_INT, this.requireContext())
                 true
             }
             fullClean.setOnPreferenceClickListener {
-                showConfirmDialog(FULL_MODE, this.requireContext())
+                showConfirmDialog(FULL_MODE_INT, this.requireContext())
                 true
             }
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
@@ -154,7 +159,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             }
 
             doCustomerClean.setOnPreferenceClickListener {
-                showConfirmDialog(CUSTOMER_MODE, this.requireContext())
+                showConfirmDialog(CUSTOMER_MODE_INT, this.requireContext())
                 true
             }
             gotoGithub.setOnPreferenceClickListener {
@@ -163,7 +168,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             joinQQGroup.setOnPreferenceClickListener {
-                openQQGroup("827356240")
+                openQQGroup()
                 true
             }
             joinTelegram.setOnPreferenceClickListener {
@@ -199,6 +204,14 @@ class SettingsActivity : AppCompatTransferActivity() {
                 CleanDialog.showCleanDelayDialog(this.requireContext(), autoClean)
                 true
             }
+            autoCleanMode.setOnPreferenceChangeListener { _, newValue ->
+                when (newValue) {
+                    HALF_MODE -> setConfig(CFG_AUTO_CLEAN_MODE, HALF_MODE)
+                    FULL_MODE -> setConfig(CFG_AUTO_CLEAN_MODE, FULL_MODE)
+                    CUSTOMER_MODE -> setConfig(CFG_AUTO_CLEAN_MODE, CUSTOMER_MODE)
+                }
+                true
+            }
         }
 
         private fun openUrl(url: String) {
@@ -207,7 +220,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             startActivity(intent)
         }
 
-        private fun openQQGroup(uin: String) {
+        private fun openQQGroup(uin: String = "827356240") {
             val uri =
                 Uri.parse("mqqapi://card/show_pslcard?src_type=internal&version=1&uin=$uin&card_type=group&source=qrcode")
             val intent = Intent(Intent.ACTION_VIEW, uri)

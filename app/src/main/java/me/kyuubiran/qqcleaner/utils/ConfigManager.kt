@@ -12,9 +12,9 @@ object ConfigManager {
     private val config = File("${appContext.filesDir.absolutePath}/qqcleaner.json")
 
     const val CFG_AUTO_CLEAN_ENABLED = "autoCleanEnabled"
+    const val CFG_AUTO_CLEAN_MODE = "autoCleanMode"
     const val CFG_CURRENT_CLEANED_TIME = "cleanedTime"
     const val CFG_CUSTOMER_CLEAN_LIST = "customerList"
-    const val CFG_CUSTOMER_CLEAN_MODE = "customerCleanMode"
     const val CFG_TOTAL_CLEANED_SIZE = "totalCleanedSize"
     const val CFG_CLEAN_DELAY = "cleanDelay"
     const val CFG_POWER_MODE_ENABLED = "powerModeEnabled"

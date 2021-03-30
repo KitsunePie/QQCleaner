@@ -8,9 +8,9 @@ import com.github.kyuubiran.ezxhelper.utils.runtimeProcess
 import com.github.kyuubiran.ezxhelper.utils.showToast
 import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_MODE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
-import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_MODE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_POWER_MODE_ENABLED
@@ -19,6 +19,7 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.getBool
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getString
 import me.kyuubiran.qqcleaner.utils.clean.CleanQQ
 import me.kyuubiran.qqcleaner.utils.clean.CleanWeChat
 import java.io.File
@@ -171,7 +172,7 @@ object CleanManager {
 
     class AutoClean {
         private var time = 0L
-        private val delay = ConfigManager.getInt(CFG_CLEAN_DELAY, 24) * 3600L * 1000L
+        private val delay = getInt(CFG_CLEAN_DELAY, 24) * 3600L * 1000L
         private var mode = ""
 
         //在加载模块的时候会检测并执行一次
@@ -180,7 +181,8 @@ object CleanManager {
             //判断间隔
             if (getBool(CFG_AUTO_CLEAN_ENABLED) && System.currentTimeMillis() - time > if (delay < 3600_000L) 24 * 3600L * 1000L else delay
             ) {
-                mode = getConfig(CFG_CUSTOMER_CLEAN_MODE).toString()
+                mode = getString(CFG_AUTO_CLEAN_MODE)
+                if (mode.isEmpty()) mode = HALF_MODE
                 autoClean()
                 time = System.currentTimeMillis()
                 ConfigManager.setConfig(CFG_CURRENT_CLEANED_TIME, time)
@@ -191,6 +193,9 @@ object CleanManager {
         private fun autoClean() {
             appContext.showToast("好耶 开始自动清理了!")
             when (mode) {
+                HALF_MODE -> {
+                    halfClean(false)
+                }
                 FULL_MODE -> {
                     fullClean(false)
                 }
@@ -198,7 +203,7 @@ object CleanManager {
                     customerClean(false)
                 }
                 else -> {
-                    halfClean(false)
+                    appContext.showToast("坏耶 自动瘦身列表有误 请重新选择")
                 }
             }
         }

@@ -41,8 +41,8 @@
     <string name="support_me">点我扶贫</string>
     <string name="support_me_hint">本模块完全免费开源 一切开发旨在学习 请勿用于非法用途 喜欢本模块的可以捐赠支持我 谢谢~</string>
     <string name="update_info">更新日志</string>
-    <string name="update_info_content">-1.6.1(31)\n
-        1.修复某些情况下微信入口打不开的问题
+    <string name="update_info_content">-1.6.2(32)\n
+        1.修复自动瘦身模式永远为普通模式的bug
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
