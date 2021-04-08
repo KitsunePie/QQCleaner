@@ -16,20 +16,40 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            proguardFiles 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
     aaptOptions {
         additionalParameters '--allow-reserved-package-id', '--package-id', '0x63'
+        additionalParameters "--preferred-density", "xxxhdpi"
     }
 
     kotlinOptions.jvmTarget = "1.8"
+
+    packagingOptions {
+        exclude 'META-INF/**'
+        exclude 'kotlin/**'
+        exclude 'google/**'
+        exclude '**.bin'
+    }
+
+    aaptOptions {
+        additionalParameters "--preferred-density", "xxxhdpi"
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    dependenciesInfo {
+        includeInApk false
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar","*.aar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.31"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'

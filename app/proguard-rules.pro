@@ -1,55 +1,27 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+-repackageclasses "qqcleaner"
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
-
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
-
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
--keep class me.kyuubiran.qqcleaner.* { *; }
-
--keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
--keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
-
--keepclasseswithmembernames class * {
-    native <methods>;
+-keep class * implements de.robv.android.xposed.IXposedHookLoadPackage {
+    public void *(de.robv.android.xposed.callbacks.XC_LoadPackage$LoadPackageParam);
 }
 
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet);
+-keep class * implements de.robv.android.xposed.IXposedHookInitPackageResources {
+    public void *(de.robv.android.xposed.callbacks.XC_InitPackageResources$InitPackageResourcesParam);
 }
 
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int);
+-keepattributes RuntimeVisible*Annotations
+
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
 }
 
--keepclassmembers class * extends android.app.Activity {
-   public void *(android.view.View);
+-keepclassmembers class * implements android.os.Parcelable {
+    public static final ** CREATOR;
 }
 
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
+-assumenosideeffects class kotlin.jvm.internal.Intrinsics {
+    public static void check*(...);
+    public static void throw*(...);
 }
 
--keep class * implements android.os.Parcelable {
-  public static final android.os.Parcelable$Creator *;
-}
+-allowaccessmodification
+-overloadaggressively
