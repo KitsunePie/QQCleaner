@@ -3,7 +3,6 @@ package me.kyuubiran.qqcleaner.utils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.forEach
 import java.util.*
 
 internal inline fun <reified T : TextView> ViewGroup.findViewByText(
