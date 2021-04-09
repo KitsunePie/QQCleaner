@@ -3,11 +3,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <androidx.appcompat.widget.Toolbar
+    <Toolbar
             android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize"
+            android:layout_height="56dp"
             android:id="@+id/toolbar"
-            android:background="?attr/themeColor"
+            android:background="@color/colorPrimary"
             android:elevation="0dp">
         <TextView
                 android:id="@+id/title"
@@ -15,10 +15,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:textColor="@android:color/white"/>
 
-    </androidx.appcompat.widget.Toolbar>
+    </Toolbar>
     <FrameLayout
             android:id="@+id/settings"
             android:layout_width="match_parent"

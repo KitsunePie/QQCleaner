@@ -1,89 +1,88 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-    <PreferenceCategory app:title="@string/auto_clean_switch_title">
-        <SwitchPreferenceCompat
-                app:key="AutoClean"
-                app:title="@string/auto_clean_switch_key" />
+<?xml version="1.0" encoding="utf-8"?><!--suppress DeprecatedClassUsageInspection -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/auto_clean_switch_title">
+        <SwitchPreference
+            android:key="AutoClean"
+            android:title="@string/auto_clean_switch_key" />
         <ListPreference
-                app:entries="@array/auto_clean_mode"
-                app:entryValues="@array/auto_clean_mode_value"
-                app:defaultValue="half_mode"
-                app:key="AutoCleanMode"
-                app:title="@string/auto_clean_mode"
-                app:summary="@string/auto_clean_mode_hint"
-                app:isPreferenceVisible="false" />
+            android:entries="@array/auto_clean_mode"
+            android:entryValues="@array/auto_clean_mode_value"
+            android:defaultValue="half_mode"
+            android:key="AutoCleanMode"
+            android:title="@string/auto_clean_mode"
+            android:summary="@string/auto_clean_mode_hint" />
         <Preference
-                app:key="CleanDelay"
-                app:title="@string/auto_clean_delay"
-                app:summary="@string/auto_clean_delay_hint"
-                app:isPreferenceVisible="false" />
+            android:key="CleanDelay"
+            android:title="@string/auto_clean_delay"
+            android:summary="@string/auto_clean_delay_hint" />
         <Preference
-                app:key="CleanedTime"
-                app:title="@string/auto_clean_time"
-                app:summary="@string/no_cleaned_his_hint"
-                app:isPreferenceVisible="false" />
+            android:key="CleanedTime"
+            android:title="@string/auto_clean_time"
+            android:summary="@string/no_cleaned_his_hint" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/clean_title">
+    <PreferenceCategory android:title="@string/clean_title">
         <Preference
-                app:key="HalfClean"
-                app:title="@string/clean_half"
-                app:summary="@string/clean_half_hint" />
+            android:key="HalfClean"
+            android:title="@string/clean_half"
+            android:summary="@string/clean_half_hint" />
         <Preference
-                app:key="FullClean"
-                app:title="@string/clean_full"
-                app:summary="@string/clean_full_hint" />
+            android:key="FullClean"
+            android:title="@string/clean_full"
+            android:summary="@string/clean_full_hint" />
         <MultiSelectListPreference
-                app:key="CustomerClean"
-                app:title="@string/clean_cus"
-                app:summary="@string/clean_cus_hint" />
+            android:key="CustomerClean"
+            android:title="@string/clean_cus"
+            android:summary="@string/clean_cus_hint" />
         <Preference
-                app:key="DoCustomerClean"
-                app:title="@string/do_clean_cus"
-                app:summary="@string/do_clean_cus_hint" />
+            android:key="DoCustomerClean"
+            android:title="@string/do_clean_cus"
+            android:summary="@string/do_clean_cus_hint" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/clean_settings">
-        <SwitchPreferenceCompat
-                app:key="PowerMode"
-                app:title="@string/enable_power_mode"
-                app:summary="@string/enable_power_mode_hint" />
-        <SwitchPreferenceCompat
-                app:key="EnableDateLimit"
-                app:title="@string/file_date_limit"
-                app:summary="@string/file_date_limit_hint" />
+    <PreferenceCategory android:title="@string/clean_settings">
+        <SwitchPreference
+            android:key="PowerMode"
+            android:title="@string/enable_power_mode"
+            android:summary="@string/enable_power_mode_hint" />
+        <SwitchPreference
+            android:key="EnableDateLimit"
+            android:title="@string/file_date_limit"
+            android:summary="@string/file_date_limit_hint" />
         <Preference
-                app:key="SetDateLimit"
-                app:title="@string/set_file_date_limit"
-                app:isPreferenceVisible="false" />
+            android:key="SetDateLimit"
+            android:title="@string/set_file_date_limit" />
+        <!--android:isPreferenceVisible="false" -->
+
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/other_title">
+    <PreferenceCategory android:title="@string/other_title">
         <Preference
-                app:key="CleanedHistory"
-                app:title="@string/enable_cleaned_history"
-                app:summary="@string/no_cleaned_his_hint" />
+            android:key="CleanedHistory"
+            android:title="@string/enable_cleaned_history"
+            android:summary="@string/no_cleaned_his_hint" />
         <Preference
-                app:key="ModuleInfo"
-                app:title="@string/module_version" />
+            android:key="ModuleInfo"
+            android:title="@string/module_version" />
         <Preference
-                app:key="GotoGithub"
-                app:title="@string/goto_github"
-                app:summary="@string/author" />
+            android:key="GotoGithub"
+            android:title="@string/goto_github"
+            android:summary="@string/author" />
         <Preference
-                app:key="JoinQQGroup"
-                app:title="@string/join_qq_group"
-                app:summary="@string/join_qq_group_hint" />
+            android:key="JoinQQGroup"
+            android:title="@string/join_qq_group"
+            android:summary="@string/join_qq_group_hint" />
         <Preference
-                app:key="JoinTelegram"
-                app:title="@string/join_tg_channel"
-                app:summary="@string/join_tg_channel_hint" />
+            android:key="JoinTelegram"
+            android:title="@string/join_tg_channel"
+            android:summary="@string/join_tg_channel_hint" />
         <Preference
-                app:key="SupportMe"
-                app:title="@string/support_me"
-                app:summary="@string/support_me_hint" />
+            android:key="SupportMe"
+            android:title="@string/support_me"
+            android:summary="@string/support_me_hint" />
         <Preference
-                app:key="About"
-                app:title="@string/update_info"
-                app:summary="@string/update_info_content" />
+            android:key="About"
+            android:title="@string/update_info"
+            android:summary="@string/update_info_content" />
     </PreferenceCategory>
 </PreferenceScreen>

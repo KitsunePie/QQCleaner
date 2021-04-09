@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.utils.resinjection
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.app.Activity
 import android.app.Application
 import android.app.Instrumentation
@@ -14,7 +15,6 @@ import android.content.res.Resources
 import android.os.*
 import android.view.KeyEvent
 import android.view.MotionEvent
-import androidx.annotation.RequiresApi
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.*
 import dalvik.system.BaseDexClassLoader
@@ -210,7 +210,7 @@ object ResInjector {
             mBase.sendStatus(resultCode, results)
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
+        @TargetApi(Build.VERSION_CODES.O)
         override fun addResults(results: Bundle?) {
             mBase.addResults(results)
         }
@@ -247,7 +247,7 @@ object ResInjector {
             return mBase.targetContext
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
+        @TargetApi(Build.VERSION_CODES.O)
         override fun getProcessName(): String {
             return mBase.processName
         }
@@ -284,7 +284,7 @@ object ResInjector {
             return mBase.startActivitySync(intent)
         }
 
-        @RequiresApi(Build.VERSION_CODES.P)
+        @TargetApi(Build.VERSION_CODES.P)
         override fun startActivitySync(intent: Intent, options: Bundle?): Activity {
             return mBase.startActivitySync(intent, options)
         }
@@ -497,7 +497,7 @@ object ResInjector {
             mBase.callActivityOnSaveInstanceState(activity, outState, outPersistentState)
         }
 
-        @RequiresApi(Build.VERSION_CODES.R)
+        @TargetApi(Build.VERSION_CODES.R)
         override fun callActivityOnPictureInPictureRequested(activity: Activity) {
             mBase.callActivityOnPictureInPictureRequested(activity)
         }
@@ -524,12 +524,12 @@ object ResInjector {
             return mBase.uiAutomation
         }
 
-        @RequiresApi(Build.VERSION_CODES.N)
+        @TargetApi(Build.VERSION_CODES.N)
         override fun getUiAutomation(flags: Int): UiAutomation {
             return mBase.getUiAutomation(flags)
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
+        @TargetApi(Build.VERSION_CODES.O)
         override fun acquireLooperManager(looper: Looper?): TestLooperManager {
             return mBase.acquireLooperManager(looper)
         }

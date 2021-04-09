@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="MainTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="p">false</item>
+        <item name="android:colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
+</resources>

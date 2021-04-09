@@ -1,8 +1,8 @@
 package me.kyuubiran.qqcleaner.dialog
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AlertDialog
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
 import com.github.kyuubiran.ezxhelper.utils.loadClass

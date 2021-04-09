@@ -54,3 +54,9 @@ internal inline fun <reified T : TextView> ViewGroup.findViewByText(
     }
     return null
 }
+
+inline var View.isVisible: Boolean
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }

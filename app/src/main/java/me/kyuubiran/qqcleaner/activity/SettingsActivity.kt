@@ -1,11 +1,13 @@
+@file:Suppress("DEPRECATION")
+
 package me.kyuubiran.qqcleaner.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.*
+import android.preference.*
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
 import com.github.kyuubiran.ezxhelper.utils.showToast
@@ -35,29 +37,25 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.formatSize
 import me.kyuubiran.qqcleaner.utils.isInNightMode
-import me.kyuubiran.qqcleaner.utils.resinjection.transferactivity.AppCompatTransferActivity
 import java.text.SimpleDateFormat
 
-class SettingsActivity : AppCompatTransferActivity() {
+class SettingsActivity : Activity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme_Ftb)
-        val mode =
-            if (isInNightMode()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        AppCompatDelegate.setDefaultNightMode(mode)
+        if (isInNightMode()) {
+            setTheme(R.style.AppTheme_Dark)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.settings, SettingsFragment())
-            .commit()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        fragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
         checkCfg()
     }
 
-    class SettingsFragment : PreferenceFragmentCompat() {
+    class SettingsFragment : PreferenceFragment() {
         //延迟初始化Preference
-        private lateinit var autoClean: SwitchPreferenceCompat
+        private lateinit var autoClean: SwitchPreference
         private lateinit var cleanedHistory: Preference
         private lateinit var autoCleanMode: ListPreference
         private lateinit var cleanedTime: Preference
@@ -68,8 +66,8 @@ class SettingsActivity : AppCompatTransferActivity() {
         private lateinit var customerCleanList: MultiSelectListPreference
         private lateinit var doCustomerClean: Preference
 
-        private lateinit var powerMode: SwitchPreferenceCompat
-        private lateinit var enableDateLimit: SwitchPreferenceCompat
+        private lateinit var powerMode: SwitchPreference
+        private lateinit var enableDateLimit: SwitchPreference
         private lateinit var setDateLimit: Preference
 
         private lateinit var supportMe: Preference
@@ -81,22 +79,23 @@ class SettingsActivity : AppCompatTransferActivity() {
         //重置清理时间计数器
         private var clicked = 0
 
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
             //初始化
-            setPreferencesFromResource(R.xml.root_preferences, rootKey)
-            autoClean = findPreference("AutoClean")!!
+            super.onCreate(savedInstanceState)
+            addPreferencesFromResource(R.xml.root_preferences)
+            autoClean = findPreference("AutoClean") as SwitchPreference
             cleanedHistory = findPreference("CleanedHistory")!!
-            autoCleanMode = findPreference("AutoCleanMode")!!
+            autoCleanMode = findPreference("AutoCleanMode") as ListPreference
             cleanedTime = findPreference("CleanedTime")!!
             cleanDelay = findPreference("CleanDelay")!!
 
             halfClean = findPreference("HalfClean")!!
             fullClean = findPreference("FullClean")!!
-            customerCleanList = findPreference("CustomerClean")!!
+            customerCleanList = findPreference("CustomerClean") as MultiSelectListPreference
             doCustomerClean = findPreference("DoCustomerClean")!!
 
-            powerMode = findPreference("PowerMode")!!
-            enableDateLimit = findPreference("EnableDateLimit")!!
+            powerMode = findPreference("PowerMode") as SwitchPreference
+            enableDateLimit = findPreference("EnableDateLimit") as SwitchPreference
             setDateLimit = findPreference("SetDateLimit")!!
 
             gotoGithub = findPreference("GotoGithub")!!
@@ -137,11 +136,11 @@ class SettingsActivity : AppCompatTransferActivity() {
         //设置Item点击事件
         private fun setClickable() {
             halfClean.setOnPreferenceClickListener {
-                showConfirmDialog(HALF_MODE_INT, this.requireContext())
+                showConfirmDialog(HALF_MODE_INT, it.context)
                 true
             }
             fullClean.setOnPreferenceClickListener {
-                showConfirmDialog(FULL_MODE_INT, this.requireContext())
+                showConfirmDialog(FULL_MODE_INT, it.context)
                 true
             }
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
@@ -154,12 +153,12 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             setDateLimit.setOnPreferenceClickListener {
-                showSetFileDateLimitDialog(this.requireContext(), it)
+                showSetFileDateLimitDialog(it.context, it)
                 true
             }
 
             doCustomerClean.setOnPreferenceClickListener {
-                showConfirmDialog(CUSTOMER_MODE_INT, this.requireContext())
+                showConfirmDialog(CUSTOMER_MODE_INT, it.context)
                 true
             }
             gotoGithub.setOnPreferenceClickListener {
@@ -176,7 +175,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             supportMe.setOnPreferenceClickListener {
-                SupportMeDialog.showSupportMeDialog(this.requireContext())
+                SupportMeDialog.showSupportMeDialog(it.context)
                 true
             }
             cleanedTime.setOnPreferenceClickListener {
@@ -201,7 +200,7 @@ class SettingsActivity : AppCompatTransferActivity() {
                 true
             }
             cleanDelay.setOnPreferenceClickListener {
-                CleanDialog.showCleanDelayDialog(this.requireContext(), autoClean)
+                CleanDialog.showCleanDelayDialog(it.context, autoClean)
                 true
             }
             autoCleanMode.setOnPreferenceChangeListener { _, newValue ->
@@ -248,24 +247,24 @@ class SettingsActivity : AppCompatTransferActivity() {
                     cleanedTime.summary = "喵喵喵"
                 }
             }
-            cleanedTime.isVisible = autoClean.isChecked
-            autoCleanMode.isVisible = autoClean.isChecked
-            cleanDelay.isVisible = autoClean.isChecked
+            cleanedTime.isEnabled = autoClean.isChecked
+            autoCleanMode.isEnabled = autoClean.isChecked
+            cleanDelay.isEnabled = autoClean.isChecked
             autoClean.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { _, newValue ->
-                    cleanedTime.isVisible = newValue as Boolean
-                    autoCleanMode.isVisible = newValue
-                    cleanDelay.isVisible = newValue
+                    cleanedTime.isEnabled = newValue as Boolean
+                    autoCleanMode.isEnabled = newValue
+                    cleanDelay.isEnabled = newValue
                     setConfig(CFG_AUTO_CLEAN_ENABLED, newValue)
                     autoClean.summary =
                         if (newValue) "当前清理的间隔为${getInt(CFG_CLEAN_DELAY, 24)}小时" else "未开启"
                     true
                 }
             //设置清理超过日期是否显示
-            setDateLimit.isVisible = enableDateLimit.isChecked
+            setDateLimit.isEnabled = enableDateLimit.isChecked
             enableDateLimit.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { _, newValue ->
-                    setDateLimit.isVisible = newValue as Boolean
+                    setDateLimit.isEnabled = newValue as Boolean
                     setConfig(CFG_DATE_LIMIT_ENABLED, newValue)
                     true
                 }
@@ -281,7 +280,7 @@ class SettingsActivity : AppCompatTransferActivity() {
             }
             //自动瘦身
             autoClean.summary =
-                if (autoClean.isVisible) "当前清理的间隔为${getInt(CFG_CLEAN_DELAY, 24)}小时" else "未开启"
+                if (autoClean.isEnabled) "当前清理的间隔为${getInt(CFG_CLEAN_DELAY, 24)}小时" else "未开启"
             //设置清理超过日期
             setDateLimit.summary = "当前会清理存在超过${getInt(CFG_DATE_LIMIT, 3)}天的文件"
         }

@@ -1,12 +1,12 @@
 package me.kyuubiran.qqcleaner.dialog
 
+import android.app.AlertDialog
 import android.content.Context
+import android.preference.Preference
+import android.preference.SwitchPreference
 import android.text.InputFilter
 import android.text.InputType
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
-import androidx.preference.Preference
-import androidx.preference.SwitchPreferenceCompat
 import com.github.kyuubiran.ezxhelper.utils.showToast
 import me.kyuubiran.qqcleaner.utils.CleanManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager
@@ -47,7 +47,7 @@ object CleanDialog {
     }
 
     //设定瘦身延迟的对话框
-    fun showCleanDelayDialog(context: Context, spc: SwitchPreferenceCompat) {
+    fun showCleanDelayDialog(context: Context, spc: SwitchPreference) {
         val input = EditText(context)
         input.setText(ConfigManager.getInt(CFG_CLEAN_DELAY, 24).toString())
         input.inputType = InputType.TYPE_CLASS_NUMBER

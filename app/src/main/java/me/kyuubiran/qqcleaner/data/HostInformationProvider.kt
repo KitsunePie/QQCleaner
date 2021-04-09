@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import androidx.core.content.pm.PackageInfoCompat
+import android.os.Build
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.utils.HostApp
 import java.util.*
@@ -33,8 +33,8 @@ fun init(applicationContext: Application) {
         applicationContext,
         packageName,
         applicationContext.applicationInfo.loadLabel(applicationContext.packageManager).toString(),
-        PackageInfoCompat.getLongVersionCode(packageInfo),
-        PackageInfoCompat.getLongVersionCode(packageInfo).toInt(),
+        getLongVersionCode(packageInfo),
+        getLongVersionCode(packageInfo).toInt(),
         packageInfo.versionName,
         "com.tencent.tim" == packageName
     )
@@ -58,4 +58,11 @@ private fun getHostInfo(context: Context): PackageInfo {
         Log.t(thr, "Utils--->Can not get PackageInfo!")
         throw AssertionError("Can not get PackageInfo!")
     }
+}
+
+@Suppress("DEPRECATION")
+private fun getLongVersionCode(info: PackageInfo): Long {
+    return if (Build.VERSION.SDK_INT >= 28) {
+        info.longVersionCode
+    } else info.versionCode.toLong()
 }
