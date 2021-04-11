@@ -13,6 +13,7 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DO_NOT_DISTURB_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_POWER_MODE_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getBool
@@ -98,7 +99,7 @@ object CleanManager {
     private fun doClean(files: ArrayList<File>, showToast: Boolean = true) {
         thread {
             size = 0L
-            if (showToast) appContext.showToast("好耶 开始清理了!")
+            if (showToast || !getBool(CFG_DO_NOT_DISTURB_ENABLED)) appContext.showToast("好耶 开始清理了!")
             try {
                 val ofd = getInt(CFG_DATE_LIMIT, 3)
                 val ts = System.currentTimeMillis()
@@ -107,7 +108,9 @@ object CleanManager {
 //                    logi("开始清理${f.path}")
                     delAllFiles(f, lmtEnable, ofd, ts)
                 }
-                appContext.showToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
+                if (showToast || !getBool(CFG_DO_NOT_DISTURB_ENABLED)) {
+                    appContext.showToast("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
+                }
                 saveSize()
             } catch (e: Exception) {
                 Log.e(e)
@@ -191,7 +194,7 @@ object CleanManager {
 
         //自动瘦身
         private fun autoClean() {
-            appContext.showToast("好耶 开始自动清理了!")
+            if (!getBool(CFG_DO_NOT_DISTURB_ENABLED)) appContext.showToast("好耶 开始自动清理了!")
             when (mode) {
                 HALF_MODE -> {
                     halfClean(false)

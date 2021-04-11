@@ -19,6 +19,7 @@ object ConfigManager {
     const val CFG_CLEAN_DELAY = "cleanDelay"
     const val CFG_POWER_MODE_ENABLED = "powerModeEnabled"
     const val CFG_DATE_LIMIT_ENABLED = "dateLimitEnabled"
+    const val CFG_DO_NOT_DISTURB_ENABLED = "doNotDisturbEnabled"
     const val CFG_DATE_LIMIT = "dateLimit"
 
     fun checkConfigIsExists() {
