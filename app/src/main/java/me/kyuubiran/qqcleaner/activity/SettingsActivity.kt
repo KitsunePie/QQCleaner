@@ -28,6 +28,7 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CURRENT_CLEANED_TIME
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DO_NOT_DISTURB_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.checkCfg
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
@@ -69,6 +70,7 @@ class SettingsActivity : Activity() {
         private lateinit var powerMode: SwitchPreference
         private lateinit var enableDateLimit: SwitchPreference
         private lateinit var setDateLimit: Preference
+        private lateinit var doNotDisturb: SwitchPreference
 
         private lateinit var supportMe: Preference
         private lateinit var gotoGithub: Preference
@@ -97,6 +99,7 @@ class SettingsActivity : Activity() {
             powerMode = findPreference("PowerMode") as SwitchPreference
             enableDateLimit = findPreference("EnableDateLimit") as SwitchPreference
             setDateLimit = findPreference("SetDateLimit")!!
+            doNotDisturb=findPreference("DoNotDisturb") as SwitchPreference
 
             gotoGithub = findPreference("GotoGithub")!!
             supportMe = findPreference("SupportMe")!!
@@ -268,6 +271,13 @@ class SettingsActivity : Activity() {
                     setConfig(CFG_DATE_LIMIT_ENABLED, newValue)
                     true
                 }
+            //设置是否显示自动清理Toast
+            doNotDisturb.onPreferenceChangeListener =
+                Preference.OnPreferenceChangeListener { _, newValue ->
+                    setConfig(CFG_DO_NOT_DISTURB_ENABLED, newValue)
+                    true
+                }
+
         }
 
         private fun initSummary() {

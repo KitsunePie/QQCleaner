@@ -52,6 +52,10 @@
         <Preference
             android:key="SetDateLimit"
             android:title="@string/set_file_date_limit" />
+        <SwitchPreference
+            android:key="DoNotDisturb"
+            android:title="@string/do_not_disturb"
+            android:summary="@string/do_not_disturb_hint"/>
         <!--android:isPreferenceVisible="false" -->
 
     </PreferenceCategory>
