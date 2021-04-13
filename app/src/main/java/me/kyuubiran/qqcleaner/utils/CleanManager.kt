@@ -99,7 +99,7 @@ object CleanManager {
     private fun doClean(files: ArrayList<File>, showToast: Boolean = true) {
         thread {
             size = 0L
-            if (showToast) appContext.showToast("好耶 开始清理了!")
+            if (showToast || !getBool(CFG_DO_NOT_DISTURB_ENABLED)) appContext.showToast("好耶 开始清理了!")
             try {
                 val ofd = getInt(CFG_DATE_LIMIT, 3)
                 val ts = System.currentTimeMillis()
