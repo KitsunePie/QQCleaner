@@ -13,7 +13,7 @@ object CleanTIM {
      * @param item Tag
      * @return ArrayList<File>
      */
-     fun getFiles(item: String): ArrayList<File> {
+    fun getFiles(item: String): ArrayList<File> {
         val arr = ArrayList<File>()
         when (item) {
             CACHES -> {

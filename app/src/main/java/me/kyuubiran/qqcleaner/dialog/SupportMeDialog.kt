@@ -33,11 +33,13 @@ object SupportMeDialog {
             val nickname = "芜狐"
             val intent = Intent()
             intent.run {
-                setClass(context, try {
-                    loadClass("com.tencent.mobileqq.activity.qwallet.TransactionActivity")
-                } catch (t: Throwable) {
-                    loadClass("com.tencent.mobileqq.qwallet.transaction.impl.TransactionActivity")
-                })
+                setClass(
+                    context, try {
+                        loadClass("com.tencent.mobileqq.activity.qwallet.TransactionActivity")
+                    } catch (t: Throwable) {
+                        loadClass("com.tencent.mobileqq.qwallet.transaction.impl.TransactionActivity")
+                    }
+                )
                 putExtra("come_from", 5)
                 putExtra("fling_action_key", 2)
                 putExtra("fromJump", true)

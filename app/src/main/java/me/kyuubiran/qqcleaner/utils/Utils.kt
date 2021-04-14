@@ -30,8 +30,8 @@ fun isInNightMode(): Boolean {
                     loadClass("com.tencent.mobileqq.vas.theme.api.ThemeUtil")
                 }
                 val themeId = themeClass
-                        .getDeclaredMethod("getUserCurrentThemeId", loadClass("mqq.app.AppRuntime"))
-                        .invoke(null, getAppRuntime()) as String
+                    .getDeclaredMethod("getUserCurrentThemeId", loadClass("mqq.app.AppRuntime"))
+                    .invoke(null, getAppRuntime()) as String
                 "1103".endsWith(themeId) || "2920".endsWith(themeId)
             }
         }

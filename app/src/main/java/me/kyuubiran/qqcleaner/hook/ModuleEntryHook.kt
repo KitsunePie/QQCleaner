@@ -21,7 +21,6 @@ import me.kyuubiran.qqcleaner.secondInitWeChat
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.findViewByType
-import java.lang.IllegalStateException
 import java.lang.reflect.Method
 
 //模块入口Hook
@@ -40,9 +39,13 @@ class ModuleEntryHook {
     private fun hookWeChat() {
         try {
             val classLoader = appContext.classLoader
-            val preferenceClass = loadClass("com.tencent.mm.ui.base.preference.Preference", classLoader)
+            val preferenceClass =
+                loadClass("com.tencent.mm.ui.base.preference.Preference", classLoader)
             val actClass = try {
-                loadClass("com.tencent.mm.plugin.setting.ui.setting.SettingsAboutMicroMsgUI", classLoader)
+                loadClass(
+                    "com.tencent.mm.plugin.setting.ui.setting.SettingsAboutMicroMsgUI",
+                    classLoader
+                )
             } catch (e: Exception) {
                 loadClass("com.tencent.mm.ui.setting.SettingsAboutMicroMsgUI", classLoader)
             }
@@ -51,30 +54,31 @@ class ModuleEntryHook {
                 val adapter = list.adapter as BaseAdapter
                 val addMethod: Method = findMethodByCondition(adapter.javaClass) { m ->
                     m.returnType == Void.TYPE && m.parameterTypes.contentDeepEquals(
-                            arrayOf(
-                                    preferenceClass,
-                                    Int::class.java
-                            )
+                        arrayOf(
+                            preferenceClass,
+                            Int::class.java
+                        )
                     )
                 }
-                val entry = loadClass("com.tencent.mm.ui.base.preference.IconPreference", classLoader)
+                val entry =
+                    loadClass("com.tencent.mm.ui.base.preference.IconPreference", classLoader)
                         .getConstructor(Context::class.java)
                         .newInstance(it.thisObject)
                 entry.apply {
                     invokeMethod(
-                            "setKey",
-                            arrayOf("QQCleaner"),
-                            arrayOf(String::class.java)
+                        "setKey",
+                        arrayOf("QQCleaner"),
+                        arrayOf(String::class.java)
                     )
                     invokeMethod(
-                            "setSummary",
-                            arrayOf("芜狐~"),
-                            arrayOf(CharSequence::class.java)
+                        "setSummary",
+                        arrayOf("芜狐~"),
+                        arrayOf(CharSequence::class.java)
                     )
                     invokeMethod(
-                            "setTitle",
-                            arrayOf("${hostInfo.hostName}瘦身"),
-                            arrayOf(java.lang.CharSequence::class.java)
+                        "setTitle",
+                        arrayOf("${hostInfo.hostName}瘦身"),
+                        arrayOf(java.lang.CharSequence::class.java)
                     )
                 }
                 list.viewTreeObserver.addOnGlobalLayoutListener {
@@ -86,7 +90,9 @@ class ModuleEntryHook {
                 }
             }
             findMethodByCondition(actClass) { m ->
-                m.name == "onPreferenceTreeClick" && m.parameterTypes[1].isAssignableFrom(preferenceClass)
+                m.name == "onPreferenceTreeClick" && m.parameterTypes[1].isAssignableFrom(
+                    preferenceClass
+                )
             }.hookBefore {
                 val preference = it.args[1]
                 if (preference.invokeMethod("getKey") == "QQCleaner") {
@@ -106,27 +112,27 @@ class ModuleEntryHook {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     try {
                         val cFormSimpleItem =
-                                loadClass("com.tencent.mobileqq.widget.FormSimpleItem")
+                            loadClass("com.tencent.mobileqq.widget.FormSimpleItem")
                         var item = param.thisObject.getObjectOrNull("a", cFormSimpleItem) as View?
                         if (item == null) {
                             val ctx = param.thisObject as Activity
                             item =
-                                    (ctx.window.decorView as ViewGroup).findViewByType(cFormSimpleItem)
+                                (ctx.window.decorView as ViewGroup).findViewByType(cFormSimpleItem)
                         }
                         val entry = cFormSimpleItem.newInstance(
-                                arrayOf(param.thisObject),
-                                arrayOf(Context::class.java)
+                            arrayOf(param.thisObject),
+                            arrayOf(Context::class.java)
                         ) as View
                         entry.apply {
                             invokeMethod(
-                                    "setLeftText",
-                                    arrayOf("${hostInfo.hostName}瘦身"),
-                                    arrayOf(CharSequence::class.java)
+                                "setLeftText",
+                                arrayOf("${hostInfo.hostName}瘦身"),
+                                arrayOf(CharSequence::class.java)
                             )
                             invokeMethod(
-                                    "setRightText",
-                                    arrayOf("芜狐~"),
-                                    arrayOf(CharSequence::class.java)
+                                "setRightText",
+                                arrayOf("芜狐~"),
+                                arrayOf(CharSequence::class.java)
                             )
                         }
                         val vg = item?.parent as ViewGroup
@@ -150,15 +156,15 @@ class ModuleEntryHook {
                 ctx.startActivity(intent)
             } catch (e: Throwable) {
                 AlertDialog.Builder(ctx)
-                        .apply {
-                            setTitle("提示")
-                            setMessage("你似乎才更新了模块,需要重启${hostInfo.hostName}生效！")
-                            setPositiveButton("立刻重启") { _, _ ->
-                                restartHost(ctx)
-                            }
-                            setNegativeButton("稍后重启", null)
-                            show()
+                    .apply {
+                        setTitle("提示")
+                        setMessage("你似乎才更新了模块,需要重启${hostInfo.hostName}生效！")
+                        setPositiveButton("立刻重启") { _, _ ->
+                            restartHost(ctx)
                         }
+                        setNegativeButton("稍后重启", null)
+                        show()
+                    }
             }
         } else {
             appContext.showToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
@@ -167,8 +173,8 @@ class ModuleEntryHook {
 
     private fun restartHost(context: Context, intent: Intent? = null) {
         val targetIntent = intent
-                ?: context.packageManager.getLaunchIntentForPackage(hostInfo.packageName)
-                ?: throw IllegalStateException("No launch intent for ${hostInfo.hostName}")
+            ?: context.packageManager.getLaunchIntentForPackage(hostInfo.packageName)
+            ?: throw IllegalStateException("No launch intent for ${hostInfo.hostName}")
         targetIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(targetIntent)
         Runtime.getRuntime().exit(0)

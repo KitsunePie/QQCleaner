@@ -28,7 +28,7 @@ import android.view.ViewGroup
  * @throws IndexOutOfBoundsException if index is less than 0 or greater than or equal to the count.
  */
 operator fun ViewGroup.get(index: Int) =
-        getChildAt(index) ?: throw IndexOutOfBoundsException("Index: $index, Size: $childCount")
+    getChildAt(index) ?: throw IndexOutOfBoundsException("Index: $index, Size: $childCount")
 
 /** Returns `true` if [view] is found in this view group. */
 inline operator fun ViewGroup.contains(view: View) = indexOfChild(view) != -1
@@ -93,10 +93,10 @@ inline fun ViewGroup.MarginLayoutParams.setMargins(size: Int) {
  * @see ViewGroup.MarginLayoutParams.setMargins
  */
 inline fun ViewGroup.MarginLayoutParams.updateMargins(
-        left: Int = leftMargin,
-        top: Int = topMargin,
-        right: Int = rightMargin,
-        bottom: Int = bottomMargin
+    left: Int = leftMargin,
+    top: Int = topMargin,
+    right: Int = rightMargin,
+    bottom: Int = bottomMargin
 ) {
     setMargins(left, top, right, bottom)
 }
@@ -109,10 +109,10 @@ inline fun ViewGroup.MarginLayoutParams.updateMargins(
  */
 @TargetApi(17)
 inline fun ViewGroup.MarginLayoutParams.updateMarginsRelative(
-        start: Int = marginStart,
-        top: Int = topMargin,
-        end: Int = marginEnd,
-        bottom: Int = bottomMargin
+    start: Int = marginStart,
+    top: Int = topMargin,
+    end: Int = marginEnd,
+    bottom: Int = bottomMargin
 ) {
     marginStart = start
     topMargin = top

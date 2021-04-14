@@ -99,7 +99,7 @@ class SettingsActivity : Activity() {
             powerMode = findPreference("PowerMode") as SwitchPreference
             enableDateLimit = findPreference("EnableDateLimit") as SwitchPreference
             setDateLimit = findPreference("SetDateLimit")!!
-            doNotDisturb=findPreference("DoNotDisturb") as SwitchPreference
+            doNotDisturb = findPreference("DoNotDisturb") as SwitchPreference
 
             gotoGithub = findPreference("GotoGithub")!!
             supportMe = findPreference("SupportMe")!!
