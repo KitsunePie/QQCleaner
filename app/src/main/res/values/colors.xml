@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="ic_launcher_background">#FFFFFFFF</color>
     <color name="colorPrimary">#03A9F4</color>
     <color name="colorPrimaryDark">#2196F3</color>
     <color name="colorAccent">#FF9800</color>
+
+    <color name="FirstTextColor">#FF202124</color>
+    <color name="SecondTextColor">#FF3C4043</color>
+    <color name="ThirdTextColor">#FF5F6368</color>
+    <color name="BackgroundColor">#FFFFFFFF</color>
+    <color name="ThemeColor">#FF4285F4</color>
+    <color name="RightArrowColor">#FF5F6368</color>
+    <color name="CardBackgroundColor">#FFFAFAFA</color>
+    <color name="RippleColor">#143C4043</color>
+    <color name="ToggleBackgroundColor">#FFD6DDE7</color>
+    <color name="ToggleOFFColor">#FFC0CBD9</color>
+
 </resources>

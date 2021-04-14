@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#303030</color>
+    <color name="ic_launcher_background">#FFFFFFFF</color>
+
+    <color name="FirstTextColor">#FFFFFFFF</color>
+    <color name="SecondTextColor">#DEFFFFFF</color>
+    <color name="ThirdTextColor">#99FFFFFF</color>
+    <color name="BackgroundColor">#FF202124</color>
+    <color name="ThemeColor">#FF82A8E7</color>
+    <color name="RightArrowColor">#61FFFFFF</color>
+    <color name="CardBackgroundColor">#FF303134</color>
+    <color name="RippleColor">#FF3C4043</color>
+    <color name="ToggleBackgroundColor">#FF4F5355</color>
+    <color name="ToggleOFFColor">#FF5F6368</color>
 </resources>
