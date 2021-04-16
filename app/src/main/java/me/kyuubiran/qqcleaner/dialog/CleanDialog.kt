@@ -7,11 +7,11 @@ import android.preference.SwitchPreference
 import android.text.InputFilter
 import android.text.InputType
 import android.widget.EditText
-import com.github.kyuubiran.ezxhelper.utils.showToast
 import me.kyuubiran.qqcleaner.utils.CleanManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
+import me.kyuubiran.qqcleaner.utils.show
 
 const val HALF_MODE_INT = 0
 const val FULL_MODE_INT = 1
@@ -59,7 +59,7 @@ object CleanDialog {
                 var num = input.text.toString().toInt()
                 num = if (num < 1) 24 else num
                 ConfigManager.setConfig(CFG_CLEAN_DELAY, num)
-                context.showToast("保存成功!")
+                context.show("保存成功!")
                 spc.summary = "当前清理的间隔为${num}小时"
             }
             .setNegativeButton("取消") { _, _ -> }
@@ -79,7 +79,7 @@ object CleanDialog {
                 var num = input.text.toString().toInt()
                 num = if (num < 1) 3 else num
                 ConfigManager.setConfig(CFG_DATE_LIMIT, num)
-                context.showToast("保存成功!")
+                context.show("保存成功!")
                 pf.summary = "当前会清理存在超过${num}天的文件"
             }
             .setNegativeButton("取消") { _, _ -> }

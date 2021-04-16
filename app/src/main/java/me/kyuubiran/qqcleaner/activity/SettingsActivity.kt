@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.preference.*
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.showToast
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.hostApp
@@ -38,6 +37,7 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.formatSize
 import me.kyuubiran.qqcleaner.utils.isInNightMode
+import me.kyuubiran.qqcleaner.utils.show
 import java.text.SimpleDateFormat
 
 class SettingsActivity : Activity() {
@@ -149,7 +149,7 @@ class SettingsActivity : Activity() {
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
                 try {
                     setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
-                    appContext.showToast("好耶 保存自定义瘦身列表成功了!")
+                    appContext.show("好耶 保存自定义瘦身列表成功了!")
                 } catch (e: Exception) {
                     Log.e(e)
                 }
@@ -166,7 +166,7 @@ class SettingsActivity : Activity() {
             }
             gotoGithub.setOnPreferenceClickListener {
                 openUrl("https://github.com/KyuubiRan/QQCleaner")
-                appContext.showToast("喜欢的话给我点个小星星吧~")
+                appContext.show("喜欢的话给我点个小星星吧~")
                 true
             }
             joinQQGroup.setOnPreferenceClickListener {
@@ -185,7 +185,7 @@ class SettingsActivity : Activity() {
                 if (clicked < 6) {
                     clicked++
                     if (clicked > 3) {
-                        appContext.showToast(
+                        appContext.show(
                             "再点${7 - clicked}次重置清理时间"
                         )
                     }
@@ -193,12 +193,12 @@ class SettingsActivity : Activity() {
                     clicked = 0
                     setConfig(CFG_CURRENT_CLEANED_TIME, 0)
                     cleanedTime.setSummary(R.string.no_cleaned_his_hint)
-                    appContext.showToast("已重置清理时间")
+                    appContext.show("已重置清理时间")
                 }
                 true
             }
             cleanedHistory.setOnPreferenceClickListener {
-                appContext.showToast("已刷新统计信息")
+                appContext.show("已刷新统计信息")
                 initSummary()
                 true
             }
