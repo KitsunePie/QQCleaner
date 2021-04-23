@@ -111,8 +111,13 @@ class ModuleEntryHook {
             XposedBridge.hookMethod(m, object : XC_MethodHook() {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     try {
-                        val cFormSimpleItem =
+                        var cFormSimpleItem =
                             loadClass("com.tencent.mobileqq.widget.FormSimpleItem")
+                        try {
+                            cFormSimpleItem = loadClass("com.tencent.mobileqq.widget.FormCommonSingleLineItem")
+                        } catch (e: Exception) {
+                            Unit
+                        }
                         var item = param.thisObject.getObjectOrNull("a", cFormSimpleItem) as View?
                         if (item == null) {
                             val ctx = param.thisObject as Activity
