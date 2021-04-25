@@ -36,10 +36,6 @@ android {
         exclude '**.bin'
     }
 
-    aaptOptions {
-        additionalParameters "--preferred-density", "xxxhdpi"
-    }
-
     lintOptions {
         checkReleaseBuilds false
     }
