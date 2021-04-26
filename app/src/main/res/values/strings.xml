@@ -43,10 +43,11 @@
     <string name="update_info">更新日志</string>
     <string name="update_info_content">-1.7.0(34)\n
         1.极限压缩APK体积\n
-        2.修复强力模式开关无效的问题(如果你已经开启了强力模式 则需要再手动开关一次)\n
-        3.[QQ/TIM]修改部分瘦身内容 新增一些路径\n
-        4.新增静默模式(不弹出清理Toast)\n
-        5.修改Toast样式
+        2.修复强力模式开关无效的问题\n
+        3.现在瘦身设置完全由配置文件控制 避免一些设置与配置文件不同步的BUG\n
+        4.[QQ/TIM]修改部分瘦身内容 新增一些路径\n
+        5.新增静默模式(不弹出清理Toast)\n
+        6.修改Toast样式
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>

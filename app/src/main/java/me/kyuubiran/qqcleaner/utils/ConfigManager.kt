@@ -45,7 +45,9 @@ object ConfigManager {
     }
 
     private fun <T> checkArrayHasValue(key: String, defValue: ArrayList<T>) {
-        setArray(key, defValue)
+        if (getJsonArray(key).isNullOrEmpty()) {
+            setJsonArray(key, defValue)
+        }
     }
 
     private fun getConfig(): JSONObject? {
@@ -129,7 +131,7 @@ object ConfigManager {
         }
     }
 
-    fun <T> setArray(key: String, arr: ArrayList<T>) {
+    fun <T> setJsonArray(key: String, arr: ArrayList<T>) {
         val jsonArray = JSONArray()
         for (v in arr) {
             jsonArray.put(v)
@@ -137,7 +139,7 @@ object ConfigManager {
         setConfig(key, jsonArray)
     }
 
-    fun <T> setArray(key: String, hs: HashSet<T>) {
+    fun <T> setJsonArray(key: String, hs: HashSet<T>) {
         val jsonArray = JSONArray()
         for (v in hs) {
             jsonArray.put(v)
@@ -145,7 +147,7 @@ object ConfigManager {
         setConfig(key, jsonArray)
     }
 
-    fun <T> setArray(key: String, arr: Array<T>) {
+    fun <T> setJsonArray(key: String, arr: Array<T>) {
         val jsonArray = JSONArray()
         for (v in arr) {
             jsonArray.put(v)
@@ -153,8 +155,32 @@ object ConfigManager {
         setConfig(key, jsonArray)
     }
 
-    fun getArray(key: String): JSONArray? {
+    fun getJsonArray(key: String): JSONArray? {
         return getConfig()?.getJSONArray(key)
+    }
+
+    fun <T> JSONArray.toArrayList(): ArrayList<T> {
+        val arr = ArrayList<T>()
+        this.forEach<T> { arr.add(it) }
+        return arr
+    }
+
+    inline fun <reified T> JSONArray.toArray(): Array<T> {
+        return this.toArrayList<T>().toTypedArray()
+    }
+
+    fun <E> JSONArray.toHashSet(): HashSet<E> {
+        val hs = HashSet<E>()
+        this.forEach<E> { hs.add(it) }
+        return hs
+    }
+
+    fun JSONArray?.isNotNullOrEmpty(): Boolean {
+        return this != null || this?.length() != 0
+    }
+
+    fun JSONArray?.isNullOrEmpty(): Boolean {
+        return !this.isNotNullOrEmpty()
     }
 
     private fun save(jsonObject: JSONObject) {

@@ -13,9 +13,9 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DO_NOT_DISTURB_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_POWER_MODE_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
-import me.kyuubiran.qqcleaner.utils.ConfigManager.getArray
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getBool
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getJsonArray
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getString
 import me.kyuubiran.qqcleaner.utils.clean.CleanQQ
@@ -44,7 +44,7 @@ object CleanManager {
      * @return 获取用户自定义的瘦身列表
      */
     private fun getCustomerList(): ArrayList<File> {
-        val customerList = getArray(ConfigManager.CFG_CUSTOMER_CLEAN_LIST)
+        val customerList = getJsonArray(ConfigManager.CFG_CUSTOMER_CLEAN_LIST)
         val arr = ArrayList<File>()
         customerList?.forEach<String> { s ->
             when (hostApp) {

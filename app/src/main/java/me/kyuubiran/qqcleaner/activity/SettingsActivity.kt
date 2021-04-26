@@ -31,10 +31,14 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DO_NOT_DISTURB_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_POWER_MODE_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.checkCfg
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getBool
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getJsonArray
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
-import me.kyuubiran.qqcleaner.utils.ConfigManager.setArray
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getString
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
+import me.kyuubiran.qqcleaner.utils.ConfigManager.setJsonArray
+import me.kyuubiran.qqcleaner.utils.ConfigManager.toHashSet
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.formatSize
 import me.kyuubiran.qqcleaner.utils.isInNightMode
@@ -112,12 +116,12 @@ class SettingsActivity : Activity() {
 
         //初始化函数
         private fun init() {
-            initSummary()
+            setCustomerCleanList()
+            refreshCleanedSize()
+            initItemStatus()
             toggleSwitchItemCtrl()
             setClickable()
-            setVersionName()
-            setCustomerCleanList()
-            setArray(CFG_CUSTOMER_CLEAN_LIST, customerCleanList.values as HashSet<String>)
+            setSummary()
         }
 
         private fun setCustomerCleanList() {
@@ -137,6 +141,15 @@ class SettingsActivity : Activity() {
             }
         }
 
+        private fun initItemStatus() {
+            autoClean.isChecked = getBool(CFG_AUTO_CLEAN_ENABLED)
+            powerMode.isChecked = getBool(CFG_POWER_MODE_ENABLED)
+            enableDateLimit.isChecked = getBool(CFG_DATE_LIMIT_ENABLED)
+            doNotDisturb.isChecked = getBool(CFG_DO_NOT_DISTURB_ENABLED)
+            autoCleanMode.value = getString(CFG_AUTO_CLEAN_MODE, HALF_MODE)
+            customerCleanList.values = getJsonArray(CFG_CUSTOMER_CLEAN_LIST)?.toHashSet<String>()
+        }
+
         //设置Item点击事件
         private fun setClickable() {
             halfClean.setOnPreferenceClickListener {
@@ -150,7 +163,7 @@ class SettingsActivity : Activity() {
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
                 try {
                     @Suppress("UNCHECKED_CAST")
-                    setArray(CFG_CUSTOMER_CLEAN_LIST, newValue as HashSet<String>)
+                    setJsonArray(CFG_CUSTOMER_CLEAN_LIST, newValue as HashSet<String>)
                     appContext.show("好耶 保存自定义瘦身列表成功了!")
                 } catch (e: Exception) {
                     Log.e(e)
@@ -201,7 +214,7 @@ class SettingsActivity : Activity() {
             }
             cleanedHistory.setOnPreferenceClickListener {
                 appContext.show("已刷新统计信息")
-                initSummary()
+                refreshCleanedSize()
                 true
             }
             cleanDelay.setOnPreferenceClickListener {
@@ -286,7 +299,7 @@ class SettingsActivity : Activity() {
             }
         }
 
-        private fun initSummary() {
+        private fun refreshCleanedSize() {
             //腾出空间
             if (getInt(CFG_TOTAL_CLEANED_SIZE) != 0) {
                 cleanedHistory.summary =
@@ -294,14 +307,14 @@ class SettingsActivity : Activity() {
             } else {
                 cleanedHistory.setSummary(R.string.no_cleaned_his_hint)
             }
+        }
+
+        private fun setSummary() {
             //自动瘦身
             autoClean.summary =
                 if (autoClean.isEnabled) "当前清理的间隔为${getInt(CFG_CLEAN_DELAY, 24)}小时" else "未开启"
             //设置清理超过日期
             setDateLimit.summary = "当前会清理存在超过${getInt(CFG_DATE_LIMIT, 3)}天的文件"
-        }
-
-        private fun setVersionName() {
             moduleInfo.summary = "${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})"
         }
     }
