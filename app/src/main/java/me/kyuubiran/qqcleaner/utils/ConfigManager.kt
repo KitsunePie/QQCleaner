@@ -26,6 +26,7 @@ object ConfigManager {
     fun checkConfigIsExists() {
         if (!config.exists()) {
             config.createNewFile()
+            save("{}")
         }
     }
 
@@ -50,7 +51,8 @@ object ConfigManager {
     private fun getConfig(): JSONObject? {
         checkConfigIsExists()
         return try {
-            JSONObject(config.readText(Charsets.UTF_8))
+            val cfg = config.readText(Charsets.UTF_8)
+            JSONObject(if (cfg.isNotEmpty()) cfg else "{}")
         } catch (e: Exception) {
             Log.e(e)
             config.delete()
@@ -59,40 +61,46 @@ object ConfigManager {
         }
     }
 
-    fun getObject(key: String): Any? =
-        try {
+    fun getObject(key: String): Any? {
+        return try {
             getConfig()?.get(key)
         } catch (e: Exception) {
             null
         }
+    }
 
-    fun getLong(key: String, defValue: Long = 0L): Long =
-        try {
+
+    fun getLong(key: String, defValue: Long = 0L): Long {
+        return try {
             getConfig()?.getLong(key) ?: defValue
         } catch (e: Exception) {
             defValue
         }
+    }
 
-    fun getInt(key: String, defValue: Int = 0): Int =
-        try {
+    fun getInt(key: String, defValue: Int = 0): Int {
+        return try {
             getConfig()?.getInt(key) ?: defValue
         } catch (e: Exception) {
             defValue
         }
+    }
 
-    fun getBool(key: String, defValue: Boolean = false): Boolean =
-        try {
+    fun getBool(key: String, defValue: Boolean = false): Boolean {
+        return try {
             getConfig()?.getBoolean(key) ?: defValue
         } catch (e: Exception) {
             defValue
         }
+    }
 
-    fun getString(key: String, defValue: String = ""): String =
-        try {
+    fun getString(key: String, defValue: String = ""): String {
+        return try {
             getConfig()?.getString(key) ?: defValue
         } catch (e: Exception) {
             defValue
         }
+    }
 
     fun <T> setConfig(key: String, value: T) {
         try {
@@ -109,10 +117,12 @@ object ConfigManager {
     private fun save(str: String) {
         thread {
             try {
-                val osw = OutputStreamWriter(FileOutputStream(config), Charsets.UTF_8)
-                osw.write(str)
-                osw.flush()
-                osw.close()
+                synchronized(this) {
+                    val osw = OutputStreamWriter(FileOutputStream(config), Charsets.UTF_8)
+                    osw.write(str)
+                    osw.flush()
+                    osw.close()
+                }
             } catch (e: Exception) {
                 Log.e(e)
             }
