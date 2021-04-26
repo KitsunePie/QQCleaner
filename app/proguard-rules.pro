@@ -8,6 +8,8 @@
     public void *(de.robv.android.xposed.callbacks.XC_InitPackageResources$InitPackageResourcesParam);
 }
 
+-keep public class * extends android.app.Activity
+
 -keepattributes RuntimeVisible*Annotations
 
 -keepclassmembers class * {
