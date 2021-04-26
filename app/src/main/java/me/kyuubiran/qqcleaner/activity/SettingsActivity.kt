@@ -28,6 +28,7 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CUSTOMER_CLEAN_LIST
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DO_NOT_DISTURB_ENABLED
+import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_POWER_MODE_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.checkCfg
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
@@ -278,7 +279,11 @@ class SettingsActivity : Activity() {
                     setConfig(CFG_DO_NOT_DISTURB_ENABLED, newValue)
                     true
                 }
-
+            //强力模式是否开启
+            powerMode.setOnPreferenceChangeListener { _, newValue ->
+                setConfig(CFG_POWER_MODE_ENABLED, newValue as Boolean)
+                true
+            }
         }
 
         private fun initSummary() {
