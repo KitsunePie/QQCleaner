@@ -41,8 +41,9 @@
     <string name="support_me">点我扶贫</string>
     <string name="support_me_hint">本模块完全免费开源 一切开发旨在学习 请勿用于非法用途 喜欢本模块的可以捐赠支持我 谢谢~</string>
     <string name="update_info">更新日志</string>
-    <string name="update_info_content">-1.6.3(33)\n
-        1.新增目录:QQ视频通话后产生的debug垃圾(调试数据缓存)
+    <string name="update_info_content">-1.7.0(34)\n
+        1.极限压缩APK体积，同时稍微变丑了一点点
+        2.修复强力模式开关无效的问题(如果你已经开启了强力模式 则需要再手动开关一次)
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>

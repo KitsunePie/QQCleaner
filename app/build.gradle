@@ -9,8 +9,8 @@ android {
         applicationId "me.kyuubiran.qqcleaner"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 33
-        versionName "1.6.3"
+        versionCode 34
+        versionName "1.7.0"
     }
 
     buildTypes {
