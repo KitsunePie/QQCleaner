@@ -43,7 +43,8 @@
     <string name="update_info">更新日志</string>
     <string name="update_info_content">-1.7.0(34)\n
         1.极限压缩APK体积，同时稍微变丑了一点点\n
-        2.修复强力模式开关无效的问题(如果你已经开启了强力模式 则需要再手动开关一次)
+        2.修复强力模式开关无效的问题(如果你已经开启了强力模式 则需要再手动开关一次)\n
+        3.[QQ/TIM]修改部分瘦身内容 新增一些路径
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>

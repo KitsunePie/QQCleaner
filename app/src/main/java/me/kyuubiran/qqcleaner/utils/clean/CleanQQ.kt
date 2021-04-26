@@ -10,7 +10,7 @@ object CleanQQ {
     private const val SHORT_VIDEO = "short_video"
     private const val ADS = "ads"
     private const val ARK_APP = "ark_app"
-    private const val WEB = "web"
+    private const val LOG = "log"
     private const val DIY_CARD = "diy_card"
     private const val FONT = "font"
     private const val GIFT = "gift"
@@ -25,8 +25,7 @@ object CleanQQ {
     private const val DOU_TU = "dou_tu"
     private const val VIDEO_BACKGROUND = "video_background"
     private const val RECEIVE_FILE_CACHE = "receive_file_cache"
-    private const val TBS = "tbs"
-    private const val AV_DEBUG = "av_debug"
+    private const val DEBUG = "debug"
     private const val OTHERS = "others"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq
@@ -45,10 +44,10 @@ object CleanQQ {
     private val MobileQQDir = "$TencentDir/MobileQQ"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/QQ_Images
-    private val QQ_Images = "$aRootDataDir/QQ_Images"
+    private val QQ_ImagesDir = "$aRootDataDir/QQ_Images"
 
     //    storage/emulated/0/Android/data/com.tencent.mobileqq/Tencent/QQfile_recv
-    private val QQfile_recv = "$TencentDir/QQfile_recv"
+    private val QQfile_recvDir = "$TencentDir/QQfile_recv"
 
     /**
      * 根据tag获取文件列表
@@ -72,7 +71,7 @@ object CleanQQ {
                     add(File("$MobileQQDir/photo"))
                     add(File("$MobileQQDir/chatpic"))
                     add(File("$MobileQQDir/thumb"))
-                    add(File("$QQ_Images/QQEditPic"))
+                    add(File("$QQ_ImagesDir/QQEditPic"))
                     add(File("$MobileQQDir/hotpic"))
                 }
             }
@@ -80,6 +79,9 @@ object CleanQQ {
             SHORT_VIDEO -> {
                 arr.apply {
                     add(File("$MobileQQDir/shortvideo"))
+                    add(File("$aRootDataDir/files/VideoCache"))
+                    add(File("$aRootDataDir/files/video_story"))
+
                 }
             }
             //广告
@@ -95,10 +97,14 @@ object CleanQQ {
                     add(File("$TencentDir/mini"))
                 }
             }
-            //网页
-            WEB -> {
+            //日志
+            LOG -> {
                 arr.apply {
-                    add(File("$rootTencentDir/msflogs/com/tencent/mobileqq"))
+                    add(File("$rootTencentDir/msflogs"))
+                    add(File("$aRootDataDir/files/tbslog"))
+                    add(File("$aRootDataDir/files/onelong"))
+                    add(File("$aRootDataDir/files/tencent/tbs_common_log"))
+                    add(File("$aRootDataDir/files/tencent/tbs_live_log"))
                 }
             }
             //diy名片
@@ -131,6 +137,7 @@ object CleanQQ {
             USER_ICON -> {
                 arr.apply {
                     add(File("$MobileQQDir/head"))
+                    add(File("$aRootDataDir/files/tencent/MobileQQ/head"))
                 }
             }
             //挂件
@@ -187,13 +194,13 @@ object CleanQQ {
             //接收的文件缓存
             RECEIVE_FILE_CACHE -> {
                 arr.apply {
-                    add(File("$QQfile_recv/trooptmp"))
-                    add(File("$QQfile_recv/tmp"))
-                    add(File("$QQfile_recv/thumbnails"))
+                    add(File("$QQfile_recvDir/trooptmp"))
+                    add(File("$QQfile_recvDir/tmp"))
+                    add(File("$QQfile_recvDir/thumbnails"))
                 }
             }
             //调试数据缓存
-            AV_DEBUG -> {
+            DEBUG -> {
                 arr.apply {
                     add(File("$aRootDataDir/avdebug"))
                 }
@@ -205,6 +212,7 @@ object CleanQQ {
                     add(File("$MobileQQDir/qqmusic"))
                     add(File("$MobileQQDir/pddata"))
                     add(File("$TencentDir/TMAssistantSDK"))
+                    add(File("$aRootDataDir/files/tbs"))
                 }
             }
         }
@@ -220,7 +228,7 @@ object CleanQQ {
         addAll(getFiles(SHORT_VIDEO))
         addAll(getFiles(ADS))
         addAll(getFiles(ARK_APP))
-        addAll(getFiles(WEB))
+        addAll(getFiles(LOG))
         addAll(getFiles(DIY_CARD))
         addAll(getFiles(USER_BACKGROUND))
         addAll(getFiles(VIDEO_BACKGROUND))
@@ -242,8 +250,7 @@ object CleanQQ {
         addAll(getFiles(VIP_ICON))
         addAll(getFiles(DOU_TU))
         addAll(getFiles(RECEIVE_FILE_CACHE))
-        addAll(getFiles(TBS))
-        addAll(getFiles(AV_DEBUG))
+        addAll(getFiles(DEBUG))
         addAll(getFiles(OTHERS))
     }
 }
