@@ -27,6 +27,7 @@ internal fun ViewGroup.findViewByType(clazz: Class<*>): View? =
         it.javaClass == clazz
     }
 
+@Suppress("UNCHECKED_CAST")
 internal fun <T : View> ViewGroup.findViewByCondition(condition: (view: View) -> Boolean): T? {
     this.forEach {
         if (condition(it))

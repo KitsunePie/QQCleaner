@@ -2,6 +2,7 @@ package me.kyuubiran.qqcleaner.utils
 
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
@@ -25,22 +26,25 @@ object ConfigManager {
     fun checkConfigIsExists() {
         if (!config.exists()) {
             config.createNewFile()
-            save("{}")
         }
     }
 
     fun checkCfg() {
         checkConfigIsExists()
-        checkConfigKeyHasValue(CFG_CURRENT_CLEANED_TIME, 0)
-        checkConfigKeyHasValue(CFG_TOTAL_CLEANED_SIZE, 0)
-        checkConfigKeyHasValue(CFG_CUSTOMER_CLEAN_LIST, ArrayList<String>())
+        checkKeyHasValue(CFG_CURRENT_CLEANED_TIME, 0)
+        checkKeyHasValue(CFG_TOTAL_CLEANED_SIZE, 0)
+        checkArrayHasValue(CFG_CUSTOMER_CLEAN_LIST, ArrayList<String>())
     }
 
-    private fun checkConfigKeyHasValue(key: String, defValue: Any): Boolean {
-        return if (getConfig(key) == null || getConfig(key).toString() == "null") {
+    private fun checkKeyHasValue(key: String, defValue: Any): Boolean {
+        return if (getObject(key) == null || getObject(key).toString() == "null") {
             setConfig(key, defValue)
             false
         } else true
+    }
+
+    private fun <T> checkArrayHasValue(key: String, defValue: ArrayList<T>) {
+        setArray(key, defValue)
     }
 
     private fun getConfig(): JSONObject? {
@@ -51,39 +55,39 @@ object ConfigManager {
             Log.e(e)
             config.delete()
             checkCfg()
-            JSONObject(config.readText(Charsets.UTF_8))
+            JSONObject("{}")
         }
     }
 
-    fun getConfig(key: String) =
+    fun getObject(key: String): Any? =
         try {
             getConfig()?.get(key)
         } catch (e: Exception) {
             null
         }
 
-    fun getLong(key: String, defValue: Long = 0L) =
+    fun getLong(key: String, defValue: Long = 0L): Long =
         try {
             getConfig()?.getLong(key) ?: defValue
         } catch (e: Exception) {
             defValue
         }
 
-    fun getInt(key: String, defValue: Int = 0)=
+    fun getInt(key: String, defValue: Int = 0): Int =
         try {
             getConfig()?.getInt(key) ?: defValue
         } catch (e: Exception) {
             defValue
         }
 
-    fun getBool(key: String, defValue: Boolean = false)=
+    fun getBool(key: String, defValue: Boolean = false): Boolean =
         try {
             getConfig()?.getBoolean(key) ?: defValue
         } catch (e: Exception) {
             defValue
         }
 
-    fun getString(key: String, defValue: String = "")=
+    fun getString(key: String, defValue: String = ""): String =
         try {
             getConfig()?.getString(key) ?: defValue
         } catch (e: Exception) {
@@ -93,8 +97,8 @@ object ConfigManager {
     fun <T> setConfig(key: String, value: T) {
         try {
             val config = getConfig()
-            config?.put(key, value)
-            if (config != null) {
+            config?.let {
+                it.put(key, value)
                 save(config)
             }
         } catch (e: Exception) {
@@ -113,6 +117,34 @@ object ConfigManager {
                 Log.e(e)
             }
         }
+    }
+
+    fun <T> setArray(key: String, arr: ArrayList<T>) {
+        val jsonArray = JSONArray()
+        for (v in arr) {
+            jsonArray.put(v)
+        }
+        setConfig(key, jsonArray)
+    }
+
+    fun <T> setArray(key: String, hs: HashSet<T>) {
+        val jsonArray = JSONArray()
+        for (v in hs) {
+            jsonArray.put(v)
+        }
+        setConfig(key, jsonArray)
+    }
+
+    fun <T> setArray(key: String, arr: Array<T>) {
+        val jsonArray = JSONArray()
+        for (v in arr) {
+            jsonArray.put(v)
+        }
+        setConfig(key, jsonArray)
+    }
+
+    fun getArray(key: String): JSONArray? {
+        return getConfig()?.getJSONArray(key)
     }
 
     private fun save(jsonObject: JSONObject) {

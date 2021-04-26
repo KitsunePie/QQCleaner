@@ -30,9 +30,9 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DO_NOT_DISTURB_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
 import me.kyuubiran.qqcleaner.utils.ConfigManager.checkCfg
-import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
+import me.kyuubiran.qqcleaner.utils.ConfigManager.setArray
 import me.kyuubiran.qqcleaner.utils.ConfigManager.setConfig
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.formatSize
@@ -148,7 +148,8 @@ class SettingsActivity : Activity() {
             }
             customerCleanList.setOnPreferenceChangeListener { _, newValue ->
                 try {
-                    setConfig(CFG_CUSTOMER_CLEAN_LIST, newValue)
+                    @Suppress("UNCHECKED_CAST")
+                    setArray(CFG_CUSTOMER_CLEAN_LIST, newValue as HashSet<String>)
                     appContext.show("好耶 保存自定义瘦身列表成功了!")
                 } catch (e: Exception) {
                     Log.e(e)
@@ -282,7 +283,7 @@ class SettingsActivity : Activity() {
 
         private fun initSummary() {
             //腾出空间
-            if (getConfig(CFG_TOTAL_CLEANED_SIZE) != 0) {
+            if (getInt(CFG_TOTAL_CLEANED_SIZE) != 0) {
                 cleanedHistory.summary =
                     "总共为您腾出:${formatSize(getLong(CFG_TOTAL_CLEANED_SIZE))}空间"
             } else {

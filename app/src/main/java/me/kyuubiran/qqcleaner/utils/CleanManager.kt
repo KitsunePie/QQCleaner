@@ -13,14 +13,13 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DO_NOT_DISTURB_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_POWER_MODE_ENABLED
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_TOTAL_CLEANED_SIZE
+import me.kyuubiran.qqcleaner.utils.ConfigManager.getArray
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getBool
-import me.kyuubiran.qqcleaner.utils.ConfigManager.getConfig
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getInt
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getString
 import me.kyuubiran.qqcleaner.utils.clean.CleanQQ
 import me.kyuubiran.qqcleaner.utils.clean.CleanWeChat
-import org.json.JSONArray
 import java.io.File
 import kotlin.concurrent.thread
 
@@ -45,13 +44,13 @@ object CleanManager {
      * @return 获取用户自定义的瘦身列表
      */
     private fun getCustomerList(): ArrayList<File> {
-        val customerList = getConfig(ConfigManager.CFG_CUSTOMER_CLEAN_LIST) as JSONArray
+        val customerList = getArray(ConfigManager.CFG_CUSTOMER_CLEAN_LIST)
         val arr = ArrayList<File>()
-        customerList.forEach { s ->
+        customerList?.forEach<String> { s ->
             when (hostApp) {
-                HostApp.QQ -> arr.addAll(CleanQQ.getFiles(s.toString()))
-                HostApp.TIM -> arr.addAll(CleanQQ.getFiles(s.toString()))
-                HostApp.WE_CHAT -> arr.addAll(CleanWeChat.getFiles(s.toString()))
+                HostApp.QQ -> arr.addAll(CleanQQ.getFiles(s))
+                HostApp.TIM -> arr.addAll(CleanQQ.getFiles(s))
+                HostApp.WE_CHAT -> arr.addAll(CleanWeChat.getFiles(s))
             }
         }
         return arr
