@@ -46,7 +46,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.alibaba:fastjson:1.2.75'
     implementation 'com.github.kyuubiran:EzXHelper:0.0.4'
     compileOnly 'de.robv.android.xposed:api:82'
 }
