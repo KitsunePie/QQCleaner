@@ -117,7 +117,7 @@ class SettingsActivity : Activity() {
             setClickable()
             setVersionName()
             setCustomerCleanList()
-            setConfig(CFG_CUSTOMER_CLEAN_LIST, customerCleanList.values)
+            setArray(CFG_CUSTOMER_CLEAN_LIST, customerCleanList.values as HashSet<String>)
         }
 
         private fun setCustomerCleanList() {
