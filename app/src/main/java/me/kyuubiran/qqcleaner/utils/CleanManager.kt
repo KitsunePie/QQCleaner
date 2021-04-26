@@ -1,7 +1,5 @@
 package me.kyuubiran.qqcleaner.utils
 
-
-import com.alibaba.fastjson.JSONArray
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
 import com.github.kyuubiran.ezxhelper.utils.runtimeProcess
@@ -22,6 +20,7 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.getLong
 import me.kyuubiran.qqcleaner.utils.ConfigManager.getString
 import me.kyuubiran.qqcleaner.utils.clean.CleanQQ
 import me.kyuubiran.qqcleaner.utils.clean.CleanWeChat
+import org.json.JSONArray
 import java.io.File
 import kotlin.concurrent.thread
 
@@ -48,7 +47,7 @@ object CleanManager {
     private fun getCustomerList(): ArrayList<File> {
         val customerList = getConfig(ConfigManager.CFG_CUSTOMER_CLEAN_LIST) as JSONArray
         val arr = ArrayList<File>()
-        for (s in customerList) {
+        customerList.forEach { s ->
             when (hostApp) {
                 HostApp.QQ -> arr.addAll(CleanQQ.getFiles(s.toString()))
                 HostApp.TIM -> arr.addAll(CleanQQ.getFiles(s.toString()))

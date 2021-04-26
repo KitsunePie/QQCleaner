@@ -1,8 +1,8 @@
 package me.kyuubiran.qqcleaner.utils
 
-import com.alibaba.fastjson.JSONObject
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
+import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -46,39 +46,54 @@ object ConfigManager {
     private fun getConfig(): JSONObject? {
         checkConfigIsExists()
         return try {
-            JSONObject.parseObject(config.readText(Charsets.UTF_8))
+            JSONObject(config.readText(Charsets.UTF_8))
         } catch (e: Exception) {
             Log.e(e)
             config.delete()
             checkCfg()
-            JSONObject.parseObject(config.readText(Charsets.UTF_8))
+            JSONObject(config.readText(Charsets.UTF_8))
         }
     }
 
-    fun getConfig(key: String): Any? {
-        return getConfig()?.get(key)
-    }
+    fun getConfig(key: String) =
+        try {
+            getConfig()?.get(key)
+        } catch (e: Exception) {
+            null
+        }
 
-    fun getLong(key: String, defValue: Long = 0L): Long {
-        return getConfig()?.getLong(key) ?: defValue
-    }
+    fun getLong(key: String, defValue: Long = 0L) =
+        try {
+            getConfig()?.getLong(key) ?: defValue
+        } catch (e: Exception) {
+            defValue
+        }
 
-    fun getInt(key: String, defValue: Int = 0): Int {
-        return getConfig()?.getInteger(key) ?: defValue
-    }
+    fun getInt(key: String, defValue: Int = 0)=
+        try {
+            getConfig()?.getInt(key) ?: defValue
+        } catch (e: Exception) {
+            defValue
+        }
 
-    fun getBool(key: String, defValue: Boolean = false): Boolean {
-        return getConfig()?.getBoolean(key) ?: defValue
-    }
+    fun getBool(key: String, defValue: Boolean = false)=
+        try {
+            getConfig()?.getBoolean(key) ?: defValue
+        } catch (e: Exception) {
+            defValue
+        }
 
-    fun getString(key: String, defValue: String = ""): String {
-        return getConfig()?.getString(key) ?: defValue
-    }
+    fun getString(key: String, defValue: String = "")=
+        try {
+            getConfig()?.getString(key) ?: defValue
+        } catch (e: Exception) {
+            defValue
+        }
 
     fun <T> setConfig(key: String, value: T) {
         try {
             val config = getConfig()
-            config?.set(key, value)
+            config?.put(key, value)
             if (config != null) {
                 save(config)
             }
@@ -101,6 +116,6 @@ object ConfigManager {
     }
 
     private fun save(jsonObject: JSONObject) {
-        save(jsonObject.toJSONString())
+        save(jsonObject.toString())
     }
 }

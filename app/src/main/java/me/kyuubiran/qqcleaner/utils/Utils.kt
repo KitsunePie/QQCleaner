@@ -4,6 +4,8 @@ import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
 import com.github.kyuubiran.ezxhelper.utils.loadClass
 import me.kyuubiran.qqcleaner.data.hostApp
+import org.json.JSONArray
+import org.json.JSONObject
 import java.math.BigDecimal
 
 fun getAppRuntime(): Any? {
@@ -79,5 +81,11 @@ fun formatSize(size: String): String {
         else -> {
             ""
         }
+    }
+}
+
+inline fun JSONArray.forEach(action: (jsonObject: JSONObject) -> Unit) {
+    for (index in 0 until length()) {
+        action(get(index) as JSONObject)
     }
 }
