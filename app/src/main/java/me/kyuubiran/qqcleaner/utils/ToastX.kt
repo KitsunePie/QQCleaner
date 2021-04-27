@@ -10,20 +10,12 @@ import java.lang.ref.WeakReference
 
 object ToastX {
 
-    fun show(context: Context, message: String) {
-        show(context, message, Toast.LENGTH_SHORT)
+    fun showToastX(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT) {
+        show(context, message, duration)
     }
 
-    fun show(context: Context, res: Int) {
-        show(context, context.getString(res), Toast.LENGTH_SHORT)
-    }
-
-    fun showLong(context: Context, message: String) {
-        show(context, message, Toast.LENGTH_LONG)
-    }
-
-    fun showLong(context: Context, res: Int) {
-        show(context, context.getString(res), Toast.LENGTH_LONG)
+    fun showToastX(context: Context, res: Int, duration: Int = Toast.LENGTH_SHORT) {
+        show(context, context.getString(res), duration)
     }
 
     @SuppressLint("InflateParams")
@@ -42,14 +34,8 @@ object ToastX {
     }
 }
 
-fun Context.show(msg: String) {
+fun Context.showToastX(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     runOnMainThread {
-        ToastX.show(this, msg)
-    }
-}
-
-fun Context.showLong(msg: String) {
-    runOnMainThread {
-        ToastX.showLong(this, msg)
+        ToastX.showToastX(this, msg, duration)
     }
 }

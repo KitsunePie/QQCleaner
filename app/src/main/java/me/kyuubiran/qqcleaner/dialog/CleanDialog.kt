@@ -11,7 +11,7 @@ import me.kyuubiran.qqcleaner.utils.CleanManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_CLEAN_DELAY
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_DATE_LIMIT
-import me.kyuubiran.qqcleaner.utils.show
+import me.kyuubiran.qqcleaner.utils.showToastX
 
 const val HALF_MODE_INT = 0
 const val FULL_MODE_INT = 1
@@ -59,7 +59,7 @@ object CleanDialog {
                 var num = input.text.toString().toInt()
                 num = if (num < 1) 24 else num
                 ConfigManager.setConfig(CFG_CLEAN_DELAY, num)
-                context.show("好耶!保存成功了!")
+                context.showToastX("好耶!保存成功了!")
                 spc.summary = "当前清理的间隔为${num}小时"
             }
             .setNegativeButton("取消") { _, _ -> }
@@ -79,7 +79,7 @@ object CleanDialog {
                 var num = input.text.toString().toInt()
                 num = if (num < 1) 3 else num
                 ConfigManager.setConfig(CFG_DATE_LIMIT, num)
-                context.show("好耶!保存成功了!")
+                context.showToastX("好耶!保存成功了!")
                 pf.summary = "当前会清理存在超过${num}天的文件"
             }
             .setNegativeButton("取消") { _, _ -> }

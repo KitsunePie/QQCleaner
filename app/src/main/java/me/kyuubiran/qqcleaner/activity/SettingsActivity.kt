@@ -42,7 +42,7 @@ import me.kyuubiran.qqcleaner.utils.ConfigManager.toHashSet
 import me.kyuubiran.qqcleaner.utils.HostApp
 import me.kyuubiran.qqcleaner.utils.formatSize
 import me.kyuubiran.qqcleaner.utils.isInNightMode
-import me.kyuubiran.qqcleaner.utils.show
+import me.kyuubiran.qqcleaner.utils.showToastX
 import java.text.SimpleDateFormat
 
 class SettingsActivity : Activity() {
@@ -164,7 +164,7 @@ class SettingsActivity : Activity() {
                 try {
                     @Suppress("UNCHECKED_CAST")
                     setJsonArray(CFG_CUSTOMER_CLEAN_LIST, newValue as HashSet<String>)
-                    appContext.show("好耶 保存自定义瘦身列表成功了!")
+                    appContext.showToastX("好耶 保存自定义瘦身列表成功了!")
                 } catch (e: Exception) {
                     Log.e(e)
                 }
@@ -181,7 +181,7 @@ class SettingsActivity : Activity() {
             }
             gotoGithub.setOnPreferenceClickListener {
                 openUrl("https://github.com/KyuubiRan/QQCleaner")
-                appContext.show("喜欢的话给我点个小星星吧~")
+                appContext.showToastX("喜欢的话给我点个小星星吧~")
                 true
             }
             joinQQGroup.setOnPreferenceClickListener {
@@ -200,7 +200,7 @@ class SettingsActivity : Activity() {
                 if (clicked < 6) {
                     clicked++
                     if (clicked > 3) {
-                        appContext.show(
+                        appContext.showToastX(
                             "再点${7 - clicked}次重置清理时间"
                         )
                     }
@@ -208,12 +208,12 @@ class SettingsActivity : Activity() {
                     clicked = 0
                     setConfig(CFG_CURRENT_CLEANED_TIME, 0)
                     cleanedTime.setSummary(R.string.no_cleaned_his_hint)
-                    appContext.show("已重置清理时间")
+                    appContext.showToastX("已重置清理时间")
                 }
                 true
             }
             cleanedHistory.setOnPreferenceClickListener {
-                appContext.show("已刷新统计信息")
+                appContext.showToastX("已刷新统计信息")
                 refreshCleanedSize()
                 true
             }

@@ -96,7 +96,7 @@ object CleanManager {
     private fun doClean(files: ArrayList<File>, showToast: Boolean = true) {
         thread {
             size = 0L
-            if (showToast || !getBool(CFG_DO_NOT_DISTURB_ENABLED)) appContext.show("好耶 开始清理了!")
+            if (showToast || !getBool(CFG_DO_NOT_DISTURB_ENABLED)) appContext.showToastX("好耶 开始清理了!")
             try {
                 val ofd = getInt(CFG_DATE_LIMIT, 3)
                 val ts = System.currentTimeMillis()
@@ -106,12 +106,12 @@ object CleanManager {
                     delAllFiles(f, lmtEnable, ofd, ts)
                 }
                 if (showToast || !getBool(CFG_DO_NOT_DISTURB_ENABLED)) {
-                    appContext.show("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
+                    appContext.showToastX("好耶 清理完毕了!腾出了${formatSize(size)}空间!")
                 }
                 saveSize()
             } catch (e: Exception) {
                 Log.e(e)
-                appContext.show("坏耶 清理失败了!")
+                appContext.showToastX("坏耶 清理失败了!")
             }
         }
     }
@@ -191,7 +191,7 @@ object CleanManager {
 
         //自动瘦身
         private fun autoClean() {
-            if (!getBool(CFG_DO_NOT_DISTURB_ENABLED)) appContext.show("好耶 开始自动清理了!")
+            if (!getBool(CFG_DO_NOT_DISTURB_ENABLED)) appContext.showToastX("好耶 开始自动清理了!")
             when (mode) {
                 HALF_MODE -> {
                     halfClean(false)
@@ -203,7 +203,7 @@ object CleanManager {
                     customerClean(false)
                 }
                 else -> {
-                    appContext.show("坏耶 自动瘦身列表有误 请重新选择")
+                    appContext.showToastX("坏耶 自动瘦身列表有误 请重新选择")
                 }
             }
         }
