@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner.hook
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -155,33 +154,10 @@ class ModuleEntryHook {
 
     private fun openModule(check: Boolean, ctx: Context) {
         if (check) {
-            try {
-                ctx.resources.getString(R.string.res_inject_success)
-                val intent = Intent(ctx, SettingsActivity::class.java)
-                ctx.startActivity(intent)
-            } catch (e: Throwable) {
-                AlertDialog.Builder(ctx)
-                    .apply {
-                        setTitle("提示")
-                        setMessage("你似乎才更新了模块,需要重启${hostInfo.hostName}生效！")
-                        setPositiveButton("立刻重启") { _, _ ->
-                            restartHost(ctx)
-                        }
-                        setNegativeButton("稍后重启", null)
-                        show()
-                    }
-            }
+            val intent = Intent(ctx, SettingsActivity::class.java)
+            ctx.startActivity(intent)
         } else {
             appContext.showToast("坏耶 资源加载失败惹 重启${hostInfo.hostName}试试吧> <")
         }
-    }
-
-    private fun restartHost(context: Context, intent: Intent? = null) {
-        val targetIntent = intent
-            ?: context.packageManager.getLaunchIntentForPackage(hostInfo.packageName)
-            ?: throw IllegalStateException("No launch intent for ${hostInfo.hostName}")
-        targetIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        context.startActivity(targetIntent)
-        Runtime.getRuntime().exit(0)
     }
 }
