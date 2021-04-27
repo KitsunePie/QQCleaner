@@ -45,7 +45,7 @@ object ConfigManager {
     }
 
     private fun <T> checkArrayHasValue(key: String, defValue: ArrayList<T>) {
-        if (getJsonArray(key).isNullOrEmpty()) {
+        if (getJsonArray(key).isNull()) {
             setJsonArray(key, defValue)
         }
     }
@@ -156,7 +156,11 @@ object ConfigManager {
     }
 
     fun getJsonArray(key: String): JSONArray? {
-        return getConfig()?.getJSONArray(key)
+        return try {
+            getConfig()?.getJSONArray(key)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     fun <T> JSONArray.toArrayList(): ArrayList<T> {
@@ -175,12 +179,20 @@ object ConfigManager {
         return hs
     }
 
-    fun JSONArray?.isNotNullOrEmpty(): Boolean {
-        return this != null || this?.length() != 0
+    fun JSONArray?.isNull(): Boolean {
+        return this == null
     }
 
-    fun JSONArray?.isNullOrEmpty(): Boolean {
-        return !this.isNotNullOrEmpty()
+    fun JSONArray?.isNotNull(): Boolean {
+        return !this.isNull()
+    }
+
+    fun JSONArray.isEmpty(): Boolean {
+        return this.length() == 0
+    }
+
+    fun JSONArray.isNotEmpty(): Boolean {
+        return !this.isEmpty()
     }
 
     private fun save(jsonObject: JSONObject) {
