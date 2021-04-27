@@ -2,9 +2,10 @@ package me.kyuubiran.qqcleaner
 
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
 import de.robv.android.xposed.IXposedHookLoadPackage
+import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-class HookEntry : IXposedHookLoadPackage {
+class HookEntry : IXposedHookLoadPackage, IXposedHookZygoteInit {
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName != lpparam.processName)
             return
@@ -21,5 +22,13 @@ class HookEntry : IXposedHookLoadPackage {
                 WeChatHookLoader(lpparam)
             }
         }
+    }
+
+    override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
+        modulePath = startupParam.modulePath
+    }
+
+    companion object {
+        lateinit var modulePath: String
     }
 }

@@ -28,7 +28,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
     private fun initItem() {
         ModuleEntryHook()
         ResInjector.initSubActivity()
-        ResInjector.injectRes(hostInfo.application.resources)
+        ResInjector.injectRes(hostInfo.application.resources, HookEntry.modulePath)
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean()
     }

@@ -17,26 +17,22 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.*
-import dalvik.system.BaseDexClassLoader
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.HookEntry
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.utils.HostApp
-import java.io.File
 import java.lang.reflect.*
 
 @SuppressLint("PrivateApi", "DiscouragedPrivateApi")
 object ResInjector {
-    //模块路径
-    private var sModulePath = ""
 
     /**
      * 将自身的资源注入目标 必须在成功获取宿主Application之后执行
      * @param res 注入目标
      * @throws RuntimeException 获取模块路径失败
      */
-    fun injectRes(res: Resources = appContext.resources) {
+    fun injectRes(res: Resources = appContext.resources, modulePath: String) {
         try {
             //如果获取成功直接return
             res.getString(R.string.res_inject_success)
@@ -44,38 +40,12 @@ object ResInjector {
         } catch (ignored: Resources.NotFoundException) {
             //如果获取失败 尝试资源注入
         }
-        //-----获取路径部分-----
         try {
-            var modulePath = ""
-            val clzLoader = HookEntry::class.java.classLoader as BaseDexClassLoader
-            val pathList = clzLoader.getObjectOrNull("pathList")
-            val dexElements = pathList!!.getObjectOrNull("dexElements") as Array<*>
-            //获取路径
-            for (elem in dexElements) {
-                elem?.let {
-                    var file = it.getObjectOrNull("path") as File?
-                    if (file == null || file.isDirectory)
-                        file = it.getObjectOrNull("zip") as File?
-                    if (file == null || file.isDirectory)
-                        file = it.getObjectOrNull("file") as File?
-                    if (file != null && !file.isDirectory) {
-                        if (modulePath.isEmpty() || !modulePath.contains(BuildConfig.APPLICATION_ID)) {
-                            modulePath = file.path
-                        }
-                    }
-                }
-            }
-            if (modulePath.isEmpty()) {
-                //路径获取失败
-                throw RuntimeException("Get module path failed")
-            }
-            //获取成功
-            sModulePath = modulePath
             //-----资源注入部分-----
             val assets = res.assets
             assets.invokeMethod(
                 "addAssetPath",
-                arrayOf(sModulePath),
+                arrayOf(modulePath),
                 arrayOf(String::class.java)
             )
             try {
@@ -409,7 +379,7 @@ object ResInjector {
                     icicle.classLoader = HookEntry::class.java.classLoader
                 }
             }
-            injectRes(activity!!.resources)
+            injectRes(activity!!.resources, HookEntry.modulePath)
         }
 
         override fun callActivityOnCreate(

@@ -36,7 +36,7 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                     res = f.get(res) as Resources
             }
         }
-        ResInjector.injectRes(res)
+        ResInjector.injectRes(res, HookEntry.modulePath)
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean()
     }
