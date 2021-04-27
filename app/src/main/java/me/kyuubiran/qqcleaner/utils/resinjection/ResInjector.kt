@@ -370,20 +370,20 @@ object ResInjector {
         }
 
         private fun inject(
-            activity: Activity?,
+            activity: Activity,
             icicle: Bundle?
         ) {
-            if (icicle != null) {
-                val clzName = activity!!.javaClass.name
-                if (clzName.startsWith(BuildConfig.APPLICATION_ID)) {
-                    icicle.classLoader = HookEntry::class.java.classLoader
-                }
+            val clzName = activity.javaClass.name
+            if (icicle != null && clzName.startsWith(BuildConfig.APPLICATION_ID)) {
+                icicle.classLoader = HookEntry::class.java.classLoader
             }
-            injectRes(activity!!.resources, HookEntry.modulePath)
+            if (clzName.startsWith(BuildConfig.APPLICATION_ID)) {
+                injectRes(activity.resources, HookEntry.modulePath)
+            }
         }
 
         override fun callActivityOnCreate(
-            activity: Activity?,
+            activity: Activity,
             icicle: Bundle?,
             persistentState: PersistableBundle?
         ) {
@@ -391,7 +391,7 @@ object ResInjector {
             mBase.callActivityOnCreate(activity, icicle, persistentState)
         }
 
-        override fun callActivityOnCreate(activity: Activity?, icicle: Bundle?) {
+        override fun callActivityOnCreate(activity: Activity, icicle: Bundle?) {
             inject(activity, icicle)
             mBase.callActivityOnCreate(activity, icicle)
         }
