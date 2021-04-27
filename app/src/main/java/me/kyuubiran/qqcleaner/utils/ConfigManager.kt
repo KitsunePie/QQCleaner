@@ -45,7 +45,9 @@ object ConfigManager {
     }
 
     private fun <T> checkArrayHasValue(key: String, defValue: ArrayList<T>) {
+        Log.d("value=${getJsonArray(key)},idEmpty=${getJsonArray(key).isNullOrEmpty()}")
         if (getJsonArray(key).isNullOrEmpty()) {
+            Log.d("设置默认值")
             setJsonArray(key, defValue)
         }
     }
@@ -156,7 +158,11 @@ object ConfigManager {
     }
 
     fun getJsonArray(key: String): JSONArray? {
-        return getConfig()?.getJSONArray(key)
+        return try {
+            getConfig()?.getJSONArray(key)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     fun <T> JSONArray.toArrayList(): ArrayList<T> {
@@ -176,7 +182,7 @@ object ConfigManager {
     }
 
     fun JSONArray?.isNotNullOrEmpty(): Boolean {
-        return this != null || this?.length() != 0
+        return this != null && this.length() != 0
     }
 
     fun JSONArray?.isNullOrEmpty(): Boolean {
