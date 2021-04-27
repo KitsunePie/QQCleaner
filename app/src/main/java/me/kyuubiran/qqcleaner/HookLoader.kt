@@ -30,7 +30,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
         ResInjector.initSubActivity()
         ResInjector.injectRes(hostInfo.application.resources, HookEntry.modulePath)
         ConfigManager.checkConfigIsExists()
-        CleanManager.AutoClean()
+        CleanManager.AutoClean.init()
     }
 
     private fun doInit(rtLoader: ClassLoader) {
@@ -50,7 +50,8 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                         }
                         if (fsApp == null) {
                             throw NoSuchFieldException(
-                                    "field BaseApplicationImpl.sApplication not found")
+                                "field BaseApplicationImpl.sApplication not found"
+                            )
                         }
                         val ctx = fsApp[null] as Application
                         init(ctx)

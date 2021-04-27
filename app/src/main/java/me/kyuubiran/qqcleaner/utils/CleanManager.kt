@@ -2,6 +2,7 @@ package me.kyuubiran.qqcleaner.utils
 
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.mainHandler
 import com.github.kyuubiran.ezxhelper.utils.runtimeProcess
 import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.utils.ConfigManager.CFG_AUTO_CLEAN_ENABLED
@@ -170,13 +171,20 @@ object CleanManager {
         }
     }
 
-    class AutoClean {
+    object AutoClean : Runnable {
         private var time = 0L
         private val delay = getInt(CFG_CLEAN_DELAY, 24) * 3600L * 1000L
         private var mode = ""
+        private var inited = false
 
-        //在加载模块的时候会检测并执行一次
-        init {
+        //初始化自动瘦身
+        fun init() {
+            if (inited) return
+            mainHandler.post(this)
+            inited = true
+        }
+
+        override fun run() {
             time = getLong(CFG_CURRENT_CLEANED_TIME)
             //判断间隔
             if (getBool(CFG_AUTO_CLEAN_ENABLED) && System.currentTimeMillis() - time > if (delay < 3600_000L) 24 * 3600L * 1000L else delay
@@ -187,6 +195,7 @@ object CleanManager {
                 time = System.currentTimeMillis()
                 ConfigManager.setConfig(CFG_CURRENT_CLEANED_TIME, time)
             }
+            mainHandler.postDelayed(this, 1000 * 60 * 10)
         }
 
         //自动瘦身

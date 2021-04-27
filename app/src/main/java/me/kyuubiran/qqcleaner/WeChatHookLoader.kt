@@ -38,7 +38,7 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
         }
         ResInjector.injectRes(res, HookEntry.modulePath)
         ConfigManager.checkConfigIsExists()
-        CleanManager.AutoClean()
+        CleanManager.AutoClean.init()
     }
 
     @SuppressLint("DiscouragedPrivateApi")
