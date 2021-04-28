@@ -41,8 +41,8 @@
     <string name="support_me">点我扶贫</string>
     <string name="support_me_hint">本模块完全免费开源 一切开发旨在学习 请勿用于非法用途 喜欢本模块的可以捐赠支持我 谢谢~</string>
     <string name="update_info">更新日志</string>
-    <string name="update_info_content">-1.7.1(35)\n
-        1.修复配置文件不存在时进入模块设置界面导致宿主应用崩溃的问题
+    <string name="update_info_content">-1.7.2(36)\n
+        1.替换自动瘦身执行逻辑
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
