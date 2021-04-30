@@ -32,7 +32,7 @@ object ResInjector {
      * @param res 注入目标
      * @throws RuntimeException 获取模块路径失败
      */
-    fun injectRes(res: Resources = appContext.resources, modulePath: String) {
+    fun injectRes(res: Resources = appContext.resources, modulePath: String = HookEntry.modulePath) {
         try {
             //如果获取成功直接return
             res.getString(R.string.res_inject_success)
@@ -378,7 +378,7 @@ object ResInjector {
                 icicle.classLoader = HookEntry::class.java.classLoader
             }
             if (clzName.startsWith(BuildConfig.APPLICATION_ID)) {
-                injectRes(activity.resources, HookEntry.modulePath)
+                injectRes(activity.resources)
             }
         }
 
