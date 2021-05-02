@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.Gravity
 import android.widget.Toast
 import com.github.kyuubiran.ezxhelper.utils.runOnMainThread
+import com.github.kyuubiran.ezxhelper.utils.showToast
+import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.ui.view.ToastView
 import java.lang.ref.WeakReference
 
@@ -36,6 +38,10 @@ object ToastX {
 
 fun Context.showToastX(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     runOnMainThread {
+        if (hostApp == HostApp.WE_CHAT) {
+            this.showToast(msg, duration)
+            return@runOnMainThread
+        }
         ToastX.showToastX(this, msg, duration)
     }
 }

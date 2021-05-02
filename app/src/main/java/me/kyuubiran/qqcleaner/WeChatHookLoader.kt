@@ -3,11 +3,10 @@ package me.kyuubiran.qqcleaner
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.content.res.Resources
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
 import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.showToast
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import me.kyuubiran.qqcleaner.data.hostApp
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.data.init
 import me.kyuubiran.qqcleaner.hook.ModuleEntryHook
@@ -28,15 +27,6 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
     private fun initItem() {
         ModuleEntryHook()
         ResInjector.initSubActivity()
-        var res = hostInfo.application.resources
-        if (hostApp == HostApp.WE_CHAT) {
-            for (f in res.javaClass.declaredFields) {
-                f.isAccessible = true
-                if (f.type.isAssignableFrom(Resources::class.java))
-                    res = f.get(res) as Resources
-            }
-        }
-        ResInjector.injectRes(res)
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean.init()
     }
