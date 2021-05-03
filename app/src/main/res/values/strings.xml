@@ -43,6 +43,7 @@
     <string name="update_info">更新日志</string>
     <string name="update_info_content">-1.7.2(36)\n
         1.替换自动瘦身执行逻辑
+        2.修复微信瘦身打不开的问题
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>

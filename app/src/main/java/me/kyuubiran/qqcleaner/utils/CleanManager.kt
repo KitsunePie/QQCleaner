@@ -180,7 +180,7 @@ object CleanManager {
         //初始化自动瘦身
         fun init() {
             if (inited) return
-            mainHandler.post(this)
+            mainHandler.postDelayed(this, 30_000L)
             inited = true
         }
 
