@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
 import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.showToast
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.data.init
