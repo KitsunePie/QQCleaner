@@ -2,7 +2,6 @@ package me.kyuubiran.qqcleaner
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
 import com.github.kyuubiran.ezxhelper.utils.Log
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -34,7 +33,7 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
     private fun doInit(rtLoader: ClassLoader) {
         if (firstInit) return
         try {
-            Application::class.java.getDeclaredMethod("attach", Context::class.java)
+            Application::class.java.getDeclaredMethod("onCreate")
                 .hookAfter {
                     if (secondInitWeChat) return@hookAfter
                     val ctx = it.thisObject as Application
