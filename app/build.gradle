@@ -28,16 +28,13 @@ android {
     }
 
     kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.useIR = true
 
     packagingOptions {
         exclude 'META-INF/**'
         exclude 'kotlin/**'
         exclude 'google/**'
         exclude '**.bin'
-    }
-
-    lintOptions {
-        checkReleaseBuilds false
     }
 
     dependenciesInfo {
