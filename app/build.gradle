@@ -29,6 +29,12 @@ android {
 
     kotlinOptions.jvmTarget = "1.8"
 
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     packagingOptions {
         exclude 'META-INF/**'
         exclude 'kotlin/**'
@@ -46,6 +52,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.kyuubiran:EzXHelper:0.0.4'
+    implementation 'com.github.kyuubiran:EzXHelper:0.0.6'
     compileOnly 'de.robv.android.xposed:api:82'
 }
