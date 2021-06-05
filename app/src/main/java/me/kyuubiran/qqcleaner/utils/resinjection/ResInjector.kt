@@ -73,8 +73,8 @@ object ResInjector {
                 cActivityThread.getStaticFiledByClass("sCurrentActivityThread")
             val sCurrentActivityThread = fCurrentActivityThread.get(null)!!
             val fmInstrumentation =
-                cActivityThread.getFieldByClzOrObj("mInstrumentation")
-            val mGetInstrumentation = cActivityThread.getMethodByClzOrObj(
+                cActivityThread.getFieldByClassOrObject("mInstrumentation")
+            val mGetInstrumentation = cActivityThread.getMethodByClassOrObject(
                 "getInstrumentation"
             )
             val mInstrumentation =
@@ -86,9 +86,9 @@ object ResInjector {
             Log.d("End of Instrumentation")
             //-----Handler-----
             Log.d("Start of Handler")
-            val fmH = cActivityThread.getFieldByClzOrObj("mH")
+            val fmH = cActivityThread.getFieldByClassOrObject("mH")
             val originHandler = fmH.get(sCurrentActivityThread) as Handler
-            val fHandlerCallback = Handler::class.java.getFieldByClzOrObj("mCallback")
+            val fHandlerCallback = Handler::class.java.getFieldByClassOrObject("mCallback")
             val currHCallback = fHandlerCallback.get(originHandler) as Handler.Callback?
             if (currHCallback == null || currHCallback::class.java.name != MyHandler::class.java.name) {
                 fHandlerCallback.set(originHandler, MyHandler(currHCallback))
@@ -113,7 +113,7 @@ object ResInjector {
             }
             val gDefault = fgDefault.get(null)
             val cSingleton = Class.forName("android.util.Singleton")
-            val fmInstance = cSingleton.getFieldByClzOrObj("mInstance")
+            val fmInstance = cSingleton.getFieldByClassOrObject("mInstance")
             val mInstance = fmInstance.get(gDefault)
             val proxy = Proxy.newProxyInstance(
                 HookEntry::class.java.classLoader,
@@ -511,12 +511,12 @@ object ResInjector {
                 100 -> {
                     try {
                         val record = msg.obj
-                        val fIntent = record::class.java.getFieldByClzOrObj("intent")
+                        val fIntent = record::class.java.getFieldByClassOrObject("intent")
                         val intent = fIntent.get(record)!! as Intent
                         //获取bundle
                         var bundle: Bundle? = null
                         try {
-                            val fExtras = Intent::class.java.getFieldByClzOrObj("mExtras")
+                            val fExtras = Intent::class.java.getFieldByClassOrObject("mExtras")
                             bundle = fExtras.get(intent) as Bundle?
                         } catch (e: Exception) {
                             Log.e(e)
@@ -541,19 +541,19 @@ object ResInjector {
                             //获取列表
                             val mGetCallbacks =
                                 Class.forName("android.app.servertransaction.ClientTransaction")
-                                    .getMethodByClzOrObj("getCallbacks")
+                                    .getMethodByClassOrObject("getCallbacks")
                             val cTransItems = mGetCallbacks.invoke(cTrans) as List<*>?
                             if (!cTransItems.isNullOrEmpty()) {
                                 for (item in cTransItems) {
                                     val clz = item?.javaClass
                                     if (clz?.name?.contains("LaunchActivityItem") == true) {
-                                        val fmIntent = clz.getFieldByClzOrObj("mIntent")
+                                        val fmIntent = clz.getFieldByClassOrObject("mIntent")
                                         val wrapper = fmIntent.get(item) as Intent
                                         //获取Bundle
                                         var bundle: Bundle? = null
                                         try {
                                             val fExtras =
-                                                Intent::class.java.getFieldByClzOrObj("mExtras")
+                                                Intent::class.java.getFieldByClassOrObject("mExtras")
                                             bundle = fExtras.get(wrapper) as Bundle?
                                         } catch (e: Exception) {
                                             Log.e(e)
