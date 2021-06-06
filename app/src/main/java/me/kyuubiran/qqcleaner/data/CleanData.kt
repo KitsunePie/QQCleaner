@@ -5,14 +5,24 @@ import com.github.kyuubiran.ezxhelper.utils.forEach
 import com.github.kyuubiran.ezxhelper.utils.getStringOrDefault
 import com.github.kyuubiran.ezxhelper.utils.toArray
 import me.kyuubiran.qqcleaner.util.PathUtil
+import me.kyuubiran.qqcleaner.util.isCurrentHostApp
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 
 class CleanData(jsonObject: JSONObject) {
-    val name: String = jsonObject.getStringOrDefault("name", "一个没有名字的配置文件")
-    val author = jsonObject.getStringOrDefault("author", "无名氏")
+    val name by lazy {
+        jsonObject.getStringOrDefault("name", "一个没有名字的配置文件")
+    }
+    val author by lazy {
+        jsonObject.getStringOrDefault("author", "无名氏")
+    }
+    private val hostApp by lazy {
+        jsonObject.getString("hostApp")
+    }
     val fileMap: HashMap<String, Array<File>> = hashMapOf()
+    val valid: Boolean
+        get() = isCurrentHostApp(hostApp)
 
     init {
         val content = jsonObject.getJSONArray("content")

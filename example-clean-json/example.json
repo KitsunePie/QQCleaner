@@ -1,6 +1,7 @@
 {
   "name": "我的清理目录",
   "author": "KyuubiRan",
+  "hostApp": "QQ",
   "content": [
     {
       "title": "缓存",
