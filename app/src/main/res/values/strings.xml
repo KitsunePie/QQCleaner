@@ -1,56 +1,29 @@
 <resources>
     <string name="app_name">QQ瘦身</string>
     <string name="title_activity_settings">瘦身模块</string>
-    <string name="res_inject_success">注入资源成功</string>
 
     <string name="auto_clean_switch_title">自动瘦身</string>
-
     <string name="auto_clean_switch_key">启用自动瘦身</string>
     <string name="auto_clean_time">上次自动瘦身时间</string>
-    <string name="auto_clean_mode">瘦身方案</string>
     <string name="no_cleaned_his_hint">还没有记录哦~</string>
-    <string name="auto_clean_mode_hint">三选一哦</string>
-
-    <string name="clean_title">清理缓存</string>
-
-    <string name="clean_half">普通瘦身</string>
-    <string name="clean_half_hint">清理部分缓存</string>
-    <string name="clean_full">全面瘦身</string>
-    <string name="clean_full_hint">比上面那个更全面一点</string>
-    <string name="clean_cus">自定义瘦身</string>
-    <string name="clean_cus_hint">我的瘦身我做主!</string>
-    <string name="do_clean_cus">执行自定义瘦身</string>
-    <string name="do_clean_cus_hint">芜狐~起飞!</string>
 
     <string name="clean_settings">瘦身设置</string>
-
     <string name="enable_power_mode">强力模式</string>
     <string name="enable_power_mode_hint">使用Shell命令强制删除文件</string>
-
-    <string name="file_date_limit">不删除指定时间内的文件</string>
-    <string name="file_date_limit_hint">单位:天 默认为3天</string>
-
-    <string name="set_file_date_limit">设置时间</string>
-
     <string name="other_title">其他</string>
 
-    <string name="enable_cleaned_history">清理统计(点我可刷新)</string>
     <string name="module_version">模块版本</string>
     <string name="goto_github">点我前往项目地址</string>
     <string name="author">模块作者:KyuubiRan\n特别鸣谢:ketal178、cinit、Lagrio、NextAlone</string>
-    <string name="support_me">点我扶贫</string>
-    <string name="support_me_hint">本模块完全免费开源 一切开发旨在学习 请勿用于非法用途 喜欢本模块的可以捐赠支持我 谢谢~</string>
-    <string name="update_info">更新日志</string>
-    <string name="update_info_content">-1.7.3(36)\n
-        1.修复应用转生框架微信瘦身打不开的问题
-    </string>
+
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
-    <string name="auto_clean_delay">自动瘦身间隔</string>
-    <string name="auto_clean_delay_hint">单位:小时 默认24小时(即一天) 设置为0时默认24小时</string>
     <string name="join_tg_channel">点击加入Telegram频道</string>
     <string name="join_tg_channel_hint">频道:@QQCleaner\n聊天群组:@QQCleanerChat</string>
+
+    <string name="auto_clean_delay">自动瘦身间隔</string>
+    <string name="auto_clean_delay_hint">单位:小时 默认24小时(即一天) 设置为0时默认24小时</string>
+
     <string name="do_not_disturb">静默清理</string>
     <string name="do_not_disturb_hint">不显示自动清理Toast</string>
-
 </resources>
