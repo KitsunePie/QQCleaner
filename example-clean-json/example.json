@@ -1,0 +1,23 @@
+{
+  "name": "我的清理目录",
+  "author": "KyuubiRan",
+  "content": [
+    {
+      "title": "缓存",
+      "path": [
+        "!AndroidData/Caches1",
+        "!AndroidData/Caches2"
+      ]
+    },
+    {
+      "title": "日志",
+      "path": [
+        "!AndroidData/Log1",
+        "!AndroidData/Log2"
+      ]
+    }
+  ]
+}
+
+
+
