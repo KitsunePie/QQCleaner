@@ -13,7 +13,7 @@ val HostApp.isTim: Boolean
     get() = hostApp == HostApp.TIM
 
 val HostApp.isQqOrTim: Boolean
-    get() = hostApp == HostApp.TIM || hostApp == HostApp.TIM
+    get() = hostApp == HostApp.QQ || hostApp == HostApp.TIM
 
 val HostApp.isWeChat: Boolean
     get() = hostApp == HostApp.WE_CHAT

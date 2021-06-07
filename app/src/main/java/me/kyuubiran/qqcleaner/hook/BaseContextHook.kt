@@ -16,7 +16,7 @@ object BaseContextHook : BaseHook() {
     override fun init() {
         when {
             hostApp.isQqOrTim -> {
-                initQqAndTim()
+                initQqOrTim()
             }
             hostApp.isWeChat -> {
                 initWeChat()
@@ -24,7 +24,7 @@ object BaseContextHook : BaseHook() {
         }
     }
 
-    private fun initQqAndTim() {
+    private fun initQqOrTim() {
         findMethodByCondition("com.tencent.mobileqq.startup.step.LoadDex") {
             it.returnType == Boolean::class.java && it.parameterTypes.isEmpty()
         }.also { m ->
