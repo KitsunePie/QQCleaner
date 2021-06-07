@@ -33,14 +33,11 @@ object EntryHook : BaseHook() {
             it.name == "doOnCreate"
         }.also { m ->
             m.hookAfter { param ->
-                Log.i("开始获取cFormSimpleItem")
                 val cFormSimpleItem = try {
                     loadClass("com.tencent.mobileqq.widget.FormSimpleItem")
                 } catch (e: Exception) {
                     loadClass("com.tencent.mobileqq.widget.FormCommonSingleLineItem")
                 }
-                Log.i("获取完毕:${cFormSimpleItem.name}")
-                Log.i("开始获取ViewGroup")
                 //获取ViewGroup
                 val vg: ViewGroup = try {
                     param.thisObject.getObjectAs("a", cFormSimpleItem)
