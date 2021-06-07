@@ -61,7 +61,7 @@ class CleanData(private val jsonObject: JSONObject) {
         return jsonObject.toString()
     }
 
-    fun toFormatString(indentSpaces: Int = 4): String {
+    fun toFormatString(indentSpaces: Int = 2): String {
         return jsonObject.toString(indentSpaces)
     }
 
