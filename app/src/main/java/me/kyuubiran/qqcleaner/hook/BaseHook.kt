@@ -12,6 +12,7 @@ abstract class BaseHook {
 
     companion object {
         private val hooks: Array<BaseHook> = arrayOf(
+            BaseContextHook,
             EntryHook,
         )
 
