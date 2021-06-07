@@ -4,25 +4,38 @@ import com.github.kyuubiran.ezxhelper.utils.Log
 import com.github.kyuubiran.ezxhelper.utils.forEach
 import com.github.kyuubiran.ezxhelper.utils.getStringOrDefault
 import com.github.kyuubiran.ezxhelper.utils.toArray
+import me.kyuubiran.qqcleaner.util.HostAppUtil
 import me.kyuubiran.qqcleaner.util.PathUtil
-import me.kyuubiran.qqcleaner.util.isCurrentHostApp
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 
-class CleanData(jsonObject: JSONObject) {
-    val name by lazy {
-        jsonObject.getStringOrDefault("name", "一个没有名字的配置文件")
-    }
-    val author by lazy {
-        jsonObject.getStringOrDefault("author", "无名氏")
-    }
-    private val hostApp by lazy {
-        jsonObject.getString("hostApp")
-    }
-    val fileMap: HashMap<String, Array<File>> = hashMapOf()
+class CleanData(private val jsonObject: JSONObject) {
+    var name: String = ""
+        set(value) {
+            jsonObject.put("name", value)
+            field = value
+        }
+        get() = jsonObject.getStringOrDefault("name", "一个没有名字的配置文件")
+
+    var author: String = ""
+        set(value) {
+            jsonObject.put("author", value)
+            field = value
+        }
+        get() = jsonObject.getStringOrDefault("author", "无名氏")
+
+    var hostApp: String = ""
+        set(value) {
+            jsonObject.put("author", value)
+            field = value
+        }
+        get() = jsonObject.getString("hostApp")
+
+    val filePathMap: HashMap<String, Array<String>> = hashMapOf()
+
     val valid: Boolean
-        get() = isCurrentHostApp(hostApp)
+        get() = HostAppUtil.containsCurrentHostApp(hostApp)
 
     init {
         val content = jsonObject.getJSONArray("content")
@@ -36,19 +49,20 @@ class CleanData(jsonObject: JSONObject) {
                         arr[index] = PathUtil.format(s)
                     }
                 }
-                //创建file列表
-                val fileList = ArrayList<File>().run {
-                    pathList.forEach { s ->
-                        add(File(s))
-                    }
-                    toTypedArray()
-                }
                 //添加到fileMap中
-                fileMap[it.getString("title")] = fileList
+                filePathMap[it.getString("title")] = pathList
             } catch (je: JSONException) {
                 Log.e(je)
             }
         }
+    }
+
+    override fun toString(): String {
+        return jsonObject.toString()
+    }
+
+    fun toFormatString(indentSpaces: Int = 4): String {
+        return jsonObject.toString(indentSpaces)
     }
 
     constructor(json: String) : this(JSONObject(json))

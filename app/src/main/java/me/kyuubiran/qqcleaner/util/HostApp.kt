@@ -6,17 +6,37 @@ enum class HostApp {
 
 lateinit var hostApp: HostApp
 
-fun isCurrentHostApp(appName: String): Boolean {
-    return when (appName.lowercase()) {
-        "qq" -> {
-            hostApp == HostApp.QQ
+
+object HostAppUtil {
+    fun isCurrentHostApp(appName: String): Boolean {
+        return when (appName.lowercase()) {
+            "qq" -> {
+                hostApp == HostApp.QQ
+            }
+            "tim" -> {
+                hostApp == HostApp.TIM
+            }
+            "we_chat" -> {
+                hostApp == HostApp.WE_CHAT
+            }
+            else -> false
         }
-        "tim" -> {
-            hostApp == HostApp.TIM
+    }
+
+    fun containsCurrentHostApp(appName: String): Boolean {
+        appName.lowercase().let {
+            return when {
+                it.contains("qq") -> {
+                    hostApp == HostApp.QQ
+                }
+                it.contains("tim") -> {
+                    hostApp == HostApp.TIM
+                }
+                it.contains("we_chat") -> {
+                    hostApp == HostApp.WE_CHAT
+                }
+                else -> false
+            }
         }
-        "we_chat" -> {
-            hostApp == HostApp.WE_CHAT
-        }
-        else -> false
     }
 }
