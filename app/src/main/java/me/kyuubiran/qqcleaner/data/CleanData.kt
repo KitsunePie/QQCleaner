@@ -46,7 +46,7 @@ class CleanData(private val jsonObject: JSONObject) {
                 val pathList = it.getJSONArray("path").toArray<String>().also { arr ->
                     arr.forEachIndexed { index, s ->
                         //格式化路径
-                        arr[index] = PathUtil.format(s)
+                        arr[index] = PathUtil.getFullPath(s)
                     }
                 }
                 //添加到fileMap中
