@@ -2,6 +2,8 @@
     <string name="app_name">QQ瘦身</string>
     <string name="title_activity_settings">瘦身模块</string>
 
+    <string name="not_ready_yet">还没有准备好哦~</string>
+
     <string name="auto_clean_switch_title">自动瘦身</string>
     <string name="auto_clean_switch_key">启用自动瘦身</string>
     <string name="auto_clean_time">上次自动瘦身时间</string>

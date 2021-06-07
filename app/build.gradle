@@ -23,7 +23,6 @@ android {
     }
 
     aaptOptions {
-        additionalParameters '--allow-reserved-package-id', '--package-id', '0x63'
         additionalParameters "--preferred-density", "xxxhdpi"
     }
 
@@ -49,6 +48,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.kyuubiran:EzXHelper:0.1.0'
+    implementation 'com.github.kyuubiran:EzXHelper:0.1.2'
     compileOnly 'de.robv.android.xposed:api:82'
 }
