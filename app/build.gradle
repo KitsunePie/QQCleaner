@@ -49,6 +49,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.kyuubiran:EzXHelper:0.0.9'
+    implementation 'com.github.kyuubiran:EzXHelper:0.1.0'
     compileOnly 'de.robv.android.xposed:api:82'
 }

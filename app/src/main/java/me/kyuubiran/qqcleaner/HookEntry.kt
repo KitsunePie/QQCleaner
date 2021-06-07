@@ -16,7 +16,7 @@ class HookEntry : IXposedHookZygoteInit, IXposedHookInitPackageResources, IXpose
     }
 
     override fun handleInitPackageResources(resparam: XC_InitPackageResources.InitPackageResourcesParam) {
-        EzXHelperInit.setXModuleResources(InitFields.modulePath, resparam)
+        EzXHelperInit.setXModuleResources(InitFields.modulePath, resparam.res)
     }
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
