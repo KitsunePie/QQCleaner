@@ -2,6 +2,7 @@ package me.kyuubiran.qqcleaner.hook
 
 import android.app.Application
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.findMethodByCondition
 import com.github.kyuubiran.ezxhelper.utils.getStaticObjectAs
 import com.github.kyuubiran.ezxhelper.utils.hookAfter
@@ -41,7 +42,7 @@ object BaseContextHook : BaseHook() {
                 //初始化全局Context
                 EzXHelperInit.initAppContext(context)
                 //资源注入
-                EzXHelperInit.initResources()
+                EzXHelperInit.addResourcesPath(appContext)
                 isInited = true
             }
         }
