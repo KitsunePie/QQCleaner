@@ -40,6 +40,8 @@ object BaseContextHook : BaseHook() {
                     )
                 //初始化全局Context
                 EzXHelperInit.initAppContext(context)
+                //资源注入
+                EzXHelperInit.initResources()
                 isInited = true
             }
         }
