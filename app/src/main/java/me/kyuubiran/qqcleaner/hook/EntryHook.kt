@@ -31,9 +31,7 @@ object EntryHook : BaseHook() {
     }
 
     private fun initQqOrTim() {
-        findMethodByCondition("com.tencent.mobileqq.activity.AboutActivity") {
-            it.name == "doOnCreate"
-        }.also { m ->
+        getMethodBySig("Lcom/tencent/mobileqq/activity/AboutActivity;->doOnCreate(Landroid/os/Bundle;)Z").also { m ->
             m.hookAfter { param ->
                 val cFormSimpleItem = try {
                     loadClass("com.tencent.mobileqq.widget.FormSimpleItem")

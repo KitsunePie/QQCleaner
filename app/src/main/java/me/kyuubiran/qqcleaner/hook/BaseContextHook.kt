@@ -2,10 +2,10 @@ package me.kyuubiran.qqcleaner.hook
 
 import android.app.Application
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
-import com.github.kyuubiran.ezxhelper.utils.findMethodByCondition
-import com.github.kyuubiran.ezxhelper.utils.getStaticObjectAs
+import com.github.kyuubiran.ezxhelper.utils.getFieldBySig
+import com.github.kyuubiran.ezxhelper.utils.getMethodBySig
+import com.github.kyuubiran.ezxhelper.utils.getStaticNonNullAs
 import com.github.kyuubiran.ezxhelper.utils.hookAfter
-import com.github.kyuubiran.ezxhelper.utils.loadClass
 import me.kyuubiran.qqcleaner.util.hostApp
 import me.kyuubiran.qqcleaner.util.isQqOrTim
 import me.kyuubiran.qqcleaner.util.isWeChat
@@ -25,19 +25,12 @@ object BaseContextHook : BaseHook() {
     }
 
     private fun initQqOrTim() {
-        findMethodByCondition("com.tencent.mobileqq.startup.step.LoadDex") {
-            it.returnType == Boolean::class.java && it.parameterTypes.isEmpty()
-        }.also { m ->
+        getMethodBySig("Lcom/tencent/mobileqq/startup/step/LoadDex;->doStep()Z").also { m ->
             m.hookAfter {
-                //加载QQ的基础Application
-                val cBaseApplicationImpl =
-                    loadClass("com.tencent.common.app.BaseApplicationImpl")
                 //获取Context
                 val context =
-                    cBaseApplicationImpl.getStaticObjectAs<Application>(
-                        "sApplication",
-                        cBaseApplicationImpl
-                    )
+                    getFieldBySig("Lcom/tencent/common/app/BaseApplicationImpl;->sApplication:Lcom/tencent/common/app/BaseApplicationImpl;")
+                        .getStaticNonNullAs<Application>()
                 //初始化全局Context
                 EzXHelperInit.initAppContext(context, true)
                 isInited = true
