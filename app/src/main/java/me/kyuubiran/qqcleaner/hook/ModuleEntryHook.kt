@@ -104,7 +104,7 @@ class ModuleEntryHook {
     }
 
     private fun hookQQ() {
-        for (m in getMethods("com.tencent.mobileqq.activity.AboutActivity")) {
+        for (m in getDeclaredMethods("com.tencent.mobileqq.activity.AboutActivity")) {
             if (m.name != "doOnCreate") continue
             XposedBridge.hookMethod(m, object : XC_MethodHook() {
                 override fun afterHookedMethod(param: MethodHookParam) {
