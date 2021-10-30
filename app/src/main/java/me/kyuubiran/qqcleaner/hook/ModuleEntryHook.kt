@@ -81,7 +81,9 @@ class ModuleEntryHook {
                 }
                 list.viewTreeObserver.addOnGlobalLayoutListener {
                     val preference = adapter.getItem(adapter.count - 2)
-                    if (preference.invokeMethod("getKey") != "QQCleaner") {
+                    val key = preference.invokeMethod("getKey")
+                        ?: preference.getObject("mKey")
+                    if ("QQCleaner" != key) {
                         addMethod.invoke(adapter, entry, adapter.count + 1)
                         adapter.notifyDataSetChanged()
                     }
@@ -93,7 +95,9 @@ class ModuleEntryHook {
                 )
             }.hookBefore {
                 val preference = it.args[1]
-                if (preference.invokeMethod("getKey") == "QQCleaner") {
+                val key = preference.invokeMethod("getKey")
+                    ?: preference.getObject("mKey")
+                if ("QQCleaner" == key) {
                     openModule(secondInitWeChat, it.thisObject as Activity)
                     it.result = true
                 }
