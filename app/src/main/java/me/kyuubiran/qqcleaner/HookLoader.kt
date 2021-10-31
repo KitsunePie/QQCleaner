@@ -65,7 +65,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                         initItem()
                         secondInitQQ = true
                     } catch (thr: Throwable) {
-                        Log.t(thr)
+                        Log.e(thr)
                         throw thr
                     }
                 }

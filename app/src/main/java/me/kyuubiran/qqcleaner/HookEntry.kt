@@ -19,7 +19,7 @@ class HookEntry : IXposedHookLoadPackage, IXposedHookZygoteInit {
             "com.tencent.mm" -> {
                 EzXHelperInit.initHandleLoadPackage(lpparam)
                 EzXHelperInit.setLogTag("QQCleaner")
-                WeChatHookLoader(lpparam)
+                WeChatHookLoader()
             }
         }
     }

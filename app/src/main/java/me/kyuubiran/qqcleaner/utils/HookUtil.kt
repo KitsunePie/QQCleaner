@@ -11,7 +11,7 @@ object HookUtil {
     internal fun Member.hook(callback: XC_MethodHook) = try {
         XposedBridge.hookMethod(this, callback)
     } catch (thr: Throwable) {
-        Log.t(thr)
+        Log.e(thr)
         null
     }
 
@@ -21,7 +21,7 @@ object HookUtil {
                 override fun beforeHookedMethod(param: MethodHookParam?) = try {
                     hooker(param!!)
                 } catch (thr: Throwable) {
-                    Log.t(thr)
+                    Log.e(thr)
                 }
             })
 
@@ -30,7 +30,7 @@ object HookUtil {
             override fun afterHookedMethod(param: MethodHookParam?) = try {
                 hooker(param!!)
             } catch (thr: Throwable) {
-                Log.t(thr)
+                Log.e(thr)
             }
         })
 

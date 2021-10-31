@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
 import com.github.kyuubiran.ezxhelper.utils.Log
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.kyuubiran.qqcleaner.data.hostInfo
 import me.kyuubiran.qqcleaner.data.init
 import me.kyuubiran.qqcleaner.hook.ModuleEntryHook
@@ -16,9 +15,9 @@ private var firstInit = false
 var secondInitWeChat = false
     private set
 
-class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
+class WeChatHookLoader {
     init {
-        doInit(lpparam.classLoader)
+        doInit()
     }
 
     private fun initItem() {
@@ -28,7 +27,7 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
     }
 
     @SuppressLint("DiscouragedPrivateApi")
-    private fun doInit(rtLoader: ClassLoader) {
+    private fun doInit() {
         if (firstInit) return
         try {
             Application::class.java.getDeclaredMethod("onCreate")
@@ -51,7 +50,7 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
             firstInit = true
         } catch (thr: Throwable) {
             if (thr.toString().contains("com.google.android.webview")) return
-            Log.t(thr)
+            Log.e(thr)
             throw thr
         }
     }
