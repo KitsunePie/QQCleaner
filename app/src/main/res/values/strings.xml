@@ -41,8 +41,9 @@
     <string name="support_me">点我扶贫</string>
     <string name="support_me_hint">本模块完全免费开源 一切开发旨在学习 请勿用于非法用途 喜欢本模块的可以捐赠支持我 谢谢~</string>
     <string name="update_info">更新日志</string>
-    <string name="update_info_content">-1.7.3(36)\n
-        1.修复应用转生框架微信瘦身打不开的问题
+    <string name="update_info_content">-1.7.4(38)\n
+        1.修复Android 12 兼容性问题\n
+        2.修复微信8.0.16 入口问题
     </string>
     <string name="join_qq_group">点击加入QQ群</string>
     <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
