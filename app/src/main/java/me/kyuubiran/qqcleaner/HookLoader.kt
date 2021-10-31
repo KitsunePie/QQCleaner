@@ -59,6 +59,7 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                             HookLoader::class.java.classLoader!!
                         )
                         EzXHelperInit.initSubActivity()
+                        EzXHelperInit.addModuleAssetPath(ctx)
                         if ("true" == System.getProperty(QQ_CLEANER_TAG)) return
                         System.setProperty(QQ_CLEANER_TAG, "true")
                         initItem()
