@@ -11,7 +11,6 @@ import me.kyuubiran.qqcleaner.data.init
 import me.kyuubiran.qqcleaner.hook.ModuleEntryHook
 import me.kyuubiran.qqcleaner.utils.CleanManager
 import me.kyuubiran.qqcleaner.utils.ConfigManager
-import me.kyuubiran.qqcleaner.utils.resinjection.ResInjector
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 
@@ -27,8 +26,6 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
 
     private fun initItem() {
         ModuleEntryHook()
-        ResInjector.initSubActivity()
-        ResInjector.injectRes(hostInfo.application.resources)
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean.init()
     }
@@ -56,6 +53,12 @@ class HookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                         val ctx = fsApp[null] as Application
                         init(ctx)
                         EzXHelperInit.initAppContext(hostInfo.application)
+                        EzXHelperInit.initActivityProxyManager(
+                            BuildConfig.APPLICATION_ID,
+                            "com.tencent.mobileqq.activity.photo.CameraPreviewActivity",
+                            HookLoader::class.java.classLoader!!
+                        )
+                        EzXHelperInit.initSubActivity()
                         if ("true" == System.getProperty(QQ_CLEANER_TAG)) return
                         System.setProperty(QQ_CLEANER_TAG, "true")
                         initItem()

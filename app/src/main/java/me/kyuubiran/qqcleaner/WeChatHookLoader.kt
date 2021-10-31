@@ -10,7 +10,6 @@ import me.kyuubiran.qqcleaner.data.init
 import me.kyuubiran.qqcleaner.hook.ModuleEntryHook
 import me.kyuubiran.qqcleaner.utils.*
 import me.kyuubiran.qqcleaner.utils.HookUtil.hookAfter
-import me.kyuubiran.qqcleaner.utils.resinjection.ResInjector
 
 private const val WE_CHAT_CLEANER_TAG = "WECHAT_CLEANER_TAG"
 private var firstInit = false
@@ -24,7 +23,6 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
 
     private fun initItem() {
         ModuleEntryHook()
-        ResInjector.initSubActivity()
         ConfigManager.checkConfigIsExists()
         CleanManager.AutoClean.init()
     }
@@ -39,6 +37,12 @@ class WeChatHookLoader(lpparam: XC_LoadPackage.LoadPackageParam) {
                     val ctx = it.thisObject as Application
                     init(ctx)
                     EzXHelperInit.initAppContext(hostInfo.application)
+                    EzXHelperInit.initActivityProxyManager(
+                        BuildConfig.APPLICATION_ID,
+                        "com.tencent.mm.ui.contact.AddressUI",
+                        HookLoader::class.java.classLoader!!
+                    )
+                    EzXHelperInit.initSubActivity()
                     if ("true" == System.getProperty(WE_CHAT_CLEANER_TAG)) return@hookAfter
                     System.setProperty(WE_CHAT_CLEANER_TAG, "true")
                     initItem()

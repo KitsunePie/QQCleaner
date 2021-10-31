@@ -25,10 +25,6 @@ class HookEntry : IXposedHookLoadPackage, IXposedHookZygoteInit {
     }
 
     override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
-        modulePath = startupParam.modulePath
-    }
-
-    companion object {
-        lateinit var modulePath: String
+        EzXHelperInit.initZygote(startupParam)
     }
 }
