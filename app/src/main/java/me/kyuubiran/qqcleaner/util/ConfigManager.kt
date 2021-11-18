@@ -55,4 +55,12 @@ object ConfigManager {
     fun getLong(key: String, defValue: Long = 0L): Long {
         return sPrefs.getLong(key, defValue)
     }
+
+    var sAutoClean: Boolean
+        set(value) = putBool("auto_clean", value)
+        get() = getBool("auto_clean")
+
+    var sAutoCleanInterval: Int
+        set(value) = putInt("auto_clean", value)
+        get() = getInt("auto_clean", 24)
 }

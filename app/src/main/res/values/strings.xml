@@ -3,28 +3,35 @@
     <string name="save">保存</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
-    <string name="title_activity_settings">瘦身模块</string>
+    <string name="warn">警告</string>
+    <string name="notify">注意</string>
 
     <string name="not_ready_yet">还没有准备好哦~</string>
 
     <string name="clean_settings_title">瘦身设置</string>
     <string name="auto_clean_title">自动瘦身</string>
     <string name="set_auto_clean_interval_title">自动瘦身间隔</string>
+    <string name="set_auto_clean_interval_desc">单位：小时（默认为24小时）</string>
     <string name="set_auto_clean_interval_dialog_title">自动瘦身间隔（单位：小时）</string>
     <string name="interval_title">间隔（单位：小时）</string>
+    <string name="modify_config_title">编辑瘦身配置</string>
+    <string name="execute_clean_title">立即执行瘦身</string>
+    <string name="execute_clean_desc">执行你当前的瘦身配置</string>
+    <string name="execute_clean_dialog_content">你确定要执行瘦身吗？</string>
 
     <string name="enable_power_mode">强力模式</string>
     <string name="enable_power_mode_hint">使用Shell命令强制删除文件</string>
     <string name="other_title">其他</string>
 
-    <string name="module_version">模块版本</string>
-    <string name="goto_github">点我前往项目地址</string>
-    <string name="author">模块作者:KyuubiRan\n特别鸣谢:ketal178、cinit、Lagrio、NextAlone</string>
+    <string name="about_title">关于</string>
+    <string name="module_version_title">模块版本</string>
+    <string name="goto_github_title">点我前往项目地址</string>
+    <string name="goto_github_desc">点个Star吧！</string>
 
-    <string name="join_qq_group">点击加入QQ群</string>
-    <string name="join_qq_group_hint">有问题可以来群里反馈哦~</string>
-    <string name="join_tg_channel">点击加入Telegram频道</string>
-    <string name="join_tg_channel_hint">频道:@QQCleaner\n聊天群组:@QQCleanerChat</string>
+    <string name="join_qq_group_title">点击加入QQ群</string>
+    <string name="join_qq_group_desc">有问题可以来群里反馈哦~</string>
+    <string name="join_tg_channel_title">点击加入Telegram频道</string>
+    <string name="join_tg_channel_desc">频道:@QQCleaner</string>
 
     <string name="auto_clean_delay">自动瘦身间隔</string>
     <string name="auto_clean_delay_hint">单位:小时 默认24小时(即一天) 设置为0时默认24小时</string>

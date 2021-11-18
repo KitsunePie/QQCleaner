@@ -53,6 +53,7 @@ fun SwitchItem(
         .clickable {
             if (onClick == null) {
                 checked.value = !checked.value
+                onChange?.invoke(checked.value)
             } else {
                 onClick()
             }
