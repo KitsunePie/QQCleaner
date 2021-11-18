@@ -2,14 +2,13 @@ package me.kyuubiran.qqcleaner.ui.activity
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.view.CardGroup
 import me.kyuubiran.qqcleaner.ui.view.SwitchItem
 
-class ModuleActivity : AppCompatActivity() {
+class ModuleActivity : BaseActivity() {
 
     @Composable
     private fun MainUI() {
