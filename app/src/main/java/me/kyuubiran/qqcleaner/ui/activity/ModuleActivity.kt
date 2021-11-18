@@ -19,8 +19,8 @@ class ModuleActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        setTheme(R.style.MainTheme)
         setContent {
             MaterialTheme {
                 MainUI()
