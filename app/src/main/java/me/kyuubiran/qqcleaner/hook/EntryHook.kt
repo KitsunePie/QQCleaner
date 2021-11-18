@@ -2,11 +2,11 @@ package me.kyuubiran.qqcleaner.hook
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
-import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.*
-import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.ui.activity.ModuleActivity
 import me.kyuubiran.qqcleaner.util.hostApp
 import me.kyuubiran.qqcleaner.util.hostAppName
 import me.kyuubiran.qqcleaner.util.isQqOrTim
@@ -26,8 +26,9 @@ object EntryHook : BaseHook() {
         }
     }
 
-    private fun openModuleSettingFragment(activity: Activity) {
-        TODO("Not implement yet")
+    private fun startModuleSettingActivity(activity: Activity) {
+        val intent = Intent(activity, ModuleActivity::class.java)
+        activity.startActivity(intent)
     }
 
     private fun initQqOrTim() {
@@ -62,8 +63,7 @@ object EntryHook : BaseHook() {
                 }
                 //设置点击事件
                 entry.setOnClickListener {
-                    Log.toast(moduleRes.getString(R.string.not_ready_yet))
-//                    openModuleSettingFragment(param.thisObject as Activity)
+                    startModuleSettingActivity(param.thisObject as Activity)
                 }
                 //添加入口
                 vg.addView(entry, 2)

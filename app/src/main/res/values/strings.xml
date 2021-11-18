@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">QQ瘦身</string>
+    <string name="save">保存</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
     <string name="title_activity_settings">瘦身模块</string>
 
     <string name="not_ready_yet">还没有准备好哦~</string>
 
-    <string name="auto_clean_switch_title">自动瘦身</string>
-    <string name="auto_clean_switch_key">启用自动瘦身</string>
-    <string name="auto_clean_time">上次自动瘦身时间</string>
-    <string name="no_cleaned_his_hint">还没有记录哦~</string>
+    <string name="clean_settings_title">瘦身设置</string>
+    <string name="auto_clean_title">自动瘦身</string>
+    <string name="set_auto_clean_interval_title">自动瘦身间隔</string>
+    <string name="set_auto_clean_interval_dialog_title">自动瘦身间隔（单位：小时）</string>
+    <string name="interval_title">间隔（单位：小时）</string>
 
-    <string name="clean_settings">瘦身设置</string>
     <string name="enable_power_mode">强力模式</string>
     <string name="enable_power_mode_hint">使用Shell命令强制删除文件</string>
     <string name="other_title">其他</string>

@@ -1,9 +1,6 @@
 package me.kyuubiran.qqcleaner.data
 
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.forEach
-import com.github.kyuubiran.ezxhelper.utils.getStringOrDefault
-import com.github.kyuubiran.ezxhelper.utils.toArray
+import com.github.kyuubiran.ezxhelper.utils.*
 import me.kyuubiran.qqcleaner.util.HostAppUtil
 import me.kyuubiran.qqcleaner.util.PathUtil
 import org.json.JSONException
@@ -30,7 +27,14 @@ class CleanData(private val jsonObject: JSONObject) {
             jsonObject.put("author", value)
             field = value
         }
-        get() = jsonObject.getString("hostApp")
+        get() = jsonObject.getStringOrDefault("hostApp")
+
+    var regexp: Boolean = false
+        set(value) {
+            jsonObject.put("regexp", value)
+            field = value
+        }
+        get() = jsonObject.getBooleanOrDefault("regexp")
 
     val filePathMap: HashMap<String, Array<String>> = hashMapOf()
 

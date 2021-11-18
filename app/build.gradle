@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "me.kyuubiran.qqcleaner"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 31
         versionCode 60
         versionName "2.0.0"
@@ -21,6 +21,16 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerVersion kotlin_version
+    }
+
 
     aaptOptions {
         additionalParameters "--preferred-density", "xxxhdpi"
