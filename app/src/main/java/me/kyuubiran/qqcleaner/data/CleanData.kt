@@ -120,6 +120,12 @@ class CleanData(private val jsonObject: JSONObject) {
         return jsonObject.toString(indentSpaces)
     }
 
+    fun export() {
+        val f = File("/storage/emulated/0/Download/${this.title}.json")
+        if (!f.exists()) f.createNewFile()
+        f.writeText(this.toFormatString())
+    }
+
     constructor(json: String) : this(JSONObject(json))
     constructor(jsonFile: File) : this(jsonFile.readText())
 }

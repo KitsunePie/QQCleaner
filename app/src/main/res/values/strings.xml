@@ -63,6 +63,9 @@
     <string name="execute_config_dialog_content">你确定要执行配置文件“%s”吗？</string>
     <string name="delete_config_dialog_content">你确定要删除配置文件“%s”吗？</string>
 
+    <string name="export_error">无法导出配置文件，请检查是否给予宿主访问存储卡的权限。</string>
+    <string name="export_success">成功将配置文件导出至：内部存储空间/Download\/%s</string>
+
     <string name="empty_config_text">这里空空如也~</string>
 
 </resources>

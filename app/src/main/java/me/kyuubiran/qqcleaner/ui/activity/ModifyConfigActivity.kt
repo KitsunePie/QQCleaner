@@ -111,14 +111,6 @@ class ModifyConfigActivity : BaseActivity() {
                         "!AndroidData/Caches1",
                         "!AndroidData/Caches2"
                       ]
-                    },
-                    {
-                      "title": "日志",
-                      "enable": true,
-                      "regexp": true,
-                      "path": [
-                        "!AndroidData/Log[0-9]"
-                      ]
                     }
                   ]
                 }

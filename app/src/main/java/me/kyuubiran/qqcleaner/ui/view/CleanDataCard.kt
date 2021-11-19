@@ -13,6 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.theme.Blue200
@@ -110,7 +112,19 @@ fun CleanDataClickDialog(
                 DialogClickableItem(
                     text = R.string.export_this_config,
                     leftIcon = R.drawable.ic_baseline_export_24,
-                    onClick = { showable.value = false }
+                    onClick = {
+                        showable.value = false
+                        try {
+                            cleanData.export()
+                            Log.toast(
+                                appContext.getString(R.string.export_success)
+                                    .format("${cleanData.title}.json")
+                            )
+                        } catch (e: Exception) {
+                            Log.e(e)
+                            Log.toast(appContext.getString(R.string.export_error))
+                        }
+                    }
                 )
                 // 删除
                 DialogClickableItem(
