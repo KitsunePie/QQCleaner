@@ -63,4 +63,12 @@ object ConfigManager {
     var sAutoCleanInterval: Int
         set(value) = putInt("auto_clean_interval", value)
         get() = getInt("auto_clean_interval", 24)
+
+    var sLastCleanDate: Long
+        set(value) = putLong("last_clean_date", value)
+        get() = getLong("last_clean_date")
+
+    var sTotalCleaned: Long
+        set(value) = putLong("total_cleaned", value)
+        get() = getLong("total_cleaned")
 }

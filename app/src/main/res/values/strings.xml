@@ -19,6 +19,16 @@
     <string name="execute_clean_desc">执行你当前的瘦身配置</string>
     <string name="execute_clean_dialog_content">你确定要执行瘦身吗？</string>
 
+
+    <string name="clean_info_title">瘦身详情</string>
+
+    <string name="last_clean_date_title">上次瘦身日期</string>
+    <string name="no_last_clean_date_record">你还还没有清理过哦~</string>
+    <string name="total_cleaned_title">总计清理</string>
+
+    <string name="click_to_reset_clean_date_with_times">再点击%d次重置瘦身日期</string>
+    <string name="reset_clean_date">已重置瘦身日期</string>
+
     <string name="enable_power_mode">强力模式</string>
     <string name="enable_power_mode_hint">使用Shell命令强制删除文件</string>
     <string name="other_title">其他</string>
@@ -38,4 +48,5 @@
 
     <string name="do_not_disturb">静默清理</string>
     <string name="do_not_disturb_hint">不显示自动清理Toast</string>
+    <string name="refresh_clean_size">已刷新清理大小</string>
 </resources>
