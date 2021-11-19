@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.activity
 
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -76,7 +77,12 @@ class ModuleActivity : BaseActivity() {
                     ClickableItem(
                         title = R.string.modify_config_title,
                         onClick = {
-                            //TODO("前往配置页面")
+                            startActivity(
+                                Intent(
+                                    this@ModuleActivity,
+                                    ModifyConfigActivity::class.java
+                                )
+                            )
                         },
                         showArrow = true
                     )

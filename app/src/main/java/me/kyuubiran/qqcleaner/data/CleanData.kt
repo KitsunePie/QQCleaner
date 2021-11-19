@@ -8,34 +8,31 @@ import org.json.JSONObject
 import java.io.File
 
 class CleanData(private val jsonObject: JSONObject) {
-    var name: String = ""
+    var name: String
         set(value) {
             jsonObject.put("name", value)
-            field = value
         }
         get() = jsonObject.getStringOrDefault("name", "一个没有名字的配置文件")
 
-    var author: String = ""
+    var author: String
         set(value) {
             jsonObject.put("author", value)
-            field = value
         }
         get() = jsonObject.getStringOrDefault("author", "无名氏")
 
-    var hostApp: String = ""
+    var hostApp: String
         set(value) {
             jsonObject.put("author", value)
-            field = value
         }
         get() = jsonObject.getStringOrDefault("hostApp")
 
-    var regexp: Boolean = false
+    var regexp: Boolean
         set(value) {
             jsonObject.put("regexp", value)
-            field = value
         }
         get() = jsonObject.getBooleanOrDefault("regexp")
 
+    // { "title": "This is a Title" , "path": [] }
     val filePathMap: HashMap<String, Array<String>> = hashMapOf()
 
     val valid: Boolean

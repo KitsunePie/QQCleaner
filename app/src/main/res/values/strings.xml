@@ -49,4 +49,9 @@
     <string name="do_not_disturb">静默清理</string>
     <string name="do_not_disturb_hint">不显示自动清理Toast</string>
     <string name="refresh_clean_size">已刷新清理大小</string>
+
+
+    <string name="modify_config">编辑配置</string>
+    <string name="empty_config_text">这里空空如也~</string>
+
 </resources>
