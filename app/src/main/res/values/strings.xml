@@ -5,6 +5,7 @@
     <string name="cancel">取消</string>
     <string name="warn">警告</string>
     <string name="notify">注意</string>
+    <string name="wrong_click">我点错了</string>
 
     <string name="not_ready_yet">还没有准备好哦~</string>
 
@@ -52,6 +53,16 @@
 
 
     <string name="modify_config">编辑配置</string>
+    <string name="modify_config_dialog_title">编辑配置 “%s”</string>
+    <string name="enable_this_config">启用此配置</string>
+    <string name="disable_this_config">禁用此配置</string>
+    <string name="execute_this_config">执行此配置</string>
+    <string name="modify_this_config">编辑此配置</string>
+    <string name="export_this_config">导出此配置</string>
+    <string name="delete_this_config">删除此配置</string>
+    <string name="execute_config_dialog_content">你确定要执行配置文件“%s”吗？</string>
+    <string name="delete_config_dialog_content">你确定要删除配置文件“%s”吗？</string>
+
     <string name="empty_config_text">这里空空如也~</string>
 
 </resources>

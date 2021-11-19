@@ -14,5 +14,6 @@ val Blue = Color(0xFF76A9FF)
 val Blue200 = Color(0xFF2186FC)
 val Green = Color(0xFF53C857)
 val Red = Color(0xFFF44336)
+val Gray = Color(0x77CACACA)
 
 val ColorPrimary = Color(0xFF03A9F4)

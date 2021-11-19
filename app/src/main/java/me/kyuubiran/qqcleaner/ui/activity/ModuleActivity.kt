@@ -24,7 +24,6 @@ import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.ConfigManager.sAutoClean
 import me.kyuubiran.qqcleaner.util.ConfigManager.sAutoCleanInterval
 import me.kyuubiran.qqcleaner.util.ConfigManager.sLastCleanDate
-import me.kyuubiran.qqcleaner.util.getFormatCleanedSize
 import me.kyuubiran.qqcleaner.util.jumpUri
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
@@ -123,17 +122,17 @@ class ModuleActivity : BaseActivity() {
                         }
                     )
 
-                    val totalCleanSize = rememberMutableStateOf(value = getFormatCleanedSize())
-                    //总计清理
-                    ClickableItem(
-                        title = stringResource(id = R.string.total_cleaned_title),
-                        desc = totalCleanSize.value,
-                        onClick = {
-                            //TODO("ConfigManager.sTotalCleaned不会实时刷新")
+//                    val totalCleanSize = rememberMutableStateOf(value = getFormatCleanedSize())
+//                    //总计清理
+//                    ClickableItem(
+//                        title = stringResource(id = R.string.total_cleaned_title),
+//                        desc = totalCleanSize.value,
+//                        onClick = {
+//                            //TODO("ConfigManager.sTotalCleaned不会实时刷新")
 //                            totalCleanSize.value = getFormatCleanedSize()
 //                            Log.toast(getString(R.string.refresh_clean_size))
-                        }
-                    )
+//                        }
+//                    )
                 }
                 //关于
                 CardGroup(title = R.string.about_title) {

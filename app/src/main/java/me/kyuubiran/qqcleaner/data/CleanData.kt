@@ -2,61 +2,115 @@ package me.kyuubiran.qqcleaner.data
 
 import com.github.kyuubiran.ezxhelper.utils.*
 import me.kyuubiran.qqcleaner.util.HostAppUtil
-import me.kyuubiran.qqcleaner.util.PathUtil
-import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 
 class CleanData(private val jsonObject: JSONObject) {
-    var name: String
-        set(value) {
-            jsonObject.put("name", value)
-        }
-        get() = jsonObject.getStringOrDefault("name", "一个没有名字的配置文件")
+    class PathData(private val jsonObject: JSONObject) {
+        // 标题
+        var title: String
+            set(value) {
+                jsonObject.put("title", value)
+            }
+            get() = jsonObject.getStringOrDefault("name", "一个没有名字的配置文件")
 
+        // 是否启用
+        var enable: Boolean
+            set(value) {
+                jsonObject.put("enable", value)
+            }
+            get() = jsonObject.getBooleanOrDefault("enable", false)
+
+//        // 正则表达式
+//        var regexp: Boolean
+//            set(value) {
+//                jsonObject.put("regexp", value)
+//            }
+//            get() = jsonObject.getBooleanOrDefault("regexp")
+
+        // 路径
+        val pathList = jsonObject.getJSONArrayOrEmpty("path").toArrayList<String>()
+
+        // 添加路径
+        fun addPath(path: String) {
+            pathList.add(path)
+        }
+
+        //删除路径
+        fun removePath(idx: Int) {
+            try {
+                pathList.removeAt(idx)
+            } catch (e: Exception) {
+                Log.e(e)
+            }
+        }
+
+        //删除路径
+        fun removePath(string: String) {
+            pathList.remove(string)
+        }
+
+        override fun toString(): String {
+            return jsonObject.toString()
+        }
+
+        fun toFormatString(indentSpaces: Int = 2): String {
+            return jsonObject.toString(indentSpaces)
+        }
+    }
+
+    // 配置文件标题
+    var title: String
+        set(value) {
+            jsonObject.put("title", value)
+        }
+        get() = jsonObject.getStringOrDefault("title", "一个没有名字的配置文件")
+
+    // 作者
     var author: String
         set(value) {
             jsonObject.put("author", value)
         }
         get() = jsonObject.getStringOrDefault("author", "无名氏")
 
+    // 是否启用
+    var enable: Boolean
+        set(value) {
+            jsonObject.put("enable", value)
+        }
+        get() = jsonObject.getBooleanOrDefault("enable", false)
+
+    // 宿主类型
     var hostApp: String
         set(value) {
             jsonObject.put("author", value)
         }
         get() = jsonObject.getStringOrDefault("hostApp")
 
-    var regexp: Boolean
-        set(value) {
-            jsonObject.put("regexp", value)
-        }
-        get() = jsonObject.getBooleanOrDefault("regexp")
-
-    // { "title": "This is a Title" , "path": [] }
-    val filePathMap: HashMap<String, Array<String>> = hashMapOf()
-
-    val valid: Boolean
-        get() = HostAppUtil.containsCurrentHostApp(hostApp)
-
-    init {
-        val content = jsonObject.getJSONArray("content")
-        //遍历 content
-        content.forEach<JSONObject> {
-            try {
-                //获取路径列表
-                val pathList = it.getJSONArray("path").toArray<String>().also { arr ->
-                    arr.forEachIndexed { index, s ->
-                        //格式化路径
-                        arr[index] = PathUtil.getFullPath(s)
-                    }
-                }
-                //添加到fileMap中
-                filePathMap[it.getString("title")] = pathList
-            } catch (je: JSONException) {
-                Log.e(je)
+    // 内容
+    val content = jsonObject.getJSONArrayOrEmpty("content").run {
+        arrayListOf<PathData>().apply {
+            for (i in 0 until this@run.length()) {
+                add(PathData(this@run.getJSONObject(i)))
             }
         }
     }
+
+    fun addContent(pathData: PathData) {
+        content.add(pathData)
+    }
+
+    fun removeContent(idx: Int) {
+        content.removeAt(idx)
+    }
+
+    fun removeContent(pathData: PathData) {
+        content.remove(pathData)
+    }
+
+    // 是否有效
+    val valid: Boolean
+        get() = HostAppUtil.containsCurrentHostApp(hostApp)
 
     override fun toString(): String {
         return jsonObject.toString()

@@ -18,8 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
+import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.view.AppBar
+import me.kyuubiran.qqcleaner.ui.view.CleanDataCard
+import me.kyuubiran.qqcleaner.util.CleanManager.getConfigDir
+import me.kyuubiran.qqcleaner.util.path.CommonPath
 import java.io.File
 
 class ModifyConfigActivity : BaseActivity() {
@@ -54,7 +59,8 @@ class ModifyConfigActivity : BaseActivity() {
                     }
                 } else {
                     lists.value.forEach {
-
+                        val data = CleanData(it)
+                        CleanDataCard(cleanData = data)
                     }
                 }
             }
@@ -72,6 +78,54 @@ class ModifyConfigActivity : BaseActivity() {
     }
 
     private fun readFiles(): ArrayList<File> {
-        return arrayListOf()
+        getConfigDir()
+        genDefaultConfig()
+        val arr = ArrayList<File>()
+        val dir = File("${CommonPath.dDataDir}/qqcleaner")
+        if (dir.isDirectory) {
+            dir.listFiles()?.let {
+                arr.addAll(it)
+            }
+        }
+        return arr
+    }
+
+    private fun genDefaultConfig() {
+        try {
+            val f = File("${CommonPath.dDataDir}/qqcleaner/Default.json")
+            if (f.exists()) return
+            f.createNewFile()
+            f.writeText(
+                """
+                {
+                  "title": "默认配置",
+                  "author": "KyuubiRan",
+                  "enable": true,
+                  "hostApp": "QQ",
+                  "content": [
+                    {
+                      "title": "缓存",
+                      "regexp": false,
+                      "enable": false,
+                      "path": [
+                        "!AndroidData/Caches1",
+                        "!AndroidData/Caches2"
+                      ]
+                    },
+                    {
+                      "title": "日志",
+                      "enable": true,
+                      "regexp": true,
+                      "path": [
+                        "!AndroidData/Log[0-9]"
+                      ]
+                    }
+                  ]
+                }
+            """.trimIndent()
+            )
+        } catch (e: Exception) {
+            Log.e(e)
+        }
     }
 }

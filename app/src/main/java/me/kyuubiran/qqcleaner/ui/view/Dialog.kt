@@ -95,7 +95,7 @@ fun Dialog(
                 Surface {
                     Text(
                         text = title,
-                        fontSize = 20.sp
+                        fontSize = 22.sp
                     )
                 }
             },

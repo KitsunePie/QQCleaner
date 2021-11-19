@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.view
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -86,6 +87,47 @@ fun ClickableItem(
             }
         }
     }
+}
+
+@Composable
+fun DialogClickableItem(
+    text: String,
+    @DrawableRes leftIcon: Int? = null,
+    onClick: (() -> Unit)? = null
+) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .height(40.dp)
+        .clickable { onClick?.invoke() }) {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            leftIcon?.let {
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .fillMaxWidth(0.15f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = it),
+                        contentDescription = null
+                    )
+                }
+            }
+            Text(text = text, color = Color.Black, fontSize = 20.sp)
+        }
+    }
+}
+
+@Composable
+fun DialogClickableItem(
+    @StringRes text: Int,
+    @DrawableRes leftIcon: Int? = null,
+    onClick: (() -> Unit)? = null
+) {
+    DialogClickableItem(text = stringResource(id = text), leftIcon = leftIcon, onClick = onClick)
 }
 
 @Preview

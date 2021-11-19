@@ -8,7 +8,7 @@ object CommonPath {
         appContext.externalCacheDir?.parentFile?.path ?: ""
     }
 
-    //P: data/data/${HostAppPackageName}
+    //P: data/user/0/${HostAppPackageName}
     val dDataDir by lazy {
         appContext.filesDir?.parentFile?.path ?: ""
     }

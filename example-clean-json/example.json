@@ -1,10 +1,13 @@
 {
-  "name": "我的清理目录",
+  "title": "默认配置",
   "author": "KyuubiRan",
+  "enable": true,
   "hostApp": "QQ",
   "content": [
     {
       "title": "缓存",
+      "regexp": false,
+      "enable": false,
       "path": [
         "!AndroidData/Caches1",
         "!AndroidData/Caches2"
@@ -12,9 +15,10 @@
     },
     {
       "title": "日志",
+      "enable": true,
+      "regexp": true,
       "path": [
-        "!AndroidData/Log1",
-        "!AndroidData/Log2"
+        "!AndroidData/Log[0-9]"
       ]
     }
   ]
