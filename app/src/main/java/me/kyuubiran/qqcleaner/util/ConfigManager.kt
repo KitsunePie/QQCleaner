@@ -61,6 +61,6 @@ object ConfigManager {
         get() = getBool("auto_clean")
 
     var sAutoCleanInterval: Int
-        set(value) = putInt("auto_clean", value)
-        get() = getInt("auto_clean", 24)
+        set(value) = putInt("auto_clean_interval", value)
+        get() = getInt("auto_clean_interval", 24)
 }

@@ -6,12 +6,14 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.view.*
@@ -139,20 +141,17 @@ class ModuleActivity : BaseActivity() {
     private fun SetAutoCleanIntervalDialog(rm: MutableState<Boolean>, str: MutableState<String>) {
         Dialog(
             title = stringResource(id = R.string.set_auto_clean_interval_dialog_title),
-            //TODO("TextField错位问题待修复、保存问题待修复")
             content = {
-//                TextField(
-//                    modifier = Modifier
-//                        .background(Color.White),
-//                    value = str.value,
-//                    onValueChange = { str.value = it },
-//                    singleLine = true,
-//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-//                )
+                EditText(
+                    text = str.value,
+                    onChange = { str.value = it },
+                    singleLine = true,
+                    kbOpts = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
             },
             confirmBtnTitle = stringResource(R.string.save),
             confirm = {
-                str.value.toIntOrNull() ?: 24.let {
+                (str.value.toIntOrNull() ?: 24).let {
                     sAutoCleanInterval = if (it > 0) it else 24
                 }
             },
