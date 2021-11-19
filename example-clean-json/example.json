@@ -6,23 +6,11 @@
   "content": [
     {
       "title": "缓存",
-      "regexp": false,
       "enable": false,
       "path": [
         "!AndroidData/Caches1",
         "!AndroidData/Caches2"
       ]
-    },
-    {
-      "title": "日志",
-      "enable": true,
-      "regexp": true,
-      "path": [
-        "!AndroidData/Log[0-9]"
-      ]
     }
   ]
 }
-
-
-

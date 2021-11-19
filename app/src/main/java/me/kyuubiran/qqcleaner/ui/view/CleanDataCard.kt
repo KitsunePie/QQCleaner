@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
@@ -203,42 +202,4 @@ fun CleanDataCard(cleanData: CleanData) {
             }
         }
     }
-}
-
-
-@Preview
-@Composable
-private fun View() {
-    val cleanData = CleanData(
-        """
-            {
-              "title": "默认配置",
-              "author": "KyuubiRan",
-              "enable": true,
-              "hostApp": "QQ",
-              "content": [
-                {
-                  "title": "缓存",
-                  "regexp": false,
-                  "enable": false,
-                  "path": [
-                    "!AndroidData/Caches1",
-                    "!AndroidData/Caches2"
-                  ]
-                },
-                {
-                  "title": "日志",
-                  "enable": true,
-                  "regexp": true,
-                  "path": [
-                    "!AndroidData/Log[0-9]"
-                  ]
-                }
-              ]
-            }
-        """.trimIndent()
-    )
-
-    val checked = rememberMutableStateOf(value = true)
-    val showable = rememberMutableStateOf(value = true)
 }

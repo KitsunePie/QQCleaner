@@ -105,7 +105,6 @@ class ModifyConfigActivity : BaseActivity() {
                   "content": [
                     {
                       "title": "缓存",
-                      "regexp": false,
                       "enable": false,
                       "path": [
                         "!AndroidData/Caches1",
