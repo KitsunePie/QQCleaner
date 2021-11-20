@@ -51,7 +51,8 @@ fun ConfirmDialog(
 fun CleanDataClickDialog(
     cleanData: CleanData,
     checked: MutableState<Boolean>,
-    showable: MutableState<Boolean>
+    showable: MutableState<Boolean>,
+    onDelete: () -> Unit,
 ) {
     // 确认执行配置文件Dialog
     val confirmExecuteDialogShow = rememberMutableStateOf(value = false)
@@ -73,7 +74,8 @@ fun CleanDataClickDialog(
         showable = confirmDeleteDialogShow,
         outDialogShowable = showable,
         confirm = {
-
+            cleanData.delete()
+            onDelete()
         }
     )
 
@@ -159,24 +161,30 @@ fun CleanDataClickDialog(
 }
 
 @Composable
-fun CleanDataCard(cleanData: CleanData) {
+fun CleanDataCard(cleanData: CleanData, onDelete: () -> Unit) {
     val checked = rememberMutableStateOf(value = cleanData.enable)
     val rememberData = rememberMutableStateOf(value = cleanData)
     val showable = rememberMutableStateOf(value = false)
 
-    CleanDataClickDialog(cleanData = rememberData.value, checked = checked, showable = showable)
+    CleanDataClickDialog(
+        cleanData = rememberData.value,
+        checked = checked,
+        showable = showable,
+        onDelete = onDelete
+    )
 
     Card(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp)
             .height(80.dp)
             .fillMaxWidth()
-            .defaultMinSize(minHeight = 30.dp)
-            .clickable { showable.value = true },
+            .defaultMinSize(minHeight = 30.dp),
         shape = RoundedCornerShape(13.dp),
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { showable.value = true },
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {

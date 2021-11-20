@@ -19,9 +19,15 @@ import me.kyuubiran.qqcleaner.ui.theme.ColorPrimary
 fun AppBar(
     text: String
 ) {
-    TopAppBar(modifier = Modifier.fillMaxHeight(0.06f), backgroundColor = ColorPrimary) {
+    TopAppBar(
+        modifier = Modifier
+            .fillMaxHeight(0.06f)
+            .padding(bottom = 4.dp),
+        backgroundColor = ColorPrimary
+    ) {
         Column(
-            Modifier.fillMaxSize(),
+            Modifier
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

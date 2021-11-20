@@ -10,6 +10,7 @@ import me.kyuubiran.qqcleaner.util.HostAppUtil
 import org.json.JSONObject
 import java.io.File
 
+
 class CleanData(private val jsonObject: JSONObject) {
     private var file: File? = null
 
@@ -152,10 +153,33 @@ class CleanData(private val jsonObject: JSONObject) {
         }
     }
 
+    @Synchronized
+    fun delete() {
+        file?.let {
+            if (it.exists()) it.delete()
+        }
+    }
+
     companion object {
         @JvmStatic
         fun fromJson(jsonString: String): CleanData {
             return CleanData(JSONObject(jsonString))
+        }
+
+        @JvmStatic
+        fun fromClipboard(alsoSave: Boolean = true): CleanData? {
+            (appContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).run {
+                primaryClip?.let { clipData ->
+                    if (clipData.itemCount > 0) {
+                        clipData.getItemAt(0).text.run {
+                            return fromJson(this.toString()).also {
+                                if (alsoSave) it.save()
+                            }
+                        }
+                    }
+                }
+            }
+            return null
         }
     }
 
