@@ -3,18 +3,17 @@ package me.kyuubiran.qqcleaner.ui.view
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
+import me.kyuubiran.qqcleaner.ui.theme.ColorPrimary
 
 @Composable
 fun Dialog(
@@ -105,22 +104,24 @@ fun Dialog(
             confirmButton = {
                 confirmBtnTitle?.let {
                     Button(
+                        colors = ButtonDefaults.buttonColors(backgroundColor = ColorPrimary),
                         onClick = {
                             confirm?.invoke(showable)
                             if (clickToDismiss) showable.value = false
                         }) {
-                        Text(text = it)
+                        Text(text = it, color = Color.White)
                     }
                 }
             },
             dismissButton = {
                 dismissBtnString?.let {
                     Button(
+                        colors = ButtonDefaults.buttonColors(backgroundColor = ColorPrimary),
                         onClick = {
                             dismiss?.invoke(showable)
                             if (clickToDismiss) showable.value = false
                         }) {
-                        Text(text = it)
+                        Text(text = it, color = Color.White)
                     }
                 }
             }, properties = properties

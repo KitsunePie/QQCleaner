@@ -56,7 +56,7 @@ object CleanManager {
     }
 
     fun getConfigDir(): File {
-        val path = "${CommonPath.dDataDir}/qqcleaner"
+        val path = "${CommonPath.sAndroidDataDir}/qqcleaner"
         val f = File(path)
         if (f.exists()) return f
         f.mkdir()
@@ -69,7 +69,7 @@ object CleanManager {
             getConfigDir().listFiles()?.let {
                 it.forEach { f ->
                     try {
-                        arr.add(CleanData(f.readText()))
+                        arr.add(CleanData(f))
                     } catch (e: Exception) {
                         Log.e(e)
                     }

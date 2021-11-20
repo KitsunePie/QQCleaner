@@ -4,33 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.icu.math.BigDecimal
 import android.net.Uri
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.input.pointer.pointerInput
 
 @Composable
 fun <T> rememberMutableStateOf(value: T) = remember {
     mutableStateOf(value)
-}
-
-fun Modifier.onLongClick(
-    onLongClick: (() -> Unit)? = null
-) = composed {
-    this.pointerInput(Unit) {
-        detectTapGestures(onLongPress = { onLongClick?.invoke() })
-    }
-}
-
-fun Modifier.onDoubleClick(
-    onDoubleClick: (() -> Unit)? = null
-) = composed {
-    this.pointerInput(Unit) {
-        detectTapGestures(onDoubleTap = { onDoubleClick?.invoke() })
-    }
 }
 
 fun Context.jumpUri(uriString: String) {

@@ -215,7 +215,6 @@ class ModuleActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {

@@ -69,6 +69,11 @@
     <string name="copy_to_clipboard_error">无法访问剪切板，请检查是否给予宿主访问剪切板的权限。</string>
     <string name="copy_to_clipboard_success">已将配置文件“%s”导出至剪切板</string>
 
+
+    <string name="create_config">新建配置文件</string>
+    <string name="import_from_file">导入配置文件</string>
+    <string name="import_from_clipboard">从剪切板导入</string>
+
     <string name="empty_config_text">这里空空如也~</string>
 
 </resources>

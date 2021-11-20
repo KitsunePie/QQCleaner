@@ -5,11 +5,14 @@ import android.content.ClipboardManager
 import android.content.Context
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.*
+import me.kyuubiran.qqcleaner.util.CleanManager.getConfigDir
 import me.kyuubiran.qqcleaner.util.HostAppUtil
 import org.json.JSONObject
 import java.io.File
 
 class CleanData(private val jsonObject: JSONObject) {
+    private var file: File? = null
+
     class PathData(private val jsonObject: JSONObject) {
         // 标题
         var title: String
@@ -136,6 +139,27 @@ class CleanData(private val jsonObject: JSONObject) {
         f.writeText(this.toFormatString())
     }
 
-    constructor(json: String) : this(JSONObject(json))
-    constructor(jsonFile: File) : this(jsonFile.readText())
+    @Synchronized
+    fun save() {
+        file?.let {
+            if (!it.exists()) it.createNewFile()
+            it.writeText(toFormatString())
+            return
+        }
+        file = File("${getConfigDir().path}/${title}.json").apply {
+            if (!exists()) createNewFile()
+            writeText(toFormatString())
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun fromJson(jsonString: String): CleanData {
+            return CleanData(JSONObject(jsonString))
+        }
+    }
+
+    constructor(jsonFile: File) : this(JSONObject(jsonFile.readText())) {
+        file = jsonFile
+    }
 }
