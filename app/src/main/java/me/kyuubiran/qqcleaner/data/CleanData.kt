@@ -1,5 +1,9 @@
 package me.kyuubiran.qqcleaner.data
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.*
 import me.kyuubiran.qqcleaner.util.HostAppUtil
 import org.json.JSONObject
@@ -118,6 +122,12 @@ class CleanData(private val jsonObject: JSONObject) {
 
     fun toFormatString(indentSpaces: Int = 2): String {
         return jsonObject.toString(indentSpaces)
+    }
+
+    fun copyToClipboard() {
+        (appContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).run {
+            setPrimaryClip(ClipData.newPlainText(title, toFormatString()))
+        }
     }
 
     fun export() {

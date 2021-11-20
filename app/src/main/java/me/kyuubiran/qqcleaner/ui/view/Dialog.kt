@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.ui.view
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
@@ -88,6 +89,7 @@ fun Dialog(
 ) {
     if (showable.value) {
         AlertDialog(
+            modifier = Modifier.wrapContentHeight(),
             onDismissRequest = {
                 dismissRequest?.invoke(showable)
             },

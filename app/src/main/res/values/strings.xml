@@ -58,13 +58,16 @@
     <string name="disable_this_config">禁用此配置</string>
     <string name="execute_this_config">执行此配置</string>
     <string name="modify_this_config">编辑此配置</string>
-    <string name="export_this_config">导出此配置</string>
+    <string name="export_this_config">导出至下载目录</string>
+    <string name="copy_this_into_clipboard_config">复制到剪切板</string>
     <string name="delete_this_config">删除此配置</string>
     <string name="execute_config_dialog_content">你确定要执行配置文件“%s”吗？</string>
     <string name="delete_config_dialog_content">你确定要删除配置文件“%s”吗？</string>
 
     <string name="export_error">无法导出配置文件，请检查是否给予宿主访问存储卡的权限。</string>
     <string name="export_success">成功将配置文件导出至：内部存储空间/Download\/%s</string>
+    <string name="copy_to_clipboard_error">无法访问剪切板，请检查是否给予宿主访问剪切板的权限。</string>
+    <string name="copy_to_clipboard_success">已将配置文件“%s”导出至剪切板</string>
 
     <string name="empty_config_text">这里空空如也~</string>
 

@@ -125,6 +125,24 @@ fun CleanDataClickDialog(
                         }
                     }
                 )
+                // 复制到剪切板
+                DialogClickableItem(
+                    text = R.string.copy_this_into_clipboard_config,
+                    leftIcon = R.drawable.ic_baseline_content_copy_24,
+                    onClick = {
+                        showable.value = false
+                        try {
+                            cleanData.copyToClipboard()
+                            Log.toast(
+                                appContext.getString(R.string.copy_to_clipboard_success)
+                                    .format(cleanData.title)
+                            )
+                        } catch (e: Exception) {
+                            Log.e(e)
+                            Log.toast(appContext.getString(R.string.copy_to_clipboard_error))
+                        }
+                    }
+                )
                 // 删除
                 DialogClickableItem(
                     text = R.string.delete_this_config,
