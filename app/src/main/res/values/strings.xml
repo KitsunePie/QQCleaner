@@ -81,4 +81,8 @@
     <string name="empty_config_text">这里空空如也~</string>
 
     <string name="not_implement_yet">还没有做完！咕咕一百年~</string>
+
+    <string name="clean_start">正在执行清理…</string>
+    <string name="clean_done">好耶！清理完毕了！</string>
+    <string name="clean_failed">坏耶！清理失败了！</string>
 </resources>

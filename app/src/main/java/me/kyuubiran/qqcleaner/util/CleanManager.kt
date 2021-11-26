@@ -1,6 +1,8 @@
 package me.kyuubiran.qqcleaner.util
 
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.util.path.CommonPath
 import java.io.File
@@ -9,16 +11,16 @@ import kotlin.concurrent.thread
 object CleanManager {
     fun execute(showToast: Boolean) {
         thread {
-            if (showToast) Log.toast("正在执行清理...")
+            if (showToast) Log.toast(appContext.getString(R.string.clean_start))
             try {
                 getAllConfigs().forEach {
                     executeCleanData(it)
                 }
             } catch (e: Exception) {
-                if (showToast) Log.toast("坏耶！清理失败了！")
+                if (showToast) Log.toast(appContext.getString(R.string.clean_failed))
                 return@thread
             }
-            if (showToast) Log.toast("好耶！清理完毕了！")
+            if (showToast) Log.toast(appContext.getString(R.string.clean_done))
         }
     }
 
