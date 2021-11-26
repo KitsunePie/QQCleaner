@@ -1,20 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="p">true</item>
-        <item name="android:colorAccent">@color/colorPrimary</item>
-        <item name="android:fitsSystemWindows">true</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-    </style>
-
-    <style name="AppTheme.Dark" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="p">false</item>
-        <item name="android:colorAccent">@color/colorPrimaryDark</item>
-        <item name="android:fitsSystemWindows">true</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" />
 </resources>
