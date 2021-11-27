@@ -31,7 +31,6 @@ class BaseDialog(val context: Context) {
 
     private var composeView = ComposeView(context)
 
-
     private val backgroundView = DialogBaseRelativeLayout(context)
 
     /**
