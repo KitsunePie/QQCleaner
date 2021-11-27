@@ -1,44 +1,81 @@
 package me.kyuubiran.qqcleaner.ui.view
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import me.kyuubiran.qqcleaner.QQCleanerViewModel
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.ItemText
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 
 @Composable
-fun ItemCard(text: String, @DrawableRes id: Int, contentDescription: String) {
-    val viewModel: QQCleanerViewModel = viewModel()
-    Row(modifier = Modifier
-        .height(56.dp)
-        .clickable {
-            viewModel.theme = when (viewModel.theme) {
-                QQCleanerColorTheme.Theme.Light -> QQCleanerColorTheme.Theme.Dark
-                QQCleanerColorTheme.Theme.Dark -> QQCleanerColorTheme.Theme.Light
-            }
-            viewModel.navigationBarLight.value = when (viewModel.theme) {
-                QQCleanerColorTheme.Theme.Light -> true
-                QQCleanerColorTheme.Theme.Dark -> false
-            }
-            viewModel.statusBarLight.value = when (viewModel.theme) {
-                QQCleanerColorTheme.Theme.Light -> true
-                QQCleanerColorTheme.Theme.Dark -> false
-            }
-        }
-        .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically) {
-        ItemText(text = text, Modifier.weight(1f))
-        Icon(painter = painterResource(id = id), contentDescription = contentDescription)
+fun ItemCard(content: @Composable RowScope.() -> Unit) {
+    Row(
+        modifier = Modifier
+            .height(56.dp)
+            .clip(shape = RoundedCornerShape(10.dp))
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        content = content
+    )
+}
 
+@Composable
+fun ItemMenuCard(text: String, contentDescription: String) {
+    ItemCard() {
+        ItemText(text = text, Modifier.weight(1f))
+        Icon(
+            painter = painterResource(id = R.drawable.ic_baseline_arrow_forward),
+            contentDescription = contentDescription,
+            modifier = Modifier
+                .height(24.dp)
+                .width(24.dp)
+        )
+    }
+}
+
+@Composable
+fun ItemTextCard(text: String, contentDescription: String) {
+    ItemCard() {
+        ItemText(text = text, Modifier.weight(1f))
+        Icon(
+            painter = painterResource(id = R.drawable.ic_baseline_arrow_forward),
+            contentDescription = contentDescription,
+            modifier = Modifier
+                .height(24.dp)
+                .width(24.dp)
+        )
+    }
+}
+
+@Composable
+fun ItemSwitchCard(text: String, contentDescription: String) {
+    ItemCard() {
+        ItemText(text = text, Modifier.weight(1f))
+        Icon(
+            painter = painterResource(id = R.drawable.ic_baseline_toggle_on),
+            contentDescription = contentDescription,
+            modifier = Modifier
+                .height(24.dp)
+                .width(36.dp)
+        )
+    }
+}
+
+@Composable
+fun ItemMoreCard(text: String, contentDescription: String) {
+    ItemCard() {
+        ItemText(text = text, Modifier.weight(1f))
+        Icon(
+            painter = painterResource(id = R.drawable.ic_baseline_arrow_forward),
+            contentDescription = contentDescription,
+            modifier = Modifier
+                .height(24.dp)
+                .width(24.dp)
+        )
     }
 }

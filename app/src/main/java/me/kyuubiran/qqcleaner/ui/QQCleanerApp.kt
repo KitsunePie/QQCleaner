@@ -11,14 +11,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 import me.kyuubiran.qqcleaner.ui.theme.buttonType
+import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
+import me.kyuubiran.qqcleaner.ui.utils.fillMaxWidthModifier
 import me.kyuubiran.qqcleaner.ui.utils.shadow
-import me.kyuubiran.qqcleaner.ui.view.ItemCard
-import me.kyuubiran.qqcleaner.ui.view.TitleCard
-import me.kyuubiran.qqcleaner.util.fillMaxModifier
-import me.kyuubiran.qqcleaner.util.fillMaxWidthModifier
+import me.kyuubiran.qqcleaner.ui.view.*
+import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 
 
 /**
@@ -40,7 +39,7 @@ fun QQCleanerApp() {
                 .height(172.dp)
                 .padding(top = 48.dp, start = 24.dp)
         ) {
-            TitleText(text = "晚上好，")
+            TitleText(text = getCurrentTimeText())
 
             SubTitleText(
                 text = "上次瘦身是 5 天前",
@@ -68,13 +67,13 @@ fun QQCleanerApp() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 TitleCard("设定", 168.dp) {
-                    ItemCard("自动瘦身", R.drawable.ic_baseline_arrow_forward_ios_12, "自动瘦身")
-                    ItemCard("自动瘦身间隔", R.drawable.ic_baseline_arrow_forward_ios_12, "自动瘦身")
-                    ItemCard("瘦身配置", R.drawable.ic_baseline_arrow_forward_ios_12, "自动瘦身")
+                    ItemSwitchCard("自动瘦身", "自动瘦身")
+                    ItemTextCard("自动瘦身间隔", "自动瘦身间隔")
+                    ItemMenuCard("瘦身配置", "瘦身配置")
                 }
                 TitleCard("更多", 112.dp) {
-                    ItemCard("主题风格", R.drawable.ic_baseline_arrow_forward_ios_12, "自动瘦身")
-                    ItemCard("关于瘦身", R.drawable.ic_baseline_arrow_forward_ios_12, "自动瘦身")
+                    ItemMoreCard("主题风格", "主题风格")
+                    ItemMenuCard("关于瘦身", "关于瘦身")
                 }
                 Box(
                     modifier = Modifier
@@ -97,7 +96,7 @@ fun QQCleanerApp() {
                 ) {
                     Text(
                         text = "立即瘦身",
-                        color = QQCleanerColorTheme.colors.titleTextColor,
+                        color = QQCleanerColorTheme.colors.buttonTextColor,
                         style = buttonType
                     )
 

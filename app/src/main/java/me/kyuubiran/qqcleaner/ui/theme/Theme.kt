@@ -63,12 +63,17 @@ fun QQCleanerTheme(
         TweenSpec(600)
     )
 
+    val buttonTextColor = animateColorAsState(
+        targetColors.buttonTextColor,
+        TweenSpec(600)
+    )
     val colors = QQCleanerColors(
         background = background.value,
         cardBackgroundColor = cardBackgroundColor.value,
         titleTextColor = titleTextColor.value,
         themeColor = themeColor.value,
-        themeElevationColor = themeElevationColor.value
+        themeElevationColor = themeElevationColor.value,
+        buttonTextColor = buttonTextColor.value
     )
 
     CompositionLocalProvider(LocalQQCleanerColors provides colors) {

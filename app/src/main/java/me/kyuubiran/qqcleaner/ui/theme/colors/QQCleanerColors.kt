@@ -12,7 +12,8 @@ class QQCleanerColors(
     cardBackgroundColor: Color,
     titleTextColor: Color,
     themeColor: Color,
-    themeElevationColor: Color
+    themeElevationColor: Color,
+    buttonTextColor: Color
 ) {
     var background: Color by mutableStateOf(background)
         private set
@@ -27,5 +28,7 @@ class QQCleanerColors(
         private set
 
     var themeElevationColor: Color by mutableStateOf(themeElevationColor)
+        private set
+    var buttonTextColor: Color by mutableStateOf(buttonTextColor)
         private set
 }

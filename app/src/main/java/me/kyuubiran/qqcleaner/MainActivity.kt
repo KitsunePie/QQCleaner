@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.statusBarLight.observe(this, navigationBarLight)
+        viewModel.navigationBarLight.observe(this, navigationBarLight)
 
     }
 }

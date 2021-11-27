@@ -7,5 +7,6 @@ val DarkColorPalette = QQCleanerColors(
     cardBackgroundColor = blackGrey,
     titleTextColor = whiteText,
     themeColor = icon,
-    themeElevationColor = iconElevation
+    themeElevationColor = iconElevation,
+    buttonTextColor = white
 )

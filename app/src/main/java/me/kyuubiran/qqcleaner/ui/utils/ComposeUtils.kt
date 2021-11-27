@@ -1,4 +1,4 @@
-package me.kyuubiran.qqcleaner.util
+package me.kyuubiran.qqcleaner.ui.utils
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
