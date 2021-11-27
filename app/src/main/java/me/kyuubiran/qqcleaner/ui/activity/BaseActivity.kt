@@ -1,10 +1,10 @@
 package me.kyuubiran.qqcleaner.ui.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import me.kyuubiran.qqcleaner.R
 
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : ComponentActivity() {
 
     private val mLoder by lazy { BaseActivity::class.java.classLoader }
 

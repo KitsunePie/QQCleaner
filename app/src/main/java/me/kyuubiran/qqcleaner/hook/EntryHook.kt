@@ -6,7 +6,7 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import com.github.kyuubiran.ezxhelper.utils.*
-import me.kyuubiran.qqcleaner.ui.activity.ModuleActivity
+import me.kyuubiran.qqcleaner.MainActivity
 import me.kyuubiran.qqcleaner.util.hostApp
 import me.kyuubiran.qqcleaner.util.hostAppName
 import me.kyuubiran.qqcleaner.util.isQqOrTim
@@ -27,7 +27,7 @@ object EntryHook : BaseHook() {
     }
 
     private fun startModuleSettingActivity(activity: Activity) {
-        val intent = Intent(activity, ModuleActivity::class.java)
+        val intent = Intent(activity, MainActivity::class.java)
         activity.startActivity(intent)
     }
 

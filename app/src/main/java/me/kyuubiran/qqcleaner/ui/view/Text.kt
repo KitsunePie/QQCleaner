@@ -3,10 +3,7 @@ package me.kyuubiran.qqcleaner.ui
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
-import me.kyuubiran.qqcleaner.ui.theme.itemTipType
-import me.kyuubiran.qqcleaner.ui.theme.itemType
-import me.kyuubiran.qqcleaner.ui.theme.subtitleType
+import me.kyuubiran.qqcleaner.ui.theme.*
 
 /**
  * 这里存放着各种 Text 控件
@@ -97,7 +94,7 @@ fun TitleText(text: String, modifier: Modifier) {
     Text(
         text = text,
         color = QQCleanerColorTheme.colors.titleTextColor,
-        style = subtitleType,
+        style = titleType,
         modifier = modifier
     )
 }

@@ -30,8 +30,11 @@ class QQCleanerColors(
 
     var themeElevationColor: Color by mutableStateOf(themeElevationColor)
         private set
+
     var buttonTextColor: Color by mutableStateOf(buttonTextColor)
         private set
+
     var tipTextColor: Color by mutableStateOf(tipTextColor)
         private set
+
 }

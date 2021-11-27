@@ -23,6 +23,14 @@ val subtitleType = TextStyle(
     lineHeight = 26.sp
 )
 
+val tipTileType = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 8.sp,
+    textAlign = TextAlign.Center,
+    lineHeight = 12.sp
+)
+
 val buttonType = TextStyle(
     fontFamily = FontFamily.Default,
     fontWeight = FontWeight.Normal,

@@ -1,20 +1,23 @@
 package me.kyuubiran.qqcleaner
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
-import androidx.lifecycle.Observer
-import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
-import com.zackratos.ultimatebarx.ultimatebarx.statusBar
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
+import me.kyuubiran.qqcleaner.ui.activity.BaseActivity
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
+import me.kyuubiran.qqcleaner.ui.utils.navigationBarMode
+import me.kyuubiran.qqcleaner.ui.utils.statusBarLightMode
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val viewModel: QQCleanerViewModel by viewModels()
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDecorFitsSystemWindows(window, false)
@@ -23,29 +26,8 @@ class MainActivity : AppCompatActivity() {
                 QQCleanerApp()
             }
         }
-        statusBar {
-            transparent()
-        }
-        navigationBar {
-            transparent()
-        }
-        val statusBarObserver = Observer<Boolean> { isLight ->
-            statusBar {
-                transparent()
-                light = isLight
-            }
-        }
-
-        viewModel.statusBarLight.observe(this, statusBarObserver)
-
-        val navigationBarLight = Observer<Boolean> { isLight ->
-            navigationBar {
-                transparent()
-                light = isLight
-            }
-        }
-
-        viewModel.navigationBarLight.observe(this, navigationBarLight)
+        this.statusBarLightMode()
+        this.navigationBarMode()
 
     }
 }

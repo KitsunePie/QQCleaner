@@ -1,5 +1,8 @@
 package me.kyuubiran.qqcleaner.ui
 
+
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,17 +11,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 import me.kyuubiran.qqcleaner.ui.theme.buttonType
+import me.kyuubiran.qqcleaner.ui.theme.tipTileType
+import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxWidthModifier
-import me.kyuubiran.qqcleaner.ui.utils.shadow
 import me.kyuubiran.qqcleaner.ui.view.*
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 
@@ -28,6 +30,8 @@ import me.kyuubiran.qqcleaner.util.getCurrentTimeText
  *
  * @author Agoines
  */
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun QQCleanerApp() {
 
@@ -36,11 +40,13 @@ fun QQCleanerApp() {
             .fillMaxHeight()
             .fillMaxWidth()
             .background(color = QQCleanerColorTheme.colors.background)
+            .padding(top = 24.dp)
     ) {
         Row(
             modifier = fillMaxWidthModifier
                 .height(172.dp)
-                .padding(top = 48.dp, start = 24.dp, end = 24.dp)
+                .padding(top = 24.dp, start = 24.dp, end = 24.dp)
+
         ) {
             Column(
                 modifier = Modifier.weight(1f)
@@ -52,7 +58,26 @@ fun QQCleanerApp() {
                     modifier = Modifier
                         .padding(top = 16.dp),
                 )
+                Row(
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .height(18.dp)
+                        .width(102.dp)
+                        .background(
+                            QQCleanerColorTheme.colors.themeColor,
+                            RoundedCornerShape(4.dp)
+                        ),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                ) {
+                    Text(
+                        text = "上次瘦身 11 / 21 03:00",
+                        color = QQCleanerColorTheme.colors.buttonTextColor,
+                        style = tipTileType
+                    )
+                }
             }
+
             Image(
                 painter = painterResource(R.drawable.ic_icon),
                 contentDescription = "图标",
@@ -62,13 +87,12 @@ fun QQCleanerApp() {
 
         Box(
             modifier = Modifier
-                .shadow(
-                    Shadow(
-                        Color(0x14202124),
-                        Offset(0f, -3f),
-                        3f
-                    ),
-                    RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
+                .drawColoredShadow(
+                    Color(0xFF3C4043),
+                    0.1f,
+                    shadowRadius = 10.dp,
+                    offsetX = 0.dp,
+                    offsetY = (-3).dp
                 )
                 .background(
                     QQCleanerColorTheme.colors.cardBackgroundColor,
@@ -88,33 +112,37 @@ fun QQCleanerApp() {
                     ItemMoreCard("主题风格", "主题风格")
                     ItemMenuCard("关于瘦身", "关于瘦身")
                 }
-                Box(
-                    modifier = Modifier
-                        .shadow(
-                            Shadow(
-                                QQCleanerColorTheme.colors.themeElevationColor,
-                                Offset(0f, 3f),
-                                6f
-                            ),
-                            RoundedCornerShape(80.dp)
-                        )
-                        .height(35.dp)
-                        .width(96.dp)
-                        .background(
-                            QQCleanerColorTheme.colors.themeColor,
-                            RoundedCornerShape(80.dp)
-                        )
-                        .paddingFromBaseline(bottom = 10.dp),
-                    contentAlignment = Alignment.Center
+
+                Column(
+                    modifier = fillMaxModifier.paddingFromBaseline(bottom = 48.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = "立即瘦身",
-                        color = QQCleanerColorTheme.colors.buttonTextColor,
-                        style = buttonType
-                    )
+                    Row(
+                        modifier = Modifier
+                            .height(35.dp)
+                            .width(96.dp)
+                            .drawColoredShadow(
+                                QQCleanerColorTheme.colors.themeElevationColor,
+                                0.1f,
+                                shadowRadius = 6.dp,
+                                offsetX = 0.dp,
+                                offsetY = 3.dp
+                            )
+                            .background(
+                                QQCleanerColorTheme.colors.themeColor,
+                                RoundedCornerShape(80.dp)
+                            ),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
+                        Text(
+                            text = "立即瘦身",
+                            color = QQCleanerColorTheme.colors.buttonTextColor,
+                            style = buttonType
+                        )
 
+                    }
                 }
-
             }
         }
     }

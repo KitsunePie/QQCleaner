@@ -43,7 +43,7 @@ fun ItemIconCard(
     contentDescription: String,
     @DrawableRes id: Int,
     height: Dp,
-    width: Dp? = height
+    width: Dp = height
 ) {
     ItemCard {
         ItemText(text = text, Modifier.weight(1f))
@@ -52,7 +52,7 @@ fun ItemIconCard(
             contentDescription = contentDescription,
             modifier = Modifier
                 .height(height)
-                .width(width ?: height)
+                .width(width)
         )
     }
 }
