@@ -8,5 +8,6 @@ val LightColorPalette = QQCleanerColors(
     titleTextColor = blackText,
     themeColor = icon,
     themeElevationColor = iconElevation,
-    buttonTextColor = white
+    buttonTextColor = white,
+    tipTextColor = tipText
 )

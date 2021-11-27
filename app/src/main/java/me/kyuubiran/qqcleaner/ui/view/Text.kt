@@ -4,6 +4,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.itemTipType
 import me.kyuubiran.qqcleaner.ui.theme.itemType
 import me.kyuubiran.qqcleaner.ui.theme.subtitleType
 
@@ -30,6 +31,21 @@ fun ItemText(text: String, modifier: Modifier) {
     Text(
         text = text,
         style = itemType,
+        color = QQCleanerColorTheme.colors.titleTextColor,
+        modifier = modifier
+    )
+}
+
+/**
+ * 菜单 tip 的 Text()
+ * @param text 对应文本
+ * @param modifier 对应 modifier 参数
+ */
+@Composable
+fun ItemTipText(text: String, modifier: Modifier) {
+    Text(
+        text = text,
+        style = itemTipType,
         color = QQCleanerColorTheme.colors.titleTextColor,
         modifier = modifier
     )

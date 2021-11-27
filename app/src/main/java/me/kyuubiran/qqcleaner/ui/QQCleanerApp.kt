@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 import me.kyuubiran.qqcleaner.ui.theme.buttonType
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
@@ -34,19 +37,29 @@ fun QQCleanerApp() {
             .fillMaxWidth()
             .background(color = QQCleanerColorTheme.colors.background)
     ) {
-        Column(
+        Row(
             modifier = fillMaxWidthModifier
                 .height(172.dp)
-                .padding(top = 48.dp, start = 24.dp)
+                .padding(top = 48.dp, start = 24.dp, end = 24.dp)
         ) {
-            TitleText(text = getCurrentTimeText())
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                TitleText(text = getCurrentTimeText())
 
-            SubTitleText(
-                text = "上次瘦身是 5 天前",
-                modifier = Modifier
-                    .padding(top = 16.dp),
+                SubTitleText(
+                    text = "上次瘦身是 5 天前",
+                    modifier = Modifier
+                        .padding(top = 16.dp),
+                )
+            }
+            Image(
+                painter = painterResource(R.drawable.ic_icon),
+                contentDescription = "图标",
+                modifier = Modifier.size(88.dp)
             )
         }
+
         Box(
             modifier = Modifier
                 .shadow(
@@ -68,7 +81,7 @@ fun QQCleanerApp() {
             ) {
                 TitleCard("设定", 168.dp) {
                     ItemSwitchCard("自动瘦身", "自动瘦身")
-                    ItemTextCard("自动瘦身间隔", "自动瘦身间隔")
+                    ItemTextCard("自动瘦身间隔", "24 h")
                     ItemMenuCard("瘦身配置", "瘦身配置")
                 }
                 TitleCard("更多", 112.dp) {

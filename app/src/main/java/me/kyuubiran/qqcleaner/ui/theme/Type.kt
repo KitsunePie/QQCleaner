@@ -39,3 +39,11 @@ val itemType = TextStyle(
     lineHeight = 16.sp
 )
 
+val itemTipType = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 12.sp,
+    textAlign = TextAlign.Start,
+    lineHeight = 24.sp
+)
+

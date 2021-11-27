@@ -13,7 +13,8 @@ class QQCleanerColors(
     titleTextColor: Color,
     themeColor: Color,
     themeElevationColor: Color,
-    buttonTextColor: Color
+    buttonTextColor: Color,
+    tipTextColor: Color
 ) {
     var background: Color by mutableStateOf(background)
         private set
@@ -30,5 +31,7 @@ class QQCleanerColors(
     var themeElevationColor: Color by mutableStateOf(themeElevationColor)
         private set
     var buttonTextColor: Color by mutableStateOf(buttonTextColor)
+        private set
+    var tipTextColor: Color by mutableStateOf(tipTextColor)
         private set
 }

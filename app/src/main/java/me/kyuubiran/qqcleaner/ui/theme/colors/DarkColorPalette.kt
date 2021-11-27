@@ -8,5 +8,6 @@ val DarkColorPalette = QQCleanerColors(
     titleTextColor = whiteText,
     themeColor = icon,
     themeElevationColor = iconElevation,
-    buttonTextColor = white
+    buttonTextColor = white,
+    tipTextColor = tipTextDark
 )
