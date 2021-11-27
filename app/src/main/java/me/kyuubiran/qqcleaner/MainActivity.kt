@@ -16,7 +16,6 @@ class MainActivity : BaseActivity() {
 
     private val viewModel: QQCleanerViewModel by viewModels()
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +26,7 @@ class MainActivity : BaseActivity() {
             }
         }
         this.statusBarLightMode()
-        this.navigationBarMode()
 
+        this.navigationBarMode()
     }
 }

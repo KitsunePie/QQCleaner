@@ -43,7 +43,7 @@ fun ItemTipText(text: String, modifier: Modifier) {
     Text(
         text = text,
         style = itemTipType,
-        color = QQCleanerColorTheme.colors.titleTextColor,
+        color = QQCleanerColorTheme.colors.tipTextColor,
         modifier = modifier
     )
 }

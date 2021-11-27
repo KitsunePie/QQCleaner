@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.R
@@ -22,6 +23,7 @@ import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxWidthModifier
 import me.kyuubiran.qqcleaner.ui.view.*
+import me.kyuubiran.qqcleaner.ui.view.dialog.MessageDialog
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 
 
@@ -34,11 +36,12 @@ import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun QQCleanerApp() {
+    val context = LocalContext.current
+
+    val dialog = MessageDialog(context = context)
 
     Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
+        modifier = fillMaxModifier
             .background(color = QQCleanerColorTheme.colors.background)
             .padding(top = 24.dp)
     ) {
@@ -105,11 +108,30 @@ fun QQCleanerApp() {
             ) {
                 TitleCard("设定", 168.dp) {
                     ItemSwitchCard("自动瘦身", "自动瘦身")
-                    ItemTextCard("自动瘦身间隔", "24 h")
+                    ItemTextCard("自动瘦身间隔", "24 h", onClick = {
+                        dialog.setContent {
+                            Column(
+                                verticalArrangement = Arrangement.Bottom,
+                                modifier = fillMaxModifier
+                                    .background(color = Color(0x61202124))
+                            ) {
+                                Column(
+                                    modifier = fillMaxWidthModifier
+                                        .height(360.dp)
+                                        .background(color = Color.White)
+                                ) {
+                                    Text(text = "测试")
+                                }
+                            }
+                        }
+                        dialog.show()
+                    })
                     ItemMenuCard("瘦身配置", "瘦身配置")
                 }
                 TitleCard("更多", 112.dp) {
-                    ItemMoreCard("主题风格", "主题风格")
+                    ItemMoreCard("主题风格", "主题风格", onClick = {
+
+                    })
                     ItemMenuCard("关于瘦身", "关于瘦身")
                 }
 
@@ -146,6 +168,4 @@ fun QQCleanerApp() {
             }
         }
     }
-
-
 }

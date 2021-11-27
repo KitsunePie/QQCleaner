@@ -1,9 +1,10 @@
 package me.kyuubiran.qqcleaner.ui.view
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,11 +17,12 @@ import me.kyuubiran.qqcleaner.ui.ItemText
 import me.kyuubiran.qqcleaner.ui.ItemTipText
 
 @Composable
-fun ItemCard(content: @Composable RowScope.() -> Unit) {
+fun ItemCard(onClick: (() -> Unit)? = null, content: @Composable RowScope.() -> Unit) {
     Row(
         modifier = Modifier
             .height(56.dp)
             .clip(shape = RoundedCornerShape(10.dp))
+            .clickable { onClick?.invoke() }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         content = content
@@ -43,11 +45,12 @@ fun ItemIconCard(
     contentDescription: String,
     @DrawableRes id: Int,
     height: Dp,
-    width: Dp = height
+    width: Dp = height,
+    onClick: (() -> Unit)? = null
 ) {
-    ItemCard {
+    ItemCard(onClick = onClick) {
         ItemText(text = text, Modifier.weight(1f))
-        Icon(
+        Image(
             painter = painterResource(id = id),
             contentDescription = contentDescription,
             modifier = Modifier
@@ -57,6 +60,7 @@ fun ItemIconCard(
     }
 }
 
+
 /**
  * 菜单 Item，图标为前进符号
  *
@@ -64,12 +68,13 @@ fun ItemIconCard(
  * @param contentDescription 无障碍文本
  */
 @Composable
-fun ItemMenuCard(text: String, contentDescription: String) {
+fun ItemMenuCard(text: String, contentDescription: String, onClick: (() -> Unit)? = null) {
     ItemIconCard(
         text = text,
         contentDescription = contentDescription,
         id = R.drawable.ic_baseline_arrow_forward,
-        height = 24.dp
+        height = 24.dp,
+        onClick = onClick
     )
 }
 
@@ -80,8 +85,8 @@ fun ItemMenuCard(text: String, contentDescription: String) {
  * @param tipText 提示文本
  */
 @Composable
-fun ItemTextCard(text: String, tipText: String) {
-    ItemCard {
+fun ItemTextCard(text: String, tipText: String, onClick: (() -> Unit)? = null) {
+    ItemCard(onClick = onClick) {
         ItemText(text = text, Modifier.weight(1f))
         ItemTipText(text = tipText, Modifier)
     }
@@ -94,13 +99,14 @@ fun ItemTextCard(text: String, tipText: String) {
  * @param contentDescription 无障碍文本
  */
 @Composable
-fun ItemSwitchCard(text: String, contentDescription: String) {
+fun ItemSwitchCard(text: String, contentDescription: String, onClick: (() -> Unit)? = null) {
     ItemIconCard(
         text = text,
         contentDescription = contentDescription,
         id = R.drawable.ic_baseline_toggle_on,
         height = 24.dp,
-        width = 36.dp
+        width = 36.dp,
+        onClick = onClick
     )
 }
 
@@ -111,12 +117,12 @@ fun ItemSwitchCard(text: String, contentDescription: String) {
  * @param contentDescription 无障碍文本
  */
 @Composable
-fun ItemMoreCard(text: String, contentDescription: String) {
+fun ItemMoreCard(text: String, contentDescription: String, onClick: (() -> Unit)? = null) {
     ItemIconCard(
         text = text,
         contentDescription = contentDescription,
         id = R.drawable.ic_baseline_more,
-        height = 24.dp
+        height = 24.dp,
+        onClick = onClick
     )
-
 }
