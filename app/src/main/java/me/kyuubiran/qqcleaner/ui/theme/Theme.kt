@@ -5,68 +5,34 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.shapes
-import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.Dark
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.Light
+import me.kyuubiran.qqcleaner.ui.theme.colors.DarkColorPalette
+import me.kyuubiran.qqcleaner.ui.theme.colors.LightColorPalette
+import me.kyuubiran.qqcleaner.ui.theme.colors.QQCleanerColors
 
-private val LightColorPalette = QQCleanerColors(
-    background = white,
-    cardBackgroundColor = grey,
-    titleTextColor = blackText,
-    themeColor = icon,
-    themeElevationColor = iconElevation
-)
-private val DarkColorPalette = QQCleanerColors(
-    background = black,
-    cardBackgroundColor = blackGrey,
-    titleTextColor = whiteText,
-    themeColor = icon,
-    themeElevationColor = iconElevation
-)
 
-private val LocalWeComposeColors = compositionLocalOf {
+private val LocalQQCleanerColors = compositionLocalOf {
     LightColorPalette
 }
-
 
 object QQCleanerColorTheme {
     val colors: QQCleanerColors
         @Composable
-        get() = LocalWeComposeColors.current
+        get() = LocalQQCleanerColors.current
 
     enum class Theme {
         Light, Dark
     }
 }
 
-@Stable
-class QQCleanerColors(
-    background: Color,
-    cardBackgroundColor: Color,
-    titleTextColor: Color,
-    themeColor: Color,
-    themeElevationColor: Color
-) {
-    var background: Color by mutableStateOf(background)
-        private set
-
-    var cardBackgroundColor: Color by mutableStateOf(cardBackgroundColor)
-        private set
-
-    var titleTextColor: Color by mutableStateOf(titleTextColor)
-        private set
-
-    var themeColor: Color by mutableStateOf(themeColor)
-        private set
-    var themeElevationColor: Color by mutableStateOf(themeElevationColor)
-        private set
-}
-
 @Composable
 fun QQCleanerTheme(
     colorTheme: QQCleanerColorTheme.Theme = Light,
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
     val targetColors = when (colorTheme) {
         Light -> LightColorPalette
@@ -105,7 +71,7 @@ fun QQCleanerTheme(
         themeElevationColor = themeElevationColor.value
     )
 
-    CompositionLocalProvider(LocalWeComposeColors provides colors) {
+    CompositionLocalProvider(LocalQQCleanerColors provides colors) {
         MaterialTheme(
             shapes = shapes,
             content = content
