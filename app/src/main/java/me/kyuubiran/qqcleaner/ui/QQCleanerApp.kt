@@ -23,7 +23,7 @@ import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxWidthModifier
 import me.kyuubiran.qqcleaner.ui.view.*
-import me.kyuubiran.qqcleaner.ui.view.dialog.MessageDialog
+import me.kyuubiran.qqcleaner.ui.view.dialog.messageDialog
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 
 
@@ -36,10 +36,7 @@ import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun QQCleanerApp() {
-    val context = LocalContext.current
-
-    val dialog = MessageDialog(context = context)
-
+    val content = LocalContext.current
     Column(
         modifier = fillMaxModifier
             .background(color = QQCleanerColorTheme.colors.background)
@@ -109,22 +106,7 @@ fun QQCleanerApp() {
                 TitleCard("设定", 168.dp) {
                     ItemSwitchCard("自动瘦身", "自动瘦身")
                     ItemTextCard("自动瘦身间隔", "24 h", onClick = {
-                        dialog.setContent {
-                            Column(
-                                verticalArrangement = Arrangement.Bottom,
-                                modifier = fillMaxModifier
-                                    .background(color = Color(0x61202124))
-                            ) {
-                                Column(
-                                    modifier = fillMaxWidthModifier
-                                        .height(360.dp)
-                                        .background(color = Color.White)
-                                ) {
-                                    Text(text = "测试")
-                                }
-                            }
-                        }
-                        dialog.show()
+                        messageDialog(content)
                     })
                     ItemMenuCard("瘦身配置", "瘦身配置")
                 }

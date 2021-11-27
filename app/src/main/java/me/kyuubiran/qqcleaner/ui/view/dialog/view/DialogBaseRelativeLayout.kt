@@ -2,8 +2,9 @@ package me.kyuubiran.qqcleaner.ui.view.dialog.view
 
 import android.content.Context
 import android.view.KeyEvent
+import android.view.KeyEvent.ACTION_UP
+import android.view.KeyEvent.KEYCODE_BACK
 import android.widget.RelativeLayout
-import me.kyuubiran.qqcleaner.ui.view.dialog.interfaces.OnKeyPressedListener
 
 /**
  * 获取按键事件
@@ -15,7 +16,7 @@ class DialogBaseRelativeLayout(context: Context) : RelativeLayout(context) {
     /**
      * 按键事件监听器
      */
-    private lateinit var onKeyPressedListener: OnKeyPressedListener
+    private lateinit var onKeyPressed: () -> Unit
 
     /**
      * DialogBaseRelativeLayout 获取焦点
@@ -27,8 +28,8 @@ class DialogBaseRelativeLayout(context: Context) : RelativeLayout(context) {
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        if (isAttachedToWindow && event.action == KeyEvent.ACTION_UP && event.keyCode == KeyEvent.KEYCODE_BACK) {
-            onKeyPressedListener.onBackPressed()
+        if (isAttachedToWindow && event.action == ACTION_UP && event.keyCode == KEYCODE_BACK) {
+            onKeyPressed.invoke()
             return true
         }
         return false
@@ -37,8 +38,8 @@ class DialogBaseRelativeLayout(context: Context) : RelativeLayout(context) {
     /**
      * 设置按键事件监听器
      */
-    fun setOnKeyPressedListener(onKeyPressedListener: OnKeyPressedListener) {
-        this.onKeyPressedListener = onKeyPressedListener
+    fun setOnKeyPressed(onKeyPressed: () -> Unit) {
+        this.onKeyPressed = onKeyPressed
     }
 
 }
