@@ -8,5 +8,5 @@ dependencyResolutionManagement {
     }
 }
 
-include ':app'
+include ':app', ':processor'
 rootProject.name = "QQ瘦身"
