@@ -6,7 +6,7 @@ import me.kyuubiran.qqcleaner.ui.theme.colors.LightColorPalette
 import me.kyuubiran.qqcleaner.ui.theme.colors.QQCleanerColors
 
 
-private val LocalQQCleanerColors = compositionLocalOf {
+val LocalQQCleanerColors = compositionLocalOf {
     LightColorPalette
 }
 

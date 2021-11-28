@@ -32,16 +32,22 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
 
         val animateColorAsState = ClassName("androidx.compose.animation", "animateColorAsState")
         val composableClass = ClassName("androidx.compose.runtime", "Composable")
-        val compositionLocalProvider = ClassName("androidx.compose.runtime", "CompositionLocalProvider")
+        val compositionLocalProvider =
+            ClassName("androidx.compose.runtime", "CompositionLocalProvider")
         val compositionLocalOf = ClassName("androidx.compose.runtime", "compositionLocalOf")
-        val darkClass = ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme", "Dark")
-        val darkColorPalette = ClassName("me.kyuubiran.qqcleaner.ui.theme.colors", "DarkColorPalette")
-        val lightClass = ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme", "Light")
-        val lightColorPalette = ClassName("me.kyuubiran.qqcleaner.ui.theme.colors", "LightColorPalette")
+        val darkClass =
+            ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme", "Dark")
+        val darkColorPalette =
+            ClassName("me.kyuubiran.qqcleaner.ui.theme.colors", "DarkColorPalette")
+        val lightClass =
+            ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme", "Light")
+        val lightColorPalette =
+            ClassName("me.kyuubiran.qqcleaner.ui.theme.colors", "LightColorPalette")
         val materialTheme = ClassName("androidx.compose.material", "MaterialTheme")
         val themeClass = ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme", "Theme")
         val tweenSpec = ClassName("androidx.compose.animation.core", "TweenSpec")
-        val providableCompositionLocal = ClassName("androidx.compose.runtime", "ProvidableCompositionLocal")
+        val providableCompositionLocal =
+            ClassName("androidx.compose.runtime", "ProvidableCompositionLocal")
         val qqCleanerColors = ClassName("me.kyuubiran.qqcleaner.ui.theme.colors", "QQCleanerColors")
         val shapes = ClassName("androidx.compose.material.MaterialTheme", "shapes")
 
@@ -51,12 +57,6 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
 
         // private val LocalQQCleanerColors: ProvidableCompositionLocal<QQCleanerColors>
         val typeSpec = providableCompositionLocal.parameterizedBy(qqCleanerColors)
-        val localQQCleanerColors = PropertySpec.builder("LocalQQCleanerColors", typeSpec)
-            .addModifiers(KModifier.PRIVATE)
-            .initializer("%T{\n\t%T\n}", compositionLocalOf, lightColorPalette)
-            .build()
-
-
 
         val themeMethod = FunSpec.builder("QQCleanerTheme").run {
             addAnnotation(composable)
@@ -114,7 +114,6 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
 
         FileSpec.builder("me.kyuubiran.qqcleaner.ui.theme", "QQCleanerTheme")
             .addComment("这个文件由ksp自动生成，直接修改是无效的。")
-            .addProperty(localQQCleanerColors)
             .addFunction(themeMethod)
             .indent("    ")
             .build()
