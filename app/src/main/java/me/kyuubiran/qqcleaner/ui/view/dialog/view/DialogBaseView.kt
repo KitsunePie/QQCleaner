@@ -4,19 +4,19 @@ import android.content.Context
 import android.view.KeyEvent
 import android.view.KeyEvent.ACTION_UP
 import android.view.KeyEvent.KEYCODE_BACK
-import android.widget.RelativeLayout
+import android.view.View
 
 /**
  * 获取按键事件
  * @author Agoines
  * @version 1.0
  */
-class DialogBaseRelativeLayout(context: Context) : RelativeLayout(context) {
+class DialogBaseView(context: Context) : View(context) {
 
     /**
      * 按键事件监听器
      */
-    private lateinit var onKeyPressed: () -> Unit
+    private lateinit var onBackPressed: () -> Unit
 
     /**
      * DialogBaseRelativeLayout 获取焦点
@@ -27,9 +27,12 @@ class DialogBaseRelativeLayout(context: Context) : RelativeLayout(context) {
         requestFocus()
     }
 
+    /**
+     * 劫持对应的点击事件，并完成对应效果
+     */
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         if (isAttachedToWindow && event.action == ACTION_UP && event.keyCode == KEYCODE_BACK) {
-            onKeyPressed.invoke()
+            onBackPressed.invoke()
             return true
         }
         return false
@@ -38,8 +41,8 @@ class DialogBaseRelativeLayout(context: Context) : RelativeLayout(context) {
     /**
      * 设置按键事件监听器
      */
-    fun setOnKeyPressed(onKeyPressed: () -> Unit) {
-        this.onKeyPressed = onKeyPressed
+    fun setOnBackPressed(onBackPressed: () -> Unit) {
+        this.onBackPressed = onBackPressed
     }
 
 }
