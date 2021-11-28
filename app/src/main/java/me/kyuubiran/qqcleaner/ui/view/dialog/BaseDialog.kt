@@ -60,6 +60,10 @@ class BaseDialog(val context: Context) {
      */
     private val backgroundView = DialogBaseView(context)
 
+    private var isLightStatusBar = true
+
+    private var isLightNavigationBar = true
+
     /**
      * 弹窗显示
      */
@@ -124,6 +128,15 @@ class BaseDialog(val context: Context) {
         decorView.removeView(composeView)
         decorView.removeView(backgroundView)
     }
+
+    fun setStatusBarLightMode(isLight: Boolean) {
+        this.isLightStatusBar = isLight
+    }
+
+    fun setNavigationBarLightMode(isLight: Boolean) {
+        this.isLightNavigationBar = isLight
+    }
+
 
     /**
      * 获取 Activity 的实现
