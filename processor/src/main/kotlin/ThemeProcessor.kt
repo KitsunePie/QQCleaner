@@ -56,23 +56,7 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
             .initializer("%T{\n\t%T\n}", compositionLocalOf, lightColorPalette)
             .build()
 
-        val qqCleanerColorTheme = TypeSpec.objectBuilder("QQCleanerColorTheme").run {
-            val colorsSpec = PropertySpec.builder("colors", qqCleanerColors)
-                .getter(
-                    FunSpec.getterBuilder()
-                        .addAnnotation(composable)
-                        .addStatement("return LocalQQCleanerColors.current")
-                        .build()
-                )
-                .build()
-            val theme = TypeSpec.enumBuilder("Theme")
-                .addEnumConstant("Light")
-                .addEnumConstant("Dark")
-                .build()
-            addProperty(colorsSpec)
-            addType(theme)
-            build()
-        }
+
 
         val themeMethod = FunSpec.builder("QQCleanerTheme").run {
             addAnnotation(composable)
@@ -128,10 +112,9 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
             build()
         }
 
-        FileSpec.builder("me.kyuubiran.qqcleaner.gen", "QQCleanerTheme")
+        FileSpec.builder("me.kyuubiran.qqcleaner.ui.theme", "QQCleanerTheme")
             .addComment("这个文件由ksp自动生成，直接修改是无效的。")
             .addProperty(localQQCleanerColors)
-            .addType(qqCleanerColorTheme)
             .addFunction(themeMethod)
             .indent("    ")
             .build()

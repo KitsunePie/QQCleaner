@@ -9,6 +9,8 @@ import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.activity.BaseActivity
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
+
+
 import me.kyuubiran.qqcleaner.ui.utils.navigationBarMode
 import me.kyuubiran.qqcleaner.ui.utils.statusBarLightMode
 
