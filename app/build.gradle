@@ -84,11 +84,7 @@ dependencies {
 
     implementation "androidx.activity:activity-compose:$compoose_android"
 
-    implementation "androidx.window:window:1.0.0-beta04"
-
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
 
     implementation "androidx.navigation:navigation-compose:$navigation_version"
-
-    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
 }
