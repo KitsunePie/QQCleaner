@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.async
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxWidthModifier
 
@@ -55,17 +56,22 @@ fun messageDialog(
                 flag = false
             }
             LaunchedEffect(flag) {
-                color.animateTo(
-                    targetValue = if (flag) Color(0x33202124) else Color.Transparent,
-                    animationSpec = tween(1000)
-                )
-
-                height.animateTo(
-                    targetValue = if (flag) 196f else 0f,
-                    animationSpec = tween(1000)
-                ).apply {
-                    if (!flag) removeView()
+                async {
+                    color.animateTo(
+                        targetValue = if (flag) Color(0x33202124) else Color.Transparent,
+                        animationSpec = tween(600)
+                    )
                 }
+
+                async {
+                    height.animateTo(
+                        targetValue = if (flag) 196f else 0f,
+                        animationSpec = tween(600)
+                    ).apply {
+                        if (!flag) removeView()
+                    }
+                }
+
             }
 
             Box(contentAlignment = Alignment.BottomStart) {
