@@ -28,6 +28,8 @@ import me.kyuubiran.qqcleaner.ui.view.*
 import me.kyuubiran.qqcleaner.ui.view.dialog.messageDialog
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 
+
+// todo 修复参数问题
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScene(navController: NavController) {
@@ -102,7 +104,8 @@ fun MainScene(navController: NavController) {
                 TitleCard("设定", 168.dp) {
                     ItemSwitchCard("自动瘦身", "自动瘦身")
                     ItemTextCard("自动瘦身间隔", "24 h", onClick = {
-                        messageDialog(content)
+                        messageDialog(content, onClick = {
+                        })
                     })
                     ItemMenuCard("瘦身配置", "瘦身配置", onClick = {
                         navController.navigate("edit_screen")

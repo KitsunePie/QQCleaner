@@ -15,9 +15,7 @@ import androidx.compose.ui.platform.ComposeView
 import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
 import me.kyuubiran.qqcleaner.ui.view.dialog.view.DialogBaseView
 
-// todo 弹窗动画等完成，
-//  即 dismiss() 前插入动画逻辑，等对应逻辑结束时候 remove View
-//  目前不知道怎么包装
+
 /**
  * 弹窗基类
  * @author Agoines
@@ -64,6 +62,7 @@ class BaseDialog(val context: Context) {
 
     private var isLightNavigationBar = true
 
+    private var dismissBlock = {}
     /**
      * 弹窗显示
      */
@@ -121,10 +120,22 @@ class BaseDialog(val context: Context) {
         isClickDismiss = clickToDismiss
     }
 
+
+    fun dismissBlock(dismissBlock: () -> Unit) {
+        this.dismissBlock = dismissBlock
+    }
+
     /**
      * 弹窗关闭
      */
     private fun dismiss() {
+        dismissBlock.invoke()
+    }
+
+    /**
+     * 删除对应的 View
+     */
+    fun removeView() {
         decorView.removeView(composeView)
         decorView.removeView(backgroundView)
     }
