@@ -1,4 +1,5 @@
 <resources>
+    <string name="xposed_description">设置->关于->QQ/TIM/微信瘦身</string>
     <string name="app_name">QQ瘦身</string>
     <string name="save">保存</string>
     <string name="confirm">确认</string>

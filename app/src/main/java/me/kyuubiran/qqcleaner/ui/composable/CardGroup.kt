@@ -1,4 +1,4 @@
-package me.kyuubiran.qqcleaner.ui.view
+package me.kyuubiran.qqcleaner.ui.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column

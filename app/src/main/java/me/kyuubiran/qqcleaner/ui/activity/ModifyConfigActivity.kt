@@ -20,10 +20,10 @@ import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
-import me.kyuubiran.qqcleaner.ui.view.AppBar
-import me.kyuubiran.qqcleaner.ui.view.CleanDataCard
-import me.kyuubiran.qqcleaner.ui.view.MultiFabItem
-import me.kyuubiran.qqcleaner.ui.view.MultiFloatingActionButton
+import me.kyuubiran.qqcleaner.ui.composable.AppBar
+import me.kyuubiran.qqcleaner.ui.composable.CleanDataCard
+import me.kyuubiran.qqcleaner.ui.composable.MultiFabItem
+import me.kyuubiran.qqcleaner.ui.composable.MultiFloatingActionButton
 import me.kyuubiran.qqcleaner.util.CleanManager.getConfigDir
 import me.kyuubiran.qqcleaner.util.path.CommonPath
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf

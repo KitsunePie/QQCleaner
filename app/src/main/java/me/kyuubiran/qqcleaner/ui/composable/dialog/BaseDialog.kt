@@ -1,4 +1,4 @@
-package me.kyuubiran.qqcleaner.ui.view.dialog
+package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import android.app.Activity
 import android.content.Context
@@ -9,11 +9,12 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
-import me.kyuubiran.qqcleaner.ui.view.dialog.view.DialogBaseView
+import me.kyuubiran.qqcleaner.ui.composable.dialog.view.DialogBaseView
 
 
 /**
@@ -63,6 +64,7 @@ class BaseDialog(val context: Context) {
     private var isLightNavigationBar = true
 
     private var dismissBlock = {}
+
     /**
      * 弹窗显示
      */
@@ -85,18 +87,21 @@ class BaseDialog(val context: Context) {
         composeView.setContent {
             Box(
                 // 填充满整个整个页面
-                modifier = fillMaxModifier.clickable(
-                    enabled = true,
-                    onClickLabel = null,
-                    // 防止击穿到 View 本体
-                    onClick = {
-                        // 是否点击后关闭后关闭弹窗
-                        if (isClickDismiss) dismiss()
-                    },
-                    role = null,
-                    // 去掉点击水波纹
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable(
+                        enabled = true,
+                        onClickLabel = null,
+                        // 防止击穿到 View 本体
+                        onClick = {
+                            // 是否点击后关闭后关闭弹窗
+                            if (isClickDismiss) dismiss()
+                        },
+                        role = null,
+                        // 去掉点击水波纹
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ),
             ) {
                 // 对应的 compose 布局
                 content.invoke()

@@ -1,4 +1,4 @@
-package me.kyuubiran.qqcleaner.ui.view
+package me.kyuubiran.qqcleaner.ui.composable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

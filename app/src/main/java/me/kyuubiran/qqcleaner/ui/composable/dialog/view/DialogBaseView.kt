@@ -1,4 +1,4 @@
-package me.kyuubiran.qqcleaner.ui.view.dialog.view
+package me.kyuubiran.qqcleaner.ui.composable.dialog.view
 
 import android.content.Context
 import android.view.KeyEvent
@@ -31,6 +31,7 @@ class DialogBaseView(context: Context) : View(context) {
      * 劫持对应的点击事件，并完成对应效果
      */
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        // 返回事件
         if (isAttachedToWindow && event.action == ACTION_UP && event.keyCode == KEYCODE_BACK) {
             onBackPressed.invoke()
             return true

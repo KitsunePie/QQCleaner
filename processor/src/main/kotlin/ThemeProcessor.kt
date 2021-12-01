@@ -2,7 +2,6 @@ import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.*
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview
 import com.squareup.kotlinpoet.ksp.writeTo
 
@@ -34,29 +33,23 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
         val composableClass = ClassName("androidx.compose.runtime", "Composable")
         val compositionLocalProvider =
             ClassName("androidx.compose.runtime", "CompositionLocalProvider")
-        val compositionLocalOf = ClassName("androidx.compose.runtime", "compositionLocalOf")
         val darkClass =
             ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme", "Dark")
         val darkColorPalette =
-            ClassName("me.kyuubiran.qqcleaner.ui.theme.colors", "DarkColorPalette")
+            ClassName("me.kyuubiran.qqcleaner.ui.theme", "DarkColorPalette")
         val lightClass =
             ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme", "Light")
         val lightColorPalette =
-            ClassName("me.kyuubiran.qqcleaner.ui.theme.colors", "LightColorPalette")
+            ClassName("me.kyuubiran.qqcleaner.ui.theme", "LightColorPalette")
         val materialTheme = ClassName("androidx.compose.material", "MaterialTheme")
         val themeClass = ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme", "Theme")
         val tweenSpec = ClassName("androidx.compose.animation.core", "TweenSpec")
-        val providableCompositionLocal =
-            ClassName("androidx.compose.runtime", "ProvidableCompositionLocal")
-        val qqCleanerColors = ClassName("me.kyuubiran.qqcleaner.ui.theme.colors", "QQCleanerColors")
+        val qqCleanerColors = ClassName("me.kyuubiran.qqcleaner.ui.theme", "QQCleanerColors")
         val shapes = ClassName("androidx.compose.material.MaterialTheme", "shapes")
 
         val composable = AnnotationSpec.builder(composableClass).build()
         val composableUnit = LambdaTypeName.get(returnType = Unit::class.asTypeName())
             .copy(annotations = arrayListOf(composable))
-
-        // private val LocalQQCleanerColors: ProvidableCompositionLocal<QQCleanerColors>
-        val typeSpec = providableCompositionLocal.parameterizedBy(qqCleanerColors)
 
         val themeMethod = FunSpec.builder("QQCleanerTheme").run {
             addAnnotation(composable)

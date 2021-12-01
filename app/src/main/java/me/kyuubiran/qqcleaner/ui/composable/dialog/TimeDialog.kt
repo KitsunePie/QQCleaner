@@ -1,4 +1,4 @@
-package me.kyuubiran.qqcleaner.ui.view.dialog
+package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,42 +6,26 @@ import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
-import me.kyuubiran.qqcleaner.ui.utils.fillMaxModifier
-import me.kyuubiran.qqcleaner.ui.utils.fillMaxWidthModifier
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 
 
-/**
- * 这个是一个消息弹窗
- * @param context 对应 context 为所需参数
- * @param titleText 标题
- * @param tipText 提示文本
- * @param isClickDismiss 是否点击背景返回
- * @param isBackToDismiss 是否返回键返回
- * @param isNavigationBarLight 导航栏是否为暗色
- * @param isStatusBarLight 状态栏是否为暗色
- */
 @SuppressLint("UnrememberedMutableState")
-fun messageDialog(
+fun timeDialog(
     context: Context,
-    titleText: String = "测试",
-    tipText: String = "内容测试啦啦啦啦",
     isClickDismiss: Boolean = true,
     isBackToDismiss: Boolean = true,
     isStatusBarLight: Boolean = true,
-    isNavigationBarLight: Boolean = true,
-    onClick: () -> Unit
+    isNavigationBarLight: Boolean = true
 ) {
     BaseDialog(context = context).apply {
         clickToDismiss(isClickDismiss)
@@ -65,7 +49,7 @@ fun messageDialog(
 
                 async {
                     height.animateTo(
-                        targetValue = if (flag) 196f else 0f,
+                        targetValue = if (flag) 240f else 0f,
                         animationSpec = tween(600)
                     ).apply {
                         if (!flag) removeView()
@@ -75,20 +59,37 @@ fun messageDialog(
             }
 
             Box(contentAlignment = Alignment.BottomStart) {
-                Box(modifier = fillMaxModifier.background(color = color.value))
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = color.value)
+                )
                 Column(
-                    modifier = fillMaxWidthModifier
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .align(Alignment.BottomStart)
                         .height((height.value).dp)
                         .background(
-                            shape = RoundedCornerShape(topEnd = 10.dp, topStart = 10.dp),
-                            color = Color(0xFFFFFFFF)
+                            shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp),
+                            color = colors.background
                         )
                 ) {
-                    Text(text = titleText, Modifier.clickable {
-                        onClick.invoke()
-                    })
-                    Text(text = tipText)
+                    Row(
+                        Modifier.padding(start = 24.dp, top = 26.dp, end = 24.dp, bottom = 25.dp)
+                    ) {
+                        Text(text = "设置自动瘦身间隔")
+                    }
+                    TextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp), value = "测试", onValueChange = {
+                            "测试"
+                        })
+                    Row(
+                        Modifier.padding(start = 24.dp, top = 24.dp, end = 24.dp)
+                    ) {
+                        Text(text = "确定")
+                    }
                 }
             }
         }
@@ -96,4 +97,3 @@ fun messageDialog(
         this.show()
     }
 }
-

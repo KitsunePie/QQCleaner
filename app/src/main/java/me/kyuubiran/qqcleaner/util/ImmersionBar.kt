@@ -1,4 +1,4 @@
-package me.kyuubiran.qqcleaner.ui.utils
+package me.kyuubiran.qqcleaner.util
 
 import android.app.Activity
 import android.os.Build

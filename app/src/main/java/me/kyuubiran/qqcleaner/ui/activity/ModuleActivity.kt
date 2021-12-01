@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.ui.view.*
+import me.kyuubiran.qqcleaner.ui.composable.*
 import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.ConfigManager.sAutoClean
 import me.kyuubiran.qqcleaner.util.ConfigManager.sAutoCleanInterval

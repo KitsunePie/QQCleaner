@@ -2,8 +2,6 @@ package me.kyuubiran.qqcleaner.ui.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
-import me.kyuubiran.qqcleaner.ui.theme.colors.LightColorPalette
-import me.kyuubiran.qqcleaner.ui.theme.colors.QQCleanerColors
 
 
 val LocalQQCleanerColors = compositionLocalOf {
@@ -19,3 +17,6 @@ object QQCleanerColorTheme {
         Light, Dark
     }
 }
+
+
+
