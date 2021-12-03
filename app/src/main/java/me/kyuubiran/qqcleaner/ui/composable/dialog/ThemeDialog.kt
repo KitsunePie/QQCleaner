@@ -1,16 +1,13 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
-
-import android.annotation.SuppressLint
-import android.content.Context
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,28 +16,15 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 
-
-@SuppressLint("UnrememberedMutableState")
-fun themeDialog(
-    context: Context,
-    isClickDismiss: Boolean = true,
-    isBackToDismiss: Boolean = true,
-    isStatusBarLight: Boolean = true,
-    isNavigationBarLight: Boolean = true,
-    onClick: () -> Unit,
-) {
-    BaseDialog(context = context).apply {
-        clickToDismiss(isClickDismiss)
-        backToDismiss(isBackToDismiss)
-        setStatusBarLightMode(isStatusBarLight)
-        setNavigationBarLightMode(isNavigationBarLight)
-        this.setContent {
-            var flag by remember { mutableStateOf(true) }
-            val color = remember { Animatable(Color.Transparent) }
-            val height = remember { Animatable(0f) }
-            dismissBlock {
-                flag = false
-            }
+@Composable
+fun ThemeDialog() {
+    var flag by remember { mutableStateOf(false) }
+    val color = remember { Animatable(Color.Transparent) }
+    val height = remember { Animatable(0f) }
+    var isDismiss by remember { mutableStateOf(true) }
+    if (isDismiss) {
+        flag = true
+        Dialog(onDismissRequest = { flag = false }) {
             LaunchedEffect(flag) {
                 async {
                     color.animateTo(
@@ -48,13 +32,14 @@ fun themeDialog(
                         animationSpec = tween(600)
                     )
                 }
-
                 async {
                     height.animateTo(
-                        targetValue = if (flag) 432f else 0f,
+                        targetValue = if (flag) 240f else 0f,
                         animationSpec = tween(600)
                     ).apply {
-                        if (!flag) removeView()
+                        if (!flag) {
+                            isDismiss = false
+                        }
                     }
                 }
 
@@ -79,90 +64,21 @@ fun themeDialog(
                     Row(
                         Modifier.padding(start = 24.dp, top = 26.dp, end = 24.dp, bottom = 25.dp)
                     ) {
-                        Text(text = "主题风格")
+                        Text(text = "设置自动瘦身间隔")
                     }
-                    Canvas(
+                    TextField(
                         modifier = Modifier
-                            .padding(top = 4.dp)
                             .fillMaxWidth()
-                            .padding(horizontal = 32.dp)
-                            .height(1.dp)
-                    ) {
-                        val canvasQuadrantSize = size
-                        drawRect(
-                            color = Color.Red,
-                            size = canvasQuadrantSize
-                        )
-                    }
-                    Column(
-                        modifier = Modifier
-                            .padding(vertical = 12.dp, horizontal = 24.dp)
-                            .fillMaxWidth()
-                            .height(168.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "浅色主题")
-                        }
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "深色主题")
-                        }
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "跟随系统")
-                        }
-                    }
-                    Canvas(
-                        modifier = Modifier
-                            .padding(top = 4.dp)
-                            .fillMaxWidth()
-                            .padding(horizontal = 32.dp)
-                            .height(1.dp)
-                    ) {
-                        val canvasQuadrantSize = size
-                        drawRect(
-                            color = Color.Red,
-                            size = canvasQuadrantSize
-                        )
-                    }
-
+                            .height(56.dp), value = "测试", onValueChange = {
+                            "测试"
+                        })
                     Row(
-                        modifier = Modifier
-                            .padding(top = 12.dp)
-                            .fillMaxWidth()
-                            .height(56.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(text = "使用纯黑色深色主题")
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .padding(top = 24.dp)
-                            .fillMaxWidth()
-                            .height(56.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        Modifier.padding(start = 24.dp, top = 24.dp, end = 24.dp)
                     ) {
                         Text(text = "确定")
                     }
                 }
             }
         }
-
-        this.show()
     }
 }
-

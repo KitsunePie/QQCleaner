@@ -11,14 +11,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
-import cafe.adriel.lyricist.ProvideStrings
-import cafe.adriel.lyricist.rememberStrings
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.activity.BaseActivity
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -40,28 +37,20 @@ class MainActivity : BaseActivity() {
                     Modifier
                         .fillMaxSize()
                         .clickable(
-                            enabled = true,
-                            onClickLabel = null,
                             // 防止击穿
                             onClick = {},
-                            role = null,
                             // 去掉点击水波纹
                             indication = null,
                             interactionSource = remember { MutableInteractionSource() }
                         )
                         .background(colors.background)
-                        .padding(top = getStatusBarHeight())
                 ) {
-                    val locales = rememberStrings()
-                    locales.languageTag = viewModel.locales
-                    ProvideStrings(locales) {
-                        QQCleanerApp(viewModel)
-                    }
+                    QQCleanerApp(viewModel)
                 }
             }
         }
+        viewModel.statusBarHeight = getStatusBarHeight()
         this.statusBarLightMode()
-
         this.navigationBarMode()
     }
 
@@ -86,3 +75,4 @@ class MainActivity : BaseActivity() {
     }
 
 }
+

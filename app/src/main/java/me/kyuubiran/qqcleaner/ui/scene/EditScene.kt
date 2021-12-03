@@ -1,25 +1,32 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleStyle
 
 @Composable
-fun EditScene(navController: NavController) {
+fun EditScene(viewModel: QQCleanerViewModel, navController: NavController) {
+    val context = LocalContext.current as Activity
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = colors.cardBackgroundColor)
+            .padding(top = viewModel.statusBarHeight)
     ) {
         Row(
             modifier = Modifier
@@ -50,6 +57,9 @@ fun EditScene(navController: NavController) {
                 modifier = Modifier.padding(start = 16.dp),
                 style = TitleStyle, text = "添加配置"
             )
+        }
+        LazyColumn() {
+
         }
 
 

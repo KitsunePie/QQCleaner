@@ -80,17 +80,12 @@ dependencies {
 
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     implementation "androidx.activity:activity-compose:$compoose_android"
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
 
     implementation "androidx.navigation:navigation-compose:$navigation_version"
-
-    // 本地化
-    implementation "cafe.adriel.lyricist:lyricist:1.0.1"
-    compileOnly "cafe.adriel.lyricist:lyricist-processor:1.0.1"
-    ksp "cafe.adriel.lyricist:lyricist-processor:1.0.1"
 
 }

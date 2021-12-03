@@ -1,5 +1,8 @@
 <resources>
     <string name="xposed_description">设置->关于->QQ/TIM/微信瘦身</string>
+    <string name="last_cleaner">上次瘦身是 "%d" 天前</string>
+    <string name="last_cleaner_time">上次瘦身是 "%s" 天前</string>
+    <string name="title_setup">设定</string>
     <string name="app_name">QQ瘦身</string>
     <string name="save">保存</string>
     <string name="confirm">确认</string>
@@ -86,4 +89,10 @@
     <string name="clean_start">正在执行清理…</string>
     <string name="clean_done">好耶！清理完毕了！</string>
     <string name="clean_failed">坏耶！清理失败了！</string>
+    <string name="item_cleaner">自动瘦身</string>
+    <string name="item_cleaner_time">瘦身事件</string>
+    <string name="item_cleaner_config">瘦身配置</string>
+    <string name="title_more">更多</string>
+    <string name="item_theme">主题风格</string>
+    <string name="item_about">关于瘦身</string>
 </resources>

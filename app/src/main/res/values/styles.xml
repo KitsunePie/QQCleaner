@@ -1,11 +1,14 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:ThemeOverlay.Material.Light">
+    <style name="LightBaseTheme" parent="android:ThemeOverlay.Material.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">false</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+
+    <style name="AppTheme" parent="LightBaseTheme" />
 </resources>

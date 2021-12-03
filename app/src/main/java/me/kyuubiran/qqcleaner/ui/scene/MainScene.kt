@@ -13,17 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import cafe.adriel.lyricist.LocalStrings
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.ui.composable.dialog.themeDialog
-import me.kyuubiran.qqcleaner.ui.composable.dialog.timeDialog
+import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
@@ -35,126 +33,137 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 
-// todo 修复参数问题
 @RequiresApi(Build.VERSION_CODES.O)
+@Preview
 @Composable
-fun MainScene(navController: NavController, viewModel: QQCleanerViewModel = viewModel()) {
-    val context = LocalContext.current
-    Column(
+fun MainScene(viewModel: QQCleanerViewModel = viewModel()) {
+    ThemeDialog()
+    Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(colors.background)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(148.dp)
-                .padding(horizontal = 24.dp)
-        ) {
-
-            Column(
+        Column {
+            Row(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(top = viewModel.statusBarHeight)
+                    .height(148.dp)
+                    .padding(horizontal = 24.dp)
             ) {
-                Text(
-                    text = getCurrentTimeText(),
+
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 24.dp),
-                    style = TitleTextStyle,
-                    color = colors.textColor
-                )
-                Text(
-                    text = LocalStrings.current.lastCleaner(5),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    style = SubTitleTextStyle,
-                    color = colors.textColor
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(top = 16.dp)
-                        .height(18.dp)
-                        .background(
-                            colors.themeColor,
-                            RoundedCornerShape(4.dp)
-                        )
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .fillMaxHeight()
+                        .weight(1f)
                 ) {
                     Text(
-                        text = LocalStrings.current.lastCleanerTime("11 / 21 03:00"),
-                        color = colors.buttonTextColor,
-                        style = ButtonTitleTextStyle
+                        text = getCurrentTimeText(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 24.dp),
+                        style = TitleTextStyle,
+                        color = colors.textColor
                     )
+                    Text(
+                        text = stringResource(R.string.last_cleaner, 5),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        style = SubTitleTextStyle,
+                        color = colors.textColor
+                    )
+                    Row(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .height(18.dp)
+                            .background(
+                                colors.themeColor,
+                                RoundedCornerShape(4.dp)
+                            )
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.last_cleaner_time, "11 / 21 03:00"),
+                            color = colors.buttonTextColor,
+                            style = ButtonTitleTextStyle
+                        )
+                    }
                 }
-            }
-            Image(
-                modifier = Modifier
-                    .size(88.dp)
-                    .align(Alignment.CenterVertically),
-                painter = painterResource(id = R.drawable.ic_icon),
-                contentDescription = "图标",
+                Image(
+                    modifier = Modifier
+                        .size(88.dp)
+                        .align(Alignment.CenterVertically),
+                    painter = painterResource(id = R.drawable.ic_icon),
+                    contentDescription = "图标",
 
-                )
-        }
-        Box(
-            modifier = Modifier
-                .drawColoredShadow(
-                    colors.cardBackgroundShadowColor,
-                    0.1f,
-                    shadowRadius = 10.dp,
-                    offsetX = 0.dp,
-                    offsetY = (-3).dp
-                )
-                .background(
-                    colors.cardBackgroundColor,
-                    RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
-                )
-        ) {
-            Column(
+                    )
+            }
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(shape = cardBackground, color = colors.cardBackgroundColor)
+                    .drawColoredShadow(
+                        colors.cardBackgroundShadowColor,
+                        0.1f,
+                        shadowRadius = 10.dp,
+                        offsetX = 0.dp,
+                        offsetY = (-3).dp
+                    )
+                    .background(
+                        colors.cardBackgroundColor,
+                        RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
+                    )
             ) {
-                CardTitle(text = LocalStrings.current.titleSetup)
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(shape = cardBackground, color = colors.cardBackgroundColor)
+                ) {
+                    CardTitle(text = stringResource(id = R.string.title_setup))
 
-                CardGroup(168.dp) {
-                    Item(text = LocalStrings.current.itemCleaner)
-                    Item(text = LocalStrings.current.itemCleanerTime,
-                        onClick = {
-                            timeDialog(context)
-                        })
-                    Item(
-                        text = LocalStrings.current.itemCleanerConfig,
-                        onClick = {
-                            navController.navigate("edit_screen")
-                        }
-                    )
-                }
+                    CardGroup(168.dp) {
+                        Item(
+                            text = stringResource(id = R.string.item_cleaner),
+                            onClick = {
+
+                            }
+                        )
+                        Item(stringResource(id = R.string.item_cleaner_time),
+                            onClick = {
+
+                            })
+                        Item(
+                            text = stringResource(id = R.string.item_cleaner_config),
+                            onClick = {
+                                //navController.navigate("edit_screen")
+                            }
+                        )
+                    }
 
 
-                CardTitle(text = LocalStrings.current.titleMore)
+                    CardTitle(text = stringResource(id = R.string.title_more))
 
-                CardGroup(112.dp) {
-                    Item(
-                        text = LocalStrings.current.itemTheme,
-                        onClick = {
-                            themeDialog(context, onClick = {})
-                        }
-                    )
+                    CardGroup(112.dp) {
+                        Item(
+                            text = stringResource(id = R.string.item_theme),
+                            onClick = {
 
-                    Item(
-                        text = LocalStrings.current.itemAbout,
-                        onClick = {
-                            navController.navigate("developer_screen")
-                        }
-                    )
+                            }
+                        )
+
+                        Item(
+                            text = stringResource(id = R.string.item_about),
+                            onClick = {
+                                //navController.navigate("developer_screen")
+                            }
+                        )
+                    }
                 }
             }
         }
+
     }
 }
+
 
 @Composable
 private fun CardGroup(height: Dp, content: @Composable ColumnScope.() -> Unit) {
@@ -196,3 +205,4 @@ private fun Item(text: String, onClick: () -> Unit = {}) {
         )
     }
 }
+

@@ -5,5 +5,4 @@ import androidx.navigation.NavController
 
 @Composable
 fun ConfigSpecifyScreen(navController: NavController) {
-
 }
