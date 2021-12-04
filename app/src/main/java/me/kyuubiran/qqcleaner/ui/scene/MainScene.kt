@@ -9,7 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
+import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
@@ -37,7 +37,12 @@ import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 @Preview
 @Composable
 fun MainScene(viewModel: QQCleanerViewModel = viewModel()) {
-    ThemeDialog()
+    var isTime by remember { mutableStateOf(false) }
+    if (isTime) {
+        TimeDialog {
+            isTime = false
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -146,7 +151,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel()) {
                         Item(
                             text = stringResource(id = R.string.item_theme),
                             onClick = {
-
+                                isTime = true
                             }
                         )
 

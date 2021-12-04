@@ -18,6 +18,8 @@ open class BaseDialog(context: Context) {
 
     private val dialogBaseView = DialogBaseView(context).apply {
         this.setFocusable()
+        this.setOnClickListener {
+        }
         setOnBackPressed {
             if (isBackPressBackDismiss) {
                 dismiss()
@@ -44,6 +46,10 @@ open class BaseDialog(context: Context) {
     }
 
     open fun dismiss() {
+
+    }
+
+    fun removeView() {
         decorView.removeView(dialogBaseView)
         decorView.removeView(contentView)
     }

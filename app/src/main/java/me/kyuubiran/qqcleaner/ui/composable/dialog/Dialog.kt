@@ -23,8 +23,10 @@ class DialogProperties(
 
 @Composable
 fun Dialog(
+    onRemoveViewRequest: () -> Unit,
     onDismissRequest: () -> Unit,
     properties: DialogProperties = DialogProperties(),
+    isDismiss: Boolean,
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
@@ -44,7 +46,10 @@ fun Dialog(
             }
         }
     }
-
+    if (isDismiss) {
+        dialog.removeView()
+        onRemoveViewRequest()
+    }
     DisposableEffect(dialog) {
         dialog.show()
         onDispose {
@@ -62,7 +67,7 @@ private class DialogDecorLayout(
 
     private var content: @Composable () -> Unit by mutableStateOf({})
 
-    override var shouldCreateCompositionOnAttachedToWindow: Boolean = false
+    override var shouldCreateCompositionOnAttachedToWindow = false
         private set
 
     fun setContent(parent: CompositionContext, content: @Composable () -> Unit) {
