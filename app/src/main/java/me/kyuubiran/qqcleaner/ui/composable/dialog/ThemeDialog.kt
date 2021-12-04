@@ -174,8 +174,8 @@ fun TimeDialog(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     keyboardActions = KeyboardActions.Default,
                     cursorBrush = SolidColor(colors.themeColor),
-                    onValueChange = {
-                        text = it
+                    onValueChange = { value ->
+                        text = value.filter { it.isDigit() }
                     }
                 )
                 Row(
