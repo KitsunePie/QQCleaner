@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardBackground
@@ -41,6 +42,12 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel()) {
     if (isTime) {
         TimeDialog {
             isTime = false
+        }
+    }
+    var isTheme by remember { mutableStateOf(false) }
+    if (isTheme) {
+        ThemeDialog {
+            isTheme = false
         }
     }
     Box(
@@ -134,7 +141,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel()) {
                         )
                         Item(stringResource(id = R.string.item_cleaner_time),
                             onClick = {
-
+                                isTime = true
                             })
                         Item(
                             text = stringResource(id = R.string.item_cleaner_config),
@@ -151,7 +158,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel()) {
                         Item(
                             text = stringResource(id = R.string.item_theme),
                             onClick = {
-                                isTime = true
+                                isTheme = true
                             }
                         )
 

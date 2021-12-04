@@ -20,6 +20,8 @@ object QQCleanerTypes {
         intoTextStyle(fontSize = 8.sp, lineHeight = 26.sp, fontWeight = Normal)
     val TitleStyle = intoTextStyle(fontSize = 20.sp, lineHeight = 24.sp, fontWeight = Bold)
     val DialogTitleStyle = intoTextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = Bold)
+    val DialogEditStyle = intoTextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = Normal)
+    val DialogButtonStyle = intoTextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = Normal)
 }
 
 private fun intoTextStyle(

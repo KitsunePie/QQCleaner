@@ -16,6 +16,13 @@ val DarkColorPalette = QQCleanerColors(
     themeColor = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
     themeElevationColor = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
     buttonTextColor = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
+    dialogEditColor = Color(0xFF4F5355).convert(ColorSpaces.CieXyz),
+    dialogEditHintColor = Color(0x61FFFFFF).convert(ColorSpaces.CieXyz),
+    transparent = Color(0x00202124).convert(ColorSpaces.CieXyz),
+    dialogButtonPress = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
+    dialogButtonDefault = Color(0x1482A8E7).convert(ColorSpaces.CieXyz),
+    dialogButtonTextPress = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
+    dialogButtonTextDefault = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz)
 )
 
 val LightColorPalette = QQCleanerColors(
@@ -26,6 +33,13 @@ val LightColorPalette = QQCleanerColors(
     themeColor = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
     themeElevationColor = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
     buttonTextColor = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
+    dialogEditColor = Color(0xFFF7F7F7).convert(ColorSpaces.CieXyz),
+    dialogEditHintColor = Color(0x613C4043).convert(ColorSpaces.CieXyz),
+    transparent = Color(0x00FFFFFF).convert(ColorSpaces.CieXyz),
+    dialogButtonPress = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
+    dialogButtonDefault = Color(0x050095FF).convert(ColorSpaces.CieXyz),
+    dialogButtonTextPress = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
+    dialogButtonTextDefault = Color(0xFF0095FF).convert(ColorSpaces.CieXyz)
 )
 
 
@@ -37,7 +51,14 @@ class QQCleanerColors(
     textColor: Color,
     themeColor: Color,
     themeElevationColor: Color,
-    buttonTextColor: Color
+    buttonTextColor: Color,
+    dialogEditColor: Color,
+    dialogEditHintColor: Color,
+    transparent: Color,
+    dialogButtonPress: Color,
+    dialogButtonDefault: Color,
+    dialogButtonTextPress: Color,
+    dialogButtonTextDefault: Color
 ) {
     var background: Color by mutableStateOf(background)
         private set
@@ -52,6 +73,20 @@ class QQCleanerColors(
     var themeElevationColor: Color by mutableStateOf(themeElevationColor)
         private set
     var buttonTextColor: Color by mutableStateOf(buttonTextColor)
+        private set
+    var dialogEditColor: Color by mutableStateOf(dialogEditColor)
+        private set
+    var dialogEditHintColor: Color by mutableStateOf(dialogEditHintColor)
+        private set
+    var transparent: Color by mutableStateOf(transparent)
+        private set
+    var dialogButtonPress: Color by mutableStateOf(dialogButtonPress)
+        private set
+    var dialogButtonDefault: Color by mutableStateOf(dialogButtonDefault)
+        private set
+    var dialogButtonTextPress: Color by mutableStateOf(dialogButtonTextPress)
+        private set
+    var dialogButtonTextDefault: Color by mutableStateOf(dialogButtonTextDefault)
         private set
 }
 
