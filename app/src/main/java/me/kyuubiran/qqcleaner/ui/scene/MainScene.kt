@@ -145,7 +145,9 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         Item(
                             text = stringResource(id = R.string.item_cleaner_config),
                             onClick = {
-                                navController.navigate("edit_screen")
+                                navController.navigate("edit_screen") {
+                                    popUpTo("main_screen")
+                                }
                             }
                         )
                     }

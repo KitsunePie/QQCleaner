@@ -17,8 +17,7 @@ import androidx.savedstate.ViewTreeSavedStateRegistryOwner
 
 
 class DialogProperties(
-    val dismissOnBackPress: Boolean = true,
-    val dismissOnClickOutside: Boolean = true
+    val dismissOnBackPress: Boolean = true
 )
 
 @Composable
@@ -86,8 +85,8 @@ private class DialogDecorLayout(
 
 private class DialogWrapper(
     private var onDismissRequest: () -> Unit,
-    private var properties: DialogProperties,
-    private val composeView: View,
+    properties: DialogProperties,
+    composeView: View,
 ) : BaseDialog(composeView.context), ViewRootForInspector {
 
     private val dialogLayout: DialogDecorLayout = DialogDecorLayout(composeView.context)
