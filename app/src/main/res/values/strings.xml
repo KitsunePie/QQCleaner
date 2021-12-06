@@ -91,6 +91,7 @@
     <string name="clean_failed">坏耶！清理失败了！</string>
     <string name="item_cleaner">自动瘦身</string>
     <string name="item_cleaner_time">瘦身时长</string>
+    <string name="item_cleaner_time_tip">"%d" h</string>
     <string name="item_cleaner_config">瘦身配置</string>
     <string name="title_more">更多</string>
     <string name="item_theme">主题风格</string>

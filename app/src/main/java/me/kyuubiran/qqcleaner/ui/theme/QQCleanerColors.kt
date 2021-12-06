@@ -22,7 +22,9 @@ val DarkColorPalette = QQCleanerColors(
     dialogButtonPress = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
     dialogButtonDefault = Color(0x1482A8E7).convert(ColorSpaces.CieXyz),
     dialogButtonTextPress = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
-    dialogButtonTextDefault = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz)
+    dialogButtonTextDefault = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
+    iconColor = Color(0x60FFFFFF).convert(ColorSpaces.CieXyz),
+    tipTextColor = Color(0x99FFFFFF).convert(ColorSpaces.CieXyz)
 )
 
 val LightColorPalette = QQCleanerColors(
@@ -39,7 +41,9 @@ val LightColorPalette = QQCleanerColors(
     dialogButtonPress = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
     dialogButtonDefault = Color(0x050095FF).convert(ColorSpaces.CieXyz),
     dialogButtonTextPress = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
-    dialogButtonTextDefault = Color(0xFF0095FF).convert(ColorSpaces.CieXyz)
+    dialogButtonTextDefault = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
+    iconColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
+    tipTextColor = Color(0xFF5F6368).convert(ColorSpaces.CieXyz)
 )
 
 
@@ -58,7 +62,9 @@ class QQCleanerColors(
     dialogButtonPress: Color,
     dialogButtonDefault: Color,
     dialogButtonTextPress: Color,
-    dialogButtonTextDefault: Color
+    dialogButtonTextDefault: Color,
+    iconColor: Color,
+    tipTextColor: Color
 ) {
     var background: Color by mutableStateOf(background)
         private set
@@ -87,6 +93,10 @@ class QQCleanerColors(
     var dialogButtonTextPress: Color by mutableStateOf(dialogButtonTextPress)
         private set
     var dialogButtonTextDefault: Color by mutableStateOf(dialogButtonTextDefault)
+        private set
+    var iconColor: Color by mutableStateOf(iconColor)
+        private set
+    var tipTextColor: Color by mutableStateOf(tipTextColor)
         private set
 }
 

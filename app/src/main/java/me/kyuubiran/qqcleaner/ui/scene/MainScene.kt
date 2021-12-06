@@ -3,11 +3,13 @@ package me.kyuubiran.qqcleaner.ui.scene
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -29,6 +31,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.ButtonTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.SubTitleTextStyle
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
@@ -136,13 +139,29 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         Item(
                             text = stringResource(id = R.string.item_cleaner),
                             onClick = {
-
                             }
-                        )
-                        Item(stringResource(id = R.string.item_cleaner_time),
-                            onClick = {
-                                isTime = true
-                            })
+                        ) {
+
+                            //Switch()
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_toggle_on),
+                                contentDescription = stringResource(id = R.string.item_cleaner),
+                                modifier = Modifier
+                                    .height(24.dp)
+                                    .width(36.dp),
+                                tint = colors.iconColor
+                            )
+                        }
+                        Item(
+                            stringResource(id = R.string.item_cleaner_time),
+                            onClick = { isTime = true }
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.item_cleaner_time_tip, 24),
+                                color = colors.textColor,
+                                style = TipStyle
+                            )
+                        }
                         Item(
                             text = stringResource(id = R.string.item_cleaner_config),
                             onClick = {
@@ -150,7 +169,9 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                                     popUpTo(QQCleanerApp.Main)
                                 }
                             }
-                        )
+                        ) {
+                            ForwardIcon(id = R.string.item_cleaner_config)
+                        }
                     }
 
 
@@ -162,14 +183,18 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                             onClick = {
                                 isTheme = true
                             }
-                        )
+                        ) {
+                            ForwardIcon(id = R.string.item_theme)
+                        }
 
                         Item(
                             text = stringResource(id = R.string.item_about),
                             onClick = {
                                 navController.navigate(QQCleanerApp.Developer)
                             }
-                        )
+                        ) {
+                            ForwardIcon(R.string.item_about)
+                        }
                     }
                 }
             }
@@ -178,6 +203,15 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
     }
 }
 
+@Composable
+private fun ForwardIcon(@StringRes id: Int) {
+    Icon(
+        painter = painterResource(id = R.drawable.ic_baseline_arrow_forward),
+        contentDescription = stringResource(id = id),
+        modifier = Modifier.size(24.dp),
+        tint = colors.iconColor
+    )
+}
 
 @Composable
 private fun CardGroup(height: Dp, content: @Composable ColumnScope.() -> Unit) {
@@ -202,7 +236,7 @@ private fun CardTitle(text: String) {
 }
 
 @Composable
-private fun Item(text: String, onClick: () -> Unit = {}) {
+private fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -215,8 +249,10 @@ private fun Item(text: String, onClick: () -> Unit = {}) {
         Text(
             text = text,
             style = itemTextStyle,
-            color = colors.textColor
+            color = colors.textColor,
+            modifier = Modifier.weight(1f),
         )
+        content()
     }
 }
 

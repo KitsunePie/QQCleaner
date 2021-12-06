@@ -197,7 +197,9 @@ fun TimeDialog(
                         value = text,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = { value ->
-                            text = value.filter { it.isDigit() }
+                            text = value.filter {
+                                it.isDigit()
+                            }
                         }
                     )
                     val editHintColor by animateColorAsState(
