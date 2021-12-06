@@ -16,7 +16,7 @@
     <string name="clean_settings_title">瘦身设置</string>
     <string name="auto_clean_title">自动瘦身</string>
     <string name="set_auto_clean_interval_title">设置自动瘦身间隔</string>
-    <string name="set_auto_clean_interval_desc">单位：小时（默认为24小时）</string>
+    <string name="set_auto_clean_interval_desc">单位：h（默认为 24h）</string>
     <string name="set_auto_clean_interval_dialog_title">设置自动瘦身间隔（单位：小时）</string>
     <string name="interval_title">间隔（单位：小时）</string>
     <string name="modify_config_title">编辑瘦身配置</string>

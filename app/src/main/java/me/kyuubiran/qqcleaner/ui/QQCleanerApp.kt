@@ -28,7 +28,7 @@ fun QQCleanerApp(viewModel: QQCleanerViewModel) {
         startDestination = "main_screen"
     ) {
         composable("main_screen") {
-            MainScene(viewModel = viewModel)
+            MainScene(viewModel = viewModel, navController = navController)
         }
 
         composable("developer_screen") {

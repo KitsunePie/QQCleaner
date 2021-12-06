@@ -34,7 +34,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
-import me.kyuubiran.qqcleaner.R.string.dialog_title_time
+import me.kyuubiran.qqcleaner.R.string.*
 import me.kyuubiran.qqcleaner.ui.composable.TextField
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
@@ -207,7 +207,7 @@ fun TimeDialog(
                     )
 
                     Text(
-                        text = "单位：h（默认 24）",
+                        text = stringResource(id = set_auto_clean_interval_desc),
                         color = editHintColor,
                         style = DialogTitleStyle,
                         modifier = Modifier
@@ -246,7 +246,7 @@ fun TimeDialog(
                         style = DialogButtonStyle,
                         color = dialogButtonTextColor,
                         textAlign = TextAlign.Center,
-                        text = "确定"
+                        text = stringResource(id = confirm)
                     )
                 }
 

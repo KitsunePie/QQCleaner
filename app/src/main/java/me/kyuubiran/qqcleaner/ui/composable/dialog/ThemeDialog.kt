@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
+import me.kyuubiran.qqcleaner.R.string.confirm
 import me.kyuubiran.qqcleaner.R.string.dialog_title_time
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
@@ -93,6 +94,7 @@ fun ThemeDialog(
                         .fillMaxWidth()
                         .height(72.dp)
                         .padding(start = 24.dp, top = 26.dp, end = 24.dp, bottom = 25.dp)
+
                 ) {
                     Text(
                         text = stringResource(id = dialog_title_time),
@@ -108,7 +110,7 @@ fun ThemeDialog(
                         .height(1.dp)
                 ) {
                     drawRect(
-                        color = Color.Red,
+                        color = Color(0xFFF7F7F7),
                         size = this.size
                     )
                 }
@@ -118,14 +120,21 @@ fun ThemeDialog(
                         .padding(horizontal = 24.dp)
                         .height(56.dp)
                         .fillMaxWidth()
+                        .background(
+                            color = colors.dialogButtonDefault,
+                            shape = dialogButtonBackground
+                        )
+                        .padding(16.dp)
                 ) {
-                    Text(text = "亮色主题")
+                    Text(text = "亮色主题", color = colors.dialogButtonTextDefault)
                 }
                 Row(
                     modifier = Modifier
                         .padding(horizontal = 24.dp)
                         .height(56.dp)
                         .fillMaxWidth()
+                        .background(shape = dialogButtonBackground, color = Color.Transparent)
+                        .padding(16.dp)
                 ) {
                     Text(text = "暗色主题")
                 }
@@ -134,6 +143,8 @@ fun ThemeDialog(
                         .padding(horizontal = 24.dp)
                         .height(56.dp)
                         .fillMaxWidth()
+                        .background(shape = dialogButtonBackground, color = Color.Transparent)
+                        .padding(16.dp)
                 ) {
                     Text(text = "跟随系统")
                 }
@@ -145,7 +156,7 @@ fun ThemeDialog(
                         .height(1.dp)
                 ) {
                     drawRect(
-                        color = Color.Red,
+                        color = Color(0xFFF7F7F7),
                         size = this.size
                     )
                 }
@@ -155,18 +166,20 @@ fun ThemeDialog(
                         .padding(horizontal = 24.dp)
                         .height(56.dp)
                         .fillMaxWidth()
+                        .background(shape = dialogButtonBackground, color = Color.Transparent)
+                        .padding(16.dp)
                 ) {
                     Text(text = "使用纯黑色深色主题")
                 }
 
                 val dialogButtonColor by animateColorAsState(
-                    if (false)
+                    if (true)
                         colors.dialogButtonDefault else colors.dialogButtonPress,
                     tween(600)
                 )
 
                 val dialogButtonTextColor by animateColorAsState(
-                    if (false)
+                    if (true)
                         colors.dialogButtonTextDefault else colors.dialogButtonTextPress,
                     tween(600)
                 )
@@ -189,7 +202,7 @@ fun ThemeDialog(
                         style = DialogButtonStyle,
                         color = dialogButtonTextColor,
                         textAlign = TextAlign.Center,
-                        text = "确定"
+                        text = stringResource(id = confirm)
                     )
                 }
 
