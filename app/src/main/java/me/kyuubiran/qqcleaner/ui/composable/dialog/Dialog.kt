@@ -80,7 +80,6 @@ private class DialogDecorLayout(
     override fun Content() {
         content()
     }
-
 }
 
 private class DialogWrapper(

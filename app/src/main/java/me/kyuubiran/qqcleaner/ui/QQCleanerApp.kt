@@ -25,21 +25,21 @@ fun QQCleanerApp(viewModel: QQCleanerViewModel) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = "main_screen"
+        startDestination = QQCleanerApp.Main
     ) {
-        composable("main_screen") {
+        composable(QQCleanerApp.Main) {
             MainScene(viewModel = viewModel, navController = navController)
         }
 
-        composable("developer_screen") {
-            DeveloperScene(navController = navController)
+        composable(QQCleanerApp.Developer) {
+            DeveloperScene(viewModel = viewModel, navController = navController)
         }
 
-        composable("configSpecify_screen") {
-            ConfigSpecifyScreen(navController = navController)
+        composable(QQCleanerApp.ConfigSpecify) {
+            ConfigSpecifyScreen(viewModel = viewModel, navController = navController)
         }
 
-        composable("edit_screen") {
+        composable(QQCleanerApp.Edit) {
             EditScene(navController = navController, viewModel = viewModel)
         }
 
@@ -48,3 +48,9 @@ fun QQCleanerApp(viewModel: QQCleanerViewModel) {
 
 }
 
+object QQCleanerApp {
+    const val Edit = "edit_screen"
+    const val Main = "main_screen"
+    const val Developer = "developer_screen"
+    const val ConfigSpecify = "configSpecify_screen"
+}

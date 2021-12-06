@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
@@ -63,7 +64,7 @@ fun EditScene(viewModel: QQCleanerViewModel, navController: NavController) {
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_baseline_edit_24),
-                contentDescription = "返回"
+                contentDescription = "修改"
             )
             Text(
                 modifier = Modifier.padding(start = 16.dp),
@@ -71,10 +72,38 @@ fun EditScene(viewModel: QQCleanerViewModel, navController: NavController) {
             )
         }
 
-        LazyColumn() {
-
+        LazyColumn(
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .background(color = colors.background, shape = cardGroupBackground)
+        ) {
+            this.item {
+                EditItem(
+                    onClick = {
+                        navController.navigate(QQCleanerApp.ConfigSpecify) {
+                            popUpTo(QQCleanerApp.Edit)
+                        }
+                    }
+                )
+            }
         }
 
+    }
+}
 
+@Composable
+private fun EditItem(text: String = "配置名字", name: String = "作者", onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(72.dp)
+            .clip(shape = cardGroupBackground)
+            .clickable { onClick() }
+            .padding(horizontal = 16.dp, vertical = 18.dp)
+    ) {
+        Column {
+            Text(text = text)
+            Text(text = name)
+        }
     }
 }

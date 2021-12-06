@@ -21,6 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -145,8 +146,8 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         Item(
                             text = stringResource(id = R.string.item_cleaner_config),
                             onClick = {
-                                navController.navigate("edit_screen") {
-                                    popUpTo("main_screen")
+                                navController.navigate(QQCleanerApp.Edit) {
+                                    popUpTo(QQCleanerApp.Main)
                                 }
                             }
                         )
@@ -166,7 +167,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         Item(
                             text = stringResource(id = R.string.item_about),
                             onClick = {
-                                navController.navigate("developer_screen")
+                                navController.navigate(QQCleanerApp.Developer)
                             }
                         )
                     }
