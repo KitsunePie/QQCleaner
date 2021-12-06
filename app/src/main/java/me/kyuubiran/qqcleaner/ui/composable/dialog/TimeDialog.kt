@@ -112,7 +112,7 @@ fun TimeDialog(
             }.onAwait
             async {
                 height.animateTo(
-                    targetValue = if (flag) 240f else 0f,
+                    targetValue = if (flag) 260f else 0f,
                     animationSpec = tween(600)
                 ).apply {
                     if (!flag)
