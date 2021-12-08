@@ -58,7 +58,7 @@ object CleanManager {
     }
 
     fun getConfigDir(): File {
-        val path = "${CommonPath.sAndroidDataDir}/qqcleaner"
+        val path = "${CommonPath.storageData}/qqcleaner"
         val f = File(path)
         if (f.exists()) return f
         f.mkdir()
