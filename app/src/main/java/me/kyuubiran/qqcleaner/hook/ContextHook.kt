@@ -27,12 +27,12 @@ object ContextHook : BaseHook() {
     }
 
     private fun initQqOrTim() {
-        unhook = getMethodBySig("Lcom/tencent/mobileqq/startup/step/LoadDex;->doStep()Z")
+        unhook = getMethodByDesc("Lcom/tencent/mobileqq/startup/step/LoadDex;->doStep()Z")
             .hookAfter {
                 unhook?.unhook()
                 //获取Context
                 val context =
-                    getFieldBySig("Lcom/tencent/common/app/BaseApplicationImpl;->sApplication:Lcom/tencent/common/app/BaseApplicationImpl;")
+                    getFieldByDesc("Lcom/tencent/common/app/BaseApplicationImpl;->sApplication:Lcom/tencent/common/app/BaseApplicationImpl;")
                         .getStaticNonNullAs<Application>()
                 //初始化全局Context
                 Log.i("Init Context")
