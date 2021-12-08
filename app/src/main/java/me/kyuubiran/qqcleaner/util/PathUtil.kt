@@ -7,15 +7,15 @@ import me.kyuubiran.qqcleaner.util.path.WeChatPath
 
 object PathUtil {
     // -CommonPath
-    const val STORAGE_ANDROID_DATA = "!sAndroidDataDir"
-    const val DATA_ANDROID_DATA = "!dDataDir"
+    const val STORAGE_ANDROID_DATA = "!StorageDataDir"
+    const val DATA_ANDROID_DATA = "!PrivateDataDir"
 
     // -QQ/TIM
-    const val QQ_STORAGE_TENCENT = "!sTencentDir"
+    const val QQ_STORAGE_TENCENT = "!TencentDir"
 
     // -WeChat
-    const val WE_CHAT_STORAGE_USER_DATA = "!sUserData"
-    const val WE_CHAT_DATA_USER_DATA = "!dUserData"
+    const val WE_CHAT_STORAGE_USER_DATA = "!StorageUserData"
+    const val WE_CHAT_DATA_USER_DATA = "!PrivateUserData"
 
     fun getFullPath(path: String): String {
         var tmp = path
