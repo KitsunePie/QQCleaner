@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
+import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -142,7 +143,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                             }
                         ) {
 
-                            //Switch()
+                            Switch()
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_toggle_on),
                                 contentDescription = stringResource(id = R.string.item_cleaner),
