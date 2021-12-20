@@ -4,6 +4,6 @@
 
 ## 相对目录表
 
-!PublicDataDir -> storage/emulated/0/Android/data/com.tencent.mobileqq
-!PrivateDataDir -> data/user/0/com.tencent.mobileqq
-!TencentDir -> storage/emulated/0/tencent
+!PublicDataDir -> storage/emulated/0/Android/data/com.tencent.mobileqq    
+!PrivateDataDir -> data/user/0/com.tencent.mobileqq   
+!TencentDir -> storage/emulated/0/tencent   
