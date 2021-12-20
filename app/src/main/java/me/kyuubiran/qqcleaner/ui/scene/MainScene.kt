@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
@@ -37,6 +39,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
+import me.kyuubiran.qqcleaner.util.ConfigManager
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -155,6 +158,26 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                                 tint = colors.iconColor
                             )
                         }
+
+                        Item(
+                            text = stringResource(id = R.string.silence_clean),
+                            onClick = {
+                                if (!ConfigManager.sSilenceClean) Log.toast(appContext.getString(R.string.silence_clean_toast))
+                                ConfigManager.sSilenceClean = !ConfigManager.sSilenceClean
+                            }
+                        ) {
+
+                            Switch()
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_toggle_on),
+                                contentDescription = stringResource(id = R.string.item_cleaner),
+                                modifier = Modifier
+                                    .height(24.dp)
+                                    .width(36.dp),
+                                tint = colors.iconColor
+                            )
+                        }
+
                         Item(
                             stringResource(id = R.string.item_cleaner_time),
                             onClick = { isTime = true }

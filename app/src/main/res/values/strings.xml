@@ -90,6 +90,9 @@
     <string name="clean_done">好耶！清理完毕了！</string>
     <string name="clean_failed">坏耶！清理失败了！</string>
     <string name="item_cleaner">自动瘦身</string>
+    <string name="silence_clean">静默自动瘦身</string>
+    <string name="silence_clean_desc">拜托，你很烦内！</string>
+    <string name="silence_clean_toast">我才弹两个Toast你就嫌我烦！</string>
     <string name="item_cleaner_time">瘦身时长</string>
     <string name="item_cleaner_time_tip">"%d" h</string>
     <string name="item_cleaner_config">瘦身配置</string>
