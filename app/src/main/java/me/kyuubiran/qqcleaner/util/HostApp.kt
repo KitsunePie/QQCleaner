@@ -25,7 +25,7 @@ val hostAppName: String
         return when (hostApp) {
             HostApp.QQ -> "QQ"
             HostApp.TIM -> "TIM"
-            HostApp.WE_CHAT -> "微信"
+            HostApp.WE_CHAT -> "WECHAT"
         }
     }
 

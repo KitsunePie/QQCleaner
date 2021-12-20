@@ -7,35 +7,32 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 import me.kyuubiran.qqcleaner.hook.BaseHook
 import me.kyuubiran.qqcleaner.util.HostApp
 import me.kyuubiran.qqcleaner.util.hostApp
+import me.kyuubiran.qqcleaner.util.hostAppName
 
 class HookEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
     override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
         EzXHelperInit.initZygote(startupParam)
     }
 
+    private fun init(lpparam: XC_LoadPackage.LoadPackageParam, _hostApp: HostApp) {
+        EzXHelperInit.initHandleLoadPackage(lpparam)
+        hostApp = _hostApp
+        EzXHelperInit.setLogTag("QQCleaner-${hostAppName}")
+        EzXHelperInit.setLogTag("瘦身模块")
+        BaseHook.initHooks()
+    }
+
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName != lpparam.processName) return
         when (lpparam.packageName) {
             "com.tencent.mobileqq" -> {
-                EzXHelperInit.initHandleLoadPackage(lpparam)
-                EzXHelperInit.setLogTag("QQCleaner-QQ")
-                EzXHelperInit.setLogTag("瘦身模块")
-                hostApp = HostApp.QQ
-                BaseHook.initHooks()
+                init(lpparam, HostApp.QQ)
             }
             "com.tencent.tim" -> {
-                EzXHelperInit.initHandleLoadPackage(lpparam)
-                EzXHelperInit.setLogTag("QQCleaner-TIM")
-                EzXHelperInit.setLogTag("瘦身模块")
-                hostApp = HostApp.TIM
-                BaseHook.initHooks()
+                init(lpparam, HostApp.TIM)
             }
             "com.tencent.mm" -> {
-                EzXHelperInit.initHandleLoadPackage(lpparam)
-                EzXHelperInit.setLogTag("QQCleaner-WECHAT")
-                EzXHelperInit.setLogTag("瘦身模块")
-                hostApp = HostApp.WE_CHAT
-                BaseHook.initHooks()
+                init(lpparam, HostApp.WE_CHAT)
             }
         }
     }
