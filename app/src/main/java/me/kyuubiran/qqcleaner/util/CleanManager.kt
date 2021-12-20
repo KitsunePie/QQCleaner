@@ -28,7 +28,9 @@ object CleanManager {
                     }
                 }
             } catch (e: Exception) {
-                if (showToast) Log.toast(appContext.getString(R.string.clean_failed))
+                if (showToast) Log.toast(
+                    appContext.getString(R.string.clean_failed).format(this.title)
+                )
             }
         }
     }
