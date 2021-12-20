@@ -19,28 +19,27 @@ object CleanManager {
         if (showToast) Log.toast(
             appContext.getString(R.string.executing_config).format(this.title)
         )
-        this.content.forEach { data ->
-            if (!data.enable) return@forEach
-            data.pathList.forEach { path ->
-                deleteAll(PathUtil.getFullPath(path))
+        pool.execute e@{
+            try {
+                this.content.forEach { data ->
+                    if (!data.enable) return@forEach
+                    data.pathList.forEach { path ->
+                        deleteAll(PathUtil.getFullPath(path))
+                    }
+                }
+            } catch (e: Exception) {
+                if (showToast) Log.toast(appContext.getString(R.string.clean_failed))
             }
         }
     }
 
     fun executeAll(showToast: Boolean = true) {
-        pool.execute e@{
-            if (showToast) Log.toast(appContext.getString(R.string.clean_start))
-            try {
-                getAllConfigs().forEach {
-                    it.execute(showToast)
-                }
-            } catch (e: Exception) {
-                if (showToast) Log.toast(appContext.getString(R.string.clean_failed))
-                return@e
-            }
-            if (showToast) Log.toast(appContext.getString(R.string.clean_done))
+        if (showToast) Log.toast(appContext.getString(R.string.clean_start))
+        getAllConfigs().forEach {
+            it.execute(showToast)
         }
     }
+
 
     private fun deleteAll(path: String) {
         deleteAll(f = File(path))
