@@ -60,6 +60,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
             .background(colors.background)
     ) {
         Column {
+            //标题
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -67,7 +68,6 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                     .height(148.dp)
                     .padding(horizontal = 24.dp)
             ) {
-
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
@@ -100,7 +100,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                             .padding(horizontal = 8.dp, vertical = 4.dp)
                     ) {
                         Text(
-                            text = stringResource(R.string.last_cleaner_time, "11 / 21 03:00"),
+                            text = "11 / 21 03:00",
                             color = colors.buttonTextColor,
                             style = ButtonTitleTextStyle
                         )
@@ -129,6 +129,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
                     )
             ) {
+                //设定
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -137,6 +138,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                     CardTitle(text = stringResource(id = R.string.title_setup))
 
                     CardGroup(168.dp) {
+                        //自动瘦身
                         Item(
                             text = stringResource(id = R.string.item_cleaner),
                             onClick = {
@@ -176,9 +178,11 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                     }
 
 
+                    //更多
                     CardTitle(text = stringResource(id = R.string.title_more))
 
                     CardGroup(112.dp) {
+                        //切换主题
                         Item(
                             text = stringResource(id = R.string.item_theme),
                             onClick = {
@@ -187,7 +191,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         ) {
                             ForwardIcon(id = R.string.item_theme)
                         }
-
+                        //关于
                         Item(
                             text = stringResource(id = R.string.item_about),
                             onClick = {

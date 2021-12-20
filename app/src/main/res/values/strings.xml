@@ -97,4 +97,6 @@
     <string name="item_theme">主题风格</string>
     <string name="item_about">关于瘦身</string>
     <string name="dialog_title_time">设置自动瘦身时长</string>
+
+    <string name="executing_config">正在执行配置文件：%s</string>
 </resources>

@@ -71,4 +71,8 @@ object ConfigManager {
     var sTotalCleaned: Long
         set(value) = putLong("total_cleaned", value)
         get() = getLong("total_cleaned")
+
+    var sSilenceClean: Boolean
+        set(value) = putBool("silence_clean", value)
+        get() = getBool("silence_clean")
 }

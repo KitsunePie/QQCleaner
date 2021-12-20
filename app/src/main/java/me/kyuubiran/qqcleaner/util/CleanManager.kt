@@ -6,19 +6,37 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.util.path.CommonPath
 import java.io.File
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
 object CleanManager {
-    fun execute(showToast: Boolean) {
-        thread {
+    private val pool = ThreadPoolExecutor(1, 1, 180L, TimeUnit.SECONDS, LinkedBlockingQueue(256))
+
+    fun CleanData.execute(showToast: Boolean = true) {
+        if (!this.enable || !this.valid) return
+        if (showToast) Log.toast(
+            appContext.getString(R.string.executing_config).format(this.title)
+        )
+        this.content.forEach { data ->
+            if (!data.enable) return@forEach
+            data.pathList.forEach { path ->
+                deleteAll(PathUtil.getFullPath(path))
+            }
+        }
+    }
+
+    fun executeAll(showToast: Boolean = true) {
+        pool.execute e@{
             if (showToast) Log.toast(appContext.getString(R.string.clean_start))
             try {
                 getAllConfigs().forEach {
-                    executeCleanData(it)
+                    it.execute(showToast)
                 }
             } catch (e: Exception) {
                 if (showToast) Log.toast(appContext.getString(R.string.clean_failed))
-                return@thread
+                return@e
             }
             if (showToast) Log.toast(appContext.getString(R.string.clean_done))
         }
@@ -47,16 +65,6 @@ object CleanManager {
         }
     }
 
-    fun executeCleanData(cleanData: CleanData) {
-        if (!cleanData.enable || !cleanData.valid) return
-        cleanData.content.forEach { data ->
-            if (!data.enable) return@forEach
-            data.pathList.forEach { path ->
-                deleteAll(path)
-            }
-        }
-    }
-
     fun getConfigDir(): File {
         val path = "${CommonPath.storageData}/qqcleaner"
         val f = File(path)
@@ -65,7 +73,7 @@ object CleanManager {
         return f
     }
 
-    fun getAllConfigs(): Array<CleanData> {
+    private fun getAllConfigs(): Array<CleanData> {
         val arr = ArrayList<CleanData>()
         try {
             getConfigDir().listFiles()?.let {
