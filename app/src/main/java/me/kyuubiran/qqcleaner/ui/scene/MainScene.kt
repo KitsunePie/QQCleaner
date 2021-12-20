@@ -46,6 +46,8 @@ import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 @Composable
 fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavController) {
     var isTime by remember { mutableStateOf(false) }
+
+    var isButton by remember { mutableStateOf(false) }
     if (isTime) {
         TimeDialog {
             isTime = false
@@ -145,10 +147,11 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         Item(
                             text = stringResource(id = R.string.item_cleaner),
                             onClick = {
+                                isButton = !isButton
                             }
                         ) {
 
-                            Switch()
+                            Switch(isButton)
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_toggle_on),
                                 contentDescription = stringResource(id = R.string.item_cleaner),
@@ -167,7 +170,9 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                             }
                         ) {
 
-                            Switch()
+                            Switch(
+                                isButton
+                            )
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_toggle_on),
                                 contentDescription = stringResource(id = R.string.item_cleaner),

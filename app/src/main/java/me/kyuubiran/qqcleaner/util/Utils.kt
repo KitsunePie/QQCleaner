@@ -21,14 +21,6 @@ fun Context.jumpUri(uri: Uri) {
     this.startActivity(Intent(Intent.ACTION_VIEW, uri))
 }
 
-fun fixedRange(min: Int, max: Int, current: Int, add: Int): Int {
-    return when {
-        current + add > max -> max
-        current + add < min -> min
-        else -> current + add
-    }
-}
-
 fun getFormatCleanedSize(): String {
     val cleaned = ConfigManager.sTotalCleaned
     val sl = BigDecimal(cleaned)
