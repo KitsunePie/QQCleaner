@@ -1,0 +1,185 @@
+{
+  "title": "默认配置",
+  "author": "KyuubiRan",
+  "enable": true,
+  "hostApp": "qq/tim",
+  "content": [
+    {
+      "title": "缓存",
+      "enable": true,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/diskcache",
+        "!AndroidDataDir/Tencent/MobileQQ/Scribble/ScribbleCache"
+      ]
+    },
+    {
+      "title": "图片",
+      "enable": true,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/photo",
+        "!AndroidDataDir/Tencent/MobileQQ/chatpic",
+        "!AndroidDataDir/Tencent/MobileQQ/thumb",
+        "!AndroidDataDir/Tencent/MobileQQ/hotpic",
+        "!AndroidDataDir/QQ_Images/QQEditPic"
+      ]
+    },
+    {
+      "title": "短视频",
+      "enable": true,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/shortvideo",
+        "!AndroidDataDir/files/VideoCache",
+        "!AndroidDataDir/files/video_story"
+      ]
+    },
+    {
+      "title": "DIY名片",
+      "enable": true,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.apollo",
+        "!AndroidDataDir/Tencent/MobileQQ/vas/lottie"
+      ]
+    },
+    {
+      "title": "广告",
+      "enable": true,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/pddata",
+        "!AndroidDataDir/Tencent/MobileQQ/qbosssplahAD"
+      ]
+    },
+    {
+      "title": "头像",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/head",
+        "!TencentDir/MobileQQ/head"
+      ]
+    },
+    {
+      "title": "挂件",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.pendant"
+      ]
+    },
+    {
+      "title": "个人主页背景",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.profilecard"
+      ]
+    },
+    {
+      "title": "视频通话背景",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/funcall"
+      ]
+    },
+    {
+      "title": "小程序",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/mini"
+      ]
+    },
+    {
+      "title": "字体",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.hiboom_font",
+        "!AndroidDataDir/Tencent/MobileQQ/.font_info"
+      ]
+    },
+    {
+      "title": "礼物",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.gift"
+      ]
+    },
+    {
+      "title": "戳一戳",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.vaspoke",
+        "!AndroidDataDir/Tencent/MobileQQ/.newpoke",
+        "!AndroidDataDir/Tencent/MobileQQ/poke"
+      ]
+    },
+    {
+      "title": "进场特效",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.troop/enter_effects"
+      ]
+    },
+    {
+      "title": "聊天表情",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.emotionsm"
+      ]
+    },
+    {
+      "title": "VIP图标",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.vipicon"
+      ]
+    },
+    {
+      "title": "表情推荐",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/DoutuRes"
+      ]
+    },
+    {
+      "title": "斗图",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/.sticker_recommended_pics",
+        "!AndroidDataDir/Tencent/MobileQQ/pe"
+      ]
+    },
+    {
+      "title": "日志",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/files/tbslog",
+        "!AndroidDataDir/files/onelong",
+        "!AndroidDataDir/files/tencent/tbs_common_log",
+        "!AndroidDataDir/files/tencent/tbs_live_log"
+      ]
+    },
+    {
+      "title": "接收文件缓存",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/QQfile_recv/trooptmp",
+        "!AndroidDataDir/Tencent/QQfile_recv/tmp",
+        "!AndroidDataDir/Tencent/QQfile_recv/thumbnails"
+      ]
+    },
+    {
+      "title": "调试数据",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/avdebug"
+      ]
+    },
+    {
+      "title": "其他",
+      "enable": false,
+      "path": [
+        "!AndroidDataDir/Tencent/MobileQQ/qav",
+        "!AndroidDataDir/Tencent/MobileQQ/qqmusic",
+        "!AndroidDataDir/Tencent/MobileQQ/pddata",
+        "!AndroidDataDir/files/tbs",
+        "!TencentDir/TMAssistantSDK"
+      ]
+    }
+  ]
+}
