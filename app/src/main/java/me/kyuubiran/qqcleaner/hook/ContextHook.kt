@@ -6,6 +6,7 @@ import com.github.kyuubiran.ezxhelper.utils.*
 import de.robv.android.xposed.XC_MethodHook
 import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.HookEntry
+import me.kyuubiran.qqcleaner.util.AutoCleanManager
 import me.kyuubiran.qqcleaner.util.hostApp
 import me.kyuubiran.qqcleaner.util.isQqOrTim
 import me.kyuubiran.qqcleaner.util.isWeChat
@@ -46,6 +47,8 @@ object ContextHook : BaseHook() {
                 )
                 Log.i("Init ActivitySubActivity")
                 EzXHelperInit.initSubActivity()
+
+                AutoCleanManager.initAutoClean
             }
     }
 
