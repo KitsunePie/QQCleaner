@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
 import android.os.Build
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -16,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -284,7 +282,6 @@ private fun SwitchItem(
     onClick: ((Boolean) -> Unit)? = null,
     clickNoToggle: Boolean = false
 ) {
-    val context = LocalContext.current
     fun toggle() {
         if (onClick == null) {
             checked.value = !checked.value
@@ -293,9 +290,7 @@ private fun SwitchItem(
             onClick(checked.value)
         }
     }
-    LaunchedEffect(checked.value) {
-        Toast.makeText(context, "修改为${checked.value}", Toast.LENGTH_SHORT).show()
-    }
+
     Item(text = text, onClick = { toggle() }) {
         Switch(checked = checked)
     }
