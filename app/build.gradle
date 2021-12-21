@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "31.0"
+    compileSdkVersion 32
+    buildToolsVersion "32.0"
 
     defaultConfig {
         applicationId "me.kyuubiran.qqcleaner"
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 60
         versionName "2.0.0"
 
@@ -82,10 +82,10 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
 
-    implementation "androidx.activity:activity-compose:$compoose_android"
+    implementation "androidx.activity:activity-compose:1.4.0"
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
 
-    implementation "androidx.navigation:navigation-compose:$navigation_version"
+    implementation "androidx.navigation:navigation-compose:2.4.0-rc01"
 
 }
