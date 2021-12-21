@@ -24,7 +24,10 @@ val DarkColorPalette = QQCleanerColors(
     dialogButtonTextPress = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
     dialogButtonTextDefault = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
     iconColor = Color(0x60FFFFFF).convert(ColorSpaces.CieXyz),
-    tipTextColor = Color(0x99FFFFFF).convert(ColorSpaces.CieXyz)
+    tipTextColor = Color(0x99FFFFFF).convert(ColorSpaces.CieXyz),
+    toggleBorderColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
+    toggleOffColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
+    toggleOnColor = Color(0xFF82a8e7).convert(ColorSpaces.CieXyz)
 )
 
 val LightColorPalette = QQCleanerColors(
@@ -43,7 +46,10 @@ val LightColorPalette = QQCleanerColors(
     dialogButtonTextPress = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
     dialogButtonTextDefault = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
     iconColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
-    tipTextColor = Color(0xFF5F6368).convert(ColorSpaces.CieXyz)
+    tipTextColor = Color(0xFF5F6368).convert(ColorSpaces.CieXyz),
+    toggleBorderColor = Color(0xFFd6dde7).convert(ColorSpaces.CieXyz),
+    toggleOffColor = Color(0xFFd6dde7).convert(ColorSpaces.CieXyz),
+    toggleOnColor = Color(0xFF2196f3).convert(ColorSpaces.CieXyz)
 )
 
 
@@ -64,7 +70,10 @@ class QQCleanerColors(
     dialogButtonTextPress: Color,
     dialogButtonTextDefault: Color,
     iconColor: Color,
-    tipTextColor: Color
+    tipTextColor: Color,
+    toggleBorderColor: Color,
+    toggleOffColor: Color,
+    toggleOnColor: Color
 ) {
     var background: Color by mutableStateOf(background)
         private set
@@ -95,6 +104,12 @@ class QQCleanerColors(
     var dialogButtonTextDefault: Color by mutableStateOf(dialogButtonTextDefault)
         private set
     var iconColor: Color by mutableStateOf(iconColor)
+        private set
+    var toggleBorderColor: Color by mutableStateOf(toggleBorderColor)
+        private set
+    var toggleOffColor: Color by mutableStateOf(toggleOffColor)
+        private set
+    var toggleOnColor: Color by mutableStateOf(toggleOnColor)
         private set
     var tipTextColor: Color by mutableStateOf(tipTextColor)
         private set

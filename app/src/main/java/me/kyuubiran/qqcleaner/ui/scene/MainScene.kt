@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -42,6 +43,7 @@ import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
 import me.kyuubiran.qqcleaner.util.ConfigManager
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 
+@ExperimentalMaterialApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavController) {
@@ -151,14 +153,11 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                             }
                         ) {
 
-                            Switch(isButton)
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_toggle_on),
-                                contentDescription = stringResource(id = R.string.item_cleaner),
-                                modifier = Modifier
-                                    .height(24.dp)
-                                    .width(36.dp),
-                                tint = colors.iconColor
+                            Switch(
+                                isButton,
+                                onCheckedChange = {
+                                    isButton = it
+                                }
                             )
                         }
 
@@ -171,15 +170,10 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         ) {
 
                             Switch(
-                                isButton
-                            )
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_toggle_on),
-                                contentDescription = stringResource(id = R.string.item_cleaner),
-                                modifier = Modifier
-                                    .height(24.dp)
-                                    .width(36.dp),
-                                tint = colors.iconColor
+                                isButton,
+                                onCheckedChange = {
+                                    isButton = it
+                                }
                             )
                         }
 
