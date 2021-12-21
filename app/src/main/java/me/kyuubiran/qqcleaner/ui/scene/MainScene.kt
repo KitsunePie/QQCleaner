@@ -40,8 +40,9 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
-import me.kyuubiran.qqcleaner.util.ConfigManager
+import me.kyuubiran.qqcleaner.ui.view.SwitchItem
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
+import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 @ExperimentalMaterialApi
 @RequiresApi(Build.VERSION_CODES.O)
@@ -161,21 +162,30 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                             )
                         }
 
-                        Item(
-                            text = stringResource(id = R.string.silence_clean),
-                            onClick = {
-                                if (!ConfigManager.sSilenceClean) Log.toast(appContext.getString(R.string.silence_clean_toast))
-                                ConfigManager.sSilenceClean = !ConfigManager.sSilenceClean
-                            }
-                        ) {
+//                        Item(
+//                            text = stringResource(id = R.string.silence_clean),
+//                            onClick = {
+//                                if (!ConfigManager.sSilenceClean) Log.toast(appContext.getString(R.string.silence_clean_toast))
+//                                ConfigManager.sSilenceClean = !ConfigManager.sSilenceClean
+//                            }
+//                        ) {
+//
+//                            Switch(
+//                                isButton,
+//                                onCheckedChange = {
+//                                    isButton = it
+//                                }
+//                            )
+//                        }
 
-                            Switch(
-                                isButton,
-                                onCheckedChange = {
-                                    isButton = it
-                                }
-                            )
-                        }
+                        SwitchItem(
+                            text = stringResource(id = R.string.silence_clean),
+                            checked = rememberMutableStateOf(
+                                value = false
+                            ), onClick = {
+                                if (it) Log.toast(appContext.getString(R.string.silence_clean_toast))
+                            }
+                        )
 
                         Item(
                             stringResource(id = R.string.item_cleaner_time),
