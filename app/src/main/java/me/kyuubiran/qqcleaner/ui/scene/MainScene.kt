@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -15,23 +16,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
-import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
@@ -41,7 +39,6 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
-import me.kyuubiran.qqcleaner.util.ConfigManager
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
@@ -51,7 +48,6 @@ import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavController) {
     var isTime by remember { mutableStateOf(false) }
 
-    var isButton by remember { mutableStateOf(false) }
     if (isTime) {
         TimeDialog {
             isTime = false
@@ -151,10 +147,11 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         SwitchItem(
                             text = stringResource(id = R.string.item_cleaner),
                             checked = rememberMutableStateOf(
-                                value = ConfigManager.sAutoClean
+                                value = true
+                                //value = ConfigManager.sAutoClean
                             ),
                             onClick = {
-                                ConfigManager.sAutoClean = it
+                                //ConfigManager.sAutoClean = it
                             }
                         )
 
@@ -162,33 +159,36 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         SwitchItem(
                             text = stringResource(id = R.string.silence_clean),
                             checked = rememberMutableStateOf(
-                                value = ConfigManager.sSilenceClean
+                                value = true
+                                // value = ConfigManager.sSilenceClean
                             ), onClick = {
-                                if (it) Log.toast(appContext.getString(R.string.silence_clean_toast))
-                                ConfigManager.sSilenceClean = it
+//                                if (it) Log.toast(appContext.getString(R.string.silence_clean_toast))
+//                                ConfigManager.sSilenceClean = it
                             }
                         )
 
                         Item(
                             stringResource(id = R.string.item_cleaner_time),
-                            onClick = { isTime = true }
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.item_cleaner_time_tip, 24),
-                                color = colors.textColor,
-                                style = TipStyle
-                            )
-                        }
+                            onClick = { isTime = true },
+                            content = {
+                                Text(
+                                    text = stringResource(id = R.string.item_cleaner_time_tip, 24),
+                                    color = colors.textColor,
+                                    style = TipStyle
+                                )
+                            }
+                        )
                         Item(
                             text = stringResource(id = R.string.item_cleaner_config),
                             onClick = {
                                 navController.navigate(QQCleanerApp.Edit) {
                                     popUpTo(QQCleanerApp.Main)
                                 }
+                            },
+                            content = {
+                                ForwardIcon(id = R.string.item_cleaner_config)
                             }
-                        ) {
-                            ForwardIcon(id = R.string.item_cleaner_config)
-                        }
+                        )
                     }
 
 
@@ -201,19 +201,20 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                             text = stringResource(id = R.string.item_theme),
                             onClick = {
                                 isTheme = true
-                            }
-                        ) {
-                            ForwardIcon(id = R.string.item_theme)
-                        }
+                            },
+                            content = {
+                                ForwardIcon(id = R.string.item_theme)
+                            })
                         //关于
                         Item(
                             text = stringResource(id = R.string.item_about),
                             onClick = {
                                 navController.navigate(QQCleanerApp.Developer)
+                            },
+                            content = {
+                                ForwardIcon(R.string.item_about)
                             }
-                        ) {
-                            ForwardIcon(R.string.item_about)
-                        }
+                        )
                     }
                 }
             }
@@ -260,7 +261,7 @@ fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .clip(QQCleanerShapes.cardGroupBackground)
+            .clip(cardGroupBackground)
             .clickable { onClick.invoke() }
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -268,7 +269,7 @@ fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit
         Text(
             text = text,
             style = QQCleanerTypes.itemTextStyle,
-            color = QQCleanerColorTheme.colors.textColor,
+            color = colors.textColor,
             modifier = Modifier.weight(1f),
         )
         content()
@@ -283,6 +284,7 @@ private fun SwitchItem(
     onClick: ((Boolean) -> Unit)? = null,
     clickNoToggle: Boolean = false
 ) {
+    val context = LocalContext.current
     fun toggle() {
         if (onClick == null) {
             checked.value = !checked.value
@@ -291,8 +293,10 @@ private fun SwitchItem(
             onClick(checked.value)
         }
     }
-
+    LaunchedEffect(checked.value) {
+        Toast.makeText(context, "修改为${checked.value}", Toast.LENGTH_SHORT).show()
+    }
     Item(text = text, onClick = { toggle() }) {
-        Switch(checked = checked, onCheckedChange = { if (it != checked.value) toggle() })
+        Switch(checked = checked)
     }
 }
