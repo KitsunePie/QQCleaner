@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
@@ -14,6 +15,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -25,19 +27,21 @@ import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
-import me.kyuubiran.qqcleaner.ui.composable.Item
+import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.ButtonTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.SubTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
-import me.kyuubiran.qqcleaner.ui.view.SwitchItem
 import me.kyuubiran.qqcleaner.util.ConfigManager
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
@@ -249,4 +253,48 @@ private fun CardTitle(text: String) {
         color = colors.textColor,
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
     )
+}
+
+@Composable
+fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .clip(QQCleanerShapes.cardGroupBackground)
+            .clickable { onClick.invoke() }
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = text,
+            style = QQCleanerTypes.itemTextStyle,
+            color = QQCleanerColorTheme.colors.textColor,
+            modifier = Modifier.weight(1f),
+        )
+        content()
+    }
+}
+
+
+@ExperimentalMaterialApi
+@Composable
+private fun SwitchItem(
+    text: String,
+    checked: MutableState<Boolean>,
+    onClick: ((Boolean) -> Unit)? = null,
+    clickNoToggle: Boolean = false
+) {
+    fun toggle() {
+        if (onClick == null) {
+            checked.value = !checked.value
+        } else {
+            if (!clickNoToggle) checked.value = !checked.value
+            onClick(checked.value)
+        }
+    }
+
+    Item(text = text, onClick = { toggle() }) {
+        Switch(checked = checked, onCheckedChange = { if (it != checked.value) toggle() })
+    }
 }
