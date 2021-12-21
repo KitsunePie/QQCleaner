@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -47,11 +46,6 @@ fun Switch(
         return this.dp2px(context)
     }
 
-    fun Int.dp2px(): Float {
-        return this.dp2px(context)
-    }
-
-
     val swipeableState = rememberSwipeableState(
         // 初始值
         initialValue = if (checked.value) 1 else 0,
@@ -73,12 +67,14 @@ fun Switch(
     // 按钮球形的宽
     val squareSize = 10.dp
     val max = 14.dp
+
+    val maxProgress = max.value.dp2px()
     // 按钮颜色，暂时没有更好的办法
     val color = Color(
         ColorUtils.mixColor(
             colors.toggleOffColor.toArgb(),
             colors.toggleOnColor.toArgb(),
-            (swipeableState.offset.value / max.value.dp2px()).let {
+            (swipeableState.offset.value / maxProgress).let {
                 // 修复初始化是开但是颜色不变的情况
                 if (it == 0f && checked.value)
                     1f
@@ -88,20 +84,16 @@ fun Switch(
         )
     )
 
-
-
-
     // 获取最大值位置
-    val sizePx = with(LocalDensity.current) { max.toPx() }
 
     // 这个就是进度条的分配比例
-    val anchors = mapOf(0f to 0, sizePx to 1)
+    val anchors = mapOf(0f to 0, maxProgress to 1)
     // 通过按钮状态给 Boolean 赋值
     LaunchedEffect(swipeableState.offset.value) {
-        if (((swipeableState.offset.value / max.value.dp2px()).fixedRange() == 1.0f) && !checked.value)
+        if (((swipeableState.offset.value / maxProgress).fixedRange() == 1.0f) && !checked.value)
             checked.value = true
         // 防止值的修改错误
-        if (((swipeableState.offset.value / max.value.dp2px()).fixedRange() == 0f) && checked.value)
+        if (((swipeableState.offset.value / maxProgress).fixedRange() == 0f) && checked.value)
             checked.value = false
     }
 
@@ -133,7 +125,7 @@ fun Switch(
                 .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) }
                 .width(squareSize)
                 // 通过给高度乘系数完成转换
-                .height((5 * (1 + swipeableState.offset.value / 14.dp2px())).dp)
+                .height((5 * (1 + swipeableState.offset.value / maxProgress)).dp)
                 .clip(shape = RoundedCornerShape(percent = 100))
                 .background(color)
         )

@@ -11,6 +11,8 @@
     <string name="notify">注意</string>
     <string name="wrong_click">我点错了</string>
 
+    <string name="icon_content_description">这个是一个装饰性的图标没什么用处，可以跳过它</string>
+
     <string name="not_ready_yet">还没有准备好哦~</string>
 
     <string name="clean_settings_title">瘦身设置</string>
