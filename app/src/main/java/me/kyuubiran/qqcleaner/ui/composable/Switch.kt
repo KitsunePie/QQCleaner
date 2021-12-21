@@ -66,12 +66,19 @@ fun Switch(
         swipeableState.animateTo(if (checked.value) 1 else 0)
     }
 
+    // 按钮的宽高
+    val width = 36.dp
+    val height = 20.dp
+
+    // 按钮球形的宽
+    val squareSize = 10.dp
+    val max = 14.dp
     // 按钮颜色，暂时没有更好的办法
     val color = Color(
         ColorUtils.mixColor(
             colors.toggleOffColor.toArgb(),
             colors.toggleOnColor.toArgb(),
-            (swipeableState.offset.value / 14.dp2px()).let {
+            (swipeableState.offset.value / max.value.dp2px()).let {
                 // 修复初始化是开但是颜色不变的情况
                 if (it == 0f && checked.value)
                     1f
@@ -82,13 +89,7 @@ fun Switch(
     )
 
 
-    // 按钮的宽高
-    val width = 36.dp
-    val height = 20.dp
 
-    // 按钮球形的宽
-    val squareSize = 10.dp
-    val max = 14.dp
 
     // 获取最大值位置
     val sizePx = with(LocalDensity.current) { max.toPx() }
@@ -97,7 +98,7 @@ fun Switch(
     val anchors = mapOf(0f to 0, sizePx to 1)
     // 通过按钮状态给 Boolean 赋值
     LaunchedEffect(swipeableState.offset.value) {
-        if (((swipeableState.offset.value / max.value.dp2px()).fixedRange() > 0.91f) && !checked.value)
+        if (((swipeableState.offset.value / max.value.dp2px()).fixedRange() == 1.0f) && !checked.value)
             checked.value = true
         // 防止值的修改错误
         if (((swipeableState.offset.value / max.value.dp2px()).fixedRange() == 0f) && checked.value)
