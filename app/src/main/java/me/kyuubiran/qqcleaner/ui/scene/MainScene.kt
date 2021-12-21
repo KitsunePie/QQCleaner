@@ -38,6 +38,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
 import me.kyuubiran.qqcleaner.ui.view.SwitchItem
+import me.kyuubiran.qqcleaner.util.ConfigManager
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
@@ -144,53 +145,24 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
 
                     CardGroup(168.dp) {
                         //自动瘦身
-//                        Item(
-//                            text = stringResource(id = R.string.item_cleaner),
-//                            onClick = {
-//                                isButton = !isButton
-//                            }
-//                        ) {
-//
-//                            Switch(
-//                                isButton,
-//                                onCheckedChange = {
-//                                    isButton = it
-//                                }
-//                            )
-//                        }
-
                         SwitchItem(
                             text = stringResource(id = R.string.item_cleaner),
                             checked = rememberMutableStateOf(
-                                value = isButton
+                                value = ConfigManager.sAutoClean
                             ),
                             onClick = {
-
+                                ConfigManager.sAutoClean = it
                             }
                         )
 
-//                        Item(
-//                            text = stringResource(id = R.string.silence_clean),
-//                            onClick = {
-//                                if (!ConfigManager.sSilenceClean) Log.toast(appContext.getString(R.string.silence_clean_toast))
-//                                ConfigManager.sSilenceClean = !ConfigManager.sSilenceClean
-//                            }
-//                        ) {
-//
-//                            Switch(
-//                                isButton,
-//                                onCheckedChange = {
-//                                    isButton = it
-//                                }
-//                            )
-//                        }
-
+                        //静默瘦身
                         SwitchItem(
                             text = stringResource(id = R.string.silence_clean),
                             checked = rememberMutableStateOf(
-                                value = false
+                                value = ConfigManager.sSilenceClean
                             ), onClick = {
                                 if (it) Log.toast(appContext.getString(R.string.silence_clean_toast))
+                                ConfigManager.sSilenceClean = it
                             }
                         )
 
