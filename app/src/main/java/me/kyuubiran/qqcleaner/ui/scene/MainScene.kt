@@ -1,6 +1,5 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
-
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
@@ -275,7 +274,6 @@ fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit
         content()
     }
 }
-
 
 @ExperimentalMaterialApi
 @Composable

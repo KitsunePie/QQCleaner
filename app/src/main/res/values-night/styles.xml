@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="DarkBaseTheme" parent="android:ThemeOverlay.Material.Dark">
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">false</item>
@@ -10,5 +11,6 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
+
     <style name="AppTheme" parent="DarkBaseTheme" />
 </resources>
