@@ -87,7 +87,7 @@
     <string name="not_implement_yet">还没有做完！咕咕一百年~</string>
 
     <string name="clean_start">正在执行清理…</string>
-    <string name="clean_failed">坏耶！执行配置文件“%s”失败了！</string>
+    <string name="clean_failed">执行配置文件“%s”时发生错误，已跳过剩余部分。</string>
     <string name="item_cleaner">自动瘦身</string>
     <string name="silence_clean">静默自动瘦身</string>
     <string name="silence_clean_desc">拜托，你很烦内！</string>

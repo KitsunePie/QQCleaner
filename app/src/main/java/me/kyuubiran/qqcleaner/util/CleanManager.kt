@@ -14,22 +14,23 @@ import kotlin.concurrent.thread
 object CleanManager {
     private val pool = ThreadPoolExecutor(1, 1, 180L, TimeUnit.SECONDS, LinkedBlockingQueue(256))
 
-    fun CleanData.execute(showToast: Boolean = true) {
-        if (!this.enable || !this.valid) return
+    fun execute(data: CleanData, showToast: Boolean = true) {
+        if (!data.enable || !data.valid) return
         if (showToast) Log.toast(
-            appContext.getString(R.string.executing_config).format(this.title)
+            appContext.getString(R.string.executing_config).format(data.title)
         )
         pool.execute e@{
             try {
-                this.content.forEach { data ->
+                data.content.forEach { data ->
                     if (!data.enable) return@forEach
                     data.pathList.forEach { path ->
                         deleteAll(PathUtil.getFullPath(path))
                     }
                 }
             } catch (e: Exception) {
+                Log.e("Execute failed, skipped: ${data.title}", e)
                 if (showToast) Log.toast(
-                    appContext.getString(R.string.clean_failed).format(this.title)
+                    appContext.getString(R.string.clean_failed).format(data.title)
                 )
             }
         }
@@ -38,7 +39,7 @@ object CleanManager {
     fun executeAll(showToast: Boolean = true) {
         if (showToast) Log.toast(appContext.getString(R.string.clean_start))
         getAllConfigs().forEach {
-            it.execute(showToast)
+            execute(it, showToast)
         }
     }
 

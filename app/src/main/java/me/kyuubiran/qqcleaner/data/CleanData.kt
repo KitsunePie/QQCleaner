@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.*
+import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.CleanManager.getConfigDir
 import me.kyuubiran.qqcleaner.util.HostAppUtil
 import org.json.JSONObject
@@ -28,13 +29,6 @@ class CleanData(private val jsonObject: JSONObject) {
                 jsonObject.put("enable", value)
             }
             get() = jsonObject.getBooleanOrDefault("enable", false)
-
-//        // 正则表达式
-//        var regexp: Boolean
-//            set(value) {
-//                jsonObject.put("regexp", value)
-//            }
-//            get() = jsonObject.getBooleanOrDefault("regexp")
 
         // 路径
         val pathList = jsonObject.getJSONArrayOrEmpty("path").toArrayList<String>()
@@ -91,7 +85,7 @@ class CleanData(private val jsonObject: JSONObject) {
     // 宿主类型
     var hostApp: String
         set(value) {
-            jsonObject.put("author", value)
+            jsonObject.put("hostApp", value)
         }
         get() = jsonObject.getStringOrDefault("hostApp")
 
@@ -124,22 +118,42 @@ class CleanData(private val jsonObject: JSONObject) {
         return jsonObject.toString()
     }
 
+    /**
+     * 格式化的JSONString
+     * @param indentSpaces 缩进
+     */
     fun toFormatString(indentSpaces: Int = 2): String {
         return jsonObject.toString(indentSpaces)
     }
 
+    /**
+     * 复制到剪切板
+     */
     fun copyToClipboard() {
         (appContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).run {
             setPrimaryClip(ClipData.newPlainText(title, toFormatString()))
         }
     }
 
+    /**
+     * 导出配置文件到下载目录
+     */
     fun export() {
         val f = File("/storage/emulated/0/Download/${this.title}.json")
         if (!f.exists()) f.createNewFile()
         f.writeText(this.toFormatString())
     }
 
+    /**
+     * 将配置文件推至队列执行
+     */
+    fun pushToExecutionQueue(showToast: Boolean = true) {
+        CleanManager.execute(this, showToast)
+    }
+
+    /**
+     * 保存配置文件 一般在返回的时候调用
+     */
     @Synchronized
     fun save() {
         file?.let {
@@ -153,6 +167,9 @@ class CleanData(private val jsonObject: JSONObject) {
         }
     }
 
+    /**
+     * 删除配置文件
+     */
     @Synchronized
     fun delete() {
         file?.let {
