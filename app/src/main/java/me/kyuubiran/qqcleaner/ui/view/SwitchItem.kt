@@ -8,15 +8,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.utils.dp2px
@@ -30,6 +32,32 @@ fun SwitchItem(
     onClick: ((Boolean) -> Unit)? = null,
     clickNoToggle: Boolean = false
 ) {
+
+    val swipeableState = rememberSwipeableState(if (checked.value) 1 else 0)
+    val width = 36.dp
+    val height = 20.dp
+    val squareSize = 10.dp
+    val max = 14.dp
+
+    val sizePx = with(LocalDensity.current) { max.toPx() }
+    val anchors = mapOf(0f to 0, sizePx to 1)
+    val color = Color(
+        mixColor(
+            colors.toggleOffColor.toArgb(),
+            colors.toggleOnColor.toArgb(),
+            (swipeableState.offset.value / 14.dp2px()).let {
+                if (it == 0f && checked.value)
+                    1f
+                else
+                    it
+            }.fixedRange()
+        )
+    )
+    // 判断当前值来修改位置
+    LaunchedEffect(checked.value) {
+        swipeableState.animateTo(if (checked.value) 1 else 0)
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,36 +76,11 @@ fun SwitchItem(
         Text(
             text = text,
             style = QQCleanerTypes.itemTextStyle,
-            color = QQCleanerColorTheme.colors.textColor,
+            color = colors.textColor,
             modifier = Modifier.weight(1f),
         )
 
         //Switch部分
-
-        val swipeableState = if (checked.value) {
-            rememberSwipeableState(1)
-        } else {
-            rememberSwipeableState(0)
-        }
-
-        val width = 36.dp
-        val height = 20.dp
-        val squareSize = 10.dp
-        val max = 14.dp
-
-        val sizePx = with(LocalDensity.current) { max.toPx() }
-
-        val progress = swipeableState.offset.value / 14.dp2px()
-
-        val anchors = mapOf(0f to 0, sizePx to 1)
-
-        val color = Color(
-            mixColor(
-                0xFFd6dde7,
-                0xFF2196f3,
-                progress.fixedRange()
-            )
-        )
 
         Box(
             modifier = Modifier
@@ -85,7 +88,7 @@ fun SwitchItem(
                 .width(width)
                 .clip(shape = RoundedCornerShape(100))
                 .border(
-                    color = QQCleanerColorTheme.colors.toggleBorderColor,
+                    color = colors.toggleBorderColor,
                     width = 2.dp,
                     shape = RoundedCornerShape(100)
                 )
@@ -102,7 +105,7 @@ fun SwitchItem(
                 Modifier
                     .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) }
                     .width(squareSize)
-                    .height((5 * (1 + progress)).dp)
+                    .height((5 * (1 + swipeableState.offset.value / 14.dp2px())).dp)
                     .clip(shape = RoundedCornerShape(percent = 100))
                     .background(color)
             )
@@ -118,7 +121,7 @@ private fun Float.fixedRange(): Float {
     }
 }
 
-private fun mixColor(color1: Long, color2: Long, ratio: Float): Int {
+private fun mixColor(color1: Int, color2: Int, ratio: Float): Int {
     val inverse = 1 - ratio
     val a = (color1 ushr 24) * inverse + (color2 ushr 24) * ratio
     val r = (color1 shr 16 and 0xFF) * inverse + (color2 shr 16 and 0xFF) * ratio

@@ -27,7 +27,6 @@ import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
-import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -147,20 +146,30 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
 
                     CardGroup(168.dp) {
                         //自动瘦身
-                        Item(
-                            text = stringResource(id = R.string.item_cleaner),
-                            onClick = {
-                                isButton = !isButton
-                            }
-                        ) {
+//                        Item(
+//                            text = stringResource(id = R.string.item_cleaner),
+//                            onClick = {
+//                                isButton = !isButton
+//                            }
+//                        ) {
+//
+//                            Switch(
+//                                isButton,
+//                                onCheckedChange = {
+//                                    isButton = it
+//                                }
+//                            )
+//                        }
 
-                            Switch(
-                                isButton,
-                                onCheckedChange = {
-                                    isButton = it
-                                }
-                            )
-                        }
+                        SwitchItem(
+                            text = stringResource(id = R.string.item_cleaner),
+                            checked = rememberMutableStateOf(
+                                value = isButton
+                            ),
+                            onClick = {
+
+                            }
+                        )
 
 //                        Item(
 //                            text = stringResource(id = R.string.silence_clean),
