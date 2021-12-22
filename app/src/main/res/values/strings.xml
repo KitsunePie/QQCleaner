@@ -30,6 +30,7 @@
 
     <string name="last_clean_date_title">上次瘦身 %s</string>
     <string name="no_last_clean_date_record">你还还没有瘦身过哦~</string>
+    <string name="no_last_clean_date_record_mini">暂无瘦身记录</string>
     <string name="total_cleaned_title">总计清理</string>
 
     <string name="click_to_reset_clean_date_with_times">再点击%d次重置瘦身日期</string>

@@ -114,26 +114,24 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         color = colors.textColor
                     )
                     // 蓝色日期
-                    if (lastClean > 0L) {
-                        Box(
-                            modifier = Modifier
-                                .padding(top = 16.dp, bottom = 24.dp)
-                                .height(18.dp)
-                                .background(
-                                    colors.themeColor,
-                                    RoundedCornerShape(4.dp)
-                                )
-                                .padding(horizontal = 8.dp, vertical = 4.dp)
-                        ) {
-                            Text(
-                                text = stringResource(
-                                    id = R.string.last_clean_date_title,
-                                    getLastCleanTimeText(lastClean)
-                                ),
-                                color = colors.buttonTextColor,
-                                style = ButtonTitleTextStyle
+                    Box(
+                        modifier = Modifier
+                            .padding(top = 16.dp, bottom = 24.dp)
+                            .height(18.dp)
+                            .background(
+                                colors.themeColor,
+                                RoundedCornerShape(4.dp)
                             )
-                        }
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    ) {
+                        Text(
+                            text = if (lastClean > 0L) stringResource(
+                                id = R.string.last_clean_date_title,
+                                getLastCleanTimeText(lastClean)
+                            ) else stringResource(id = R.string.no_last_clean_date_record_mini),
+                            color = colors.buttonTextColor,
+                            style = ButtonTitleTextStyle
+                        )
                     }
                 }
                 Image(
@@ -246,7 +244,6 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                 }
             }
         }
-
     }
 }
 
