@@ -166,7 +166,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                 ) {
                     CardTitle(text = stringResource(id = R.string.title_setup))
 
-                    CardGroup(168.dp) {
+                    CardGroup(224.dp) {
                         //自动瘦身
                         SwitchItem(
                             text = stringResource(id = R.string.item_cleaner),
@@ -196,7 +196,10 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                             onClick = { timeDialogShow = true },
                             content = {
                                 Text(
-                                    text = stringResource(id = R.string.item_cleaner_time_tip, 24),
+                                    text = stringResource(
+                                        id = R.string.item_cleaner_time_tip,
+                                        autoCleanInterval
+                                    ),
                                     color = colors.textColor,
                                     style = TipStyle
                                 )
