@@ -9,7 +9,6 @@ import java.io.File
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.thread
 
 object CleanManager {
     private val pool = ThreadPoolExecutor(1, 1, 180L, TimeUnit.SECONDS, LinkedBlockingQueue(256))
@@ -43,27 +42,24 @@ object CleanManager {
         }
     }
 
-
     private fun deleteAll(path: String) {
         deleteAll(f = File(path))
     }
 
     private fun deleteAll(f: File) {
-        thread {
-            try {
-                if (!f.exists()) return@thread
-                if (f.isFile) {
-                    f.delete()
-                } else {
-                    f.listFiles().let { arr ->
-                        arr?.forEach {
-                            deleteAll(it)
-                        } ?: f.delete()
-                    }
+        try {
+            if (!f.exists()) return
+            if (f.isFile) {
+                f.delete()
+            } else {
+                f.listFiles().let { arr ->
+                    arr?.forEach {
+                        deleteAll(it)
+                    } ?: f.delete()
                 }
-            } catch (e: Exception) {
-                Log.e(e)
             }
+        } catch (e: Exception) {
+            Log.e(e)
         }
     }
 
@@ -91,5 +87,9 @@ object CleanManager {
             Log.e(e)
         }
         return arr.toTypedArray()
+    }
+
+    fun isConfigEmpty(): Boolean {
+        return getConfigDir().listFiles()?.isEmpty() ?: true
     }
 }

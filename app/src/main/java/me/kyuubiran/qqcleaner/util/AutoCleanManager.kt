@@ -14,7 +14,7 @@ object AutoCleanManager : Runnable {
     }
 
     override fun run() {
-        if (!ConfigManager.sAutoClean || !needClean()) return
+        if (!ConfigManager.sAutoClean || !needClean() || CleanManager.isConfigEmpty()) return
         ConfigManager.sLastCleanDate = System.currentTimeMillis()
         CleanManager.executeAll(!ConfigManager.sSilenceClean)
         mainHandler.postDelayed(this, 1000 * 60 * 10)

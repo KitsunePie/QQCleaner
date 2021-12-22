@@ -20,8 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.R.string.confirm
-import me.kyuubiran.qqcleaner.R.string.dialog_title_time
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogButtonStyle
@@ -97,7 +97,7 @@ fun ThemeDialog(
 
                 ) {
                     Text(
-                        text = stringResource(id = dialog_title_time),
+                        text = stringResource(id = R.string.item_theme),
                         style = DialogTitleStyle,
                         color = colors.textColor
                     )
@@ -126,7 +126,10 @@ fun ThemeDialog(
                         )
                         .padding(16.dp)
                 ) {
-                    Text(text = "亮色主题", color = colors.dialogButtonTextDefault)
+                    Text(
+                        text = stringResource(id = R.string.light_theme),
+                        color = colors.dialogButtonTextDefault
+                    )
                 }
                 Row(
                     modifier = Modifier
@@ -136,7 +139,7 @@ fun ThemeDialog(
                         .background(shape = dialogButtonBackground, color = Color.Transparent)
                         .padding(16.dp)
                 ) {
-                    Text(text = "暗色主题")
+                    Text(text = stringResource(id = R.string.dark_theme))
                 }
                 Row(
                     modifier = Modifier
@@ -146,7 +149,7 @@ fun ThemeDialog(
                         .background(shape = dialogButtonBackground, color = Color.Transparent)
                         .padding(16.dp)
                 ) {
-                    Text(text = "跟随系统")
+                    Text(text = stringResource(id = R.string.follow_system_theme))
                 }
 
                 Canvas(
@@ -169,7 +172,7 @@ fun ThemeDialog(
                         .background(shape = dialogButtonBackground, color = Color.Transparent)
                         .padding(16.dp)
                 ) {
-                    Text(text = "使用纯黑色深色主题")
+                    Text(text = stringResource(id = R.string.use_black_dark_theme))
                 }
 
                 val dialogButtonColor by animateColorAsState(

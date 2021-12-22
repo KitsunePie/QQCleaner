@@ -30,3 +30,28 @@ fun getCurrentTimeText(): String {
         else -> ""
     }
 }
+
+fun getLastCleanTimeText(time: Long): String {
+    return SimpleDateFormat.getInstance()
+        .format(Date(time))
+}
+
+fun getFormatCleanTimeText(time: Long): String {
+    val diff = System.currentTimeMillis() - time
+    var days = diff / 86400000L
+    if (days == 0L) {
+        val calendar = Calendar.getInstance()
+        calendar.time = Date()
+        val weekday1 = calendar.get(Calendar.DAY_OF_WEEK)
+        calendar.time = Date(time)
+        val weekday2 = calendar.get(Calendar.DAY_OF_WEEK)
+        days += (weekday1 - weekday2)
+    }
+    return when (days) {
+        0L -> " 今天"
+        1L -> " 昨天"
+        2L -> " 前天"
+        in 3L..Long.MAX_VALUE -> " $days 天前"
+        else -> "未来的 ${-days} 天后"
+    }
+}

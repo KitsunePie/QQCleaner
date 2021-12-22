@@ -21,6 +21,14 @@ fun Context.jumpUri(uri: Uri) {
     this.startActivity(Intent(Intent.ACTION_VIEW, uri))
 }
 
+inline fun <T> tryOr(defValue: T, block: () -> T): T {
+    return try {
+        block()
+    } catch (thr: Throwable) {
+        defValue
+    }
+}
+
 fun getFormatCleanedSize(): String {
     val cleaned = ConfigManager.sTotalCleaned
     val sl = BigDecimal(cleaned)

@@ -1,7 +1,6 @@
 <resources>
     <string name="xposed_description">设置->关于->QQ/TIM/微信瘦身</string>
-    <string name="last_cleaner">上次瘦身是 "%d" 天前</string>
-    <string name="last_cleaner_time">上次瘦身是 "%s" 天前</string>
+    <string name="last_clean_date">上次瘦身是%s</string>
     <string name="title_setup">设定</string>
     <string name="app_name">QQ瘦身</string>
     <string name="save">保存</string>
@@ -29,8 +28,8 @@
 
     <string name="clean_info_title">瘦身详情</string>
 
-    <string name="last_clean_date_title">上次瘦身日期</string>
-    <string name="no_last_clean_date_record">你还还没有清理过哦~</string>
+    <string name="last_clean_date_title">上次瘦身 %s</string>
+    <string name="no_last_clean_date_record">你还还没有瘦身过哦~</string>
     <string name="total_cleaned_title">总计清理</string>
 
     <string name="click_to_reset_clean_date_with_times">再点击%d次重置瘦身日期</string>
@@ -94,11 +93,15 @@
     <string name="silence_clean">静默自动瘦身</string>
     <string name="silence_clean_desc">拜托，你很烦内！</string>
     <string name="silence_clean_toast">我才弹两个Toast你就嫌我烦！</string>
-    <string name="item_cleaner_time">瘦身时长</string>
+    <string name="item_cleaner_time">自动瘦身间隔</string>
     <string name="item_cleaner_time_tip">"%d" h</string>
     <string name="item_cleaner_config">瘦身配置</string>
     <string name="title_more">更多</string>
     <string name="item_theme">主题风格</string>
+    <string name="light_theme">浅色主题</string>
+    <string name="dark_theme">深色主题</string>
+    <string name="follow_system_theme">跟随系统</string>
+    <string name="use_black_dark_theme">使用纯黑色深色主题</string>
     <string name="item_about">关于瘦身</string>
     <string name="dialog_title_time">设置自动瘦身时长</string>
 

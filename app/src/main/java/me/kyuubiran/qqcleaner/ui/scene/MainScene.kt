@@ -23,8 +23,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.R.string
-import me.kyuubiran.qqcleaner.R.string.icon_content_description
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
@@ -40,32 +38,46 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
+import me.kyuubiran.qqcleaner.util.getFormatCleanTimeText
+import me.kyuubiran.qqcleaner.util.getLastCleanTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 @ExperimentalMaterialApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavController) {
-    var isTime by remember { mutableStateOf(false) }
 
-    if (isTime) {
-        TimeDialog {
-            isTime = false
-        }
+    // 上次瘦身日期
+    var lastClean by remember {
+        mutableStateOf(System.currentTimeMillis())
+//        mutableStateOf(ConfigManager.sLastCleanDate)
     }
-    var isTheme by remember { mutableStateOf(false) }
-    if (isTheme) {
-        ThemeDialog {
-            isTheme = false
-        }
+    // 自动瘦身间隔
+    var autoCleanInterval by remember {
+        mutableStateOf(24)
+//        mutableStateOf(ConfigManager.sAutoCleanInterval)
     }
+
+    // 设置间隔Dialog
+    var timeDialogShow by remember { mutableStateOf(false) }
+    if (timeDialogShow) {
+        TimeDialog { timeDialogShow = false }
+    }
+
+    // 设置主题Dialog
+    var themeDialogShow by remember { mutableStateOf(false) }
+    if (themeDialogShow) {
+        ThemeDialog { themeDialogShow = false }
+    }
+
+    // 主UI
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.background)
     ) {
         Column {
-            //标题
+            // 标题
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -78,6 +90,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         .fillMaxHeight()
                         .weight(1f)
                 ) {
+                    // 当前时间段
                     Text(
                         text = getCurrentTimeText(),
                         modifier = Modifier
@@ -87,8 +100,12 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         style = TitleTextStyle,
                         color = colors.textColor
                     )
+                    // 上次瘦身日期
                     Text(
-                        text = stringResource(string.last_cleaner, 5),
+                        text = if (lastClean > 0L) stringResource(
+                            R.string.last_clean_date,
+                            getFormatCleanTimeText(lastClean)
+                        ) else stringResource(id = R.string.no_last_clean_date_record),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 16.dp)
@@ -96,22 +113,27 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         style = SubTitleTextStyle,
                         color = colors.textColor
                     )
-
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 16.dp, bottom = 24.dp)
-                            .height(18.dp)
-                            .background(
-                                colors.themeColor,
-                                RoundedCornerShape(4.dp)
+                    // 蓝色日期
+                    if (lastClean > 0L) {
+                        Box(
+                            modifier = Modifier
+                                .padding(top = 16.dp, bottom = 24.dp)
+                                .height(18.dp)
+                                .background(
+                                    colors.themeColor,
+                                    RoundedCornerShape(4.dp)
+                                )
+                                .padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = stringResource(
+                                    id = R.string.last_clean_date_title,
+                                    getLastCleanTimeText(lastClean)
+                                ),
+                                color = colors.buttonTextColor,
+                                style = ButtonTitleTextStyle
                             )
-                            .padding(horizontal = 8.dp, vertical = 4.dp)
-                    ) {
-                        Text(
-                            text = "11 / 21 03:00",
-                            color = colors.buttonTextColor,
-                            style = ButtonTitleTextStyle
-                        )
+                        }
                     }
                 }
                 Image(
@@ -119,7 +141,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         .padding(vertical = 30.dp)
                         .size(88.dp),
                     painter = painterResource(id = R.drawable.ic_icon),
-                    contentDescription = stringResource(id = icon_content_description),
+                    contentDescription = stringResource(id = R.string.icon_content_description),
                 )
             }
             Box(
@@ -142,12 +164,12 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         .fillMaxSize()
                         .background(shape = cardBackground, color = colors.cardBackgroundColor)
                 ) {
-                    CardTitle(text = stringResource(id = string.title_setup))
+                    CardTitle(text = stringResource(id = R.string.title_setup))
 
                     CardGroup(168.dp) {
                         //自动瘦身
                         SwitchItem(
-                            text = stringResource(id = string.item_cleaner),
+                            text = stringResource(id = R.string.item_cleaner),
                             checked = rememberMutableStateOf(
                                 value = true
                                 //value = ConfigManager.sAutoClean
@@ -159,7 +181,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
 
                         //静默瘦身
                         SwitchItem(
-                            text = stringResource(id = string.silence_clean),
+                            text = stringResource(id = R.string.silence_clean),
                             checked = rememberMutableStateOf(
                                 value = true
                                 // value = ConfigManager.sSilenceClean
@@ -170,51 +192,51 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         )
 
                         Item(
-                            stringResource(id = string.item_cleaner_time),
-                            onClick = { isTime = true },
+                            stringResource(id = R.string.item_cleaner_time),
+                            onClick = { timeDialogShow = true },
                             content = {
                                 Text(
-                                    text = stringResource(id = string.item_cleaner_time_tip, 24),
+                                    text = stringResource(id = R.string.item_cleaner_time_tip, 24),
                                     color = colors.textColor,
                                     style = TipStyle
                                 )
                             }
                         )
                         Item(
-                            text = stringResource(id = string.item_cleaner_config),
+                            text = stringResource(id = R.string.item_cleaner_config),
                             onClick = {
                                 navController.navigate(QQCleanerApp.Edit) {
                                     popUpTo(QQCleanerApp.Main)
                                 }
                             },
                             content = {
-                                ForwardIcon(id = string.item_cleaner_config)
+                                ForwardIcon(id = R.string.item_cleaner_config)
                             }
                         )
                     }
 
 
                     //更多
-                    CardTitle(text = stringResource(id = string.title_more))
+                    CardTitle(text = stringResource(id = R.string.title_more))
 
                     CardGroup(112.dp) {
                         //切换主题
                         Item(
-                            text = stringResource(id = string.item_theme),
+                            text = stringResource(id = R.string.item_theme),
                             onClick = {
-                                isTheme = true
+                                themeDialogShow = true
                             },
                             content = {
-                                ForwardIcon(id = string.item_theme)
+                                ForwardIcon(id = R.string.item_theme)
                             })
                         //关于
                         Item(
-                            text = stringResource(id = string.item_about),
+                            text = stringResource(id = R.string.item_about),
                             onClick = {
                                 navController.navigate(QQCleanerApp.Developer)
                             },
                             content = {
-                                ForwardIcon(string.item_about)
+                                ForwardIcon(R.string.item_about)
                             }
                         )
                     }
