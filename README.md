@@ -3,8 +3,8 @@
 # 瘦身模块(QQCleaner) 
 2.0版本重构中~
 
-反馈QQ群：[827356240](https://jq.qq.com/?_wv=1027&k=SMPE2i26)
-某404的蓝色小飞机：[Telegram频道](https://t.me/QQCleaner)    
+[Telegram频道](https://t.me/QQCleaner)
+
 注:本模块完全免费且开源，一切开发旨在学习，请勿用于非法用途。
 
 ## 使用方法
