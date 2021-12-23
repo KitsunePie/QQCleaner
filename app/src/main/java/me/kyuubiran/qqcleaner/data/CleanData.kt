@@ -13,9 +13,33 @@ import java.io.File
 
 
 class CleanData(private val jsonObject: JSONObject) {
-    private var file: File? = null
 
     class PathData(private val jsonObject: JSONObject) {
+
+        class Path {
+            private val jsonObject: JSONObject
+
+            constructor(jsonObject: JSONObject) {
+                this.jsonObject = jsonObject
+            }
+
+            constructor(prefix: String, suffix: String) {
+                this.jsonObject = JSONObject().put("prefix", prefix).put("suffix", suffix)
+            }
+
+            var prefix: String
+                set(value) {
+                    jsonObject.put("prefix", value)
+                }
+                get() = jsonObject.getStringOrDefault("prefix")
+
+            var suffix: String
+                set(value) {
+                    jsonObject.put("suffix", value)
+                }
+                get() = jsonObject.getStringOrDefault("suffix")
+        }
+
         // 标题
         var title: String
             set(value) {
@@ -31,10 +55,10 @@ class CleanData(private val jsonObject: JSONObject) {
             get() = jsonObject.getBooleanOrDefault("enable", false)
 
         // 路径
-        val pathList = jsonObject.getJSONArrayOrEmpty("path").toArrayList<String>()
+        val pathList = jsonObject.getJSONArrayOrEmpty("path").toArrayList<Path>()
 
         // 添加路径
-        fun addPath(path: String) {
+        fun addPath(path: Path) {
             pathList.add(path)
         }
 
@@ -48,8 +72,8 @@ class CleanData(private val jsonObject: JSONObject) {
         }
 
         //删除路径
-        fun removePath(string: String) {
-            pathList.remove(string)
+        fun removePath(path: Path) {
+            pathList.remove(path)
         }
 
         override fun toString(): String {
@@ -60,6 +84,8 @@ class CleanData(private val jsonObject: JSONObject) {
             return jsonObject.toString(indentSpaces)
         }
     }
+
+    private var file: File? = null
 
     // 配置文件标题
     var title: String

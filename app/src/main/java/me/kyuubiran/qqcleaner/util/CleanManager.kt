@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 object CleanManager {
-    private val pool = ThreadPoolExecutor(1, 1, 180L, TimeUnit.SECONDS, LinkedBlockingQueue(256))
+    private val pool = ThreadPoolExecutor(1, 1, 5L, TimeUnit.MINUTES, LinkedBlockingQueue(256))
 
     fun execute(data: CleanData, showToast: Boolean = true) {
         if (!data.enable || !data.valid) return
@@ -64,7 +64,7 @@ object CleanManager {
     }
 
     fun getConfigDir(): File {
-        val path = "${CommonPath.storageData}/qqcleaner"
+        val path = "${CommonPath.publicData}/qqcleaner"
         val f = File(path)
         if (f.exists()) return f
         f.mkdir()

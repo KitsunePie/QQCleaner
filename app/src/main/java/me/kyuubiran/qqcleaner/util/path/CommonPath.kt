@@ -4,7 +4,7 @@ import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 
 object CommonPath {
     //P: storage/emulated/0/Android/data/${HostAppPackageName}
-    val storageData by lazy {
+    val publicData by lazy {
         "!PublicDataDir" to (appContext.externalCacheDir?.parentFile?.path ?: "")
     }
 
