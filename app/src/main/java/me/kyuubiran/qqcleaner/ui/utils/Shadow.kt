@@ -1,8 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.utils
 
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
@@ -11,8 +9,6 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-
-@RequiresApi(Build.VERSION_CODES.O)
 fun Modifier.drawColoredShadow(
     color: Color,
     alpha: Float = 0.2f,

@@ -1,7 +1,5 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -43,7 +41,6 @@ import me.kyuubiran.qqcleaner.util.getLastCleanTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 @ExperimentalMaterialApi
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavController) {
 

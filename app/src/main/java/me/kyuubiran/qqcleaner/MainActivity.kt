@@ -1,16 +1,15 @@
 package me.kyuubiran.qqcleaner
 
 import android.content.res.Resources.getSystem
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -23,11 +22,11 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
 import me.kyuubiran.qqcleaner.util.navigationBarMode
 import me.kyuubiran.qqcleaner.util.statusBarLightMode
 
+@ExperimentalMaterialApi
 class MainActivity : BaseActivity() {
 
     private val viewModel: QQCleanerViewModel by viewModels()
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setDecorFitsSystemWindows(window, false)
