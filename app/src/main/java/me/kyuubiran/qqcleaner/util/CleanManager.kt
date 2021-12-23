@@ -64,7 +64,7 @@ object CleanManager {
     }
 
     fun getConfigDir(): File {
-        val path = "${CommonPath.publicData}/qqcleaner"
+        val path = "${CommonPath.publicData.second}/qqcleaner"
         val f = File(path)
         if (f.exists()) return f
         f.mkdir()
