@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner.ui
 
 
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,7 +16,6 @@ import me.kyuubiran.qqcleaner.ui.scene.MainScene
  *
  * @author Agoines
  */
-@ExperimentalMaterialApi
 @Composable
 fun QQCleanerApp(viewModel: QQCleanerViewModel) {
     val navController = rememberNavController()

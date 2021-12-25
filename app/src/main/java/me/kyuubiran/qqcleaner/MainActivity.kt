@@ -9,7 +9,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -22,7 +21,6 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
 import me.kyuubiran.qqcleaner.util.navigationBarMode
 import me.kyuubiran.qqcleaner.util.statusBarLightMode
 
-@ExperimentalMaterialApi
 class MainActivity : BaseActivity() {
 
     private val viewModel: QQCleanerViewModel by viewModels()

@@ -75,4 +75,8 @@ object ConfigManager {
     var sSilenceClean: Boolean
         set(value) = putBool("silence_clean", value)
         get() = getBool("silence_clean")
+
+    var sThemeSelect: Int
+        set(value) = putInt("theme_select", value)
+        get() = getInt("theme_select")
 }

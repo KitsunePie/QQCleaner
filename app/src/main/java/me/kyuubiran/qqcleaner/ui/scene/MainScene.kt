@@ -40,7 +40,7 @@ import me.kyuubiran.qqcleaner.util.getFormatCleanTimeText
 import me.kyuubiran.qqcleaner.util.getLastCleanTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavController) {
 
@@ -53,6 +53,12 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
     var autoCleanInterval by remember {
         mutableStateOf(24)
 //        mutableStateOf(ConfigManager.sAutoCleanInterval)
+    }
+
+    // 选择的主题
+    var themeSelect by remember {
+        mutableStateOf(0)
+//        mutableStateOf(ConfigManager.sThemeSelect)
     }
 
     // 设置间隔Dialog
