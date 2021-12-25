@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import androidx.compose.animation.Animatable
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,13 +22,19 @@ fun BottomDialog(
     onDismissRequest: () -> Unit,
     dialogHeight: Float,
     bottomHeight: Dp = 0.dp,
+    state: MutableState<Boolean> = mutableStateOf(true),
     content: @Composable () -> Unit
 ) {
     val background = QQCleanerColorTheme.colors.dialogBackgroundColor
     var flag by remember { mutableStateOf(true) }
     var isDismiss by remember { mutableStateOf(false) }
     val color = remember { Animatable(Color.Transparent) }
-    val height = remember { androidx.compose.animation.core.Animatable(0f) }
+    val height = remember { Animatable(0f) }
+
+    // 通过外部修改 flag 控制 dialog 的关闭与否
+    LaunchedEffect(state.value) {
+        flag = state.value
+    }
 
     Dialog(
         onRemoveViewRequest = {

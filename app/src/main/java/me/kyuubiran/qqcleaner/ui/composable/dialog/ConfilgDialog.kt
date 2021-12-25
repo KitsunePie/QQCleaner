@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
@@ -23,10 +25,11 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogTitleStyle
 fun ConfigDialog(
     onDismissRequest: () -> Unit,
 ) {
-
+    var state = remember { mutableStateOf(true) }
     BottomDialog(
         onDismissRequest = onDismissRequest,
-        dialogHeight = 352f
+        dialogHeight = 352f,
+        state = state
     ) {
         Row(
             Modifier
@@ -88,7 +91,6 @@ fun ConfigDialog(
             Text(text = "新建配置")
         }
 
-
-
+        DialogButton(true) { state.value = false }
     }
 }
