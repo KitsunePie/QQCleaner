@@ -25,21 +25,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
-import me.kyuubiran.qqcleaner.R.string.*
+import me.kyuubiran.qqcleaner.R.string.dialog_title_time
+import me.kyuubiran.qqcleaner.R.string.set_auto_clean_interval_desc
 import me.kyuubiran.qqcleaner.ui.composable.TextField
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogEditBackGround
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogButtonStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogTitleStyle
 
 
@@ -217,40 +214,7 @@ fun TimeDialog(
                             .fillMaxSize()
                     )
                 }
-
-                val dialogButtonColor by animateColorAsState(
-                    if (text.isEmpty())
-                        colors.dialogButtonDefault else colors.dialogButtonPress,
-                    tween(600)
-                )
-
-                val dialogButtonTextColor by animateColorAsState(
-                    if (text.isEmpty())
-                        colors.dialogButtonTextDefault else colors.dialogButtonTextPress,
-                    tween(600)
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(start = 24.dp, top = 24.dp, end = 24.dp)
-                        .fillMaxWidth()
-                        .height(48.dp)
-                        .background(
-                            color = dialogButtonColor,
-                            shape = dialogButtonBackground
-                        )
-                        .clip(shape = dialogButtonBackground)
-                        .clickable(enabled = text.isNotEmpty(), onClick = {}),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        modifier = Modifier,
-                        style = DialogButtonStyle,
-                        color = dialogButtonTextColor,
-                        textAlign = TextAlign.Center,
-                        text = stringResource(id = confirm)
-                    )
-                }
+                DialogButton(text.isNotEmpty(), {})
 
             }
         }

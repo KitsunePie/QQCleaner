@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.ExperimentalMaterialApi
 import com.github.kyuubiran.ezxhelper.utils.*
 import me.kyuubiran.qqcleaner.MainActivity
 import me.kyuubiran.qqcleaner.util.hostApp
@@ -26,6 +27,7 @@ object EntryHook : BaseHook() {
         }
     }
 
+    @OptIn(ExperimentalMaterialApi::class)
     private fun startModuleSettingActivity(activity: Activity) {
         val intent = Intent(activity, MainActivity::class.java)
         activity.startActivity(intent)
