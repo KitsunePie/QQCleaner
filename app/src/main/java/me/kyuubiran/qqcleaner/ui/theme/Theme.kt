@@ -14,7 +14,8 @@ object QQCleanerColorTheme {
         get() = LocalQQCleanerColors.current
 
     enum class Theme {
-        Light, Dark
+        Light,
+        Dark
     }
 }
 

@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -15,19 +15,13 @@ import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
-import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleStyle
 
 @Composable
 fun EditScene(viewModel: QQCleanerViewModel, navController: NavController) {
-    var isEdit by remember { mutableStateOf(false) }
-    if (isEdit) {
-        ConfigDialog {
-            isEdit = false
-        }
-    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,9 +51,6 @@ fun EditScene(viewModel: QQCleanerViewModel, navController: NavController) {
                 .height(56.dp)
                 .background(color = colors.background, shape = cardGroupBackground)
                 .clip(cardGroupBackground)
-                .clickable {
-                    isEdit = true
-                }
                 .padding(16.dp)
         ) {
             Icon(

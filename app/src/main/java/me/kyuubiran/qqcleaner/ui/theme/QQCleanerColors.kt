@@ -28,7 +28,8 @@ val DarkColorPalette = QQCleanerColors(
     toggleBorderColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
     toggleOffColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
     toggleOnColor = Color(0xFF82a8e7).convert(ColorSpaces.CieXyz),
-    dialogBackgroundColor = Color(0x33202124).convert(ColorSpaces.CieXyz)
+    dialogBackgroundColor = Color(0x33202124).convert(ColorSpaces.CieXyz),
+    dialogButtonTextDisabledColor = Color(0x6182A8E7).convert(ColorSpaces.CieXyz)
 )
 
 val LightColorPalette = QQCleanerColors(
@@ -51,7 +52,8 @@ val LightColorPalette = QQCleanerColors(
     toggleBorderColor = Color(0xFFd6dde7).convert(ColorSpaces.CieXyz),
     toggleOffColor = Color(0xFFd6dde7).convert(ColorSpaces.CieXyz),
     toggleOnColor = Color(0xFF2196f3).convert(ColorSpaces.CieXyz),
-    dialogBackgroundColor = Color(0x33202124).convert(ColorSpaces.CieXyz)
+    dialogBackgroundColor = Color(0x33202124).convert(ColorSpaces.CieXyz),
+    dialogButtonTextDisabledColor = Color(0x610095FF).convert(ColorSpaces.CieXyz)
 )
 
 
@@ -76,7 +78,8 @@ class QQCleanerColors(
     toggleBorderColor: Color,
     toggleOffColor: Color,
     toggleOnColor: Color,
-    dialogBackgroundColor: Color
+    dialogBackgroundColor: Color,
+    dialogButtonTextDisabledColor: Color
 ) {
     var background: Color by mutableStateOf(background)
         private set
@@ -117,6 +120,8 @@ class QQCleanerColors(
     var tipTextColor: Color by mutableStateOf(tipTextColor)
         private set
     var dialogBackgroundColor: Color by mutableStateOf(dialogBackgroundColor)
+        private set
+    var dialogButtonTextDisabledColor: Color by mutableStateOf(dialogButtonTextDisabledColor)
         private set
 }
 

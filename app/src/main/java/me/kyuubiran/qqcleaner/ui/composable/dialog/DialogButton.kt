@@ -34,7 +34,7 @@ fun DialogButton(
 
     val dialogButtonTextColor by animateColorAsState(
         if (!isFix)
-            QQCleanerColorTheme.colors.dialogButtonTextDefault
+            QQCleanerColorTheme.colors.dialogButtonTextDisabledColor
         else
             QQCleanerColorTheme.colors.dialogButtonTextPress,
         tween(600)

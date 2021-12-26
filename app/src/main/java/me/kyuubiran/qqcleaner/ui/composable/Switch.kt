@@ -27,7 +27,7 @@ import me.kyuubiran.qqcleaner.ui.utils.ColorUtils
 import me.kyuubiran.qqcleaner.ui.utils.dp2px
 import kotlin.math.roundToInt
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Switch(
     checked: MutableState<Boolean>

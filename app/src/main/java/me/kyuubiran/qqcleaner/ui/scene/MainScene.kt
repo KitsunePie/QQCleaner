@@ -1,12 +1,9 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -23,6 +20,7 @@ import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Switch
+import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -40,7 +38,7 @@ import me.kyuubiran.qqcleaner.util.getFormatCleanTimeText
 import me.kyuubiran.qqcleaner.util.getLastCleanTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
-@OptIn(ExperimentalMaterialApi::class)
+
 @Composable
 fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavController) {
 
@@ -55,18 +53,18 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
 //        mutableStateOf(ConfigManager.sAutoCleanInterval)
     }
 
-    // 选择的主题
-    var themeSelect by remember {
-        mutableStateOf(0)
-//        mutableStateOf(ConfigManager.sThemeSelect)
-    }
-
     // 设置间隔Dialog
     var timeDialogShow by remember { mutableStateOf(false) }
     if (timeDialogShow) {
         TimeDialog { timeDialogShow = false }
     }
-
+    // 设置编辑文本
+    var isEdit by remember { mutableStateOf(false) }
+    if (isEdit) {
+        ConfigDialog {
+            isEdit = false
+        }
+    }
     // 设置主题Dialog
     var themeDialogShow by remember { mutableStateOf(false) }
     if (themeDialogShow) {
@@ -209,9 +207,13 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
                         Item(
                             text = stringResource(id = R.string.item_cleaner_config),
                             onClick = {
+
                                 navController.navigate(QQCleanerApp.Edit) {
                                     popUpTo(QQCleanerApp.Main)
                                 }
+                            },
+                            onLongClick = {
+                                isEdit = true
                             },
                             content = {
                                 ForwardIcon(id = R.string.item_cleaner_config)
@@ -303,7 +305,35 @@ fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit
     }
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun Item(
+    text: String,
+    onClick: () -> Unit = {},
+    onLongClick: () -> Unit = {},
+    content: @Composable () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .clip(cardGroupBackground)
+            .combinedClickable(
+                onLongClick = { onLongClick() },
+                onClick = { onClick() })
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = text,
+            style = QQCleanerTypes.itemTextStyle,
+            color = colors.textColor,
+            modifier = Modifier.weight(1f),
+        )
+        content()
+    }
+}
+
 @Composable
 private fun SwitchItem(
     text: String,

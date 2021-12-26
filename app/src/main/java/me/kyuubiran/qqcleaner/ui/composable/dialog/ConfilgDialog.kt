@@ -25,7 +25,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogTitleStyle
 fun ConfigDialog(
     onDismissRequest: () -> Unit,
 ) {
-    var state = remember { mutableStateOf(true) }
+    val state = remember { mutableStateOf(true) }
     BottomDialog(
         onDismissRequest = onDismissRequest,
         dialogHeight = 352f,
