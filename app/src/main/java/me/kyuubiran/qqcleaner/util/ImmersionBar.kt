@@ -15,8 +15,9 @@ private fun Window.setStatusBarTranslation() {
         this.isStatusBarContrastEnforced = false
     }
     // 设置状态栏透明,暂时没有更好的办法解决透明问题
+    this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
     this.statusBarColor = Color.TRANSPARENT
-    this.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 }
 
 @Suppress("DEPRECATION")
@@ -27,13 +28,13 @@ fun Activity.statusBarLightMode(enable: Boolean = true) {
             if (enable) WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS else 0,
             WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
         )
-    } else {
-        window.decorView.systemUiVisibility = if (enable) {
-            window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        } else {
-            window.decorView.systemUiVisibility xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
     }
+    window.decorView.systemUiVisibility = if (enable) {
+        window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    } else {
+        window.decorView.systemUiVisibility xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
 }
 
 @Suppress("DEPRECATION")
@@ -42,8 +43,8 @@ private fun Window.setNavigationBarTranslation() {
         this.isNavigationBarContrastEnforced = false
     }
     // 设置导航栏透明,暂时没有更好的办法解决透明问题
+    this.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
     this.navigationBarColor = Color.TRANSPARENT
-    this.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
 }
 
 @Suppress("DEPRECATION")
@@ -54,12 +55,11 @@ fun Activity.navigationBarMode(enable: Boolean = true) {
             if (enable) WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS else 0,
             WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
         )
+    }
+    window.decorView.systemUiVisibility = if (enable) {
+        window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
     } else {
-        window.decorView.systemUiVisibility = if (enable) {
-            window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        } else {
-            window.decorView.systemUiVisibility xor View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        }
+        window.decorView.systemUiVisibility xor View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
     }
 }
 

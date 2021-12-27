@@ -11,4 +11,6 @@ object QQCleanerData {
     var theme by mutableStateOf(System)
 
     var statusBarHeight by mutableStateOf(0.dp)
+
+    var navigationBarHeight by mutableStateOf(0.dp)
 }

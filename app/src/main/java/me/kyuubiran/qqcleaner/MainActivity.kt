@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner
 
+import android.content.res.Configuration
 import android.content.res.Resources.getSystem
 import android.os.Bundle
 import android.util.Log
@@ -15,11 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
+import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.activity.BaseActivity
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
+import me.kyuubiran.qqcleaner.util.navigationBarMode
+import me.kyuubiran.qqcleaner.util.statusBarLightMode
 
 class MainActivity : BaseActivity() {
 
@@ -41,16 +46,45 @@ class MainActivity : BaseActivity() {
                         )
                         .background(colors.background)
                 ) {
-
-                    LaunchedEffect(colors) {
-                        Log.d("测试股", "onCreate:这里修改了 ")
-                    }
+                    // 状态栏高度是为了各个页面不和状态栏重叠
+                    statusBarHeight = getStatusBarHeight()
+                    // 底部栏高度是为了弹窗不和底部栏重叠
+                    navigationBarHeight = getNavigationBarHeight()
                     QQCleanerApp()
+                }
+                // 通过当前主题去修改颜色
+                LaunchedEffect(QQCleanerData.theme) {
+                    when (QQCleanerData.theme) {
+                        Light -> {
+                            Log.d("我来看看傻逼怎么玩", "亮色")
+                            statusBarLightMode()
+                            navigationBarMode()
+                        }
+                        Dark -> {
+                            Log.d("我来看看傻逼怎么玩", "onCreate: 暗色")
+                            statusBarLightMode(false)
+                            navigationBarMode(false)
+                        }
+                        System -> {
+                            if (isNightMode()) {
+                                statusBarLightMode(false)
+                                navigationBarMode(false)
+                            } else {
+                                statusBarLightMode()
+                                navigationBarMode()
+                            }
+                        }
+                    }
                 }
             }
         }
-        statusBarHeight = getStatusBarHeight()
-        // 缺少一个状态栏的颜色控制
+    }
+
+    private fun isNightMode(): Boolean {
+        return when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> true
+            else -> false
+        }
     }
 
     /**
@@ -62,6 +96,26 @@ class MainActivity : BaseActivity() {
             applicationContext.resources
                 .getIdentifier(
                     "status_bar_height",
+                    "dimen",
+                    "android"
+                )
+        if (resourceId > 0) {
+            // 这个是 px 需要转换
+            height = applicationContext.resources.getDimension(resourceId)
+        }
+
+        return (height / getSystem().displayMetrics.density).dp
+    }
+
+    /**
+     * 返回导航栏的高度
+     */
+    private fun getNavigationBarHeight(): Dp {
+        var height = 0f
+        val resourceId =
+            applicationContext.resources
+                .getIdentifier(
+                    "navigation_bar_height",
                     "dimen",
                     "android"
                 )
