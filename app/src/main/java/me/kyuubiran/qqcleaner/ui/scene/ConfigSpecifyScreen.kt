@@ -12,19 +12,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import me.kyuubiran.qqcleaner.QQCleanerViewModel
+import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 
 @Composable
-fun ConfigSpecifyScreen(viewModel: QQCleanerViewModel, navController: NavController) {
+fun ConfigSpecifyScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = colors.cardBackgroundColor)
-            .padding(top = viewModel.statusBarHeight)
+            .padding(top = statusBarHeight)
     ) {
         Row(
             modifier = Modifier

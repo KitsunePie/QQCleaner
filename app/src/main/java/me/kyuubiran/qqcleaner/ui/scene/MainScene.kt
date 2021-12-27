@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
+import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -14,9 +15,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import me.kyuubiran.qqcleaner.QQCleanerViewModel
+import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Switch
@@ -39,8 +39,9 @@ import me.kyuubiran.qqcleaner.util.getLastCleanTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavController) {
+fun MainScene(navController: NavController) {
 
     // 上次瘦身日期
     var lastClean by remember {
@@ -68,7 +69,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
     // 设置主题Dialog
     var themeDialogShow by remember { mutableStateOf(false) }
     if (themeDialogShow) {
-        ThemeDialog(viewModel) { themeDialogShow = false }
+        ThemeDialog() { themeDialogShow = false }
     }
 
     // 主UI
@@ -82,7 +83,7 @@ fun MainScene(viewModel: QQCleanerViewModel = viewModel(), navController: NavCon
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = viewModel.statusBarHeight)
+                    .padding(top = statusBarHeight)
                     .height(148.dp)
                     .padding(horizontal = 24.dp)
             ) {

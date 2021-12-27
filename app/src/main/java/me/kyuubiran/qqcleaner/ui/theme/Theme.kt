@@ -15,15 +15,7 @@ object QQCleanerColorTheme {
 
     enum class Theme {
         Light,
-        Dark
+        Dark,
+        System
     }
 }
-
-
-
-
-
-
-
-
-

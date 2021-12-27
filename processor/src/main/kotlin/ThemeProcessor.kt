@@ -41,6 +41,9 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
             ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme", "Light")
         val lightColorPalette =
             ClassName("me.kyuubiran.qqcleaner.ui.theme", "LightColorPalette")
+        val systemClass =
+            ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme", "System")
+
         val materialTheme = ClassName("androidx.compose.material", "MaterialTheme")
         val themeClass = ClassName("me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme", "Theme")
         val tweenSpec = ClassName("androidx.compose.animation.core", "TweenSpec")
@@ -65,6 +68,10 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
                 add("val targetColors = when (colorTheme) {\n")
                 add("\t%T -> %T\n", lightClass, lightColorPalette)
                 add("\t%T -> %T\n", darkClass, darkColorPalette)
+                add(
+                    "\t%T -> if (androidx.compose.foundation.isSystemInDarkTheme()) DarkColorPalette else LightColorPalette\n",
+                    systemClass
+                )
                 add("}\n\n")
                 build()
             })

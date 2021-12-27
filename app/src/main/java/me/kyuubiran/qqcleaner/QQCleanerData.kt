@@ -4,12 +4,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.System
 
-class QQCleanerViewModel : ViewModel() {
-    var theme by mutableStateOf(QQCleanerColorTheme.Theme.Light)
+object QQCleanerData {
+    // 当前主题
+    var theme by mutableStateOf(System)
 
     var statusBarHeight by mutableStateOf(0.dp)
-
 }

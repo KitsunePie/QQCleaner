@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 
@@ -26,17 +26,17 @@ fun DialogButton(
 
     val dialogButtonColor by animateColorAsState(
         if (!isFix)
-            QQCleanerColorTheme.colors.dialogButtonDefault
+            colors.dialogButtonDefault
         else
-            QQCleanerColorTheme.colors.dialogButtonPress,
+            colors.dialogButtonPress,
         tween(600)
     )
 
     val dialogButtonTextColor by animateColorAsState(
         if (!isFix)
-            QQCleanerColorTheme.colors.dialogButtonTextDisabledColor
+            colors.dialogButtonTextDisabledColor
         else
-            QQCleanerColorTheme.colors.dialogButtonTextPress,
+            colors.dialogButtonTextPress,
         tween(600)
     )
     Row(

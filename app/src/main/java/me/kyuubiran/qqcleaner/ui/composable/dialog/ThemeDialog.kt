@@ -3,6 +3,7 @@ package me.kyuubiran.qqcleaner.ui.composable.dialog
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,18 +19,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.QQCleanerViewModel
+import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.Dark
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.Light
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogTitleStyle
 
 @Composable
 fun ThemeDialog(
-    viewModel: QQCleanerViewModel,
-    onDismissRequest: () -> Unit,
+    onDismissRequest: () -> Unit
 ) {
 
     // 这里是当前主题的获取
@@ -38,9 +37,10 @@ fun ThemeDialog(
     var theme by remember {
         mutableStateOf(
             // 只在第一次调用
-            when (viewModel.theme) {
-                Light -> 0
-                Dark -> 2
+            when (QQCleanerData.theme) {
+                Light -> 0x0
+                Dark -> 0x1
+                System -> 0x2
             }
         )
     }
@@ -81,20 +81,21 @@ fun ThemeDialog(
         // 下面是对应的主题
         ThemeItem(
             text = stringResource(id = R.string.light_theme),
-            checked = theme == 0,
+            checked = theme == 0x0,
             onClick = {
-                theme = 0
+                theme = 0x0
             })
         ThemeItem(
             text = stringResource(id = R.string.dark_theme),
-            checked = theme == 2,
+            checked = theme == 0x1,
             onClick = {
-                theme = 2
+                theme = 0x1
             })
         ThemeItem(
             text = stringResource(id = R.string.follow_system_theme),
+            checked = theme == 0x2,
             onClick = {
-
+                theme = 0x2
             })
 
         Canvas(
@@ -113,15 +114,16 @@ fun ThemeDialog(
 
         DialogButton(
             // 这里进行当前选择和主题是否相同，如果不同则则可以点击选择
-
-            theme != when (viewModel.theme) {
-                Light -> 0
-                Dark -> 2
+            theme != when (QQCleanerData.theme) {
+                Light -> 0x0
+                Dark -> 0x1
+                System -> 0x2
             }
         ) {
             when (theme) {
-                0 -> viewModel.theme = Light
-                2 -> viewModel.theme = Dark
+                0x0 -> QQCleanerData.theme = Light
+                0x1 -> QQCleanerData.theme = Dark
+                0x2 -> QQCleanerData.theme = System
             }
             state.value = false
         }
@@ -133,6 +135,7 @@ private fun ThemeItem(text: String, checked: Boolean = false, onClick: () -> Uni
     // 如果添加 animateColorAsState 动画，则在点击确定的时候有概率闪退，我也不知道什么问题，不过这个加不加点击动画都那样不管他
     val backgroundColor = if (checked) colors.dialogButtonDefault else Color.Transparent
     val textColor = if (checked) colors.dialogButtonTextDefault else colors.textColor
+    // 替换了原本的颜色
     CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme) {
         Row(
             modifier = Modifier
@@ -142,7 +145,9 @@ private fun ThemeItem(text: String, checked: Boolean = false, onClick: () -> Uni
                 .clip(dialogButtonBackground)
                 .background(color = backgroundColor)
                 .clickable(
-                    onClick = onClick
+                    onClick = onClick,
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() }
                 )
                 .padding(16.dp)
 

@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import me.kyuubiran.qqcleaner.QQCleanerViewModel
 import me.kyuubiran.qqcleaner.ui.scene.ConfigSpecifyScreen
 import me.kyuubiran.qqcleaner.ui.scene.DeveloperScene
 import me.kyuubiran.qqcleaner.ui.scene.EditScene
@@ -17,26 +16,26 @@ import me.kyuubiran.qqcleaner.ui.scene.MainScene
  * @author Agoines
  */
 @Composable
-fun QQCleanerApp(viewModel: QQCleanerViewModel) {
+fun QQCleanerApp() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = QQCleanerApp.Main
     ) {
         composable(QQCleanerApp.Main) {
-            MainScene(viewModel = viewModel, navController = navController)
+            MainScene(navController = navController)
         }
 
         composable(QQCleanerApp.Developer) {
-            DeveloperScene(viewModel = viewModel, navController = navController)
+            DeveloperScene(navController = navController)
         }
 
         composable(QQCleanerApp.ConfigSpecify) {
-            ConfigSpecifyScreen(viewModel = viewModel, navController = navController)
+            ConfigSpecifyScreen(navController = navController)
         }
 
         composable(QQCleanerApp.Edit) {
-            EditScene(navController = navController, viewModel = viewModel)
+            EditScene(navController = navController)
         }
 
 
