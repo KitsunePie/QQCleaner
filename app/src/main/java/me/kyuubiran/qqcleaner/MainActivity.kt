@@ -3,7 +3,6 @@ package me.kyuubiran.qqcleaner
 import android.content.res.Configuration
 import android.content.res.Resources.getSystem
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -56,12 +55,10 @@ class MainActivity : BaseActivity() {
                 LaunchedEffect(QQCleanerData.theme) {
                     when (QQCleanerData.theme) {
                         Light -> {
-                            Log.d("我来看看傻逼怎么玩", "亮色")
                             statusBarLightMode()
                             navigationBarMode()
                         }
                         Dark -> {
-                            Log.d("我来看看傻逼怎么玩", "onCreate: 暗色")
                             statusBarLightMode(false)
                             navigationBarMode(false)
                         }
