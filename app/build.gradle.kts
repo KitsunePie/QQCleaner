@@ -38,11 +38,11 @@ android {
         kotlinCompilerExtensionVersion = composeVersion
     }
 
-
-    aaptOptions {
+    androidResources {
         additionalParameters("--preferred-density", "xxxhdpi")
         additionalParameters("--allow-reserved-package-id", "--package-id", "0x63")
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
