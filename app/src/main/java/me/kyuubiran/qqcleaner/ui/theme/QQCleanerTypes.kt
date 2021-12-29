@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 
 object QQCleanerTypes {
+    val cleanerTextStyle = intoTextStyle(fontSize = 12.sp, lineHeight = 16.sp, fontWeight = Normal)
     val cardTitleTextStyle = intoTextStyle(fontSize = 18.sp, lineHeight = 26.sp, fontWeight = Bold)
     val itemTextStyle = intoTextStyle(fontSize = 16.sp, lineHeight = 16.sp, fontWeight = Normal)
     val TitleTextStyle = intoTextStyle(fontSize = 24.sp, lineHeight = 26.sp, fontWeight = Normal)
@@ -20,7 +21,6 @@ object QQCleanerTypes {
         intoTextStyle(fontSize = 8.sp, lineHeight = 26.sp, fontWeight = Normal)
     val TitleStyle = intoTextStyle(fontSize = 20.sp, lineHeight = 24.sp, fontWeight = Bold)
     val DialogTitleStyle = intoTextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = Bold)
-    val DialogEditStyle = intoTextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = Normal)
     val DialogButtonStyle = intoTextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = Normal)
     val TipStyle = intoTextStyle(fontSize = 12.sp, lineHeight = 12.sp, fontWeight = Normal)
 }
@@ -36,5 +36,5 @@ private fun intoTextStyle(
     fontWeight = fontWeight,
     fontSize = fontSize,
     textAlign = textAlign,
-    lineHeight = lineHeight
+    lineHeight = lineHeight,
 )

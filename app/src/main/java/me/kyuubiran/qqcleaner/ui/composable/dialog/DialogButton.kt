@@ -6,7 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,42 +27,43 @@ fun DialogButton(
     text: String = stringResource(id = R.string.confirm),
     onClick: () -> Unit
 ) {
-
-    val dialogButtonColor by animateColorAsState(
-        if (!isFix)
-            colors.dialogButtonDefault
-        else
-            colors.dialogButtonPress,
-        tween(600)
-    )
-
-    val dialogButtonTextColor by animateColorAsState(
-        if (!isFix)
-            colors.dialogButtonTextDisabledColor
-        else
-            colors.dialogButtonTextPress,
-        tween(600)
-    )
-    Row(
-        modifier = Modifier
-            .padding(start = 24.dp, top = 24.dp, end = 24.dp)
-            .fillMaxWidth()
-            .height(48.dp)
-            .background(
-                color = dialogButtonColor,
-                shape = QQCleanerShapes.dialogButtonBackground
-            )
-            .clip(shape = QQCleanerShapes.dialogButtonBackground)
-            .clickable(enabled = isFix, onClick = onClick),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Text(
-            modifier = Modifier,
-            style = QQCleanerTypes.DialogButtonStyle,
-            color = dialogButtonTextColor,
-            textAlign = TextAlign.Center,
-            text = text
+    CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme) {
+        val dialogButtonColor by animateColorAsState(
+            if (!isFix)
+                colors.dialogButtonDefault
+            else
+                colors.dialogButtonPress,
+            tween(300)
         )
+
+        val dialogButtonTextColor by animateColorAsState(
+            if (!isFix)
+                colors.dialogButtonTextDisabledColor
+            else
+                colors.dialogButtonTextPress,
+            tween(300)
+        )
+        Row(
+            modifier = Modifier
+                .padding(start = 24.dp, top = 24.dp, end = 24.dp)
+                .fillMaxWidth()
+                .height(48.dp)
+                .background(
+                    color = dialogButtonColor,
+                    shape = QQCleanerShapes.dialogButtonBackground
+                )
+                .clip(shape = QQCleanerShapes.dialogButtonBackground)
+                .clickable(enabled = isFix, onClick = onClick),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                modifier = Modifier,
+                style = QQCleanerTypes.DialogButtonStyle,
+                color = dialogButtonTextColor,
+                textAlign = TextAlign.Center,
+                text = text
+            )
+        }
     }
 }

@@ -10,6 +10,8 @@
     <string name="notify">注意</string>
     <string name="wrong_click">我点错了</string>
 
+    <string name="cleaner_text">立刻瘦身</string>
+
     <string name="icon_content_description">这个是一个装饰性的图标没什么用处，可以跳过它</string>
 
     <string name="not_ready_yet">还没有准备好哦~</string>
@@ -104,7 +106,8 @@
     <string name="follow_system_theme">跟随系统</string>
     <string name="use_black_dark_theme">使用纯黑色深色主题</string>
     <string name="item_about">关于瘦身</string>
+    <string name="dialog_title_config">瘦身配置</string>
     <string name="dialog_title_time">设置自动瘦身时长</string>
-
+    <string name="dialog_icon_clone">取消</string>
     <string name="executing_config">正在执行配置文件：%s</string>
 </resources>

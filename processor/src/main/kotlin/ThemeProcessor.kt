@@ -13,7 +13,7 @@ class ThemeProcessor(private val codeGenerator: CodeGenerator, private val logge
         val symbol =
             resolver.getSymbolsWithAnnotation("me.kyuubiran.qqcleaner.annotation.ThemeColor")
                 .filter { it is KSClassDeclaration }
-                .find { (it as KSClassDeclaration).simpleName.asString() == "QQCleanerColors" }
+                .find { (it as KSClassDeclaration).simpleName.asString().equals("QQCleanerColors") }
         // only process QQCleanerColors
         if (symbol == null) {
             logger.warn(">>>> ThemeProcessor skipped because empty <<<<")

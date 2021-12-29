@@ -32,10 +32,6 @@ open class BaseDialog(context: Context) {
         this.decorView = (context as Activity).window.decorView as ViewGroup
     }
 
-    fun getContext(): Context {
-        return this.context
-    }
-
     fun setContentView(view: View) {
         this.contentView = view
     }

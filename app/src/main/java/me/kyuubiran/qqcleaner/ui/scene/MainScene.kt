@@ -2,7 +2,9 @@ package me.kyuubiran.qqcleaner.ui.scene
 
 import android.annotation.SuppressLint
 import androidx.annotation.StringRes
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -16,11 +18,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import me.kyuubiran.qqcleaner.QQCleanerData
+import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Switch
-import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -32,6 +35,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.SubTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cleanerTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
 import me.kyuubiran.qqcleaner.util.getCurrentTimeText
 import me.kyuubiran.qqcleaner.util.getFormatCleanTimeText
@@ -60,13 +64,6 @@ fun MainScene(navController: NavController) {
         TimeDialog { text ->
             timeDialogShow = false
             autoCleanInterval = (text.toIntOrNull() ?: 24)
-        }
-    }
-    // 设置编辑文本
-    var isEdit by remember { mutableStateOf(false) }
-    if (isEdit) {
-        ConfigDialog {
-            isEdit = false
         }
     }
     // 设置主题Dialog
@@ -143,7 +140,13 @@ fun MainScene(navController: NavController) {
                     modifier = Modifier
                         .padding(vertical = 30.dp)
                         .size(88.dp),
-                    painter = painterResource(id = R.drawable.ic_icon),
+                    painter = painterResource(
+                        id =
+                        if (QQCleanerData.isDark)
+                            R.drawable.ic_icon_dark
+                        else
+                            R.drawable.ic_icon
+                    ),
                     contentDescription = stringResource(id = R.string.icon_content_description),
                 )
             }
@@ -211,13 +214,9 @@ fun MainScene(navController: NavController) {
                         Item(
                             text = stringResource(id = R.string.item_cleaner_config),
                             onClick = {
-
                                 navController.navigate(QQCleanerApp.Edit) {
                                     popUpTo(QQCleanerApp.Main)
                                 }
-                            },
-                            onLongClick = {
-                                isEdit = true
                             },
                             content = {
                                 ForwardIcon(id = R.string.item_cleaner_config)
@@ -250,6 +249,34 @@ fun MainScene(navController: NavController) {
                             }
                         )
                     }
+
+                }
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(navigationBarHeight + 16.dp)
+                        .width(98.dp)
+                        .height(35.dp)
+                        .drawColoredShadow(
+                            colors.cleanerShadowColor,
+                            0.1f,
+                            shadowRadius = 10.dp,
+                            offsetX = 0.dp,
+                            offsetY = (3).dp
+                        )
+                        .background(
+                            colors.themeColor,
+                            RoundedCornerShape(80.dp),
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+
+                    Text(
+                        text = stringResource(id = R.string.cleaner_text),
+                        style = cleanerTextStyle,
+                        color = colors.buttonTextColor
+                    )
                 }
             }
         }
@@ -259,7 +286,7 @@ fun MainScene(navController: NavController) {
 @Composable
 private fun ForwardIcon(@StringRes id: Int) {
     Icon(
-        painter = painterResource(id = R.drawable.ic_baseline_arrow_forward),
+        painter = painterResource(id = R.drawable.ic_chevron_right_24px),
         contentDescription = stringResource(id = id),
         modifier = Modifier.size(24.dp),
         tint = colors.iconColor
@@ -309,34 +336,6 @@ fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun Item(
-    text: String,
-    onClick: () -> Unit = {},
-    onLongClick: () -> Unit = {},
-    content: @Composable () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .clip(cardGroupBackground)
-            .combinedClickable(
-                onLongClick = { onLongClick() },
-                onClick = { onClick() })
-            .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = text,
-            style = QQCleanerTypes.itemTextStyle,
-            color = colors.textColor,
-            modifier = Modifier.weight(1f),
-        )
-        content()
-    }
-}
 
 @Composable
 private fun SwitchItem(

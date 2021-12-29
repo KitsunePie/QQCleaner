@@ -2,6 +2,7 @@ package me.kyuubiran.qqcleaner.ui.scene
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
@@ -24,12 +25,12 @@ import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 @Composable
 fun ConfigSpecifyScreen(navController: NavController) {
     val enable = rememberMutableStateOf(false)
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = colors.cardBackgroundColor)
             .padding(top = statusBarHeight)
+            .focusable(true)
     ) {
         Row(
             modifier = Modifier
@@ -38,13 +39,19 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_arrow_back_ios_new_24),
+                painter = painterResource(id = R.drawable.ic_arrow_back_black_24dp),
                 contentDescription = "返回",
                 modifier = Modifier.clickable {
                     navController.popBackStack(navController.graph.startDestinationId, false)
-                }
+                },
+                tint = colors.textColor
             )
-            Text(style = QQCleanerTypes.TitleStyle, text = "配置名字")
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                style = QQCleanerTypes.TitleStyle,
+                text = "配置名字",
+                color = colors.textColor
+            )
         }
 
         Row(
@@ -62,17 +69,16 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth(0.90f),
+                    modifier = Modifier.weight(1f),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    Text("启用配置", color = colors.buttonTextColor)
+                    Text(
+                        "启用配置",
+                        style = QQCleanerTypes.itemTextStyle,
+                        color = colors.buttonTextColor
+                    )
                 }
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Switch(checked = enable)
-                }
+                Switch(checked = enable)
             }
         }
 
@@ -100,12 +106,14 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_edit_24),
+                painter = painterResource(id = R.drawable.ic_icon_add),
+                tint = colors.textColor,
                 contentDescription = "修改"
             )
             Text(
                 modifier = Modifier.padding(start = 16.dp),
-                style = QQCleanerTypes.TitleStyle, text = "添加类别"
+                style = QQCleanerTypes.itemTextStyle, text = "添加类别",
+                color = colors.textColor,
             )
         }
     }
@@ -122,7 +130,7 @@ fun ConfigItem(text: String = "配置名字", onClick: () -> Unit) {
             .padding(horizontal = 16.dp, vertical = 18.dp)
     ) {
         Column {
-            Text(text = text)
+            Text(text = text, style = QQCleanerTypes.itemTextStyle, color = colors.textColor)
         }
     }
 }

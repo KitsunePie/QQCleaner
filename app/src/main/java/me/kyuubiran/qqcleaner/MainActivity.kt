@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
+import me.kyuubiran.qqcleaner.QQCleanerData.isDark
 import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
@@ -53,24 +54,24 @@ class MainActivity : BaseActivity() {
                 }
                 // 通过当前主题去修改颜色
                 LaunchedEffect(QQCleanerData.theme) {
-                    when (QQCleanerData.theme) {
+                    isDark = when (QQCleanerData.theme) {
                         Light -> {
-                            statusBarLightMode()
-                            navigationBarMode()
+                            false
                         }
                         Dark -> {
-                            statusBarLightMode(false)
-                            navigationBarMode(false)
+                            true
                         }
                         System -> {
-                            if (isNightMode()) {
-                                statusBarLightMode(false)
-                                navigationBarMode(false)
-                            } else {
-                                statusBarLightMode()
-                                navigationBarMode()
-                            }
+                            isNightMode()
                         }
+                    }
+
+                    if (isDark) {
+                        statusBarLightMode(false)
+                        navigationBarMode(false)
+                    } else {
+                        statusBarLightMode()
+                        navigationBarMode()
                     }
                 }
             }

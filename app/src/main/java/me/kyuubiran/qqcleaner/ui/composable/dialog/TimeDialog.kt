@@ -97,17 +97,9 @@ fun TimeDialog(
         state = state,
         bottomHeight = if (SDK_INT >= R)
             softKeyboardHeight.dp
-        else bottomHeight.value.dp
+        else bottomHeight.value.dp,
+        dialogText = stringResource(id = dialog_title_time)
     ) {
-        Row(
-            Modifier.padding(start = 24.dp, top = 26.dp, end = 24.dp, bottom = 25.dp)
-        ) {
-            Text(
-                text = stringResource(id = dialog_title_time),
-                style = DialogTitleStyle,
-                color = colors.textColor
-            )
-        }
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier

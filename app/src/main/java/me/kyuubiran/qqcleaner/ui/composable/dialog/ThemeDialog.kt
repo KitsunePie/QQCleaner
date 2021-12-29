@@ -1,22 +1,25 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.QQCleanerData
@@ -24,7 +27,6 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogTitleStyle
 
 @Composable
 fun ThemeDialog(
@@ -50,22 +52,10 @@ fun ThemeDialog(
     BottomDialog(
         onDismissRequest = onDismissRequest,
         state = state,
-        dialogHeight = 432f
+        dialogHeight = 432f,
+        dialogText = stringResource(id = R.string.item_theme)
     ) {
-        // 这是顶栏部分，就是 主题风格那块
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .height(72.dp)
-                .padding(start = 24.dp, top = 26.dp, end = 24.dp, bottom = 25.dp)
-
-        ) {
-            Text(
-                text = stringResource(id = R.string.item_theme),
-                style = DialogTitleStyle,
-                color = colors.textColor
-            )
-        }
+        val lineColor = colors.dialogLineColor
         // 这个是线条的绘制，我实在不明白为啥要写的这么麻烦，等等修它
         Canvas(
             modifier = Modifier
@@ -74,29 +64,35 @@ fun ThemeDialog(
                 .height(1.dp)
         ) {
             drawRect(
-                color = Color(0xFFF7F7F7),
+                color = lineColor,
                 size = this.size
             )
         }
         // 下面是对应的主题
         ThemeItem(
             text = stringResource(id = R.string.light_theme),
+            id = R.drawable.ic_sun,
             checked = theme == 0x0,
             onClick = {
                 theme = 0x0
-            })
+            }
+        )
         ThemeItem(
             text = stringResource(id = R.string.dark_theme),
+            id = R.drawable.ic_moon,
             checked = theme == 0x1,
             onClick = {
                 theme = 0x1
-            })
+            }
+        )
         ThemeItem(
             text = stringResource(id = R.string.follow_system_theme),
+            id = R.drawable.ic_android,
             checked = theme == 0x2,
             onClick = {
                 theme = 0x2
-            })
+            }
+        )
 
         Canvas(
             modifier = Modifier
@@ -105,12 +101,12 @@ fun ThemeDialog(
                 .height(1.dp)
         ) {
             drawRect(
-                color = Color(0xFFF7F7F7),
+                color = lineColor,
                 size = this.size
             )
         }
 
-        ThemeItem(text = stringResource(id = R.string.use_black_dark_theme))
+        ThemeItem(text = stringResource(id = R.string.use_black_dark_theme), id = R.drawable.ic_a)
 
         DialogButton(
             // 这里进行当前选择和主题是否相同，如果不同则则可以点击选择
@@ -131,7 +127,12 @@ fun ThemeDialog(
 }
 
 @Composable
-private fun ThemeItem(text: String, checked: Boolean = false, onClick: () -> Unit = {}) {
+private fun ThemeItem(
+    @DrawableRes id: Int,
+    text: String,
+    checked: Boolean = false,
+    onClick: () -> Unit = {}
+) {
     // 如果添加 animateColorAsState 动画，则在点击确定的时候有概率闪退，我也不知道什么问题，不过这个加不加点击动画都那样不管他
     val backgroundColor = if (checked) colors.dialogButtonDefault else Color.Transparent
     val textColor = if (checked) colors.dialogButtonTextDefault else colors.textColor
@@ -145,20 +146,37 @@ private fun ThemeItem(text: String, checked: Boolean = false, onClick: () -> Uni
                 .clip(dialogButtonBackground)
                 .background(color = backgroundColor)
                 .clickable(
-                    onClick = onClick,
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }
+                    onClick = onClick
                 )
-                .padding(16.dp)
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
 
         ) {
-            Text(text = text, color = textColor)
+            Icon(
+                painter = painterResource(id = id),
+                contentDescription = text + "的图标",
+                tint = textColor
+            )
+            Text(
+                text = text,
+                color = textColor,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .weight(1f)
+            )
+            if (checked) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_chosen),
+                    contentDescription = "选择图标",
+                    tint = textColor
+                )
+            }
         }
     }
 }
 
 // 恕我直言，这个水波纹真的不优雅，我想给这xx两巴掌
-private object RippleCustomTheme : RippleTheme {
+object RippleCustomTheme : RippleTheme {
 
     @Composable
     override fun defaultColor() =
