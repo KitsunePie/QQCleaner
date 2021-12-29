@@ -57,7 +57,10 @@ fun MainScene(navController: NavController) {
     // 设置间隔Dialog
     var timeDialogShow by remember { mutableStateOf(false) }
     if (timeDialogShow) {
-        TimeDialog { timeDialogShow = false }
+        TimeDialog { text ->
+            timeDialogShow = false
+            autoCleanInterval = (text.toIntOrNull() ?: 24)
+        }
     }
     // 设置编辑文本
     var isEdit by remember { mutableStateOf(false) }

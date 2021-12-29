@@ -38,7 +38,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogTitleStyle
 
 @Composable
 fun TimeDialog(
-    onDismissRequest: () -> Unit,
+    onDismissRequest: (String) -> Unit,
 ) {
 
     val context = LocalContext.current as Activity
@@ -90,7 +90,9 @@ fun TimeDialog(
     }
     val state = remember { mutableStateOf(true) }
     BottomDialog(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = {
+            onDismissRequest(text)
+        },
         dialogHeight = 240f,
         state = state,
         bottomHeight = if (SDK_INT >= R)

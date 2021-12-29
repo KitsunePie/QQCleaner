@@ -11,8 +11,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
@@ -20,7 +22,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 @Composable
 fun DialogButton(
     isFix: Boolean,
-    text: String = "测试",
+    text: String = stringResource(id = R.string.confirm),
     onClick: () -> Unit
 ) {
 
