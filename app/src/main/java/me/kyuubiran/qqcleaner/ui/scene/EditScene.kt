@@ -70,8 +70,8 @@ fun EditScene(navController: NavController) {
                 .padding(24.dp)
                 .fillMaxWidth()
                 .height(56.dp)
-                .background(color = colors.background, shape = cardGroupBackground)
                 .clip(cardGroupBackground)
+                .background(color = colors.background, shape = cardGroupBackground)
                 .padding(horizontal = 16.dp)
                 .clickable {
                     isEdit = true
