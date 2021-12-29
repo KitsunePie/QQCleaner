@@ -4,7 +4,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
-import com.github.kyuubiran.ezxhelper.utils.*
+import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.getBooleanOrDefault
+import com.github.kyuubiran.ezxhelper.utils.getJSONArrayOrEmpty
+import com.github.kyuubiran.ezxhelper.utils.getStringOrDefault
 import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.CleanManager.getConfigDir
 import me.kyuubiran.qqcleaner.util.HostAppUtil
@@ -38,6 +41,14 @@ class CleanData(private val jsonObject: JSONObject) {
                     jsonObject.put("suffix", value)
                 }
                 get() = jsonObject.getStringOrDefault("suffix")
+
+            override fun toString(): String {
+                return jsonObject.toString()
+            }
+
+            fun toFormatString(indentSpaces: Int = 2): String {
+                return jsonObject.toString(indentSpaces)
+            }
         }
 
         // 标题
@@ -55,7 +66,13 @@ class CleanData(private val jsonObject: JSONObject) {
             get() = jsonObject.getBooleanOrDefault("enable", false)
 
         // 路径
-        val pathList = jsonObject.getJSONArrayOrEmpty("path").toArrayList<Path>()
+        val pathList = jsonObject.getJSONArrayOrEmpty("path").run {
+            arrayListOf<Path>().apply {
+                for (i in 0 until this@run.length()) {
+                    add(Path(this@run.getJSONObject(i)))
+                }
+            }
+        }
 
         // 添加路径
         fun addPath(path: Path) {
