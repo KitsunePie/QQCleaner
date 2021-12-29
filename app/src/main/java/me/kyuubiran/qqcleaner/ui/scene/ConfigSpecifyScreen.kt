@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -14,12 +15,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
+import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 @Composable
 fun ConfigSpecifyScreen(navController: NavController) {
+    val enable = rememberMutableStateOf(false)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -33,7 +38,7 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_export_24),
+                painter = painterResource(id = R.drawable.ic_baseline_arrow_back_ios_new_24),
                 contentDescription = "返回",
                 modifier = Modifier.clickable {
                     navController.popBackStack(navController.graph.startDestinationId, false)
@@ -45,11 +50,30 @@ fun ConfigSpecifyScreen(navController: NavController) {
         Row(
             modifier = Modifier
                 .padding(24.dp)
+                .height(56.dp)
                 .fillMaxWidth()
+                .clickable { enable.value = !enable.value }
                 .background(color = colors.themeColor, shape = cardGroupBackground)
-                .padding(horizontal = 16.dp, vertical = 18.dp)
+                .padding(start = 16.dp, end = 16.dp)
         ) {
-            Text("启用配置", color = colors.buttonTextColor)
+            Row(
+                Modifier
+                    .fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(0.90f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Text("启用配置", color = colors.buttonTextColor)
+                }
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Switch(checked = enable)
+                }
+            }
         }
 
         LazyColumn(
