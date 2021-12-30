@@ -37,9 +37,8 @@ fun BottomDialog(
     bottomHeight: Dp = 0.dp,
     state: MutableState<Boolean> = mutableStateOf(true),
     dialogText: String = "Dialog名字",
-    content: @Composable () -> Unit,
-
-    ) {
+    content: @Composable ColumnScope.() -> Unit,
+) {
     val background = QQCleanerColorTheme.colors.dialogBackgroundColor
     var flag by remember { mutableStateOf(true) }
     var isDismiss by remember { mutableStateOf(false) }
@@ -79,6 +78,12 @@ fun BottomDialog(
                         isDismiss = true
                 }
             }.onAwait
+        }
+        LaunchedEffect(dialogHeight) {
+            height.animateTo(
+                targetValue = dialogHeight + QQCleanerData.navigationBarHeight.value,
+                animationSpec = tween(600)
+            )
         }
         Box(
             contentAlignment = Alignment.BottomStart,
@@ -150,7 +155,7 @@ fun BottomDialog(
                         )
                     }
                 }
-                content.invoke()
+                content()
             }
         }
     }

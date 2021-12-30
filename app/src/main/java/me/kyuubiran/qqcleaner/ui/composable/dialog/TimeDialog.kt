@@ -56,6 +56,7 @@ fun TimeDialog(
         if (SDK_INT >= R) {
             val callback =
                 object : WindowInsetsAnimation.Callback(DISPATCH_MODE_CONTINUE_ON_SUBTREE) {
+
                     override fun onProgress(
                         insets: WindowInsets,
                         animations: MutableList<WindowInsetsAnimation>
