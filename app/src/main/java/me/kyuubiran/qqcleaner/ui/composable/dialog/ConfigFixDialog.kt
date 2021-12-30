@@ -12,12 +12,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 
 @Composable
 fun ConfigFixDialog(
-    name: String,
+    data: CleanData,
     navController: NavController,
     onDismissRequest: () -> Unit,
 ) {
@@ -25,7 +26,7 @@ fun ConfigFixDialog(
     BottomDialog(
         onDismissRequest = onDismissRequest,
         dialogHeight = 464f,
-        dialogText = name,
+        dialogText = data.title,
         state = state
     ) {
         val lineColor = QQCleanerColorTheme.colors.dialogLineColor
@@ -44,13 +45,13 @@ fun ConfigFixDialog(
         ConfigItem(id = R.drawable.ic_open,
             text = "执行",
             onClick = {
+                data.pushToExecutionQueue()
                 state.value = false
             }
         )
         ConfigItem(id = R.drawable.ic_edit, text = "编辑",
             onClick = {
                 state.value = false
-                onDismissRequest
                 navController.navigate(QQCleanerApp.ConfigSpecify) {
                     popUpTo(QQCleanerApp.Edit)
                 }

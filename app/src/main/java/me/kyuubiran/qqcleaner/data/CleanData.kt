@@ -8,11 +8,16 @@ import com.github.kyuubiran.ezxhelper.utils.Log
 import com.github.kyuubiran.ezxhelper.utils.getBooleanOrDefault
 import com.github.kyuubiran.ezxhelper.utils.getJSONArrayOrEmpty
 import com.github.kyuubiran.ezxhelper.utils.getStringOrDefault
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.CleanManager.getConfigDir
 import me.kyuubiran.qqcleaner.util.HostAppUtil
 import org.json.JSONObject
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class CleanData(private val jsonObject: JSONObject) {
@@ -25,6 +30,8 @@ class CleanData(private val jsonObject: JSONObject) {
             constructor(jsonObject: JSONObject) {
                 this.jsonObject = jsonObject
             }
+
+            constructor(jsonString: String) : this(JSONObject(jsonString))
 
             constructor(prefix: String, suffix: String) {
                 this.jsonObject = JSONObject().put("prefix", prefix).put("suffix", suffix)
@@ -67,9 +74,17 @@ class CleanData(private val jsonObject: JSONObject) {
 
         // 路径
         val pathList = jsonObject.getJSONArrayOrEmpty("path").run {
+            Log.i("Load path list of $title")
             arrayListOf<Path>().apply {
                 for (i in 0 until this@run.length()) {
-                    add(Path(this@run.getJSONObject(i)))
+                    try {
+                        add(Path(this@run.getJSONObject(i)))
+                    } catch (e: Exception) {
+                        enable = false
+                        Log.e("Load path list of $title failed")
+                        Log.toast(appContext.getString(R.string.load_config_failed, title))
+                        return@apply
+                    }
                 }
             }
         }
@@ -240,6 +255,29 @@ class CleanData(private val jsonObject: JSONObject) {
                 }
             }
             return null
+        }
+
+        @JvmStatic
+        fun fromGithub(link: String): CleanData {
+            val url = URL(
+                link.replace("www.github.com", "raw.githubusercontent.com")
+                    .replace("github.com", "raw.githubusercontent.com")
+            )
+            val conn = url.openConnection() as HttpURLConnection
+            conn.requestMethod = "GET"
+            conn.connect()
+            val inputStream = conn.inputStream
+            val reader = BufferedReader(InputStreamReader(inputStream))
+            val sb = StringBuilder()
+            var line: String? = reader.readLine()
+            while (line != null) {
+                sb.append(line)
+                line = reader.readLine()
+            }
+            reader.close()
+            inputStream.close()
+            conn.disconnect()
+            return fromJson(sb.toString())
         }
     }
 
