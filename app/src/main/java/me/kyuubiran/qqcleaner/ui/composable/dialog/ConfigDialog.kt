@@ -72,14 +72,14 @@ fun ConfigDialog(
                 state.value = false
             }
         )
-        ConfigItem(id = R.drawable.ic_icon_add,
+        ConfigItem(id = R.drawable.ic_add,
             text = stringResource(id = R.string.create_config),
             onClick = {
                 state.value = false
             }
         )
         if (list.isEmpty()) {
-            ConfigItem(id = R.drawable.ic_icon_add,
+            ConfigItem(id = R.drawable.ic_default,
                 text = stringResource(id = R.string.create_default_config),
                 onClick = {
                     list.add(CleanData.createDefaultCleanData().also { it.save() })

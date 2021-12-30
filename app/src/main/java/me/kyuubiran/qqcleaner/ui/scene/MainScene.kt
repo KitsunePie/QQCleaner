@@ -150,9 +150,9 @@ fun MainScene(navController: NavController) {
                     painter = painterResource(
                         id =
                         if (QQCleanerData.isDark)
-                            R.drawable.ic_icon_dark
+                            R.drawable.ic_home_qqcleaner_dark
                         else
-                            R.drawable.ic_icon
+                            R.drawable.ic_home_qqcleaner
                     ),
                     contentDescription = stringResource(id = R.string.icon_content_description),
                 )
@@ -297,7 +297,7 @@ fun MainScene(navController: NavController) {
 @Composable
 private fun ForwardIcon(@StringRes id: Int) {
     Icon(
-        painter = painterResource(id = R.drawable.ic_chevron_right_24px),
+        painter = painterResource(id = R.drawable.ic_chevron_right),
         contentDescription = stringResource(id = id),
         modifier = Modifier.size(24.dp),
         tint = colors.iconColor

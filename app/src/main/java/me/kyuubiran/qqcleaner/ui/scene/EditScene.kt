@@ -61,7 +61,7 @@ fun EditScene(navController: NavController) {
                 .padding(16.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_back_black_24dp),
+                painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = "返回",
                 modifier = Modifier.clickable {
                     navController.popBackStack(navController.graph.startDestinationId, false)
@@ -91,7 +91,7 @@ fun EditScene(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_icon_add),
+                painter = painterResource(id = R.drawable.ic_add),
                 contentDescription = "添加",
                 tint = colors.textColor
             )

@@ -40,7 +40,7 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_back_black_24dp),
+                painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = "返回",
                 modifier = Modifier.clickable {
                     navController.popBackStack(QQCleanerApp.Edit, false)
@@ -107,7 +107,7 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_icon_add),
+                painter = painterResource(id = R.drawable.ic_add),
                 tint = colors.textColor,
                 contentDescription = "修改"
             )
