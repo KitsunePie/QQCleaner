@@ -71,7 +71,7 @@ object CleanManager {
         return f
     }
 
-    private fun getAllConfigs(): Array<CleanData> {
+    fun getAllConfigs(): Array<CleanData> {
         val arr = ArrayList<CleanData>()
         try {
             getConfigDir().listFiles()?.let {

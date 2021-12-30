@@ -13,10 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigFixDialog
@@ -25,15 +27,24 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
+import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 @Composable
 fun EditScene(navController: NavController) {
-    // 设置编辑文本
-    var isEdit by remember { mutableStateOf(false) }
-    if (isEdit) {
-        ConfigDialog {
-            isEdit = false
+    // 配置文件列表
+
+    val cfgList = remember {
+        mutableStateListOf<CleanData>().apply {
+            addAll(CleanManager.getAllConfigs())
+        }
+    }
+
+    // 新建配置对话框
+    var canCreateNewConfigDialogShow by remember { mutableStateOf(false) }
+    if (canCreateNewConfigDialogShow) {
+        ConfigDialog(cfgList) {
+            canCreateNewConfigDialogShow = false
         }
     }
     Column(
@@ -60,11 +71,12 @@ fun EditScene(navController: NavController) {
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 style = TitleStyle,
-                text = "编辑配置",
+                text = stringResource(id = R.string.modify_config),
                 color = colors.textColor
             )
         }
 
+        // 添加配置
         Row(
             modifier = Modifier
                 .padding(24.dp)
@@ -73,7 +85,7 @@ fun EditScene(navController: NavController) {
                 .clip(cardGroupBackground)
                 .background(color = colors.background, shape = cardGroupBackground)
                 .clickable {
-                    isEdit = true
+                    canCreateNewConfigDialogShow = true
                 }
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -86,7 +98,7 @@ fun EditScene(navController: NavController) {
             Text(
                 modifier = Modifier.padding(start = 16.dp),
                 style = itemTextStyle,
-                text = "添加配置",
+                text = stringResource(id = R.string.create_config),
                 color = colors.textColor
             )
         }
@@ -96,22 +108,21 @@ fun EditScene(navController: NavController) {
                 .padding(horizontal = 24.dp)
                 .background(color = colors.background, shape = cardGroupBackground)
         ) {
-            this.item {
-                EditItem(navController = navController)
+            items(cfgList.size) { idx ->
+                EditItem(cfgList[idx], navController)
             }
         }
-
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun EditItem(text: String = "配置名字", name: String = "作者", navController: NavController) {
-    val enable = rememberMutableStateOf(value = false)
+private fun EditItem(data: CleanData, navController: NavController) {
+    val enable = rememberMutableStateOf(value = data.enable)
 
     var configFixDialogShow by remember { mutableStateOf(false) }
     if (configFixDialogShow) {
-        ConfigFixDialog(text, navController) {
+        ConfigFixDialog(data, navController) {
             configFixDialogShow = false
         }
     }
@@ -121,7 +132,11 @@ private fun EditItem(text: String = "配置名字", name: String = "作者", nav
             .height(72.dp)
             .clip(shape = cardGroupBackground)
             .combinedClickable(
-                onClick = { enable.value = !enable.value },
+                onClick = {
+                    enable.value = !enable.value
+                    data.enable = enable.value
+                    data.save()
+                },
                 onLongClick = {
                     configFixDialogShow = true
                 })
@@ -136,8 +151,12 @@ private fun EditItem(text: String = "配置名字", name: String = "作者", nav
                 contentAlignment = Alignment.CenterStart
             ) {
                 Column {
-                    Text(text = text, style = itemTextStyle, color = colors.textColor)
-                    Text(text = name, style = TipStyle, color = colors.textColor.copy(alpha = 0.8f))
+                    Text(text = data.title, style = itemTextStyle, color = colors.textColor)
+                    Text(
+                        text = data.author,
+                        style = TipStyle,
+                        color = colors.textColor.copy(alpha = 0.8f)
+                    )
                 }
             }
             Switch(checked = enable)

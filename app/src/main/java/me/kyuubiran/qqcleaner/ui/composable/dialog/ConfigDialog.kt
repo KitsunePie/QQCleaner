@@ -12,21 +12,27 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.tryOrFalse
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.R.string.cancel
 import me.kyuubiran.qqcleaner.R.string.dialog_title_config
+import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
 
 
 @Composable
 fun ConfigDialog(
+    list: SnapshotStateList<CleanData>,
     onDismissRequest: () -> Unit,
 ) {
     val state = remember { mutableStateOf(true) }
@@ -52,6 +58,16 @@ fun ConfigDialog(
         ConfigItem(id = R.drawable.ic_cilpboard,
             text = "从剪贴板导入",
             onClick = {
+                if (tryOrFalse {
+                        CleanData.fromClipboard()!!.let {
+                            list.add(it)
+                            it.save()
+                        }
+                    }) {
+                    Log.toast(appContext.getString(R.string.import_from_clipboard_success))
+                } else {
+                    Log.toast(appContext.getString(R.string.import_from_clipboard_error))
+                }
                 state.value = false
             }
         )
