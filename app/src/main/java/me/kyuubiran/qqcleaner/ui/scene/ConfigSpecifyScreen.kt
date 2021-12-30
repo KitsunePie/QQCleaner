@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
@@ -42,7 +43,7 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 painter = painterResource(id = R.drawable.ic_arrow_back_black_24dp),
                 contentDescription = "返回",
                 modifier = Modifier.clickable {
-                    navController.popBackStack(navController.graph.startDestinationId, false)
+                    navController.popBackStack(QQCleanerApp.Edit, false)
                 },
                 tint = colors.textColor
             )

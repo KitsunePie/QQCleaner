@@ -53,7 +53,7 @@ fun EditScene(navController: NavController) {
                 painter = painterResource(id = R.drawable.ic_arrow_back_black_24dp),
                 contentDescription = "返回",
                 modifier = Modifier.clickable {
-                    navController.popBackStack(navController.graph.startDestinationId, true)
+                    navController.popBackStack(navController.graph.startDestinationId, false)
                 },
                 tint = colors.textColor
             )
