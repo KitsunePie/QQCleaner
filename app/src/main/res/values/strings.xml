@@ -6,35 +6,35 @@
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
 
-    <string name="config_author">作者：%s</string>
+    <string name="config_author">作者 %s</string>
 
-    <string name="cleaner_text">立刻瘦身</string>
+    <string name="cleaner_text">立即瘦身</string>
 
-    <string name="icon_content_description">这个是一个装饰性的图标没什么用处，可以跳过它</string>
+    <string name="icon_content_description">这是一个装饰性图标，并无实际用处</string>
 
-    <string name="set_auto_clean_interval_desc">单位：h（默认为 24h）</string>
+    <string name="set_auto_clean_interval_desc">单位：h（默认 24）</string>
 
 
     <string name="last_clean_date_title">上次瘦身 %s</string>
-    <string name="no_last_clean_date_record">你还还没有瘦身过哦~</string>
+    <string name="no_last_clean_date_record">暂时还没有瘦身记录</string>
     <string name="no_last_clean_date_record_mini">暂无瘦身记录</string>
 
-    <string name="modify_config">编辑配置</string>
-    <string name="execute_this_config">执行配置</string>
-    <string name="export_this_config">导出至下载目录</string>
-    <string name="copy_this_into_clipboard_config">复制到剪切板</string>
-    <string name="delete_this_config">删除此配置</string>
+    <string name="modify_config">编辑</string>
+    <string name="execute_this_config">执行</string>
+    <string name="export_this_config">导出至 Download 目录</string>
+    <string name="copy_this_into_clipboard_config">复制到剪贴板</string>
+    <string name="delete_this_config">删除</string>
 
 
     <string name="add_config">添加配置</string>
     <string name="create_config">新建配置</string>
-    <string name="import_from_file">导入配置文件</string>
-    <string name="create_default_config">创建默认配置</string>
-    <string name="create_default_config_success">成功创建默认配置！</string>
-    <string name="import_from_clipboard">从剪切板导入</string>
+    <string name="import_from_file">选择本地文件</string>
+    <string name="create_default_config">导入默认配置</string>
+    <string name="create_default_config_success">已导入默认配置</string>
+    <string name="import_from_clipboard">从剪贴板导入</string>
 
-    <string name="import_from_clipboard_success">成功从剪切板导入配置文件“%s”！</string>
-    <string name="import_from_clipboard_error">坏耶！导入失败了！请检查是否给予宿主访问剪切板的权限，或是粘贴的内容是否合法！</string>
+    <string name="import_from_clipboard_success">已从剪切板导入“%s”！</string>
+    <string name="import_from_clipboard_error">导入失败，请检查剪切板内容或是否已授予 QQ 或微信「读取剪贴板内容」权限。</string>
 
     <string name="load_config_failed">读取配置文件“%s”时发生错误，请检查配置文件是否完整，此配置文件已被暂时关闭。</string>
 
