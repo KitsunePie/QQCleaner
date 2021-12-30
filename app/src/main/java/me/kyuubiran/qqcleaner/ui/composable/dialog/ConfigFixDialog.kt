@@ -108,7 +108,7 @@ fun ConfigFixDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "取消",
+                        text = stringResource(id = R.string.cancel),
                         color = colors.buttonTextColor,
                         style = itemTextStyle
                     )
@@ -130,7 +130,7 @@ fun ConfigFixDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "确定",
+                        text = stringResource(id = R.string.confirm),
                         color = colors.dialogButtonTextPress,
                         style = itemTextStyle
                     )

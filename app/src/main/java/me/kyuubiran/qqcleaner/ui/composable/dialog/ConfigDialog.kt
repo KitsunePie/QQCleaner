@@ -37,7 +37,7 @@ fun ConfigDialog(
     val state = remember { mutableStateOf(true) }
     BottomDialog(
         onDismissRequest = onDismissRequest,
-        dialogHeight = 352f,
+        dialogHeight = if (list.isEmpty()) 408f else 352f,
         dialogText = stringResource(id = dialog_title_config),
         state = state
     ) {
@@ -72,14 +72,16 @@ fun ConfigDialog(
                 state.value = false
             }
         )
-        ConfigItem(id = R.drawable.ic_icon_add,
+        ConfigItem(
+            id = R.drawable.ic_icon_add,
             text = stringResource(id = R.string.create_config),
             onClick = {
                 state.value = false
             }
         )
         if (list.isEmpty()) {
-            ConfigItem(id = R.drawable.ic_icon_add,
+            ConfigItem(
+                id = R.drawable.ic_icon_add,
                 text = stringResource(id = R.string.create_default_config),
                 onClick = {
                     list.add(CleanData.createDefaultCleanData().also { it.save() })
