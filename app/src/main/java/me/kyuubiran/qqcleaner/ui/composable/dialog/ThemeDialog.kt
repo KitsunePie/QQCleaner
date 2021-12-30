@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -24,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.ui.composable.Line
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
@@ -55,19 +55,8 @@ fun ThemeDialog(
         dialogHeight = 432f,
         dialogText = stringResource(id = R.string.item_theme)
     ) {
-        val lineColor = colors.dialogLineColor
-        // 这个是线条的绘制，我实在不明白为啥要写的这么麻烦，等等修它
-        Canvas(
-            modifier = Modifier
-                .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
-                .fillMaxWidth()
-                .height(1.dp)
-        ) {
-            drawRect(
-                color = lineColor,
-                size = this.size
-            )
-        }
+        // 线条绘制
+        Line(colors.dialogLineColor)
         // 下面是对应的主题
         ThemeItem(
             text = stringResource(id = R.string.light_theme),
@@ -94,17 +83,8 @@ fun ThemeDialog(
             }
         )
 
-        Canvas(
-            modifier = Modifier
-                .padding(top = 12.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
-                .fillMaxWidth()
-                .height(1.dp)
-        ) {
-            drawRect(
-                color = lineColor,
-                size = this.size
-            )
-        }
+        // 线条绘制
+        Line(colors.dialogLineColor)
 
         ThemeItem(text = stringResource(id = R.string.use_black_dark_theme), id = R.drawable.ic_a)
 

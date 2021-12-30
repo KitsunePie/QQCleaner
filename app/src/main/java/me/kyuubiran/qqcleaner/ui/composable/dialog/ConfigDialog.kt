@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,6 +25,7 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.R.string.cancel
 import me.kyuubiran.qqcleaner.R.string.dialog_title_config
 import me.kyuubiran.qqcleaner.data.CleanData
+import me.kyuubiran.qqcleaner.ui.composable.Line
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
 
@@ -42,20 +42,11 @@ fun ConfigDialog(
         dialogText = stringResource(id = dialog_title_config),
         state = state
     ) {
-        val lineColor = colors.dialogLineColor
-        Canvas(
-            modifier = Modifier
-                .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
-                .fillMaxWidth()
-                .height(1.dp)
-        ) {
-            drawRect(
-                color = lineColor,
-                size = this.size
-            )
-        }
+        // 线条绘制
+        Line(colors.dialogLineColor)
 
-        ConfigItem(id = R.drawable.ic_cilpboard,
+        ConfigItem(
+            id = R.drawable.ic_cilpboard,
             text = "从剪贴板导入",
             onClick = {
                 if (tryOrFalse {

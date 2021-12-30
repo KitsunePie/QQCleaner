@@ -98,12 +98,15 @@ fun TimeDialog(
         },
         dialogHeight = 240f,
         state = state,
+        // 为啥卡顿我也不清楚，但是我猜想跟这里有关系？
+        // 需要计算好多次
         bottomHeight = if (SDK_INT >= R)
             softKeyboardHeight.dp
         else bottomHeight.value.dp,
         dialogText = stringResource(id = dialog_title_time)
     ) {
         Box(
+            // 这是居中，但是没什么必要
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxWidth()
@@ -123,6 +126,9 @@ fun TimeDialog(
                     .align(Alignment.Center)
                     .fillMaxSize()
                     .onKeyEvent {
+                        // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
+                        // 实际上还是保留了类似早期 android 及实体按键的东西
+                        // 返回是一个按键
                         if (it.nativeKeyEvent.action == ACTION_UP
                             && it.nativeKeyEvent.keyCode == KEYCODE_BACK
                         ) {
@@ -133,7 +139,9 @@ fun TimeDialog(
                         false
                     },
                 value = text,
+                // 这是调用的数字键盘
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                // 这是对输入的过滤，文本为纯数字
                 onValueChange = { value ->
                     text = value.filter {
                         it.isDigit()

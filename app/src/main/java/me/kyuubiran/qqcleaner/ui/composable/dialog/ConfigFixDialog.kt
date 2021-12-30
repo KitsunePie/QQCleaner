@@ -1,19 +1,12 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
+import me.kyuubiran.qqcleaner.ui.composable.Line
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 
 @Composable
@@ -23,25 +16,15 @@ fun ConfigFixDialog(
     onDismissRequest: () -> Unit,
 ) {
     val state = remember { mutableStateOf(true) }
+    var height by remember { mutableStateOf(464f) }
     BottomDialog(
         onDismissRequest = onDismissRequest,
-        dialogHeight = 464f,
+        dialogHeight = height,
         dialogText = data.title,
         state = state
     ) {
-        val lineColor = QQCleanerColorTheme.colors.dialogLineColor
-        // 这个是线条的绘制，我实在不明白为啥要写的这么麻烦，等等修它
-        Canvas(
-            modifier = Modifier
-                .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
-                .fillMaxWidth()
-                .height(1.dp)
-        ) {
-            drawRect(
-                color = lineColor,
-                size = this.size
-            )
-        }
+        // 线条绘制
+        Line(QQCleanerColorTheme.colors.dialogLineColor)
         ConfigItem(id = R.drawable.ic_open,
             text = "执行",
             onClick = {
@@ -49,7 +32,8 @@ fun ConfigFixDialog(
                 state.value = false
             }
         )
-        ConfigItem(id = R.drawable.ic_edit, text = "编辑",
+        ConfigItem(
+            id = R.drawable.ic_edit, text = "编辑",
             onClick = {
                 state.value = false
                 navController.navigate(QQCleanerApp.ConfigSpecify) {
@@ -74,7 +58,7 @@ fun ConfigFixDialog(
         ConfigItem(
             id = R.drawable.ic_delete,
             text = "删除", onClick = {
-                state.value = false
+                height = 219f
             }
         )
         DialogButton(true, text = stringResource(id = R.string.cancel)) { state.value = false }
