@@ -3,12 +3,8 @@
     <string name="last_clean_date">上次瘦身是%s</string>
     <string name="title_setup">设定</string>
     <string name="app_name">QQ瘦身</string>
-    <string name="save">保存</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
-    <string name="warn">警告</string>
-    <string name="notify">注意</string>
-    <string name="wrong_click">我点错了</string>
 
     <string name="config_author">作者：%s</string>
 
@@ -16,66 +12,18 @@
 
     <string name="icon_content_description">这个是一个装饰性的图标没什么用处，可以跳过它</string>
 
-    <string name="not_ready_yet">还没有准备好哦~</string>
-
-    <string name="clean_settings_title">瘦身设置</string>
-    <string name="auto_clean_title">自动瘦身</string>
-    <string name="set_auto_clean_interval_title">设置自动瘦身间隔</string>
     <string name="set_auto_clean_interval_desc">单位：h（默认为 24h）</string>
-    <string name="set_auto_clean_interval_dialog_title">设置自动瘦身间隔（单位：小时）</string>
-    <string name="interval_title">间隔（单位：小时）</string>
-    <string name="modify_config_title">编辑瘦身配置</string>
-    <string name="execute_clean_title">立即执行瘦身</string>
-    <string name="execute_clean_desc">执行你当前的瘦身配置</string>
-    <string name="execute_clean_dialog_content">你确定要执行瘦身吗？</string>
 
-
-    <string name="clean_info_title">瘦身详情</string>
 
     <string name="last_clean_date_title">上次瘦身 %s</string>
     <string name="no_last_clean_date_record">你还还没有瘦身过哦~</string>
     <string name="no_last_clean_date_record_mini">暂无瘦身记录</string>
-    <string name="total_cleaned_title">总计清理</string>
-
-    <string name="click_to_reset_clean_date_with_times">再点击%d次重置瘦身日期</string>
-    <string name="reset_clean_date">已重置瘦身日期</string>
-
-    <string name="enable_power_mode">强力模式</string>
-    <string name="enable_power_mode_hint">使用Shell命令强制删除文件</string>
-    <string name="other_title">其他</string>
-
-    <string name="about_title">关于</string>
-    <string name="module_version_title">模块版本</string>
-    <string name="goto_github_title">点我前往项目地址</string>
-    <string name="goto_github_desc">点个Star吧！</string>
-
-    <string name="join_qq_group_title">点击加入QQ群</string>
-    <string name="join_qq_group_desc">有问题可以来群里反馈哦~</string>
-    <string name="join_tg_channel_title">点击加入Telegram频道</string>
-    <string name="join_tg_channel_desc">频道:@QQCleaner</string>
-
-    <string name="auto_clean_delay">自动瘦身间隔</string>
-    <string name="auto_clean_delay_hint">单位:小时 默认24小时(即一天) 设置为0时默认24小时</string>
-
-    <string name="do_not_disturb">静默清理</string>
-    <string name="do_not_disturb_hint">不显示自动清理Toast</string>
-    <string name="refresh_clean_size">已刷新清理大小</string>
 
     <string name="modify_config">编辑配置</string>
-    <string name="modify_config_dialog_title">编辑配置 “%s”</string>
-    <string name="enable_this_config">启用此配置</string>
-    <string name="disable_this_config">禁用此配置</string>
     <string name="execute_this_config">执行配置</string>
     <string name="export_this_config">导出至下载目录</string>
     <string name="copy_this_into_clipboard_config">复制到剪切板</string>
     <string name="delete_this_config">删除此配置</string>
-    <string name="execute_config_dialog_content">你确定要执行配置文件“%s”吗？</string>
-    <string name="delete_config_dialog_content">你确定要删除配置文件“%s”吗？</string>
-
-    <string name="export_error">无法导出配置文件，请检查是否给予宿主访问存储卡的权限。</string>
-    <string name="export_success">成功将配置文件导出至：内部存储空间/Download\/%s</string>
-    <string name="copy_to_clipboard_error">无法访问剪切板，请检查是否给予宿主访问剪切板的权限。</string>
-    <string name="copy_to_clipboard_success">已将配置文件“%s”导出至剪切板</string>
 
 
     <string name="add_config">添加配置</string>
@@ -85,13 +33,8 @@
     <string name="create_default_config_success">成功创建默认配置！</string>
     <string name="import_from_clipboard">从剪切板导入</string>
 
-    <string name="noting_in_clipboard">你的剪切板是空的！</string>
     <string name="import_from_clipboard_success">成功从剪切板导入配置文件“%s”！</string>
     <string name="import_from_clipboard_error">坏耶！导入失败了！请检查是否给予宿主访问剪切板的权限，或是粘贴的内容是否合法！</string>
-
-    <string name="empty_config_text">这里空空如也~</string>
-
-    <string name="not_implement_yet">还没有做完！咕咕一百年~</string>
 
     <string name="load_config_failed">读取配置文件“%s”时发生错误，请检查配置文件是否完整，此配置文件已被暂时关闭。</string>
 
