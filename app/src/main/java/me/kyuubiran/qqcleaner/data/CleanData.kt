@@ -12,6 +12,8 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.CleanManager.getConfigDir
 import me.kyuubiran.qqcleaner.util.HostAppUtil
+import me.kyuubiran.qqcleaner.util.hostApp
+import me.kyuubiran.qqcleaner.util.isQqOrTim
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.File
@@ -278,6 +280,15 @@ class CleanData(private val jsonObject: JSONObject) {
             inputStream.close()
             conn.disconnect()
             return fromJson(sb.toString())
+        }
+
+        @JvmStatic
+        fun createDefaultCleanData(): CleanData {
+            appContext.assets.open(
+                "${if (hostApp.isQqOrTim) "qq" else "wechat"}.json"
+            ).use {
+                return fromJson(it.bufferedReader().readText())
+            }
         }
     }
 

@@ -1,0 +1,314 @@
+{
+  "title": "默认配置",
+  "author": "KyuubiRan",
+  "enable": false,
+  "hostApp": "qq/tim",
+  "content": [
+    {
+      "title": "缓存",
+      "enable": true,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/diskcache"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/Scribble/ScribbleCache"
+        }
+      ]
+    },
+    {
+      "title": "图片",
+      "enable": true,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/photo"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/chatpic"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/thumb"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/hotpic"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/QQ_Images/QQEditPic"
+        }
+      ]
+    },
+    {
+      "title": "短视频",
+      "enable": true,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/shortvideo"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/VideoCache"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/video_story"
+        }
+      ]
+    },
+    {
+      "title": "DIY名片",
+      "enable": true,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.apollo"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/vas/lottie"
+        }
+      ]
+    },
+    {
+      "title": "广告",
+      "enable": true,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/pddata"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/qbosssplahAD"
+        }
+      ]
+    },
+    {
+      "title": "头像",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/head"
+        },
+        {
+          "prefix": "!TencentDir",
+          "suffix": "/MobileQQ/head"
+        }
+      ]
+    },
+    {
+      "title": "挂件",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.pendant"
+        }
+      ]
+    },
+    {
+      "title": "个人主页背景",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.profilecard"
+        }
+      ]
+    },
+    {
+      "title": "视频通话背景",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/funcall"
+        }
+      ]
+    },
+    {
+      "title": "小程序",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/mini"
+        }
+      ]
+    },
+    {
+      "title": "字体",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.hiboom_font"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.font_info"
+        }
+      ]
+    },
+    {
+      "title": "礼物",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.gift"
+        }
+      ]
+    },
+    {
+      "title": "戳一戳",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.vaspoke"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.newpoke"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/poke"
+        }
+      ]
+    },
+    {
+      "title": "进场特效",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.troop/enter_effects"
+        }
+      ]
+    },
+    {
+      "title": "聊天表情",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.emotionsm"
+        }
+      ]
+    },
+    {
+      "title": "VIP图标",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.vipicon"
+        }
+      ]
+    },
+    {
+      "title": "斗图",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/DoutuRes"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/.sticker_recommended_pics"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/pe"
+        }
+      ]
+    },
+    {
+      "title": "日志",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/tbslog"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/onelong"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/tencent/tbs_common_log"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/tencent/tbs_live_log"
+        }
+      ]
+    },
+    {
+      "title": "接收文件缓存",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/QQfile_recv/trooptmp"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/QQfile_recv/tmp"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/QQfile_recv/thumbnails"
+        }
+      ]
+    },
+    {
+      "title": "调试数据",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/avdebug"
+        }
+      ]
+    },
+    {
+      "title": "其他",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/qav"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/qqmusic"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/Tencent/MobileQQ/pddata"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/tbs"
+        },
+        {
+          "prefix": "!TencentDir",
+          "suffix": "/TMAssistantSDK"
+        }
+      ]
+    }
+  ]
+}

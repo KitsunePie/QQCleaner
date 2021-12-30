@@ -81,6 +81,8 @@
     <string name="add_config">添加配置</string>
     <string name="create_config">新建配置</string>
     <string name="import_from_file">导入配置文件</string>
+    <string name="create_default_config">创建默认配置</string>
+    <string name="create_default_config_success">成功创建默认配置！</string>
     <string name="import_from_clipboard">从剪切板导入</string>
 
     <string name="noting_in_clipboard">你的剪切板是空的！</string>

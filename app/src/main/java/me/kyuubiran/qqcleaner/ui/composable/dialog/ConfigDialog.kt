@@ -78,6 +78,16 @@ fun ConfigDialog(
                 state.value = false
             }
         )
+        if (list.isEmpty()) {
+            ConfigItem(id = R.drawable.ic_icon_add,
+                text = stringResource(id = R.string.create_default_config),
+                onClick = {
+                    list.add(CleanData.createDefaultCleanData().also { it.save() })
+                    Log.toast(appContext.getString(R.string.create_default_config_success))
+                    state.value = false
+                }
+            )
+        }
         DialogButton(true, text = stringResource(id = cancel)) { state.value = false }
     }
 }

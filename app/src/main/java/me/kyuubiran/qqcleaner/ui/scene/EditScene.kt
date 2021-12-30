@@ -92,7 +92,7 @@ fun EditScene(navController: NavController) {
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_icon_add),
-                contentDescription = "修改",
+                contentDescription = "添加",
                 tint = colors.textColor
             )
             Text(
@@ -155,7 +155,7 @@ private fun EditItem(data: CleanData, onRemove: (CleanData) -> Unit, navControll
                 Column {
                     Text(text = data.title, style = itemTextStyle, color = colors.textColor)
                     Text(
-                        text = data.author,
+                        text = stringResource(id = R.string.config_author, data.author),
                         style = TipStyle,
                         color = colors.textColor.copy(alpha = 0.8f)
                     )
