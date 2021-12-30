@@ -72,7 +72,7 @@ fun BottomDialog(
             async {
                 // 高度的动画
                 height.animateTo(
-                    targetValue = if (flag) dialogHeight + (QQCleanerData.navigationBarHeight.value) else 0f,
+                    targetValue = if (flag) dialogHeight + QQCleanerData.navigationBarHeight.value else 0f,
                     animationSpec = tween(600)
                 ).apply {
                     if (!flag)

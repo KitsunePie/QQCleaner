@@ -49,11 +49,13 @@ fun Dialog(
         dialog.removeView()
         onRemoveViewRequest()
     }
+
     DisposableEffect(dialog) {
         dialog.show()
         onDispose {
             dialog.dismiss()
             dialog.disposeComposition()
+            dialog.removeView()
         }
 
     }

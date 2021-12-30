@@ -49,10 +49,11 @@ fun ConfigFixDialog(
         )
         ConfigItem(id = R.drawable.ic_edit, text = "编辑",
             onClick = {
+                state.value = false
+                onDismissRequest
                 navController.navigate(QQCleanerApp.ConfigSpecify) {
                     popUpTo(QQCleanerApp.Edit)
                 }
-                state.value = false
             }
         )
         ConfigItem(

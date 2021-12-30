@@ -2,7 +2,6 @@ package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import android.app.Activity
 import android.content.Context.INPUT_METHOD_SERVICE
-import android.content.res.Resources.getSystem
 import android.graphics.Rect
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.R
@@ -34,6 +33,7 @@ import me.kyuubiran.qqcleaner.ui.composable.TextField
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogEditBackGround
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogTitleStyle
+import me.kyuubiran.qqcleaner.ui.utils.px2dp
 
 
 @Composable
@@ -47,6 +47,10 @@ fun TimeDialog(
     var hasKeyboard by remember { mutableStateOf(false) }
     var windowHeight = 0
 
+    fun Int.px2dp(): Float {
+        return this.px2dp(context)
+    }
+
     var text by remember { mutableStateOf("") }
     context.window.decorView.apply {
         if (SDK_INT >= R) {
@@ -56,8 +60,7 @@ fun TimeDialog(
                         insets: WindowInsets,
                         animations: MutableList<WindowInsetsAnimation>
                     ): WindowInsets {
-                        softKeyboardHeight =
-                            (insets.getInsets(ime()).bottom / getSystem().displayMetrics.density)
+                        softKeyboardHeight = insets.getInsets(ime()).bottom.px2dp()
                         return insets
                     }
                 }
@@ -76,7 +79,7 @@ fun TimeDialog(
                             0f
                         } else {
                             hasKeyboard = true
-                            (windowHeight - visibleHeight) / getSystem().displayMetrics.density
+                            (windowHeight - visibleHeight).px2dp()
                         }
                 }
             }

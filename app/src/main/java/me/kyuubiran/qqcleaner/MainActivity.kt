@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner
 
 import android.content.res.Configuration
-import android.content.res.Resources.getSystem
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -23,6 +22,7 @@ import me.kyuubiran.qqcleaner.ui.activity.BaseActivity
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
+import me.kyuubiran.qqcleaner.ui.utils.px2dp
 import me.kyuubiran.qqcleaner.util.navigationBarMode
 import me.kyuubiran.qqcleaner.util.statusBarLightMode
 
@@ -85,24 +85,27 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun Float.px2dp(): Float {
+        return this.px2dp(this@MainActivity)
+    }
+
     /**
      * 返回状态栏的高度
      */
     private fun getStatusBarHeight(): Dp {
         var height = 0f
-        val resourceId =
-            applicationContext.resources
-                .getIdentifier(
-                    "status_bar_height",
-                    "dimen",
-                    "android"
-                )
+        val resourceId = applicationContext.resources
+            .getIdentifier(
+                "status_bar_height",
+                "dimen",
+                "android"
+            )
         if (resourceId > 0) {
             // 这个是 px 需要转换
             height = applicationContext.resources.getDimension(resourceId)
         }
 
-        return (height / getSystem().displayMetrics.density).dp
+        return (height.px2dp()).dp
     }
 
     /**
@@ -122,7 +125,7 @@ class MainActivity : BaseActivity() {
             height = applicationContext.resources.getDimension(resourceId)
         }
 
-        return (height / getSystem().displayMetrics.density).dp
+        return (height.px2dp()).dp
     }
 
 }

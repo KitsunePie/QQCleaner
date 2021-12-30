@@ -1,6 +1,5 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
-import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -42,8 +41,6 @@ import me.kyuubiran.qqcleaner.util.getFormatCleanTimeText
 import me.kyuubiran.qqcleaner.util.getLastCleanTimeText
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
-
-@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MainScene(navController: NavController) {
 
@@ -322,7 +319,7 @@ fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit
             .fillMaxWidth()
             .height(56.dp)
             .clip(cardGroupBackground)
-            .clickable { onClick.invoke() }
+            .clickable { onClick() }
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -53,7 +53,7 @@ fun EditScene(navController: NavController) {
                 painter = painterResource(id = R.drawable.ic_arrow_back_black_24dp),
                 contentDescription = "返回",
                 modifier = Modifier.clickable {
-                    navController.popBackStack(navController.graph.startDestinationId, false)
+                    navController.popBackStack(navController.graph.startDestinationId, true)
                 },
                 tint = colors.textColor
             )
@@ -72,10 +72,10 @@ fun EditScene(navController: NavController) {
                 .height(56.dp)
                 .clip(cardGroupBackground)
                 .background(color = colors.background, shape = cardGroupBackground)
-                .padding(horizontal = 16.dp)
                 .clickable {
                     isEdit = true
-                },
+                }
+                .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
