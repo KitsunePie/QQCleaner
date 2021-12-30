@@ -27,6 +27,7 @@ import me.kyuubiran.qqcleaner.ui.composable.Line
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
+import me.kyuubiran.qqcleaner.util.ConfigManager
 
 @Composable
 fun ThemeDialog(
@@ -101,6 +102,7 @@ fun ThemeDialog(
                 0x1 -> QQCleanerData.theme = Dark
                 0x2 -> QQCleanerData.theme = System
             }
+            ConfigManager.sThemeSelect = theme
             state.value = false
         }
     }

@@ -12,11 +12,13 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 @Composable
 fun ConfigFixDialog(
     data: CleanData,
+    onRemove: (CleanData) -> Unit,
     navController: NavController,
     onDismissRequest: () -> Unit,
 ) {
     val state = remember { mutableStateOf(true) }
     var height by remember { mutableStateOf(464f) }
+
     BottomDialog(
         onDismissRequest = onDismissRequest,
         dialogHeight = height,
@@ -26,14 +28,13 @@ fun ConfigFixDialog(
         // 线条绘制
         Line(QQCleanerColorTheme.colors.dialogLineColor)
         ConfigItem(id = R.drawable.ic_open,
-            text = "执行",
+            text = stringResource(id = R.string.execute_this_config),
             onClick = {
                 data.pushToExecutionQueue()
                 state.value = false
             }
         )
-        ConfigItem(
-            id = R.drawable.ic_edit, text = "编辑",
+        ConfigItem(id = R.drawable.ic_edit, text = stringResource(id = R.string.modify_config),
             onClick = {
                 state.value = false
                 navController.navigate(QQCleanerApp.ConfigSpecify) {
@@ -43,21 +44,25 @@ fun ConfigFixDialog(
         )
         ConfigItem(
             id = R.drawable.ic_save,
-            text = "导出至 Download 目录",
+            text = stringResource(id = R.string.export_this_config),
             onClick = {
+                data.export()
                 state.value = false
             }
         )
         ConfigItem(
             id = R.drawable.ic_copy,
-            text = "复制到剪贴版",
+            text = stringResource(id = R.string.copy_this_into_clipboard_config),
             onClick = {
+                data.copyToClipboard()
                 state.value = false
             }
         )
         ConfigItem(
             id = R.drawable.ic_delete,
-            text = "删除", onClick = {
+            text = stringResource(id = R.string.delete_this_config), onClick = {
+                onRemove(data)
+                data.delete()
                 height = 219f
             }
         )

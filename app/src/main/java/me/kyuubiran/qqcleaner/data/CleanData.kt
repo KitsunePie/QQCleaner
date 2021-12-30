@@ -206,7 +206,7 @@ class CleanData(private val jsonObject: JSONObject) {
      * 将配置文件推至队列执行
      */
     fun pushToExecutionQueue(showToast: Boolean = true) {
-        CleanManager.execute(this, showToast)
+        CleanManager.execute(this, showToast, true)
     }
 
     /**

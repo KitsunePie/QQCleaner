@@ -17,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
@@ -36,23 +38,29 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cleanerTextStyle
 import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
-import me.kyuubiran.qqcleaner.util.getCurrentTimeText
-import me.kyuubiran.qqcleaner.util.getFormatCleanTimeText
-import me.kyuubiran.qqcleaner.util.getLastCleanTimeText
-import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
+import me.kyuubiran.qqcleaner.util.*
 
 @Composable
 fun MainScene(navController: NavController) {
 
     // 上次瘦身日期
     var lastClean by remember {
-        mutableStateOf(System.currentTimeMillis())
-//        mutableStateOf(ConfigManager.sLastCleanDate)
+//        mutableStateOf(System.currentTimeMillis())
+        mutableStateOf(ConfigManager.sLastCleanDate)
+    }
+    // 自动瘦身
+    val autoClean by remember {
+        mutableStateOf(ConfigManager.sAutoClean)
     }
     // 自动瘦身间隔
     var autoCleanInterval by remember {
-        mutableStateOf(24)
-//        mutableStateOf(ConfigManager.sAutoCleanInterval)
+//        mutableStateOf(24)
+        mutableStateOf(ConfigManager.sAutoCleanInterval)
+    }
+    // 静默瘦身
+    val silenceClean by remember {
+//        mutableStateOf(24)
+        mutableStateOf(ConfigManager.sSilenceClean)
     }
 
     // 设置间隔Dialog
@@ -60,7 +68,9 @@ fun MainScene(navController: NavController) {
     if (timeDialogShow) {
         TimeDialog { text ->
             timeDialogShow = false
-            autoCleanInterval = (text.toIntOrNull() ?: 24)
+            autoCleanInterval = (text.toIntOrNull() ?: 24).also {
+                ConfigManager.sAutoCleanInterval = it
+            }
         }
     }
     // 设置主题Dialog
@@ -173,12 +183,9 @@ fun MainScene(navController: NavController) {
                         //自动瘦身
                         SwitchItem(
                             text = stringResource(id = R.string.item_cleaner),
-                            checked = rememberMutableStateOf(
-                                value = true
-                                //value = ConfigManager.sAutoClean
-                            ),
+                            checked = rememberMutableStateOf(autoClean),
                             onClick = {
-                                //ConfigManager.sAutoClean = it
+                                ConfigManager.sAutoClean = it
                             }
                         )
 
@@ -186,11 +193,10 @@ fun MainScene(navController: NavController) {
                         SwitchItem(
                             text = stringResource(id = R.string.silence_clean),
                             checked = rememberMutableStateOf(
-                                value = true
-                                // value = ConfigManager.sSilenceClean
+                                silenceClean
                             ), onClick = {
-//                                if (it) Log.toast(appContext.getString(R.string.silence_clean_toast))
-//                                ConfigManager.sSilenceClean = it
+                                Log.toast(appContext.getString(if (it) R.string.silence_clean_toast_on else R.string.silence_clean_toast_off))
+                                ConfigManager.sSilenceClean = it
                             }
                         )
 
@@ -262,13 +268,21 @@ fun MainScene(navController: NavController) {
                             offsetX = 0.dp,
                             offsetY = (3).dp
                         )
+                        .clickable {
+                            CleanManager.executeAll(!silenceClean)
+                            System
+                                .currentTimeMillis()
+                                .let {
+                                    lastClean = it
+                                    ConfigManager.sLastCleanDate = it
+                                }
+                        }
                         .background(
                             colors.themeColor,
                             RoundedCornerShape(80.dp),
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-
                     Text(
                         text = stringResource(id = R.string.cleaner_text),
                         style = cleanerTextStyle,

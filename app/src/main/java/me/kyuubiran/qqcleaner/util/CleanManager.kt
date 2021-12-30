@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit
 object CleanManager {
     private val pool = ThreadPoolExecutor(1, 1, 5L, TimeUnit.MINUTES, LinkedBlockingQueue(256))
 
-    fun execute(data: CleanData, showToast: Boolean = true) {
-        if (!data.enable || !data.valid) return
+    fun execute(data: CleanData, showToast: Boolean = true, forceExec: Boolean = false) {
+        if (!forceExec || (!data.enable || !data.valid)) return
         if (showToast) Log.toast(
             appContext.getString(R.string.executing_config).format(data.title)
         )
@@ -37,8 +37,14 @@ object CleanManager {
 
     fun executeAll(showToast: Boolean = true) {
         if (showToast) Log.toast(appContext.getString(R.string.clean_start))
-        getAllConfigs().forEach {
-            execute(it, showToast)
+        getAllConfigs().let {
+            if (it.isEmpty()) {
+                Log.toast(appContext.getString(R.string.no_config_enabled))
+                return@let
+            }
+            it.forEach { data ->
+                execute(data, showToast)
+            }
         }
     }
 

@@ -32,8 +32,8 @@ import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 @Composable
 fun EditScene(navController: NavController) {
-    // 配置文件列表
 
+    // 配置文件列表
     val cfgList = remember {
         mutableStateListOf<CleanData>().apply {
             addAll(CleanManager.getAllConfigs())
@@ -98,7 +98,7 @@ fun EditScene(navController: NavController) {
             Text(
                 modifier = Modifier.padding(start = 16.dp),
                 style = itemTextStyle,
-                text = stringResource(id = R.string.create_config),
+                text = stringResource(id = R.string.add_config),
                 color = colors.textColor
             )
         }
@@ -109,7 +109,9 @@ fun EditScene(navController: NavController) {
                 .background(color = colors.background, shape = cardGroupBackground)
         ) {
             items(cfgList.size) { idx ->
-                EditItem(cfgList[idx], navController)
+                EditItem(cfgList[idx], onRemove = {
+                    cfgList.removeAt(idx)
+                }, navController)
             }
         }
     }
@@ -117,12 +119,12 @@ fun EditScene(navController: NavController) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun EditItem(data: CleanData, navController: NavController) {
+private fun EditItem(data: CleanData, onRemove: (CleanData) -> Unit, navController: NavController) {
     val enable = rememberMutableStateOf(value = data.enable)
 
     var configFixDialogShow by remember { mutableStateOf(false) }
     if (configFixDialogShow) {
-        ConfigFixDialog(data, navController) {
+        ConfigFixDialog(data, onRemove, navController) {
             configFixDialogShow = false
         }
     }

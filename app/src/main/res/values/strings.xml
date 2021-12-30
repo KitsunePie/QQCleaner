@@ -65,8 +65,7 @@
     <string name="modify_config_dialog_title">编辑配置 “%s”</string>
     <string name="enable_this_config">启用此配置</string>
     <string name="disable_this_config">禁用此配置</string>
-    <string name="execute_this_config">执行此配置</string>
-    <string name="modify_this_config">编辑此配置</string>
+    <string name="execute_this_config">执行配置</string>
     <string name="export_this_config">导出至下载目录</string>
     <string name="copy_this_into_clipboard_config">复制到剪切板</string>
     <string name="delete_this_config">删除此配置</string>
@@ -79,8 +78,9 @@
     <string name="copy_to_clipboard_success">已将配置文件“%s”导出至剪切板</string>
 
 
+    <string name="add_config">添加配置</string>
     <string name="create_config">新建配置</string>
-    <string name="import_from_file">导入配置</string>
+    <string name="import_from_file">导入配置文件</string>
     <string name="import_from_clipboard">从剪切板导入</string>
 
     <string name="noting_in_clipboard">你的剪切板是空的！</string>
@@ -97,8 +97,8 @@
     <string name="clean_failed">执行配置文件“%s”时发生错误，已跳过剩余部分。</string>
     <string name="item_cleaner">自动瘦身</string>
     <string name="silence_clean">静默自动瘦身</string>
-    <string name="silence_clean_desc">拜托，你很烦内！</string>
-    <string name="silence_clean_toast">我才弹两个Toast你就嫌我烦！</string>
+    <string name="silence_clean_toast_off">拜托，你很烦内！</string>
+    <string name="silence_clean_toast_on">我才弹两个Toast你就嫌我烦！</string>
     <string name="item_cleaner_time">自动瘦身间隔</string>
     <string name="item_cleaner_time_tip">"%d" h</string>
     <string name="item_cleaner_config">瘦身配置</string>
@@ -113,4 +113,5 @@
     <string name="dialog_title_time">设置自动瘦身时长</string>
     <string name="dialog_icon_clone">取消</string>
     <string name="executing_config">正在执行配置文件：%s</string>
+    <string name="no_config_enabled">你是故意找茬是不是！你还没有启用任何配置文件！</string>
 </resources>

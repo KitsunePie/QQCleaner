@@ -20,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.tryOrFalse
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.R.string.cancel
 import me.kyuubiran.qqcleaner.R.string.dialog_title_config
@@ -47,16 +46,20 @@ fun ConfigDialog(
 
         ConfigItem(
             id = R.drawable.ic_cilpboard,
-            text = "从剪贴板导入",
+            text = stringResource(id = R.string.import_from_clipboard),
             onClick = {
-                if (tryOrFalse {
-                        CleanData.fromClipboard()!!.let {
-                            list.add(it)
-                            it.save()
-                        }
-                    }) {
-                    Log.toast(appContext.getString(R.string.import_from_clipboard_success))
-                } else {
+                try {
+                    CleanData.fromClipboard()!!.let {
+                        list.add(it)
+                        it.save()
+                        Log.toast(
+                            appContext.getString(
+                                R.string.import_from_clipboard_success,
+                                it.title
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
                     Log.toast(appContext.getString(R.string.import_from_clipboard_error))
                 }
                 state.value = false
@@ -64,13 +67,13 @@ fun ConfigDialog(
         )
         ConfigItem(
             id = R.drawable.ic_file,
-            text = "选择本地文件",
+            text = stringResource(id = R.string.import_from_file),
             onClick = {
                 state.value = false
             }
         )
         ConfigItem(id = R.drawable.ic_icon_add,
-            text = "新建配置",
+            text = stringResource(id = R.string.create_config),
             onClick = {
                 state.value = false
             }
