@@ -109,9 +109,11 @@ fun EditScene(navController: NavController) {
                 .background(color = colors.background, shape = cardGroupBackground)
         ) {
             items(cfgList.size) { idx ->
-                EditItem(cfgList[idx], onRemove = {
-                    cfgList.removeAt(idx)
-                }, navController)
+                EditItem(
+                    cfgList[idx], onRemove = {
+                        cfgList.removeAt(idx)
+                    }, navController
+                )
             }
         }
     }

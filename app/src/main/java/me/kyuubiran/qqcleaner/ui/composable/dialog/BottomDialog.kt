@@ -130,7 +130,7 @@ fun BottomDialog(
                     )
                     // 图标
                     Box(
-                        //为了添加一个比较大的水波纹
+                        // 添加一个比较大的水波纹
                         modifier = Modifier
                             .size(48.dp)
                             .clip(CircleShape)

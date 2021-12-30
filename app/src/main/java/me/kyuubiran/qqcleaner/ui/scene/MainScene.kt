@@ -1,6 +1,8 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
 import androidx.annotation.StringRes
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.utils.Log
-import me.kyuubiran.qqcleaner.QQCleanerData
+import me.kyuubiran.qqcleaner.QQCleanerData.isDark
 import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
@@ -143,19 +145,22 @@ fun MainScene(navController: NavController) {
                         )
                     }
                 }
-                Image(
-                    modifier = Modifier
-                        .padding(vertical = 30.dp)
-                        .size(88.dp),
-                    painter = painterResource(
-                        id =
-                        if (QQCleanerData.isDark)
-                            R.drawable.ic_home_qqcleaner_dark
-                        else
-                            R.drawable.ic_home_qqcleaner
-                    ),
-                    contentDescription = stringResource(id = R.string.icon_content_description),
-                )
+                Crossfade(targetState = isDark, animationSpec = tween(600)) {
+                    Image(
+                        modifier = Modifier
+                            .padding(vertical = 30.dp)
+                            .size(88.dp),
+                        painter = painterResource(
+                            id =
+                            if (it)
+                                R.drawable.ic_home_qqcleaner_dark
+                            else
+                                R.drawable.ic_home_qqcleaner
+                        ),
+                        contentDescription = stringResource(id = R.string.icon_content_description),
+                    )
+                }
+
             }
             Box(
                 modifier = Modifier
