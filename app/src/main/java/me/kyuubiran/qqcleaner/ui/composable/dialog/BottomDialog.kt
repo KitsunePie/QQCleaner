@@ -80,10 +80,12 @@ fun BottomDialog(
             }.onAwait
         }
         LaunchedEffect(dialogHeight) {
-            height.animateTo(
-                targetValue = dialogHeight + QQCleanerData.navigationBarHeight.value,
-                animationSpec = tween(600)
-            )
+            if (flag) {
+                height.animateTo(
+                    targetValue = dialogHeight + QQCleanerData.navigationBarHeight.value,
+                    animationSpec = tween(600)
+                )
+            }
         }
         Box(
             contentAlignment = Alignment.BottomStart,
