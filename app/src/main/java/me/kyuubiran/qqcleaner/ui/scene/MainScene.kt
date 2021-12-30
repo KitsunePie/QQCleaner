@@ -342,11 +342,11 @@ private fun SwitchItem(
     clickNoToggle: Boolean = false
 ) {
     fun toggle() {
-        if (onClick == null) {
+        if (!clickNoToggle) {
             checked.value = !checked.value
-        } else {
-            if (!clickNoToggle) checked.value = !checked.value
-            onClick(checked.value)
+            if (onClick != null) {
+                onClick(checked.value)
+            }
         }
     }
 

@@ -49,7 +49,7 @@ fun Switch(
     val swipeableState = rememberSwipeableState(
         // 初始值
         initialValue = if (checked.value) 1 else 0,
-        // 动画曲线
+        // 动画曲线可以调节修改
         animationSpec = tween(
             durationMillis = 300,
             easing = FastOutSlowInEasing
@@ -58,6 +58,7 @@ fun Switch(
     // 通过 Boolean 反向给按钮赋值
     LaunchedEffect(checked.value) {
         swipeableState.animateTo(if (checked.value) 1 else 0)
+
     }
 
     // 按钮的宽高
@@ -90,10 +91,16 @@ fun Switch(
     val anchors = mapOf(0f to 0, maxProgress to 1)
     // 通过按钮状态给 Boolean 赋值
     LaunchedEffect(swipeableState.offset.value) {
-        if (((swipeableState.offset.value / maxProgress).fixedRange() == 1.0f) && !checked.value)
+        // 如果他没有在运动
+        if (((swipeableState.offset.value / maxProgress).fixedRange() == 1.0f) &&
+            !swipeableState.isAnimationRunning
+        ) {
             checked.value = true
+        }
         // 防止值的修改错误
-        if (((swipeableState.offset.value / maxProgress).fixedRange() == 0f) && checked.value)
+        if (((swipeableState.offset.value / maxProgress).fixedRange() == 0f) &&
+            !swipeableState.isAnimationRunning
+        )
             checked.value = false
     }
 
@@ -131,6 +138,7 @@ fun Switch(
         )
     }
 }
+
 
 
 
