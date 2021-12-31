@@ -48,7 +48,8 @@ class ModuleEntryHook {
                 loadClass("com.tencent.mm.ui.setting.SettingsAboutMicroMsgUI", classLoader)
             }
             actClass.getDeclaredMethod("onResume").hookAfter {
-                val list = it.thisObject.invokeMethod("getListView") as ListView
+                val list = it.thisObject.invokeMethod("getListView") as? ListView
+                    ?: it.thisObject.getObjectAs("list", ListView::class.java)
                 val adapter = list.adapter as BaseAdapter
                 val addMethod: Method = findMethodByCondition(adapter.javaClass) { m ->
                     m.returnType == Void.TYPE && m.parameterTypes.contentDeepEquals(
