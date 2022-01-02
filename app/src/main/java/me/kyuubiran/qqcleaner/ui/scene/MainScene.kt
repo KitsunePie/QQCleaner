@@ -260,6 +260,7 @@ fun MainScene(navController: NavController) {
 
                 }
 
+                // 立即瘦身
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -278,7 +279,7 @@ fun MainScene(navController: NavController) {
                             colors.themeColor,
                         )
                         .clickable {
-                            CleanManager.executeAll(!silenceClean)
+                            CleanManager.executeAll()
                             System
                                 .currentTimeMillis()
                                 .let {
