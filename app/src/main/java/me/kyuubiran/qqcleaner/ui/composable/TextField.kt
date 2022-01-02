@@ -5,10 +5,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogEditStyle
 
 @Composable
 fun TextField(
@@ -18,12 +16,7 @@ fun TextField(
     onValueChange: (String) -> Unit
 ) {
     BasicTextField(
-        textStyle = TextStyle(
-            fontSize = 16.sp,
-            lineHeight = 24.sp,
-            fontWeight = FontWeight.Normal,
-            color = colors.textColor
-        ),
+        textStyle = DialogEditStyle.copy(color = colors.textColor),
         modifier = modifier,
         value = value,
         keyboardOptions = keyboardOptions,

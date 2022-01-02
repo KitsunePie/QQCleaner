@@ -20,12 +20,12 @@ import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Switch
+import me.kyuubiran.qqcleaner.ui.composable.TopBar
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigFixDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
 import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
@@ -54,27 +54,9 @@ fun EditScene(navController: NavController) {
             .padding(top = statusBarHeight)
     ) {
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .padding(16.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_back),
-                contentDescription = "返回",
-                modifier = Modifier.clickable {
-                    navController.popBackStack(navController.graph.startDestinationId, false)
-                },
-                tint = colors.textColor
-            )
-            Text(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                style = TitleStyle,
-                text = stringResource(id = R.string.modify_config),
-                color = colors.textColor
-            )
-        }
+        TopBar(click = {
+            navController.popBackStack(navController.graph.startDestinationId, false)
+        }, stringResource(id = R.string.modify_config))
 
         // 添加配置
         Row(

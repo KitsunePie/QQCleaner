@@ -18,6 +18,7 @@ import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Switch
+import me.kyuubiran.qqcleaner.ui.composable.TopBar
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
@@ -33,27 +34,12 @@ fun ConfigSpecifyScreen(navController: NavController) {
             .padding(top = statusBarHeight)
             .focusable(true)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .padding(16.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_back),
-                contentDescription = "返回",
-                modifier = Modifier.clickable {
-                    navController.popBackStack(QQCleanerApp.Edit, false)
-                },
-                tint = colors.textColor
-            )
-            Text(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                style = QQCleanerTypes.TitleStyle,
-                text = "配置名字",
-                color = colors.textColor
-            )
-        }
+        TopBar(
+            {
+                navController.popBackStack(QQCleanerApp.Edit, false)
+            },
+            "配置名字"
+        )
 
         Row(
             modifier = Modifier

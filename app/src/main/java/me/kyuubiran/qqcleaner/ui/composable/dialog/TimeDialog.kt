@@ -13,7 +13,6 @@ import android.view.WindowInsetsAnimation
 import android.view.inputmethod.InputMethodManager
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -32,7 +31,7 @@ import me.kyuubiran.qqcleaner.R.string.set_auto_clean_interval_desc
 import me.kyuubiran.qqcleaner.ui.composable.TextField
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogEditBackGround
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogTitleStyle
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DialogEditStyle
 import me.kyuubiran.qqcleaner.ui.utils.px2dp
 
 
@@ -45,7 +44,8 @@ fun TimeDialog(
     var softKeyboardHeight by remember { mutableStateOf(0f) }
     val bottomHeight = remember { Animatable(0f) }
     var hasKeyboard by remember { mutableStateOf(false) }
-    var windowHeight = 0
+    // 窗口的可见高度
+    var windowHeight by remember { mutableStateOf(0) }
 
     fun Int.px2dp(): Float {
         return this.px2dp(context)
@@ -70,8 +70,10 @@ fun TimeDialog(
             this.viewTreeObserver.addOnGlobalLayoutListener {
                 val r = Rect()
                 this.getWindowVisibleDisplayFrame(r)
+                // 这个是当前窗口的可见高度
                 val visibleHeight = r.height()
                 if (windowHeight == 0) {
+                    // 等于可见高度
                     windowHeight = visibleHeight
                 } else {
                     softKeyboardHeight =
@@ -86,12 +88,13 @@ fun TimeDialog(
             }
         }
     }
-    if (SDK_INT < R) LaunchedEffect(hasKeyboard) {
-        bottomHeight.animateTo(
-            targetValue = if (hasKeyboard) softKeyboardHeight else 0f,
-            animationSpec = spring(1.6f)
-        )
-    }
+    if (SDK_INT < R)
+        LaunchedEffect(hasKeyboard) {
+            bottomHeight.animateTo(
+                targetValue = if (hasKeyboard) softKeyboardHeight else 0f,
+                animationSpec = tween(300)
+            )
+        }
     val state = remember { mutableStateOf(true) }
     BottomDialog(
         onDismissRequest = {
@@ -103,7 +106,8 @@ fun TimeDialog(
         // 需要计算好多次
         bottomHeight = if (SDK_INT >= R)
             softKeyboardHeight.dp
-        else bottomHeight.value.dp,
+        else
+            bottomHeight.value.dp,
         dialogText = stringResource(id = dialog_title_time)
     ) {
         Box(
@@ -158,7 +162,7 @@ fun TimeDialog(
             Text(
                 text = stringResource(id = set_auto_clean_interval_desc),
                 color = editHintColor,
-                style = DialogTitleStyle,
+                style = DialogEditStyle,
                 modifier = Modifier
                     .align(Alignment.Center)
                     .fillMaxSize()
