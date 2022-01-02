@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,6 +19,7 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
+import me.kyuubiran.qqcleaner.ui.composable.dialog.EditConfigDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
@@ -27,6 +28,14 @@ import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 @Composable
 fun ConfigSpecifyScreen(navController: NavController) {
     val enable = rememberMutableStateOf(false)
+    var editDialogShow by remember { mutableStateOf(false) }
+    if (editDialogShow) {
+        EditConfigDialog(onDismissRequest = { text ->
+            editDialogShow = false
+            // 其他
+        }
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +47,8 @@ fun ConfigSpecifyScreen(navController: NavController) {
             {
                 navController.popBackStack(QQCleanerApp.Edit, false)
             },
-            "配置名字"
+            // 这里没什么用，到时候直接填入那个对应的配置名就可以
+            titleText = "配置名字"
         )
 
         Row(
@@ -77,7 +87,7 @@ fun ConfigSpecifyScreen(navController: NavController) {
             this.item {
                 ConfigItem(
                     onClick = {
-
+                        editDialogShow = true
                     }
                 )
             }
