@@ -10,13 +10,14 @@ object AutoCleanManager : Runnable {
     }
 
     private fun needClean(): Boolean {
-        return System.currentTimeMillis() - ConfigManager.sLastCleanDate > (ConfigManager.sAutoCleanInterval * 60 * 60)
+        return System.currentTimeMillis() - ConfigManager.sLastCleanDate > (ConfigManager.sAutoCleanInterval * 60L * 60L * 1000L)
     }
 
     override fun run() {
-        if (!ConfigManager.sAutoClean || !needClean() || CleanManager.isConfigEmpty()) return
-        ConfigManager.sLastCleanDate = System.currentTimeMillis()
-        CleanManager.executeAll(!ConfigManager.sSilenceClean)
+        if (ConfigManager.sAutoClean && needClean() && !CleanManager.isConfigEmpty()) {
+            ConfigManager.sLastCleanDate = System.currentTimeMillis()
+            CleanManager.executeAll(!ConfigManager.sSilenceClean)
+        }
         mainHandler.postDelayed(this, 1000 * 60 * 10)
     }
 }

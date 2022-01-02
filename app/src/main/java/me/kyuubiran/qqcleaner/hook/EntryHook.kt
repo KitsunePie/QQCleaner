@@ -26,7 +26,6 @@ object EntryHook : BaseHook() {
         }
     }
 
-
     private fun startModuleSettingActivity(activity: Activity) {
         val intent = Intent(activity, MainActivity::class.java)
         activity.startActivity(intent)

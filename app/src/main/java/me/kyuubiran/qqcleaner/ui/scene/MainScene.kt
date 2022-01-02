@@ -260,6 +260,7 @@ fun MainScene(navController: NavController) {
 
                 }
 
+                // 立即瘦身
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -274,7 +275,7 @@ fun MainScene(navController: NavController) {
                             offsetY = (3).dp
                         )
                         .clickable {
-                            CleanManager.executeAll(!silenceClean)
+                            CleanManager.executeAll()
                             System
                                 .currentTimeMillis()
                                 .let {

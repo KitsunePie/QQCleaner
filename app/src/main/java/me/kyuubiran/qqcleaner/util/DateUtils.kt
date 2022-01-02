@@ -32,8 +32,7 @@ fun getCurrentTimeText(): String {
 }
 
 fun getLastCleanTimeText(time: Long): String {
-    return SimpleDateFormat.getInstance()
-        .format(Date(time))
+    return SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss", Locale.getDefault()).format(Date(time))
 }
 
 fun getFormatCleanTimeText(time: Long): String {

@@ -14,7 +14,8 @@ object CleanManager {
     private val pool = ThreadPoolExecutor(1, 1, 5L, TimeUnit.MINUTES, LinkedBlockingQueue(256))
 
     fun execute(data: CleanData, showToast: Boolean = true, forceExec: Boolean = false) {
-        if (!forceExec || (!data.enable || !data.valid)) return
+        if (!data.valid) return
+        if (!data.enable && !forceExec) return
         if (showToast) Log.toast(
             appContext.getString(R.string.executing_config).format(data.title)
         )
