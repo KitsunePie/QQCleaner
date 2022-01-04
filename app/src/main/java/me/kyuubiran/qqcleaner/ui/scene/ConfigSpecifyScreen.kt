@@ -48,7 +48,8 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 navController.popBackStack(QQCleanerApp.Edit, false)
             },
             // 这里没什么用，到时候直接填入那个对应的配置名就可以
-            titleText = "配置名字"
+            titleText = "配置名字",
+            id = R.drawable.ic_config_edit
         )
 
         Row(

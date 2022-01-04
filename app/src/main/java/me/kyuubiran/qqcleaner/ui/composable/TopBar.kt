@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.composable
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -17,6 +18,35 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 
 @Composable
 fun TopBar(click: () -> Unit, titleText: String) {
+    TopBar(click = click, titleText = titleText) {
+
+    }
+}
+
+@Composable
+fun TopBar(click: () -> Unit, titleText: String, @DrawableRes id: Int) {
+    TopBar(click = click, titleText = titleText) {
+        Box(
+            modifier = Modifier
+                .size(56.dp)
+                .clip(CircleShape)
+                .clickable {
+                    click.invoke()
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = id),
+                contentDescription = "返回",
+                modifier = Modifier,
+                tint = QQCleanerColorTheme.colors.textColor
+            )
+        }
+    }
+}
+
+@Composable
+fun TopBar(click: () -> Unit, titleText: String, content: @Composable () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -42,11 +72,14 @@ fun TopBar(click: () -> Unit, titleText: String) {
         }
 
         Text(
-            modifier = Modifier.padding(end = 16.dp),
+            modifier = Modifier
+                .padding(end = 16.dp)
+                .weight(1f),
             style = QQCleanerTypes.TitleStyle,
             text = titleText,
             color = QQCleanerColorTheme.colors.textColor
         )
-    }
+        content()
 
+    }
 }
