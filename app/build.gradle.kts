@@ -72,7 +72,10 @@ kotlin {
 dependencies {
     val composeVersion: String by project
     ksp(project(":processor"))
-    implementation("com.github.kyuubiran:EzXHelper:0.5.0")
+
+//    implementation(files("./libs/EzXHelper-release.aar"))
+
+    implementation("com.github.kyuubiran:EzXHelper:0.5.4")
     compileOnly("de.robv.android.xposed:api:82")
 
     implementation("androidx.activity:activity-compose:1.4.0")
