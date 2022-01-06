@@ -269,10 +269,14 @@ fun MainScene(navController: NavController) {
                         .height(35.dp)
                         .drawColoredShadow(
                             colors.cleanerShadowColor,
-                            0.1f,
-                            shadowRadius = 10.dp,
+                            0.6f,
+                            shadowRadius = 30.dp,
                             offsetX = 0.dp,
                             offsetY = (3).dp
+                        )
+                        .clip(RoundedCornerShape(80.dp))
+                        .background(
+                            colors.themeColor,
                         )
                         .clickable {
                             CleanManager.executeAll()
@@ -282,11 +286,7 @@ fun MainScene(navController: NavController) {
                                     lastClean = it
                                     ConfigManager.sLastCleanDate = it
                                 }
-                        }
-                        .background(
-                            colors.themeColor,
-                            RoundedCornerShape(80.dp),
-                        ),
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Text(

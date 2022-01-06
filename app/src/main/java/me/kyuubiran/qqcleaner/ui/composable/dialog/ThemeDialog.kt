@@ -57,7 +57,13 @@ fun ThemeDialog(
         dialogText = stringResource(id = R.string.item_theme)
     ) {
         // 线条绘制
-        Line(colors.dialogLineColor)
+        Line(
+            colors.dialogLineColor,
+            Modifier
+                .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
+                .fillMaxWidth()
+                .height(1.dp)
+        )
         // 下面是对应的主题
         ThemeItem(
             text = stringResource(id = R.string.light_theme),
@@ -85,7 +91,13 @@ fun ThemeDialog(
         )
 
         // 线条绘制
-        Line(colors.dialogLineColor)
+        Line(
+            colors.dialogLineColor,
+            modifier = Modifier
+                .padding(top = 12.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
+                .fillMaxWidth()
+                .height(1.dp)
+        )
 
         ThemeItem(text = stringResource(id = R.string.use_black_dark_theme), id = R.drawable.ic_a)
 
@@ -132,7 +144,6 @@ private fun ThemeItem(
                 )
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
-
         ) {
             Icon(
                 painter = painterResource(id = id),

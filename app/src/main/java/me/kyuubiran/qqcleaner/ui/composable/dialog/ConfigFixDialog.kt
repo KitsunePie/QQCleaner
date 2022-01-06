@@ -80,7 +80,13 @@ fun ConfigUI(
 ) {
     Column {
         // 线条绘制
-        Line(colors.dialogLineColor)
+        Line(
+            colors.dialogLineColor,
+            Modifier
+                .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
+                .fillMaxWidth()
+                .height(1.dp)
+        )
         ConfigItem(id = R.drawable.ic_open,
             text = stringResource(id = R.string.execute_this_config),
             onClick = {
@@ -88,7 +94,8 @@ fun ConfigUI(
                 state.value = false
             }
         )
-        ConfigItem(id = R.drawable.ic_edit,
+        ConfigItem(
+            id = R.drawable.ic_edit,
             text = stringResource(id = R.string.modify_config),
             onClick = {
                 state.value = false

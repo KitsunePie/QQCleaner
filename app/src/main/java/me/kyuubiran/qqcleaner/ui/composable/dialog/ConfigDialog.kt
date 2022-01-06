@@ -42,7 +42,13 @@ fun ConfigDialog(
         state = state
     ) {
         // 线条绘制
-        Line(colors.dialogLineColor)
+        Line(
+            colors.dialogLineColor,
+            Modifier
+                .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
+                .fillMaxWidth()
+                .height(1.dp)
+        )
 
         ConfigItem(
             id = R.drawable.ic_cilpboard,
