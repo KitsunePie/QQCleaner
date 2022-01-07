@@ -3,7 +3,9 @@ package me.kyuubiran.qqcleaner.ui.composable
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
@@ -23,17 +24,17 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 // todo 编辑框抽出为组件
 @Composable
 fun Edit(
+    modifier: Modifier,
     text: MutableState<String>,
+    onValueChange: (String) -> Unit,
+    keyboardOptions: KeyboardOptions,
     onKeyEvent: (androidx.compose.ui.input.key.KeyEvent) -> Boolean
 ) {
 
     Box(
         // 这是居中，但是没什么必要
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
-            .height(56.dp)
+        modifier = modifier
             .background(
                 color = QQCleanerColorTheme.colors.dialogEditColor,
                 shape = QQCleanerShapes.dialogEditBackGround
@@ -52,13 +53,9 @@ fun Edit(
                 },
             value = text.value,
             // 这是调用的数字键盘
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = keyboardOptions,
             // 这是对输入的过滤，文本为纯数字
-            onValueChange = { value ->
-                text.value = value.filter {
-                    it.isDigit()
-                }
-            }
+            onValueChange = onValueChange
         )
         val editHintColor by animateColorAsState(
             if (text.value.isEmpty())
