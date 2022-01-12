@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
+import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigFix
 import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
 import me.kyuubiran.qqcleaner.ui.composable.dialog.EditConfigDialog
@@ -88,7 +89,7 @@ fun ConfigSpecifyScreen(navController: NavController) {
             this.item {
                 ConfigItem(
                     onClick = {
-                        editDialogShow = true
+                        navController.navigate(ConfigFix)
                     }
                 )
             }
@@ -101,6 +102,9 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 .height(56.dp)
                 .background(color = colors.background, shape = cardGroupBackground)
                 .clip(cardGroupBackground)
+                .clickable {
+                    editDialogShow = true
+                }
                 .padding(16.dp)
         ) {
             Icon(

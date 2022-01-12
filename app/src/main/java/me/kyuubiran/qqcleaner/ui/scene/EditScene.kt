@@ -54,9 +54,12 @@ fun EditScene(navController: NavController) {
             .padding(top = statusBarHeight)
     ) {
 
-        TopBar(click = {
-            navController.popBackStack(navController.graph.startDestinationId, false)
-        }, stringResource(id = R.string.modify_config))
+        TopBar(
+            click = {
+                navController.popBackStack(navController.graph.startDestinationId, false)
+            },
+            stringResource(id = R.string.modify_config)
+        )
 
         // 添加配置
         Row(
