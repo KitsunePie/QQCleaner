@@ -6,7 +6,7 @@ plugins {
 
 android {
     compileSdk = 32
-    buildToolsVersion = "32.0"
+    buildToolsVersion = "32.0.0"
 
     defaultConfig {
         applicationId = "me.kyuubiran.qqcleaner"
@@ -75,7 +75,7 @@ dependencies {
 
 //    implementation(files("./libs/EzXHelper-release.aar"))
 
-    implementation("com.github.kyuubiran:EzXHelper:0.5.4")
+    implementation("com.github.kyuubiran:EzXHelper:0.5.6")
     compileOnly("de.robv.android.xposed:api:82")
 
     implementation("androidx.activity:activity-compose:1.4.0")

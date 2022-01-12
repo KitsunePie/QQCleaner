@@ -14,21 +14,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 
 // todo 编辑框抽出为组件
 @Composable
-fun Edit(
+fun EditText(
     modifier: Modifier,
     text: MutableState<String>,
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions,
-    onKeyEvent: (androidx.compose.ui.input.key.KeyEvent) -> Boolean
+    onKeyEvent: (androidx.compose.ui.input.key.KeyEvent) -> Boolean,
+    hintText: String
 ) {
 
     Box(
@@ -52,9 +51,7 @@ fun Edit(
                     onKeyEvent(it)
                 },
             value = text.value,
-            // 这是调用的数字键盘
             keyboardOptions = keyboardOptions,
-            // 这是对输入的过滤，文本为纯数字
             onValueChange = onValueChange
         )
         val editHintColor by animateColorAsState(
@@ -64,7 +61,7 @@ fun Edit(
         )
 
         Text(
-            text = stringResource(id = R.string.set_auto_clean_interval_desc),
+            text = hintText,
             color = editHintColor,
             style = QQCleanerTypes.DialogEditStyle,
             modifier = Modifier
