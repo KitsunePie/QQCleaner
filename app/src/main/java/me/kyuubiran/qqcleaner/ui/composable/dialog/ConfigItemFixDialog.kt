@@ -5,6 +5,7 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.KeyEvent.ACTION_UP
 import android.view.KeyEvent.KEYCODE_BACK
 import android.view.inputmethod.InputMethodManager
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,6 +21,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.R.string.dialog_title_time
 import me.kyuubiran.qqcleaner.ui.composable.EditText
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 
 @Composable
 fun ConfigItemFixDialog(
@@ -75,6 +78,14 @@ fun ConfigItemFixDialog(
                 .height(28.dp)
                 .fillMaxWidth()
         ) {
+            Row(
+                modifier = Modifier.background(
+                    shape = QQCleanerShapes.dialogConfigItemBackground,
+                    color = QQCleanerColorTheme.colors.cardBackgroundColor
+                )
+            ) {
+
+            }
         }
         // 判断是否为空，为空的时候无法点击不为空的时候，可以点击
         DialogButton(text.value.isNotEmpty()) {

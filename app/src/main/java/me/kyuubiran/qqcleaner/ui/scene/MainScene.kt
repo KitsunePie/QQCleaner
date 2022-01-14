@@ -78,7 +78,7 @@ fun MainScene(navController: NavController) {
     // 设置主题Dialog
     var themeDialogShow by remember { mutableStateOf(false) }
     if (themeDialogShow) {
-        ThemeDialog() { themeDialogShow = false }
+        ThemeDialog { themeDialogShow = false }
     }
 
     // 主UI

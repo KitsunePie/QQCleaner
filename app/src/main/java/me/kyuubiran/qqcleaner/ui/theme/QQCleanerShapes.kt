@@ -9,4 +9,5 @@ object QQCleanerShapes {
     val cardGroupBackground = RoundedCornerShape(10.dp)
     val dialogEditBackGround = RoundedCornerShape(10.dp)
     val dialogButtonBackground = RoundedCornerShape(10.dp)
+    val dialogConfigItemBackground = RoundedCornerShape(16.dp)
 }
