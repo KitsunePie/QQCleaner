@@ -6,14 +6,13 @@ import android.view.KeyEvent.ACTION_UP
 import android.view.KeyEvent.KEYCODE_BACK
 import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -21,8 +20,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.R.string.dialog_title_time
 import me.kyuubiran.qqcleaner.ui.composable.EditText
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.ConfigItemFixStyle
 
 @Composable
 fun ConfigItemFixDialog(
@@ -79,12 +79,47 @@ fun ConfigItemFixDialog(
                 .fillMaxWidth()
         ) {
             Row(
-                modifier = Modifier.background(
-                    shape = QQCleanerShapes.dialogConfigItemBackground,
-                    color = QQCleanerColorTheme.colors.cardBackgroundColor
-                )
+                modifier = Modifier
+                    .background(
+                        shape = QQCleanerShapes.dialogConfigItemBackground,
+                        color = colors.themeColor
+                    )
+                    .height(28.dp)
+                    .width(84.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
-
+                Text(text = "共有目录", style = ConfigItemFixStyle, color = colors.buttonTextColor)
+            }
+            Row(
+                modifier = Modifier
+                    .background(
+                        shape = QQCleanerShapes.dialogConfigItemBackground,
+                        color = colors.themeColor
+                    )
+                    .height(28.dp)
+                    .width(84.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(text = "私有目录", style = ConfigItemFixStyle, color = colors.buttonTextColor)
+            }
+            Row(
+                modifier = Modifier
+                    .background(
+                        shape = QQCleanerShapes.dialogConfigItemBackground,
+                        color = colors.themeColor
+                    )
+                    .height(28.dp)
+                    .width(84.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Tencent 目录",
+                    style = ConfigItemFixStyle,
+                    color = colors.buttonTextColor
+                )
             }
         }
         // 判断是否为空，为空的时候无法点击不为空的时候，可以点击

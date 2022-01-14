@@ -26,6 +26,8 @@ object QQCleanerTypes {
         lineHeight = 24.sp,
         fontWeight = Normal
     )
+    val ConfigItemFixStyle =
+        intoTextStyle(fontSize = 10.sp, lineHeight = 16.sp, fontWeight = Normal)
     val DialogButtonStyle = intoTextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = Normal)
     val TipStyle = intoTextStyle(fontSize = 12.sp, lineHeight = 12.sp, fontWeight = Normal)
 }
