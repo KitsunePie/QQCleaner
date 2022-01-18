@@ -10,7 +10,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.ui.utils.px2dp
+import me.kyuubiran.qqcleaner.ui.util.px2dp
 
 @Composable
 fun EditBottomDialog(

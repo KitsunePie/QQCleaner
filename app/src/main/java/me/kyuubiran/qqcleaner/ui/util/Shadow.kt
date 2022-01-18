@@ -1,4 +1,4 @@
-package me.kyuubiran.qqcleaner.ui.utils
+package me.kyuubiran.qqcleaner.ui.util
 
 
 import androidx.compose.ui.Modifier

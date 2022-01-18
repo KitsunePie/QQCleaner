@@ -23,8 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
-import me.kyuubiran.qqcleaner.ui.utils.ColorUtils
-import me.kyuubiran.qqcleaner.ui.utils.dp2px
+import me.kyuubiran.qqcleaner.ui.util.ColorUtils
+import me.kyuubiran.qqcleaner.ui.util.dp2px
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -85,8 +85,6 @@ fun Switch(
         )
     )
 
-    // 获取最大值位置
-
     // 这个就是进度条的分配比例
     val anchors = mapOf(0f to 0, maxProgress to 1)
     // 通过按钮状态给 Boolean 赋值
@@ -139,6 +137,23 @@ fun Switch(
     }
 }
 
+@Composable
+fun SwitchItem(
+    text: String,
+    checked: MutableState<Boolean>,
+    onClick: ((Boolean) -> Unit)? = null,
+    clickNoToggle: Boolean = false
+) {
+    fun toggle() {
+        if (!clickNoToggle) {
+            checked.value = !checked.value
+            if (onClick != null) {
+                onClick(checked.value)
+            }
+        }
+    }
 
-
-
+    Item(text = text, onClick = { toggle() }) {
+        Switch(checked = checked)
+    }
+}

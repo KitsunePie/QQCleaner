@@ -19,6 +19,7 @@ import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigItemFixDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
+import me.kyuubiran.qqcleaner.ui.util.Shared
 
 @Composable
 fun FixConfigScreen(navController: NavController) {
@@ -35,11 +36,11 @@ fun FixConfigScreen(navController: NavController) {
             .padding(top = QQCleanerData.statusBarHeight)
     ) {
         TopBar(
-            {
+            click = {
                 navController.popBackStack(QQCleanerApp.ConfigSpecify, false)
             },
             // 这里没什么用，到时候直接填入那个对应的配置名就可以
-            titleText = "配置名字",
+            titleText = Shared.currentEditCleanData.title,
             id = R.drawable.ic_config_edit
         )
         Row(

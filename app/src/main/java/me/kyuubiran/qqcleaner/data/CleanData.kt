@@ -18,11 +18,12 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
+import java.io.Serializable
 import java.net.HttpURLConnection
 import java.net.URL
 
 
-class CleanData(private val jsonObject: JSONObject) {
+class CleanData(private val jsonObject: JSONObject) : Serializable, Cloneable {
 
     class PathData(private val jsonObject: JSONObject) {
 
@@ -65,7 +66,7 @@ class CleanData(private val jsonObject: JSONObject) {
             set(value) {
                 jsonObject.put("title", value)
             }
-            get() = jsonObject.getStringOrDefault("name", "一个没有名字的配置文件")
+            get() = jsonObject.getStringOrDefault("title", "一个没有名字的配置文件")
 
         // 是否启用
         var enable: Boolean
