@@ -22,7 +22,7 @@ import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
-import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigFixDialog
+import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigSpecifyDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
@@ -111,7 +111,7 @@ private fun EditItem(data: CleanData, onRemove: (CleanData) -> Unit, navControll
 
     var configFixDialogShow by remember { mutableStateOf(false) }
     if (configFixDialogShow) {
-        ConfigFixDialog(data, onRemove, navController) {
+        ConfigSpecifyDialog(data, onRemove, navController) {
             configFixDialogShow = false
         }
     }

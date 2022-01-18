@@ -48,7 +48,10 @@ fun ConfigSpecifyScreen(navController: NavController) {
             .focusable(true)
     ) {
         TopBar(
-            click = {
+            backClick = {
+                navController.popBackStack()
+            },
+            iconClick = {
                 Shared.currentEditCleanData.save()
                 Log.toast(
                     appContext.getString(

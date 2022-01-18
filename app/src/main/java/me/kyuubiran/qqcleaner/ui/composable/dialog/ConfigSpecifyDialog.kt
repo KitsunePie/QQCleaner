@@ -24,7 +24,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
 import me.kyuubiran.qqcleaner.ui.util.Shared
 
 @Composable
-fun ConfigFixDialog(
+fun ConfigSpecifyDialog(
     data: CleanData,
     onRemove: (CleanData) -> Unit,
     navController: NavController,

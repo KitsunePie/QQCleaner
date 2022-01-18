@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerData
@@ -36,12 +37,15 @@ fun FixConfigScreen(navController: NavController) {
             .padding(top = QQCleanerData.statusBarHeight)
     ) {
         TopBar(
-            click = {
+            backClick = {
+                navController.popBackStack()
+            },
+            iconClick = {
                 navController.popBackStack(QQCleanerApp.ConfigSpecify, false)
             },
             // 这里没什么用，到时候直接填入那个对应的配置名就可以
-            titleText = Shared.currentEditCleanData.title,
-            id = R.drawable.ic_config_edit
+            titleText = Shared.currentEditCleanPathData.title,
+            id = R.drawable.ic_save
         )
         Row(
             modifier = Modifier
@@ -61,11 +65,11 @@ fun FixConfigScreen(navController: NavController) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_add),
                 tint = QQCleanerColorTheme.colors.textColor,
-                contentDescription = "修改"
+                contentDescription = "添加路径"
             )
             Text(
                 modifier = Modifier.padding(start = 16.dp),
-                style = QQCleanerTypes.itemTextStyle, text = "添加类别",
+                style = QQCleanerTypes.itemTextStyle, text = stringResource(id = R.string.add_path),
                 color = QQCleanerColorTheme.colors.textColor,
             )
         }
