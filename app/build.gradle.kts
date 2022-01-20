@@ -58,6 +58,7 @@ android {
     dependenciesInfo {
         includeInApk = false
     }
+    namespace = "me.kyuubiran.qqcleaner"
 }
 
 kotlin {
