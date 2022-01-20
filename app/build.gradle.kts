@@ -14,7 +14,6 @@ android {
         targetSdk = 32
         versionCode = 60
         versionName = "2.0.0"
-
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -25,7 +24,10 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             setProguardFiles(listOf("proguard-rules.pro"))
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("debug") {
+                enableV3Signing = true
+                enableV4Signing = true
+            }
         }
     }
 
