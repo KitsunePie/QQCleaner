@@ -26,20 +26,20 @@ import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
-import me.kyuubiran.qqcleaner.ui.composable.Switch
+import me.kyuubiran.qqcleaner.ui.composable.Item
+import me.kyuubiran.qqcleaner.ui.composable.SwitchItem
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.ButtonTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.SubTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cleanerTextStyle
-import me.kyuubiran.qqcleaner.ui.utils.drawColoredShadow
+import me.kyuubiran.qqcleaner.ui.util.drawColoredShadow
 import me.kyuubiran.qqcleaner.util.*
 
 @Composable
@@ -332,45 +332,3 @@ private fun CardTitle(text: String) {
     )
 }
 
-@Composable
-fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .clip(cardGroupBackground)
-            .clickable { onClick() }
-            .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = text,
-            style = QQCleanerTypes.itemTextStyle,
-            color = colors.textColor,
-            modifier = Modifier.weight(1f),
-        )
-        content()
-    }
-}
-
-
-@Composable
-private fun SwitchItem(
-    text: String,
-    checked: MutableState<Boolean>,
-    onClick: ((Boolean) -> Unit)? = null,
-    clickNoToggle: Boolean = false
-) {
-    fun toggle() {
-        if (!clickNoToggle) {
-            checked.value = !checked.value
-            if (onClick != null) {
-                onClick(checked.value)
-            }
-        }
-    }
-
-    Item(text = text, onClick = { toggle() }) {
-        Switch(checked = checked)
-    }
-}

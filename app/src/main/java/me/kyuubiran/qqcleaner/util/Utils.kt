@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.icu.math.BigDecimal
 import android.net.Uri
+import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.navigation.NavController
+import java.io.Serializable
 
 @Composable
 fun <T> rememberMutableStateOf(value: T) = remember {
@@ -27,6 +30,15 @@ inline fun <T> tryOr(defValue: T, block: () -> T): T {
     } catch (thr: Throwable) {
         defValue
     }
+}
+
+fun <T : Parcelable> NavController.getParcelableArgument(key: String): T? {
+    return this.currentBackStackEntry?.arguments?.getParcelable(key)
+}
+
+fun <T : Serializable> NavController.getSerializableArgument(key: String): T? {
+    @Suppress("UNCHECKED_CAST")
+    return this.currentBackStackEntry?.arguments?.getSerializable(key) as T?
 }
 
 fun getFormatCleanedSize(): String {

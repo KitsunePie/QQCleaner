@@ -39,19 +39,18 @@ fun QQCleanerApp() {
         composable(Edit) {
             EditScene(navController = navController)
         }
+
         composable(ConfigFix) {
             FixConfigScreen(navController = navController)
         }
-
-
     }
 
 }
 
 object QQCleanerApp {
-    const val Edit = "edit_screen"
-    const val Main = "main_screen"
-    const val Developer = "developer_screen"
-    const val ConfigSpecify = "configSpecify_screen"
-    const val ConfigFix = "fix_configScreen_screen"
+    const val Edit = "editScreen"
+    const val Main = "mainScreen"
+    const val Developer = "developerScreen"
+    const val ConfigSpecify = "configSpecifyScreen"
+    const val ConfigFix = "fixConfigScreenScreen"
 }

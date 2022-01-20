@@ -21,9 +21,10 @@ import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Line
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
+import me.kyuubiran.qqcleaner.ui.util.Shared
 
 @Composable
-fun ConfigFixDialog(
+fun ConfigSpecifyDialog(
     data: CleanData,
     onRemove: (CleanData) -> Unit,
     navController: NavController,
@@ -47,7 +48,7 @@ fun ConfigFixDialog(
                 ) {
                     ConfigUI(
                         state = state,
-                        data = data,
+                        cleanData = data,
                         navController = navController,
                         isDel = isDel
                     )
@@ -74,7 +75,7 @@ fun ConfigFixDialog(
 @Composable
 fun ConfigUI(
     state: MutableState<Boolean>,
-    data: CleanData,
+    cleanData: CleanData,
     navController: NavController,
     isDel: MutableState<Boolean>
 ) {
@@ -90,7 +91,7 @@ fun ConfigUI(
         ConfigItem(id = R.drawable.ic_open,
             text = stringResource(id = R.string.execute_this_config),
             onClick = {
-                data.pushToExecutionQueue()
+                cleanData.pushToExecutionQueue()
                 state.value = false
             }
         )
@@ -99,16 +100,17 @@ fun ConfigUI(
             text = stringResource(id = R.string.modify_config),
             onClick = {
                 state.value = false
-                navController.navigate(QQCleanerApp.ConfigSpecify) {
-                    popUpTo(QQCleanerApp.Edit)
-                }
+                Shared.currentEditCleanData = cleanData
+                navController.navigate(
+                    QQCleanerApp.ConfigSpecify,
+                )
             }
         )
         ConfigItem(
             id = R.drawable.ic_save,
             text = stringResource(id = R.string.export_this_config),
             onClick = {
-                data.export()
+                cleanData.export()
                 state.value = false
             }
         )
@@ -116,7 +118,7 @@ fun ConfigUI(
             id = R.drawable.ic_copy,
             text = stringResource(id = R.string.copy_this_into_clipboard_config),
             onClick = {
-                data.copyToClipboard()
+                cleanData.copyToClipboard()
                 state.value = false
             }
         )

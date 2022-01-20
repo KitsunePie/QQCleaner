@@ -24,14 +24,14 @@ fun TopBar(click: () -> Unit, titleText: String) {
 }
 
 @Composable
-fun TopBar(click: () -> Unit, titleText: String, @DrawableRes id: Int) {
-    TopBar(click = click, titleText = titleText) {
+fun TopBar(backClick: () -> Unit, iconClick: () -> Unit, titleText: String, @DrawableRes id: Int) {
+    TopBar(click = backClick, titleText = titleText) {
         Box(
             modifier = Modifier
                 .size(56.dp)
                 .clip(CircleShape)
                 .clickable {
-                    click.invoke()
+                    iconClick()
                 },
             contentAlignment = Alignment.Center
         ) {
@@ -59,7 +59,7 @@ fun TopBar(click: () -> Unit, titleText: String, content: @Composable () -> Unit
                 .size(56.dp)
                 .clip(CircleShape)
                 .clickable {
-                    click.invoke()
+                    click()
                 },
             contentAlignment = Alignment.Center
         ) {

@@ -22,7 +22,7 @@ import me.kyuubiran.qqcleaner.ui.activity.BaseActivity
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
-import me.kyuubiran.qqcleaner.ui.utils.px2dp
+import me.kyuubiran.qqcleaner.ui.util.px2dp
 import me.kyuubiran.qqcleaner.util.navigationBarMode
 import me.kyuubiran.qqcleaner.util.statusBarLightMode
 
