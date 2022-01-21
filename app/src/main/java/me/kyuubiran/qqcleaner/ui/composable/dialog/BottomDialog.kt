@@ -25,9 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
-import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 
 @Composable
@@ -39,7 +38,7 @@ fun BottomDialog(
     dialogText: String = "Dialog名字",
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val background = QQCleanerColorTheme.colors.dialogBackgroundColor
+    val background = colors.dialogBackgroundColor
     var flag by remember { mutableStateOf(true) }
     var isDismiss by remember { mutableStateOf(false) }
     val color = remember { Animatable(Color.Transparent) }
@@ -79,14 +78,15 @@ fun BottomDialog(
                 }
             }.onAwait
         }
-        LaunchedEffect(dialogHeight) {
-            if (flag) {
-                height.animateTo(
-                    targetValue = dialogHeight + QQCleanerData.navigationBarHeight.value,
-                    animationSpec = tween(600)
-                )
-            }
-        }
+        // 似乎解决了 老王遇到的玄学问题
+//        LaunchedEffect(dialogHeight) {
+//            if (flag) {
+//                height.animateTo(
+//                    targetValue = dialogHeight + QQCleanerData.navigationBarHeight.value,
+//                    animationSpec = tween(600)
+//                )
+//            }
+//        }
         Box(
             contentAlignment = Alignment.BottomStart,
             modifier = Modifier.padding(bottom = bottomHeight)
@@ -110,7 +110,7 @@ fun BottomDialog(
                     .height((height.value).dp)
                     .background(
                         shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp),
-                        color = QQCleanerColorTheme.colors.background
+                        color = colors.background
                     )
             ) {
                 Row(
@@ -126,7 +126,7 @@ fun BottomDialog(
                         modifier = Modifier
                             .weight(1f),
                         style = QQCleanerTypes.DialogTitleStyle,
-                        color = QQCleanerColorTheme.colors.textColor
+                        color = colors.textColor
                     )
                     // 图标
                     Box(
@@ -149,7 +149,7 @@ fun BottomDialog(
                         Icon(
                             modifier = Modifier
                                 .size(24.dp),
-                            tint = QQCleanerColorTheme.colors.textColor,
+                            tint = colors.textColor,
                             painter = painterResource(id = R.drawable.ic_close),
                             contentDescription = stringResource(
                                 id = R.string.dialog_icon_clone
