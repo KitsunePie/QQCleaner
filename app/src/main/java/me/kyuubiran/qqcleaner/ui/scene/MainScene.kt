@@ -269,7 +269,7 @@ fun MainScene(navController: NavController) {
                         .height(35.dp)
                         .drawColoredShadow(
                             colors.cleanerShadowColor,
-                            0.6f,
+                            0.3f,
                             shadowRadius = 30.dp,
                             offsetX = 0.dp,
                             offsetY = (3).dp
