@@ -78,15 +78,14 @@ fun BottomDialog(
                 }
             }.onAwait
         }
-        // 似乎解决了 老王遇到的玄学问题
-//        LaunchedEffect(dialogHeight) {
-//            if (flag) {
-//                height.animateTo(
-//                    targetValue = dialogHeight + QQCleanerData.navigationBarHeight.value,
-//                    animationSpec = tween(600)
-//                )
-//            }
-//        }
+        LaunchedEffect(dialogHeight) {
+            if (flag) {
+                height.animateTo(
+                    targetValue = dialogHeight,
+                    animationSpec = tween(600)
+                )
+            }
+        }
         Box(
             contentAlignment = Alignment.BottomStart,
             modifier = Modifier.padding(bottom = bottomHeight)
