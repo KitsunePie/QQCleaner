@@ -143,7 +143,7 @@ fun ConfigItem(data: CleanData.PathData) {
             .fillMaxWidth()
             .height(56.dp)
             .clip(shape = cardGroupBackground)
-            .padding(horizontal = 16.dp, vertical = 18.dp)
+
     ) {
         SwitchItem(
             text = data.title,

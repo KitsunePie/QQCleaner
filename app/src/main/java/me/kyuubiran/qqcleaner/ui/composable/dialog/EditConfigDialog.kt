@@ -44,9 +44,7 @@ fun EditConfigDialog(onDismissRequest: (String) -> Unit) {
             text = name,
             keyboardOptions = KeyboardOptions.Default,
             onValueChange = { value ->
-                name.value = value.filter {
-                    it.isDigit()
-                }
+                name.value = value
             },
             onKeyEvent = {
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
@@ -73,9 +71,7 @@ fun EditConfigDialog(onDismissRequest: (String) -> Unit) {
             text = text,
             keyboardOptions = KeyboardOptions.Default,
             onValueChange = { value ->
-                text.value = value.filter {
-                    it.isDigit()
-                }
+                text.value = value
             },
             onKeyEvent = {
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断

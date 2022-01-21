@@ -72,6 +72,7 @@ fun EditBottomDialog(
     LaunchedEffect(softKeyboardHeight) {
         isSoftShowing.value = softKeyboardHeight > 0
     }
+    // todo 等待分析
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R)
         LaunchedEffect(hasKeyboard) {
             bottomHeight.animateTo(
