@@ -21,7 +21,7 @@ import me.kyuubiran.qqcleaner.ui.composable.EditText
 @Composable
 fun EditConfigDialog(onDismissRequest: (String) -> Unit) {
     // todo 提取文本到 R.string
-
+    // todo Gboard 输入法的闪烁
     val context = LocalContext.current as Activity
     val state = remember { mutableStateOf(true) }
     val text = remember { mutableStateOf("") }

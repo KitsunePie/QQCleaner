@@ -1,6 +1,5 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
-
 import android.content.Context
 import android.view.View
 import androidx.compose.foundation.layout.Box
@@ -14,7 +13,6 @@ import androidx.compose.ui.platform.ViewRootForInspector
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.ViewTreeViewModelStoreOwner
 import androidx.savedstate.ViewTreeSavedStateRegistryOwner
-
 
 class DialogProperties(
     val dismissOnBackPress: Boolean = true
