@@ -18,7 +18,7 @@ class HookEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
         EzXHelperInit.initHandleLoadPackage(lpparam)
         hostApp = _hostApp
         EzXHelperInit.setLogTag("QQCleaner-${hostAppName}")
-        EzXHelperInit.setLogTag("瘦身模块")
+        EzXHelperInit.setToastTag("瘦身模块")
         BaseHook.initHooks()
     }
 
