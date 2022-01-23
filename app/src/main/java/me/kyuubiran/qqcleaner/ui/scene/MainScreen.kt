@@ -43,7 +43,7 @@ import me.kyuubiran.qqcleaner.ui.util.drawColoredShadow
 import me.kyuubiran.qqcleaner.util.*
 
 @Composable
-fun MainScene(navController: NavController) {
+fun MainScreen(navController: NavController) {
 
     // 上次瘦身日期
     var lastClean by remember {
@@ -250,7 +250,7 @@ fun MainScene(navController: NavController) {
                         Item(
                             text = stringResource(id = R.string.item_about),
                             onClick = {
-                                navController.navigate(QQCleanerApp.Developer)
+                                navController.navigate(QQCleanerApp.About)
                             },
                             content = {
                                 ForwardIcon(R.string.item_about)

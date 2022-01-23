@@ -31,7 +31,7 @@ import me.kyuubiran.qqcleaner.util.CleanManager
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 @Composable
-fun EditScene(navController: NavController) {
+fun EditScreen(navController: NavController) {
 
     // 配置文件列表
     val cfgList = remember {

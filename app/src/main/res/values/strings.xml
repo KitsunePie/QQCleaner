@@ -62,5 +62,6 @@
     <string name="executing_config">正在执行配置文件：%s</string>
     <string name="no_config_enabled">你是故意找茬是不是！你还没有启用任何配置文件！</string>
     <string name="config_saved">已应用对配置文件“%s”的更改。</string>
-    <string name="title_dev">关于</string>
+    <string name="title_dev">开发者</string>
+    <string name="title_about">关于</string>
 </resources>

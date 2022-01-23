@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import me.kyuubiran.qqcleaner.QQCleanerData
+import me.kyuubiran.qqcleaner.ui.QQCleanerApp.About
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigFix
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigSpecify
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Developer
@@ -27,11 +28,11 @@ fun QQCleanerApp() {
     ) {
         QQCleanerData.isFirst = false
         composable(Main) {
-            MainScene(navController = navController)
+            MainScreen(navController = navController)
         }
 
         composable(Developer) {
-            DeveloperScene(navController = navController)
+            DeveloperScreen(navController = navController)
         }
 
         composable(ConfigSpecify) {
@@ -39,11 +40,15 @@ fun QQCleanerApp() {
         }
 
         composable(Edit) {
-            EditScene(navController = navController)
+            EditScreen(navController = navController)
         }
 
         composable(ConfigFix) {
             FixConfigScreen(navController = navController)
+        }
+
+        composable(About) {
+            AboutScreen(navController = navController)
         }
     }
 
@@ -55,4 +60,5 @@ object QQCleanerApp {
     const val Developer = "developerScreen"
     const val ConfigSpecify = "configSpecifyScreen"
     const val ConfigFix = "fixConfigScreenScreen"
+    const val About = "aboutScreen"
 }
