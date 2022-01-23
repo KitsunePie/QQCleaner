@@ -3,17 +3,20 @@ package me.kyuubiran.qqcleaner
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
@@ -50,21 +53,15 @@ class MainActivity : BaseActivity() {
                         )
                         .background(colors.background)
                 ) {
-                    var isLoad by remember {
-                        mutableStateOf(true)
-                    }
-                    LaunchedEffect(isFirst) {
-                        isLoad = false
-                    }
-                    if (isLoad) {
-                        Box(
+                    AnimatedVisibility(isFirst, modifier = Modifier.align(Alignment.Center)) {
+                        Image(
                             modifier = Modifier
-                                .background(Color.Red)
-                                .width(50.dp)
-                                .height(50.dp)
-                                .align(
-                                    Alignment.Center
-                                )
+                                .size(88.dp)
+                                .align(Alignment.Center),
+                            painter = painterResource(
+                                id = R.drawable.ic_home_qqcleaner
+                            ),
+                            contentDescription = stringResource(id = R.string.icon_content_description),
                         )
                     }
                     // 状态栏高度是为了各个页面不和状态栏重叠
