@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigFix
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigSpecify
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Developer
@@ -24,6 +25,7 @@ fun QQCleanerApp() {
         navController = navController,
         startDestination = Main
     ) {
+        QQCleanerData.isFirst = false
         composable(Main) {
             MainScene(navController = navController)
         }

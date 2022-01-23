@@ -16,4 +16,6 @@ object QQCleanerData {
     var navigationBarHeight by mutableStateOf(0.dp)
 
     var isDark by Delegates.notNull<Boolean>()
+
+    var isFirst by mutableStateOf(true)
 }

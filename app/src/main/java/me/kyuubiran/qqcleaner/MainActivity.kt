@@ -8,13 +8,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
 import me.kyuubiran.qqcleaner.QQCleanerData.isDark
+import me.kyuubiran.qqcleaner.QQCleanerData.isFirst
 import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
@@ -46,6 +50,23 @@ class MainActivity : BaseActivity() {
                         )
                         .background(colors.background)
                 ) {
+                    var isLoad by remember {
+                        mutableStateOf(true)
+                    }
+                    LaunchedEffect(isFirst) {
+                        isLoad = false
+                    }
+                    if (isLoad) {
+                        Box(
+                            modifier = Modifier
+                                .background(Color.Red)
+                                .width(50.dp)
+                                .height(50.dp)
+                                .align(
+                                    Alignment.Center
+                                )
+                        )
+                    }
                     // 状态栏高度是为了各个页面不和状态栏重叠
                     statusBarHeight = getStatusBarHeight()
                     // 底部栏高度是为了弹窗不和底部栏重叠
