@@ -47,7 +47,7 @@ fun DeveloperScene(navController: NavController) {
                 Image(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .size(88.dp),
+                        .size(96.dp),
                     painter = painterResource(
                         id =
                         if (it)
