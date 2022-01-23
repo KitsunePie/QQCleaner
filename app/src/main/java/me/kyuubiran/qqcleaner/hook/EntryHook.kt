@@ -3,6 +3,7 @@ package me.kyuubiran.qqcleaner.hook
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -83,11 +84,14 @@ object EntryHook : BaseHook() {
                 loadClass("com.tencent.mm.ui.setting.SettingsAboutMicroMsgUI")
             }
             val preferenceClass = loadClass("com.tencent.mm.ui.base.preference.Preference")
-            actClass.getDeclaredMethod("onResume").hookAfter {
+
+            fun getKey(preference: Any): Any = preference.invokeMethod("getKey")
+                ?: preference.getObject("mKey")
+
+            actClass.getDeclaredMethod("onCreate", Bundle::class.java).hookAfter {
                 val ctx = it.thisObject
                 val listView = it.thisObject.invokeMethod("getListView") as? ListView
                     ?: it.thisObject.getObjectAs("list", ListView::class.java)
-                // TODO 重构对adapter的修改
                 val adapter = listView.adapter as BaseAdapter
                 val addMethod: Method = findMethod(adapter.javaClass) {
                     returnType == Void.TYPE && parameterTypes.contentDeepEquals(
@@ -120,25 +124,24 @@ object EntryHook : BaseHook() {
                         )
                     }
 
-                listView.viewTreeObserver.addOnGlobalLayoutListener {
-                    val preference = adapter.getItem(adapter.count - 2)
-                    val key = preference.invokeMethod("getKey")
-                        ?: preference.getObject("mKey")
-                    if ("QQCleaner" != key) {
-                        addMethod.invoke(adapter, entry, adapter.count + 1)
-                        adapter.notifyDataSetChanged()
+                // 在adapter数据变化前添加entry
+                findMethod(adapter.javaClass) {
+                    name == "notifyDataSetChanged"
+                }.hookBefore {
+                    if (adapter.count == 0) return@hookBefore
+                    val position = adapter.count - 2
+                    if ("QQCleaner" != getKey(adapter.getItem(position))) {
+                        addMethod.invoke(adapter, entry, position)
                     }
                 }
             }
+
             // Hook Preference点击事件
             findMethod(actClass) {
                 name == "onPreferenceTreeClick"
                         && parameterTypes[1].isAssignableFrom(preferenceClass)
             }.hookBefore {
-                val preference = it.args[1]
-                val key = preference.invokeMethod("getKey")
-                    ?: preference.getObject("mKey")
-                if ("QQCleaner" == key) {
+                if ("QQCleaner" == getKey(it.args[1])) {
                     startModuleSettingActivity(it.thisObject as Activity)
                     it.result = true
                 }
