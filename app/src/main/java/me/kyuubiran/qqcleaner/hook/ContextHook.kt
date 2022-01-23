@@ -53,6 +53,24 @@ object ContextHook : BaseHook() {
     }
 
     private fun initWeChat() {
-        TODO("Not implement yet")
+        unhook = Application::class.java.getDeclaredMethod("onCreate").hookBefore {
+            unhook?.unhook()
+            val context = it.thisObject as Application
+            //初始化全局Context
+            Log.i("Init Context")
+            // wechat的热修复Resources直接`addAssetPath`会失败
+            EzXHelperInit.initAppContext(context, addPath = false)
+            Log.i("Init ActivityProxyManager")
+            EzXHelperInit.initActivityProxyManager(
+                modulePackageName = BuildConfig.APPLICATION_ID,
+                hostActivityProxyName = "com.tencent.mm.ui.contact.AddressUI",
+                moduleClassLoader = HookEntry::class.java.classLoader!!,
+                hostClassLoader = context.classLoader
+            )
+            Log.i("Init ActivitySubActivity")
+            EzXHelperInit.initSubActivity()
+
+            AutoCleanManager.initAutoClean
+        }
     }
 }
