@@ -301,7 +301,7 @@ fun MainScene(navController: NavController) {
 }
 
 @Composable
-private fun ForwardIcon(@StringRes id: Int) {
+fun ForwardIcon(@StringRes id: Int) {
     Icon(
         painter = painterResource(id = R.drawable.ic_chevron_right),
         contentDescription = stringResource(id = id),
