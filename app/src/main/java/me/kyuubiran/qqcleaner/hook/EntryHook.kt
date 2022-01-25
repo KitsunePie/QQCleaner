@@ -119,7 +119,7 @@ object EntryHook : BaseHook() {
                         )
                         invokeMethod(
                             "setTitle",
-                            arrayOf("${hostAppName}瘦身"),
+                            arrayOf("微信瘦身"),
                             arrayOf(java.lang.CharSequence::class.java)
                         )
                     }

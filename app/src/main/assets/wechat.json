@@ -1,0 +1,174 @@
+{
+  "title": "默认配置",
+  "author": "KyuubiRan",
+  "enable": true,
+  "hostApp": "wechat",
+  "content": [
+    {
+      "title": "缓存",
+      "enable": true,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/cache"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/MicroMsg/CDNTemp"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/MicroMsg/FailMsgFileCache"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/cache/temp"
+        },
+        {
+          "prefix": "!PublicUserDataDir",
+          "suffix": "/webcanvascache"
+        }
+      ]
+    },
+    {
+      "title": "图片",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PrivateUserDataDir",
+          "suffix": "/image2"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/MicroMsg/tmpScanLicense"
+        }
+      ]
+    },
+    {
+      "title": "视频",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicUserDataDir",
+          "suffix": "/video"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/cache/mv_video"
+        }
+      ]
+    },
+    {
+      "title": "头像",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PrivateUserDataDir",
+          "suffix": "/avatar"
+        }
+      ]
+    },
+    {
+      "title": "小程序",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PrivateUserDataDir",
+          "suffix": "/appbrand"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/MicroMsg/appbrand"
+        }
+      ]
+    },
+    {
+      "title": "红包皮肤",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/MicroMsg/luckymoney"
+        }
+      ]
+    },
+    {
+      "title": "日志",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/MicroMsg/crash"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/MicroMsg/xlog"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/onelog"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/tbslog"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/Tencent/tbs_common_log"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/Tencent/tbs_live_log"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/MicroMsg/crash"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/files/xlog"
+        }
+      ]
+    },
+    {
+      "title": "资源更新",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/MicroMsg/CheckResUpdate"
+        }
+      ]
+    },
+    {
+      "title": "X5内核",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/app_tbs"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/app_tbs"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/app_tbs_64"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/app_tbs_64"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/app_x5webview"
+        },
+        {
+          "prefix": "!PrivateDataDir",
+          "suffix": "/app_x5webview"
+        }
+      ]
+    }
+  ]
+}

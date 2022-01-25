@@ -2,10 +2,8 @@ package me.kyuubiran.qqcleaner.hook
 
 import com.github.kyuubiran.ezxhelper.utils.Log
 
-
 abstract class BaseHook {
     abstract val hookName: String
-    open val desc: String = ""
     protected var isInited = false
 
     abstract fun init()

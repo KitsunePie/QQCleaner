@@ -1,41 +1,30 @@
 package me.kyuubiran.qqcleaner.util.path
 
-//object WeChatPath {
-//    //P: storage/emulated/0/Android/data/com.tencent.mm/MicroMsg/${UserDataDirName}
-//    var sUserData: String? = null
-//        private set
-//        get() {
-//            if (field == null) {
-//                val dirs = File("${CommonPath.sAndroidDataDir}/MicroMsg").listFiles()
-//                if (dirs != null && dirs.isNotEmpty()) {
-//                    dirs.forEach { file ->
-//                        if (file.name.length == 32 && file.isDirectory) {
-//                            field = file.path
-//                            return@forEach
-//                        }
-//                    }
-//                }
-//            }
-//            return field
-//        }
-//
-//    //P: data/data/com.tencent.mm/MicroMsg/${UserDataDirName}
-//    var dUserData: String? = null
-//        private set
-//        get() {
-//            if (field == null) {
-//                val dirs = File("${CommonPath.dDataDir}/MicroMsg").listFiles()
-//                if (dirs != null && dirs.isNotEmpty()) {
-//                    dirs.forEach { file ->
-//                        if (file.name.length == 32 && file.isDirectory) {
-//                            if (File("${file.path}/account.bin").exists()) {
-//                                field = file.name
-//                                return@forEach
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            return field
-//        }
-//}
+import java.io.File
+
+object WeChatPath {
+    //P: storage/emulated/0/Android/data/com.tencent.mm/MicroMsg/${UserDataDirName}
+    val publicUserData by lazy {
+        "!PublicUserDataDir" to run {
+            val dirs = File("${CommonPath.publicData.second}/MicroMsg").listFiles()
+            if (dirs != null && dirs.isNotEmpty()) {
+                dirs.firstOrNull { it.name.length == 32 && it.isDirectory }?.absolutePath
+            }
+            ""
+        }
+    }
+
+    //P: data/user/0/com.tencent.mm/MicroMsg/${UserDataDirName}
+    val privateUserData by lazy {
+        "!PrivateUserDataDir" to run {
+            val dirs = File("${CommonPath.privateData.second}/MicroMsg").listFiles()
+            if (dirs != null && dirs.isNotEmpty()) {
+                dirs.firstOrNull {
+                    it.name.length == 32 && it.isDirectory
+                            && File("${it.absolutePath}/account.bin").exists()
+                }?.absolutePath
+            }
+            ""
+        }
+    }
+}
