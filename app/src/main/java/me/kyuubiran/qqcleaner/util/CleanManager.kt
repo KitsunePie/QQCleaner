@@ -1,6 +1,6 @@
 package me.kyuubiran.qqcleaner.util
 
-import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
@@ -17,7 +17,7 @@ object CleanManager {
         if (!data.valid) return
         if (!data.enable && !forceExec) return
         if (showToast) Log.toast(
-            appContext.getString(R.string.executing_config).format(data.title)
+            moduleRes.getString(R.string.executing_config).format(data.title)
         )
         pool.execute e@{
             try {
@@ -30,17 +30,17 @@ object CleanManager {
             } catch (e: Exception) {
                 Log.e("Execute failed, skipped: ${data.title}", e)
                 if (showToast) Log.toast(
-                    appContext.getString(R.string.clean_failed).format(data.title)
+                    moduleRes.getString(R.string.clean_failed).format(data.title)
                 )
             }
         }
     }
 
     fun executeAll(showToast: Boolean = true) {
-        if (showToast) Log.toast(appContext.getString(R.string.clean_start))
+        if (showToast) Log.toast(moduleRes.getString(R.string.clean_start))
         getAllConfigs().let {
             if (it.isEmpty()) {
-                Log.toast(appContext.getString(R.string.no_config_enabled))
+                Log.toast(moduleRes.getString(R.string.no_config_enabled))
                 return@let
             }
             it.forEach { data ->

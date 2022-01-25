@@ -18,7 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.R.string.cancel
@@ -59,14 +59,14 @@ fun ConfigDialog(
                         list.add(it)
                         it.save()
                         Log.toast(
-                            appContext.getString(
+                            moduleRes.getString(
                                 R.string.import_from_clipboard_success,
                                 it.title
                             )
                         )
                     }
                 } catch (e: Exception) {
-                    Log.toast(appContext.getString(R.string.import_from_clipboard_error))
+                    Log.toast(moduleRes.getString(R.string.import_from_clipboard_error))
                 }
                 state.value = false
             }
@@ -91,7 +91,7 @@ fun ConfigDialog(
                 text = stringResource(id = R.string.create_default_config),
                 onClick = {
                     list.add(CleanData.createDefaultCleanData().also { it.save() })
-                    Log.toast(appContext.getString(R.string.create_default_config_success))
+                    Log.toast(moduleRes.getString(R.string.create_default_config_success))
                     state.value = false
                 }
             )

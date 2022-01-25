@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerData.isDark
 import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
@@ -200,7 +200,7 @@ fun MainScreen(navController: NavController) {
                             checked = rememberMutableStateOf(
                                 silenceClean
                             ), onClick = {
-                                Log.toast(appContext.getString(if (it) R.string.silence_clean_toast_on else R.string.silence_clean_toast_off))
+                                Log.toast(moduleRes.getString(if (it) R.string.silence_clean_toast_on else R.string.silence_clean_toast_off))
                                 ConfigManager.sSilenceClean = it
                             }
                         )
