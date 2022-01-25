@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.Log.logeIfThrow
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.R.string.cancel
 import me.kyuubiran.qqcleaner.R.string.dialog_title_config
@@ -54,7 +55,7 @@ fun ConfigDialog(
             id = R.drawable.ic_cilpboard,
             text = stringResource(id = R.string.import_from_clipboard),
             onClick = {
-                try {
+                runCatching {
                     CleanData.fromClipboard()!!.let {
                         list.add(it)
                         it.save()
@@ -65,7 +66,7 @@ fun ConfigDialog(
                             )
                         )
                     }
-                } catch (e: Exception) {
+                }.logeIfThrow {
                     Log.toast(moduleRes.getString(R.string.import_from_clipboard_error))
                 }
                 state.value = false

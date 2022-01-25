@@ -6,6 +6,7 @@ import android.content.Context
 import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
 import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.Log.logeIfThrow
 import com.github.kyuubiran.ezxhelper.utils.getBooleanOrDefault
 import com.github.kyuubiran.ezxhelper.utils.getJSONArrayOrEmpty
 import com.github.kyuubiran.ezxhelper.utils.getStringOrDefault
@@ -81,11 +82,10 @@ class CleanData(private val jsonObject: JSONObject) : Serializable, Cloneable {
             Log.i("Load path list of $title")
             arrayListOf<Path>().apply {
                 for (i in 0 until this@run.length()) {
-                    try {
+                    runCatching {
                         add(Path(this@run.getJSONObject(i)))
-                    } catch (e: Exception) {
+                    }.logeIfThrow("Load path list of $title failed") {
                         enable = false
-                        Log.e("Load path list of $title failed")
                         Log.toast(moduleRes.getString(R.string.load_config_failed, title))
                         return@apply
                     }
@@ -100,11 +100,9 @@ class CleanData(private val jsonObject: JSONObject) : Serializable, Cloneable {
 
         //删除路径
         fun removePath(idx: Int) {
-            try {
+            runCatching {
                 pathList.removeAt(idx)
-            } catch (e: Exception) {
-                Log.e(e)
-            }
+            }.logeIfThrow()
         }
 
         //删除路径

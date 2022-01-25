@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.hook
 
 import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.utils.Log.logeIfThrow
 
 abstract class BaseHook {
     abstract val hookName: String
@@ -16,14 +17,12 @@ abstract class BaseHook {
 
         fun initHooks() {
             hooks.forEach {
-                try {
+                runCatching {
                     if (it.isInited) return@forEach
                     it.init()
                     it.isInited = true
                     Log.i("Inited hook: ${it.hookName}")
-                } catch (e: Exception) {
-                    Log.e(e, "Init hook failed: ${it.hookName}")
-                }
+                }.logeIfThrow("Failed to init hook: ${it.hookName}")
             }
         }
     }

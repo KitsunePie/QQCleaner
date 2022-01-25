@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import com.github.kyuubiran.ezxhelper.utils.*
+import com.github.kyuubiran.ezxhelper.utils.Log.logeIfThrow
 import me.kyuubiran.qqcleaner.MainActivity
 import me.kyuubiran.qqcleaner.util.hostApp
 import me.kyuubiran.qqcleaner.util.hostAppName
@@ -146,9 +147,6 @@ object EntryHook : BaseHook() {
                     it.result = true
                 }
             }
-            Unit
-        }.onFailure {
-            Log.e(it)
-        }
+        }.logeIfThrow()
     }
 }
