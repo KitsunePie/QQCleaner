@@ -27,10 +27,21 @@ import me.kyuubiran.qqcleaner.ui.util.ColorUtils
 import me.kyuubiran.qqcleaner.ui.util.dp2px
 import kotlin.math.roundToInt
 
+/**
+ * 一个奇奇怪怪的小按钮
+ *
+ * @param checked 开关状态
+ * @param switchBorderColor 线条颜色
+ * @param switchOffColor 按钮关闭的时候，那个圆形颜色
+ * @param switchOnColor 按钮打开的时候，那个圆形颜色
+ */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Switch(
-    checked: MutableState<Boolean>
+    checked: MutableState<Boolean>,
+    switchBorderColor: Color = colors.toggleBorderColor,
+    switchOffColor: Color = colors.toggleOffColor,
+    switchOnColor: Color = colors.toggleOnColor,
 ) {
     val context = LocalContext.current
 
@@ -73,8 +84,8 @@ fun Switch(
     // 按钮颜色，暂时没有更好的办法
     val color = Color(
         ColorUtils.mixColor(
-            colors.toggleOffColor.toArgb(),
-            colors.toggleOnColor.toArgb(),
+            switchOffColor.toArgb(),
+            switchOnColor.toArgb(),
             (swipeableState.offset.value / maxProgress).let {
                 // 修复初始化是开但是颜色不变的情况
                 if (it == 0f && checked.value)
@@ -109,7 +120,7 @@ fun Switch(
             .clip(shape = RoundedCornerShape(100))
             // 描边
             .border(
-                color = colors.toggleBorderColor,
+                color = switchBorderColor,
                 width = 2.dp,
                 shape = RoundedCornerShape(100)
             )
