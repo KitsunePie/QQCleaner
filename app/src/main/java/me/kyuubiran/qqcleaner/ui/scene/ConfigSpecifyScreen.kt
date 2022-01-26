@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.github.kyuubiran.ezxhelper.init.InitFields.appContext
+import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
@@ -54,7 +54,7 @@ fun ConfigSpecifyScreen(navController: NavController) {
             iconClick = {
                 Shared.currentEditCleanData.save()
                 Log.toast(
-                    appContext.getString(
+                    moduleRes.getString(
                         R.string.config_saved,
                         Shared.currentEditCleanData.title
                     )

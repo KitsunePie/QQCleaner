@@ -21,12 +21,10 @@ val HostApp.isWeChat: Boolean
 lateinit var hostApp: HostApp
 
 val hostAppName: String
-    get() {
-        return when (hostApp) {
-            HostApp.QQ -> "QQ"
-            HostApp.TIM -> "TIM"
-            HostApp.WE_CHAT -> "WECHAT"
-        }
+    get() = when (hostApp) {
+        HostApp.QQ -> "QQ"
+        HostApp.TIM -> "TIM"
+        HostApp.WE_CHAT -> "WECHAT"
     }
 
 
