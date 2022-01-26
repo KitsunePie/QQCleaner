@@ -5,7 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.6.10-1.0.2")
+    val kspVersion: String by project
+    implementation("com.google.devtools.ksp:symbol-processing-api:$kspVersion")
     implementation("com.squareup:kotlinpoet-ksp:1.10.2")
 }
 
