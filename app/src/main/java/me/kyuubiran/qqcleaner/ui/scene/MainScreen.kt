@@ -5,7 +5,6 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -13,7 +12,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -22,10 +20,10 @@ import androidx.navigation.NavController
 import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerData.isDark
-import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
+import me.kyuubiran.qqcleaner.ui.composable.Fab
 import me.kyuubiran.qqcleaner.ui.composable.Item
 import me.kyuubiran.qqcleaner.ui.composable.SwitchItem
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ThemeDialog
@@ -38,7 +36,6 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.SubTitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TitleTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cardTitleTextStyle
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.cleanerTextStyle
 import me.kyuubiran.qqcleaner.ui.util.drawColoredShadow
 import me.kyuubiran.qqcleaner.util.*
 
@@ -261,43 +258,22 @@ fun MainScreen(navController: NavController) {
                 }
 
                 // 立即瘦身
-                Box(
+                Fab(
                     modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(navigationBarHeight + 16.dp)
-                        .width(98.dp)
-                        .height(35.dp)
-                        .drawColoredShadow(
-                            colors.cleanerShadowColor,
-                            0.3f,
-                            shadowRadius = 30.dp,
-                            offsetX = 0.dp,
-                            offsetY = (3).dp
-                        )
-                        .clip(RoundedCornerShape(80.dp))
-                        .background(
-                            colors.themeColor,
-                        )
-                        .clickable {
-                            CleanManager.executeAll()
-                            System
-                                .currentTimeMillis()
-                                .let {
-                                    lastClean = it
-                                    ConfigManager.sLastCleanDate = it
-                                }
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.cleaner_text),
-                        style = cleanerTextStyle,
-                        color = colors.buttonTextColor
-                    )
-                }
+                        .align(Alignment.BottomCenter),
+                    text = stringResource(id = R.string.cleaner_text),
+                    onClick = {
+                        CleanManager.executeAll()
+                        System.currentTimeMillis().let {
+                            lastClean = it
+                            ConfigManager.sLastCleanDate = it
+                        }
+                    }
+                )
             }
         }
     }
+
 }
 
 @Composable

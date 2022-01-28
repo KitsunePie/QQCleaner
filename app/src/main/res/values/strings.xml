@@ -18,7 +18,7 @@
     <string name="no_last_clean_date_record">暂时还没有瘦身记录</string>
     <string name="no_last_clean_date_record_mini">暂无瘦身记录</string>
 
-    <string name="modify_config">编辑</string>
+    <string name="modify_config">编辑配置</string>
     <string name="execute_this_config">执行</string>
     <string name="export_this_config">导出至 Download 目录</string>
     <string name="copy_this_into_clipboard_config">复制到剪贴板</string>
@@ -64,4 +64,5 @@
     <string name="config_saved">已应用对配置文件“%s”的更改。</string>
     <string name="title_dev">开发者</string>
     <string name="title_about">关于</string>
+    <string name="list_empty">啊，这只是空的展示图</string>
 </resources>

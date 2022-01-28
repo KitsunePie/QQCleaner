@@ -38,7 +38,7 @@ fun TopBar(backClick: () -> Unit, iconClick: () -> Unit, titleText: String, @Dra
             Icon(
                 painter = painterResource(id = id),
                 contentDescription = "返回",
-                modifier = Modifier,
+                modifier = Modifier.size(24.dp),
                 tint = QQCleanerColorTheme.colors.textColor
             )
         }
@@ -66,7 +66,7 @@ fun TopBar(click: () -> Unit, titleText: String, content: @Composable () -> Unit
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = "返回",
-                modifier = Modifier,
+                modifier = Modifier.size(24.dp),
                 tint = QQCleanerColorTheme.colors.textColor
             )
         }
