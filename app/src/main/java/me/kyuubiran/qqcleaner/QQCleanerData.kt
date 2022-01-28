@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
-import kotlin.properties.Delegates
 
 object QQCleanerData {
     // 当前主题
@@ -15,7 +14,7 @@ object QQCleanerData {
 
     var navigationBarHeight by mutableStateOf(0.dp)
 
-    var isDark by Delegates.notNull<Boolean>()
+    var isDark by mutableStateOf(false)
 
     var isFirst by mutableStateOf(true)
 }

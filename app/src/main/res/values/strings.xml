@@ -19,6 +19,7 @@
     <string name="no_last_clean_date_record_mini">暂无瘦身记录</string>
 
     <string name="modify_config">编辑配置</string>
+    <string name="modify_config_name">编辑配置信息</string>
     <string name="execute_this_config">执行</string>
     <string name="export_this_config">导出至 Download 目录</string>
     <string name="copy_this_into_clipboard_config">复制到剪贴板</string>
@@ -65,4 +66,5 @@
     <string name="title_dev">开发者</string>
     <string name="title_about">关于</string>
     <string name="list_empty">啊，这只是空的展示图</string>
+    <string name="dialog_del_title">删除确定</string>
 </resources>

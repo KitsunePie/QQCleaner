@@ -6,13 +6,9 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -23,23 +19,14 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.SwitchItem
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
-import me.kyuubiran.qqcleaner.ui.composable.dialog.EditConfigDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.util.Shared
 import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 
 @Composable
 fun ConfigSpecifyScreen(navController: NavController) {
     val enable = rememberMutableStateOf(Shared.currentEditCleanData.enable)
-    var editDialogShow by remember { mutableStateOf(false) }
-    if (editDialogShow) {
-        EditConfigDialog(onDismissRequest = {
-            editDialogShow = false
-            // 其他
-        })
-    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -96,32 +83,6 @@ fun ConfigSpecifyScreen(navController: NavController) {
                 onClick = {
                     Shared.currentEditCleanData.enable = it
                 })
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(24.dp)
-                .fillMaxWidth()
-                .height(56.dp)
-                .background(color = colors.background, shape = cardGroupBackground)
-                .clip(cardGroupBackground)
-                .clickable {
-                    editDialogShow = true
-                }
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_edit),
-                tint = colors.textColor,
-                contentDescription = "修改信息"
-            )
-            Text(
-                modifier = Modifier.padding(start = 16.dp),
-                style = QQCleanerTypes.itemTextStyle,
-                text = stringResource(id = R.string.edit_info),
-                color = colors.textColor,
-            )
         }
 
         LazyColumn(
