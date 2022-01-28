@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
@@ -87,7 +88,11 @@ fun EditScreen(navController: NavController) {
                 verticalArrangement = Arrangement.Center,
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_list_empty),
+                    painter =
+                    if (QQCleanerData.isDark)
+                        painterResource(id = R.drawable.ic_list_empty_dark)
+                    else
+                        painterResource(id = R.drawable.ic_list_empty),
                     contentDescription = stringResource(
                         id = R.string.list_empty
                     ), modifier = Modifier.size(96.dp)
