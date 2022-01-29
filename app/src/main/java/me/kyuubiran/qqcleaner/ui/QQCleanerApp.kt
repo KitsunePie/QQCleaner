@@ -7,8 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.About
+import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Config
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigFix
-import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigSpecify
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Developer
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Edit
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Main
@@ -35,8 +35,8 @@ fun QQCleanerApp() {
             DeveloperScreen(navController = navController)
         }
 
-        composable(ConfigSpecify) {
-            ConfigSpecifyScreen(navController = navController)
+        composable(Config) {
+            ConfigScreen(navController = navController)
         }
 
         composable(Edit) {
@@ -58,7 +58,7 @@ object QQCleanerApp {
     const val Edit = "editScreen"
     const val Main = "mainScreen"
     const val Developer = "developerScreen"
-    const val ConfigSpecify = "configSpecifyScreen"
+    const val Config = "configScreen"
     const val ConfigFix = "fixConfigScreenScreen"
     const val About = "aboutScreen"
 }

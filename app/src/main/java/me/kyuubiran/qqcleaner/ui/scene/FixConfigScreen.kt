@@ -41,7 +41,7 @@ fun FixConfigScreen(navController: NavController) {
                 navController.popBackStack()
             },
             iconClick = {
-                navController.popBackStack(QQCleanerApp.ConfigSpecify, false)
+                navController.popBackStack(QQCleanerApp.Config, false)
             },
             // 这里没什么用，到时候直接填入那个对应的配置名就可以
             titleText = Shared.currentEditCleanPathData.title,
