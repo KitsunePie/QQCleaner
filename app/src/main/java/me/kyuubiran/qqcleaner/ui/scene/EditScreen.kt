@@ -23,8 +23,8 @@ import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Fab
 import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
+import me.kyuubiran.qqcleaner.ui.composable.dialog.AddConfigDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
-import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigSpecifyDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
@@ -45,7 +45,7 @@ fun EditScreen(navController: NavController) {
     // 新建配置对话框
     var canCreateNewConfigDialogShow by remember { mutableStateOf(false) }
     if (canCreateNewConfigDialogShow) {
-        ConfigDialog(cfgList) {
+        AddConfigDialog(cfgList) {
             canCreateNewConfigDialogShow = false
         }
     }
@@ -121,7 +121,7 @@ private fun EditItem(data: CleanData, onRemove: (CleanData) -> Unit, navControll
 
     var configFixDialogShow by remember { mutableStateOf(false) }
     if (configFixDialogShow) {
-        ConfigSpecifyDialog(data, onRemove, navController) {
+        ConfigDialog(data, onRemove, navController) {
             configFixDialogShow = false
         }
     }

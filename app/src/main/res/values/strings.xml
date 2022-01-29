@@ -26,7 +26,7 @@
     <string name="delete_this_config">删除</string>
 
     <string name="add_config">添加配置</string>
-    <string name="add_sort">添加配置</string>
+    <string name="add_sort">添加类别</string>
     <string name="create_config">新建配置</string>
     <string name="enable_config">启用配置</string>
     <string name="add_path">添加路径</string>
