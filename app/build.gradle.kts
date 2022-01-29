@@ -80,9 +80,7 @@ dependencies {
 
     implementation("com.github.kyuubiran:EzXHelper:0.6.1")
     compileOnly("de.robv.android.xposed:api:82")
-
-    implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.navigation:navigation-compose:2.4.0-rc01")
+    implementation("androidx.navigation:navigation-compose:2.5.0-alpha01")
 }

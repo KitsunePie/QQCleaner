@@ -10,23 +10,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.LocalRippleTheme
-import androidx.compose.material.ripple.RippleAlpha
-import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.QQCleanerData
+import me.kyuubiran.qqcleaner.QQCleanerData.theme
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.composable.Line
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
+import me.kyuubiran.qqcleaner.ui.util.RippleCustomTheme
 import me.kyuubiran.qqcleaner.util.ConfigManager
 
 @Composable
@@ -40,7 +39,7 @@ fun ThemeDialog(
     var theme by remember {
         mutableStateOf(
             // 只在第一次调用
-            when (QQCleanerData.theme) {
+            when (theme) {
                 Light -> 0x0
                 Dark -> 0x1
                 System -> 0x2
@@ -166,22 +165,4 @@ private fun ThemeItem(
             }
         }
     }
-}
-
-// 恕我直言，这个水波纹真的不优雅，我想给这xx两巴掌
-object RippleCustomTheme : RippleTheme {
-
-    @Composable
-    override fun defaultColor() =
-        RippleTheme.defaultRippleColor(
-            Color(colors.themeColor.toArgb()),
-            lightTheme = true
-        )
-
-    @Composable
-    override fun rippleAlpha(): RippleAlpha =
-        RippleTheme.defaultRippleAlpha(
-            Color(colors.themeColor.toArgb()),
-            lightTheme = true
-        )
 }

@@ -44,7 +44,6 @@ fun MainScreen(navController: NavController) {
 
     // 上次瘦身日期
     var lastClean by remember {
-//        mutableStateOf(System.currentTimeMillis())
         mutableStateOf(ConfigManager.sLastCleanDate)
     }
     // 自动瘦身
@@ -53,12 +52,10 @@ fun MainScreen(navController: NavController) {
     }
     // 自动瘦身间隔
     var autoCleanInterval by remember {
-//        mutableStateOf(24)
         mutableStateOf(ConfigManager.sAutoCleanInterval)
     }
     // 静默瘦身
     val silenceClean by remember {
-//        mutableStateOf(24)
         mutableStateOf(ConfigManager.sSilenceClean)
     }
 
@@ -228,7 +225,6 @@ fun MainScreen(navController: NavController) {
                             }
                         )
                     }
-
 
                     //更多
                     CardTitle(text = stringResource(id = R.string.title_more))

@@ -28,6 +28,7 @@ import me.kyuubiran.qqcleaner.ui.composable.Line
 import me.kyuubiran.qqcleaner.ui.composable.dialog.DialogScreen.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
+import me.kyuubiran.qqcleaner.ui.util.RippleCustomTheme
 import me.kyuubiran.qqcleaner.ui.util.Shared
 
 private enum class DialogScreen {
@@ -193,7 +194,7 @@ private fun ConfigUI(
                 state.value = false
                 Shared.currentEditCleanData = cleanData
                 navController.navigate(
-                    QQCleanerApp.ConfigSpecify,
+                    QQCleanerApp.Config,
                 )
             }
         )

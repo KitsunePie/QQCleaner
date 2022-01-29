@@ -8,7 +8,6 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,6 +27,7 @@ import kotlinx.coroutines.async
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
+import me.kyuubiran.qqcleaner.ui.util.noClick
 
 @Composable
 fun BottomDialog(
@@ -94,13 +94,7 @@ fun BottomDialog(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color = color.value)
-                    .clickable(
-                        // 防止击穿
-                        onClick = { },
-                        // 去掉点击水波纹
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    )
+                    .noClick()
             )
             Column(
                 modifier = Modifier

@@ -55,10 +55,7 @@ fun EditScreen(navController: NavController) {
             .background(color = colors.cardBackgroundColor)
             .padding(top = statusBarHeight)
     ) {
-
-        if (!cfgList.isEmpty()) {
             Column {
-
                 TopBar(
                     click = {
                         navController.popBackStack(navController.graph.startDestinationId, false)
@@ -66,44 +63,45 @@ fun EditScreen(navController: NavController) {
                     stringResource(id = R.string.modify_config)
                 )
 
-                LazyColumn(
-                    modifier = Modifier
-                        .padding(horizontal = 24.dp)
-                        .background(color = colors.background, shape = cardGroupBackground)
-                ) {
-                    items(cfgList.size) { idx ->
-                        EditItem(
-                            cfgList[idx], onRemove = {
-                                cfgList.removeAt(idx)
-                            }, navController
+                if (!cfgList.isEmpty()) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(top = 24.dp)
+                            .padding(horizontal = 24.dp)
+                            .background(color = colors.background, shape = cardGroupBackground)
+                    ) {
+                        items(cfgList.size) { idx ->
+                            EditItem(
+                                cfgList[idx], onRemove = {
+                                    cfgList.removeAt(idx)
+                                }, navController
+                            )
+                        }
+                    }
+                } else {
+                    Column(
+                        Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        Image(
+                            painter =
+                            if (QQCleanerData.isDark)
+                                painterResource(id = R.drawable.ic_list_empty_dark)
+                            else
+                                painterResource(id = R.drawable.ic_list_empty),
+                            contentDescription = stringResource(
+                                id = R.string.list_empty
+                            ), modifier = Modifier.size(96.dp)
+                        )
+                        // todo 颜色和字体大小
+                        Text(
+                            text = "点击按钮添加配置",
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(top = 24.dp)
                         )
                     }
                 }
-            }
-        } else {
-            Column(
-                Modifier
-                    .align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Image(
-                    painter =
-                    if (QQCleanerData.isDark)
-                        painterResource(id = R.drawable.ic_list_empty_dark)
-                    else
-                        painterResource(id = R.drawable.ic_list_empty),
-                    contentDescription = stringResource(
-                        id = R.string.list_empty
-                    ), modifier = Modifier.size(96.dp)
-                )
-                // todo 颜色和字体大小
-                Text(
-                    text = "点击按钮添加配置",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = 24.dp)
-                )
-            }
         }
         Fab(
             modifier = Modifier

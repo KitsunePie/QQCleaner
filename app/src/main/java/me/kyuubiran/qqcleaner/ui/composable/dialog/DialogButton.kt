@@ -20,6 +20,7 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
+import me.kyuubiran.qqcleaner.ui.util.RippleCustomTheme
 
 @Composable
 fun DialogButton(
