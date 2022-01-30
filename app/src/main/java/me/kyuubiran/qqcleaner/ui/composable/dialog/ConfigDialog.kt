@@ -1,4 +1,4 @@
-@file:JvmName("AddConfigDialogKt")
+@file:JvmName("AddConfigDialog")
 
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
