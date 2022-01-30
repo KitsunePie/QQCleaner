@@ -1,5 +1,3 @@
-@file:JvmName("AddConfigDialog")
-
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import android.app.Activity
