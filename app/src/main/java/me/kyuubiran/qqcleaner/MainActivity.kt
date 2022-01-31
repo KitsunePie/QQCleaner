@@ -20,12 +20,12 @@ import me.kyuubiran.qqcleaner.QQCleanerData.isFirst
 import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
-import me.kyuubiran.qqcleaner.ui.activity.BaseActivity
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
 import me.kyuubiran.qqcleaner.ui.util.noClick
 import me.kyuubiran.qqcleaner.ui.util.px2dp
+
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,36 +91,32 @@ class MainActivity : BaseActivity() {
      * 返回状态栏的高度
      */
     private fun getStatusBarHeight(): Dp {
-        var height = 0f
-        val resourceId = applicationContext.resources
+        val res = applicationContext.resources
+        val resourceId = res
             .getIdentifier(
                 "status_bar_height",
                 "dimen",
                 "android"
             )
-        if (resourceId > 0) {
-            // 这个是 px 需要转换
-            height = applicationContext.resources.getDimension(resourceId)
-        }
-        return (height.px2dp()).dp
+        return if (resourceId > 0) // 这个是 px 需要转换
+            (res.getDimension(resourceId).px2dp()).dp
+        else 0f.dp
     }
 
     /**
      * 返回导航栏的高度
      */
     private fun getNavigationBarHeight(): Dp {
-        var height = 0f
-        val resourceId = applicationContext.resources
+        val res = applicationContext.resources
+        val resourceId = res
             .getIdentifier(
                 "navigation_bar_height",
                 "dimen",
                 "android"
             )
-        if (resourceId > 0) {
-            // 这个是 px 需要转换
-            height = applicationContext.resources.getDimension(resourceId)
-        }
-        return (height.px2dp()).dp
+        return if (resourceId > 0)  // 这个是 px 需要转换
+            (res.getDimension(resourceId).px2dp()).dp
+        else 0.dp
     }
 
 }
