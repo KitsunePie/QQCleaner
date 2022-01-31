@@ -2,7 +2,8 @@ package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import android.app.Activity
 import android.graphics.Rect
-import android.os.Build
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.R
 import android.view.WindowInsets
 import android.view.WindowInsetsAnimation
 import androidx.compose.animation.core.Animatable
@@ -33,7 +34,7 @@ fun EditBottomDialog(
         return this.px2dp(context)
     }
     context.window.decorView.apply {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (SDK_INT >= R) {
             val callback =
                 object : WindowInsetsAnimation.Callback(DISPATCH_MODE_CONTINUE_ON_SUBTREE) {
                     // 键盘抬升的时候，键盘的高变化
@@ -73,7 +74,7 @@ fun EditBottomDialog(
         isSoftShowing.value = softKeyboardHeight > 0
     }
     // todo 等待分析
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R)
+    if (SDK_INT < R)
         LaunchedEffect(hasKeyboard) {
             bottomHeight.animateTo(
                 targetValue = if (hasKeyboard) softKeyboardHeight else 0f,
@@ -88,7 +89,7 @@ fun EditBottomDialog(
         state = state,
         // 为啥卡顿我也不清楚，但是我猜想跟这里有关系？
         // 需要计算好多次
-        bottomHeight = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        bottomHeight = if (SDK_INT >= R)
             softKeyboardHeight.dp
         else
             bottomHeight.value.dp,

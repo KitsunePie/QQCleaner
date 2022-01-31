@@ -1,9 +1,8 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import android.app.Activity
-import android.content.Context
-import android.view.KeyEvent
-import android.view.inputmethod.InputMethodManager
+import android.view.KeyEvent.ACTION_UP
+import android.view.KeyEvent.KEYCODE_BACK
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,17 +20,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.R.string.*
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.EditText
 import me.kyuubiran.qqcleaner.ui.composable.Line
-import me.kyuubiran.qqcleaner.ui.composable.dialog.DialogScreen.*
+import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialogScreen.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
 import me.kyuubiran.qqcleaner.ui.util.RippleCustomTheme
 import me.kyuubiran.qqcleaner.ui.util.Shared
+import me.kyuubiran.qqcleaner.ui.util.hideKeyBoard
 
-private enum class DialogScreen {
+private enum class ConfigDialogScreen {
     Del,
     Edit,
     Main
@@ -56,14 +57,13 @@ fun ConfigDialog(
         },
         dialogText = when (isDialogScreen.value) {
             Main -> data.title
-            Edit -> stringResource(id = R.string.dialog_title_edit_config)
-            Del -> stringResource(id = R.string.dialog_del_title)
+            Edit -> stringResource(id = dialog_title_edit_config)
+            Del -> stringResource(id = dialog_del_title)
         },
         isSoftShowing = isSoftShowing,
         state = state
     ) {
         Box {
-            Row {
                 Crossfade(targetState = isDialogScreen.value) { screen ->
                     when (screen) {
                         Main -> ConfigUI(
@@ -84,7 +84,6 @@ fun ConfigDialog(
                         )
                     }
                 }
-            }
         }
     }
 }
@@ -113,8 +112,8 @@ private fun EditUI(
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
                 // 实际上还是保留了类似早期 android 及实体按键的东西
                 // 返回是一个按键
-                if (it.nativeKeyEvent.action == KeyEvent.ACTION_UP
-                    && it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_BACK
+                if (it.nativeKeyEvent.action == ACTION_UP
+                    && it.nativeKeyEvent.keyCode == KEYCODE_BACK
                 ) {
                     if (!isSoftShowing.value)
                         state.value = false
@@ -140,8 +139,8 @@ private fun EditUI(
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
                 // 实际上还是保留了类似早期 android 及实体按键的东西
                 // 返回是一个按键
-                if (it.nativeKeyEvent.action == KeyEvent.ACTION_UP
-                    && it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_BACK
+                if (it.nativeKeyEvent.action == ACTION_UP
+                    && it.nativeKeyEvent.keyCode == KEYCODE_BACK
                 ) {
                     if (!isSoftShowing.value)
                         state.value = false
@@ -157,9 +156,7 @@ private fun EditUI(
             // 需要获取点击之后的内容，text 就可以啦
             state.value = false
             // 这个是收回输入框
-            val imm =
-                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-            imm?.hideSoftInputFromWindow(context.window.decorView.windowToken, 0)
+            context.hideKeyBoard()
         }
     }
 }
@@ -169,7 +166,7 @@ private fun ConfigUI(
     state: MutableState<Boolean>,
     cleanData: CleanData,
     navController: NavController,
-    screen: MutableState<DialogScreen>
+    screen: MutableState<ConfigDialogScreen>
 ) {
     Column {
         // 线条绘制
@@ -181,7 +178,7 @@ private fun ConfigUI(
                 .height(1.dp)
         )
         ConfigItem(id = R.drawable.ic_open,
-            text = stringResource(id = R.string.execute_this_config),
+            text = stringResource(id = execute_this_config),
             onClick = {
                 cleanData.pushToExecutionQueue()
                 state.value = false
@@ -189,7 +186,7 @@ private fun ConfigUI(
         )
         ConfigItem(
             id = R.drawable.ic_edit,
-            text = stringResource(id = R.string.modify_config),
+            text = stringResource(id = modify_config),
             onClick = {
                 state.value = false
                 Shared.currentEditCleanData = cleanData
@@ -200,14 +197,14 @@ private fun ConfigUI(
         )
         ConfigItem(
             id = R.drawable.ic_edit_name,
-            text = stringResource(id = R.string.modify_config_name),
+            text = stringResource(id = modify_config_name),
             onClick = {
                 screen.value = Edit
             }
         )
         ConfigItem(
             id = R.drawable.ic_save,
-            text = stringResource(id = R.string.export_this_config),
+            text = stringResource(id = export_this_config),
             onClick = {
                 cleanData.export()
                 state.value = false
@@ -215,7 +212,7 @@ private fun ConfigUI(
         )
         ConfigItem(
             id = R.drawable.ic_copy,
-            text = stringResource(id = R.string.copy_this_into_clipboard_config),
+            text = stringResource(id = copy_this_into_clipboard_config),
             onClick = {
                 cleanData.copyToClipboard()
                 state.value = false
@@ -223,11 +220,11 @@ private fun ConfigUI(
         )
         ConfigItem(
             id = R.drawable.ic_delete,
-            text = stringResource(id = R.string.delete_this_config), onClick = {
+            text = stringResource(id = delete_this_config), onClick = {
                 screen.value = Del
             }
         )
-        DialogButton(true, text = stringResource(id = R.string.cancel)) {
+        DialogButton(true, text = stringResource(id = cancel)) {
             state.value = false
         }
     }
@@ -237,7 +234,7 @@ private fun ConfigUI(
 private fun DelUI(
     state: MutableState<Boolean>,
     data: CleanData,
-    screen: MutableState<DialogScreen>,
+    screen: MutableState<ConfigDialogScreen>,
     onRemove: (CleanData) -> Unit
 ) {
     Column {
@@ -267,7 +264,7 @@ private fun DelUI(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = stringResource(id = R.string.cancel),
+                    text = stringResource(id = cancel),
                     color = colors.buttonTextColor,
                     style = itemTextStyle
                 )
@@ -289,7 +286,7 @@ private fun DelUI(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = stringResource(id = R.string.confirm),
+                        text = stringResource(id = confirm),
                         color = colors.dialogButtonTextPress,
                         style = itemTextStyle
                     )

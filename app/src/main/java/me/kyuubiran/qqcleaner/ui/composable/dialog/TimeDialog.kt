@@ -1,10 +1,8 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import android.app.Activity
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.KeyEvent.ACTION_UP
 import android.view.KeyEvent.KEYCODE_BACK
-import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.R.string.dialog_title_time
 import me.kyuubiran.qqcleaner.ui.composable.EditText
+import me.kyuubiran.qqcleaner.ui.util.hideKeyBoard
 
 @Composable
 fun TimeDialog(
@@ -72,8 +71,7 @@ fun TimeDialog(
             // 需要获取点击之后的内容，text 就可以啦
             state.value = false
             // 这个是收回输入框
-            val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
-            imm?.hideSoftInputFromWindow(context.window.decorView.windowToken, 0)
+            context.hideKeyBoard()
         }
     }
 }

@@ -1,8 +1,6 @@
 package me.kyuubiran.qqcleaner.ui.composable.dialog
 
 import android.app.Activity
-import android.content.Context
-import android.view.inputmethod.InputMethodManager
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -15,6 +13,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -27,6 +26,7 @@ import kotlinx.coroutines.async
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
+import me.kyuubiran.qqcleaner.ui.util.hideKeyBoard
 import me.kyuubiran.qqcleaner.ui.util.noClick
 
 @Composable
@@ -87,7 +87,7 @@ fun BottomDialog(
             }
         }
         Box(
-            contentAlignment = Alignment.BottomStart,
+            contentAlignment = BottomStart,
             modifier = Modifier.padding(bottom = bottomHeight)
         ) {
             Box(
@@ -99,7 +99,7 @@ fun BottomDialog(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.BottomStart)
+                    .align(BottomStart)
                     .height((height.value).dp)
                     .background(
                         shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp),
@@ -130,12 +130,7 @@ fun BottomDialog(
                             .clickable {
                                 flag = false
                                 // 这个是收回输入框
-                                val imm =
-                                    context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-                                imm?.hideSoftInputFromWindow(
-                                    context.window.decorView.windowToken,
-                                    0
-                                )
+                                context.hideKeyBoard()
                             },
                         contentAlignment = Alignment.Center
                     ) {
