@@ -45,20 +45,12 @@ class MainActivity : BaseActivity() {
                                 .size(88.dp)
                                 .align(Alignment.Center),
                             // todo 切换图标（暂时不能用 isDark 来判断）
-                            painter = when (QQCleanerData.theme) {
-                                Light -> painterResource(
-                                    id = R.drawable.ic_home_qqcleaner
-                                )
-                                Dark -> painterResource(
-                                    id = R.drawable.ic_home_qqcleaner_dark
-                                )
-                                System -> painterResource(
-                                    id = if (isNightMode())
-                                        R.drawable.ic_home_qqcleaner_dark
-                                    else
-                                        R.drawable.ic_home_qqcleaner
-                                )
-                            },
+                            painter = painterResource(
+                                id = if (isDark)
+                                    R.drawable.ic_home_qqcleaner_dark
+                                else
+                                    R.drawable.ic_home_qqcleaner
+                            ),
                             contentDescription = stringResource(id = R.string.icon_content_description),
                         )
                     }

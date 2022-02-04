@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Window.FEATURE_NO_TITLE
 import androidx.activity.ComponentActivity
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
+import me.kyuubiran.qqcleaner.QQCleanerData.isDark
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.util.*
 
@@ -21,13 +22,12 @@ open class BaseActivity : ComponentActivity() {
         // 这个是保证第一次打开的时候状态栏和导航栏变色
         // 用旧版的原因很简单， window.insetsController 在这个时候获取不到，所以这个
         setBarTranslation()
-        setLightOldMode(
-            when (QQCleanerData.theme) {
-                Light -> true
-                Dark -> false
-                System -> !isNightMode()
-            }
-        )
+        isDark = when (QQCleanerData.theme) {
+            Light -> false
+            Dark -> true
+            System -> isNightMode()
+        }
+        setLightOldMode(isDark)
         super.onCreate(savedInstanceState)
 
     }
