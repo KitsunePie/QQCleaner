@@ -3,6 +3,7 @@ package me.kyuubiran.qqcleaner
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Window.FEATURE_NO_TITLE
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
 import me.kyuubiran.qqcleaner.QQCleanerData.isDark
@@ -19,6 +20,9 @@ open class BaseActivity : ComponentActivity() {
         // 状态栏和导航栏延伸
         this.requestWindowFeature(FEATURE_NO_TITLE)
         setDecorFitsSystemWindows(window, false)
+        // 输入法抬升
+        @Suppress("DEPRECATION")
+        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         // 这个是保证第一次打开的时候状态栏和导航栏变色
         // 用旧版的原因很简单， window.insetsController 在这个时候获取不到，所以这个
         setBarTranslation()

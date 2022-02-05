@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
+import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
@@ -70,7 +71,7 @@ fun BottomDialog(
             async {
                 // 高度的动画
                 height.animateTo(
-                    targetValue = if (flag) dialogHeight else 0f,
+                    targetValue = if (flag) dialogHeight + navigationBarHeight.value else 0f,
                     animationSpec = tween(600)
                 ).apply {
                     if (!flag)
@@ -87,15 +88,12 @@ fun BottomDialog(
             }
         }
         Box(
-            contentAlignment = BottomStart,
-            modifier = Modifier.padding(bottom = bottomHeight)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = bottomHeight)
+                .background(color = color.value)
+                .noClick()
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = color.value)
-                    .noClick()
-            )
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -105,6 +103,7 @@ fun BottomDialog(
                         shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp),
                         color = colors.background
                     )
+                    .padding(bottom = navigationBarHeight)
             ) {
                 Row(
                     Modifier

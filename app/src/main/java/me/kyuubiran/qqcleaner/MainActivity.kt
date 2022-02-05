@@ -44,7 +44,6 @@ class MainActivity : BaseActivity() {
                             modifier = Modifier
                                 .size(88.dp)
                                 .align(Alignment.Center),
-                            // todo 切换图标（暂时不能用 isDark 来判断）
                             painter = painterResource(
                                 id = if (isDark)
                                     R.drawable.ic_home_qqcleaner_dark
