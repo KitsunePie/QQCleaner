@@ -79,4 +79,8 @@ object ConfigManager {
     var sThemeSelect: Int
         set(value) = putInt("theme_select", value)
         get() = getInt("theme_select")
+
+    var sIsBlackTheme: Boolean
+        set(value) = putBool("is_black_theme", value)
+        get() = getBool("is_black_theme")
 }

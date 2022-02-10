@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.*
+import me.kyuubiran.qqcleaner.QQCleanerData.isBlack
 import me.kyuubiran.qqcleaner.QQCleanerData.isDark
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
@@ -46,9 +47,13 @@ fun QQCleanerTheme(colorTheme: Theme, content: @Composable () -> Unit) {
         System -> isSystemInDarkTheme()
     }
     val targetColors = if (isDark)
-        DarkColorPalette
+        if (isBlack)
+            BlackColorPalette
+        else
+            DarkColorPalette
     else
         LightColorPalette
+
 
     // 颜色动画
     val mainThemeColor by animateColorAsState(
