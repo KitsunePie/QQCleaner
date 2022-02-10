@@ -23,7 +23,7 @@ import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.EditText
 import me.kyuubiran.qqcleaner.ui.composable.Line
 import me.kyuubiran.qqcleaner.ui.composable.dialog.SortDialogScreen.*
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.util.RippleCustomTheme
 import me.kyuubiran.qqcleaner.ui.util.hideKeyBoard
@@ -88,7 +88,6 @@ private fun ConfigUI(
     Column {
         // 线条绘制
         Line(
-            QQCleanerColorTheme.colors.dialogLineColor,
             Modifier
                 .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
                 .fillMaxWidth()
@@ -131,7 +130,7 @@ private fun EditUI(
     val context = LocalContext.current as Activity
     val text = remember { mutableStateOf("") }
     val name = remember { mutableStateOf("") }
-    Column() {
+    Column {
 
         EditText(
             modifier = Modifier
@@ -147,8 +146,8 @@ private fun EditUI(
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
                 // 实际上还是保留了类似早期 android 及实体按键的东西
                 // 返回是一个按键
-                if (it.nativeKeyEvent.action == KeyEvent.ACTION_UP
-                    && it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_BACK
+                if (this.nativeKeyEvent.action == KeyEvent.ACTION_UP
+                    && this.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_BACK
                 ) {
                     if (!isSoftShowing.value)
                         state.value = false
@@ -185,7 +184,7 @@ private fun DelUI(
                 ),
             text = "您确定要删除「」吗？",
             style = QQCleanerTypes.itemTextStyle,
-            color = QQCleanerColorTheme.colors.textColor.copy(0.8f)
+            color = colors.secondTextColor
         )
         Row(modifier = Modifier.padding(24.dp)) {
             Box(
@@ -194,7 +193,7 @@ private fun DelUI(
                     .weight(1f)
                     .height(48.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(QQCleanerColorTheme.colors.themeColor)
+                    .background(colors.mainThemeColor)
                     .clickable {
                         screen.value = Main
                     },
@@ -202,18 +201,18 @@ private fun DelUI(
             ) {
                 Text(
                     text = stringResource(id = R.string.cancel),
-                    color = QQCleanerColorTheme.colors.buttonTextColor,
+                    color = colors.whiteColor,
                     style = QQCleanerTypes.itemTextStyle
                 )
             }
-            CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme) {
+            CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme(color = colors.fourPercentThemeColor)) {
                 Box(
                     modifier = Modifier
                         .padding(start = 12.dp)
                         .weight(1f)
                         .height(48.dp)
                         .clip(RoundedCornerShape(10.dp))
-                        .background(QQCleanerColorTheme.colors.dialogButtonPress)
+                        .background(colors.fourPercentThemeColor)
                         .clip(RoundedCornerShape(10.dp))
                         .clickable {
                             state.value = false
@@ -222,7 +221,7 @@ private fun DelUI(
                 ) {
                     Text(
                         text = stringResource(id = R.string.confirm),
-                        color = QQCleanerColorTheme.colors.dialogButtonTextPress,
+                        color = colors.mainThemeColor,
                         style = QQCleanerTypes.itemTextStyle
                     )
                 }

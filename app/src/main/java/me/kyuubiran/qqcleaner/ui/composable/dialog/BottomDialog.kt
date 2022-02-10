@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -39,12 +40,13 @@ fun BottomDialog(
     dialogText: String = "Dialog名字",
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val background = colors.dialogBackgroundColor
+    val background = colors.maskColor
     var flag by remember { mutableStateOf(true) }
     var isDismiss by remember { mutableStateOf(false) }
     val color = remember { Animatable(Color.Transparent) }
     val height = remember { Animatable(0f) }
     val context = LocalContext.current as Activity
+
     // 通过外部修改 flag 控制 dialog 的关闭与否
     LaunchedEffect(state.value) {
         flag = state.value
@@ -61,28 +63,29 @@ fun BottomDialog(
     ) {
         // 判断当前状态来修改颜色和高度
         LaunchedEffect(flag) {
-            async {
-                // 颜色动画
-                color.animateTo(
-                    targetValue = if (flag) background else Color.Transparent,
-                    animationSpec = tween(600)
-                )
-            }.onAwait
-            async {
-                // 高度的动画
-                height.animateTo(
-                    targetValue = if (flag) dialogHeight + navigationBarHeight.value else 0f,
-                    animationSpec = tween(600)
-                ).apply {
-                    if (!flag)
-                        isDismiss = true
+            listOf(
+                // 为了并行而这么写的，具体能怎么改我不清楚
+                async {
+                    // 颜色动画
+                    color.animateTo(
+                        targetValue = if (flag) background else Color.Transparent,
+                        animationSpec = tween(600)
+                    )
+                },
+                async {
+                    // 高度的动画
+                    height.animateTo(
+                        targetValue = if (flag) dialogHeight + navigationBarHeight.value else 0f,
+                        animationSpec = tween(600)
+                    )
                 }
-            }.onAwait
+            ).awaitAll()
+            if (!flag) isDismiss = true
         }
         LaunchedEffect(dialogHeight) {
             if (flag) {
                 height.animateTo(
-                    targetValue = dialogHeight,
+                    targetValue = dialogHeight + navigationBarHeight.value,
                     animationSpec = tween(600)
                 )
             }
@@ -101,7 +104,7 @@ fun BottomDialog(
                     .height((height.value).dp)
                     .background(
                         shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp),
-                        color = colors.background
+                        color = colors.dialogBackgroundColor
                     )
                     .padding(bottom = navigationBarHeight)
             ) {
@@ -118,7 +121,7 @@ fun BottomDialog(
                         modifier = Modifier
                             .weight(1f),
                         style = QQCleanerTypes.DialogTitleStyle,
-                        color = colors.textColor
+                        color = colors.firstTextColor
                     )
                     // 图标
                     Box(
@@ -136,7 +139,7 @@ fun BottomDialog(
                         Icon(
                             modifier = Modifier
                                 .size(24.dp),
-                            tint = colors.textColor,
+                            tint = colors.firstTextColor,
                             painter = painterResource(id = R.drawable.ic_close),
                             contentDescription = stringResource(
                                 id = R.string.dialog_icon_clone

@@ -20,8 +20,7 @@ import me.kyuubiran.qqcleaner.QQCleanerData.isFirst
 import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTheme
 import me.kyuubiran.qqcleaner.ui.util.noClick
 import me.kyuubiran.qqcleaner.ui.util.px2dp
@@ -30,6 +29,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         // 这是设置布局
         setContent {
             QQCleanerTheme(QQCleanerData.theme) {
@@ -37,8 +37,11 @@ class MainActivity : BaseActivity() {
                     Modifier
                         .fillMaxSize()
                         .noClick()
-                        .background(colors.background)
+                        .background(QQCleanerColorTheme.colors.appBarsAndItemBackgroundColor)
                 ) {
+                    LaunchedEffect(isDark) {
+                        setLightMode(!isDark)
+                    }
                     AnimatedVisibility(isFirst, modifier = Modifier.align(Alignment.Center)) {
                         Image(
                             modifier = Modifier
@@ -58,17 +61,6 @@ class MainActivity : BaseActivity() {
                     // 底部栏高度是为了弹窗不和底部栏重叠
                     navigationBarHeight = getNavigationBarHeight()
                     QQCleanerApp()
-                }
-                // 通过当前主题去修改颜色
-                LaunchedEffect(QQCleanerData.theme) {
-                    // 因为有一个跟随系统，所以需要判断当前是否为暗色主题
-                    isDark = when (QQCleanerData.theme) {
-                        Light -> false
-                        Dark -> true
-                        System -> isNightMode()
-                    }
-                    // 当主题变化的时候设置状态栏
-                    setLightMode(!isDark)
                 }
             }
         }

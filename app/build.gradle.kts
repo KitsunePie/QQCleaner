@@ -1,5 +1,4 @@
 plugins {
-    id("com.google.devtools.ksp")
     id("com.android.application")
     id("kotlin-android")
 }
@@ -63,18 +62,8 @@ android {
     namespace = "me.kyuubiran.qqcleaner"
 }
 
-kotlin {
-    sourceSets.debug {
-        kotlin.srcDir("build/generated/ksp/debug/kotlin")
-    }
-    sourceSets.release {
-        kotlin.srcDir("build/generated/ksp/release/kotlin")
-    }
-}
-
 dependencies {
     val composeVersion: String by project
-    ksp(project(":processor"))
 
 //    implementation(files("./libs/EzXHelper-release.aar"))
 

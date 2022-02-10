@@ -31,7 +31,7 @@ fun ConfigScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = colors.cardBackgroundColor)
+            .background(color = colors.pageBackgroundColor)
             .padding(top = statusBarHeight)
     ) {
         Column {
@@ -58,7 +58,10 @@ fun ConfigScreen(navController: NavController) {
                     .height(56.dp)
                     .fillMaxWidth()
                     .clickable { enable.value = !enable.value }
-                    .background(color = colors.background, shape = cardGroupBackground)
+                    .background(
+                        color = colors.appBarsAndItemBackgroundColor,
+                        shape = cardGroupBackground
+                    )
             ) {
                 SwitchItem(
                     text = stringResource(id = R.string.enable_config),
@@ -73,7 +76,10 @@ fun ConfigScreen(navController: NavController) {
                     .padding(top = 24.dp)
                     .padding(horizontal = 24.dp)
                     .padding(bottom = 108.dp)
-                    .background(color = colors.background, shape = cardGroupBackground)
+                    .background(
+                        color = colors.appBarsAndItemBackgroundColor,
+                        shape = cardGroupBackground
+                    )
             ) {
                 items(Shared.currentEditCleanData.content) { item ->
                     ConfigItem(data = item)

@@ -37,6 +37,7 @@ private enum class ConfigDialogScreen {
     Edit,
     Main
 }
+
 @Composable
 fun ConfigDialog(
     data: CleanData,
@@ -64,26 +65,26 @@ fun ConfigDialog(
         state = state
     ) {
         Box {
-                Crossfade(targetState = isDialogScreen.value) { screen ->
-                    when (screen) {
-                        Main -> ConfigUI(
-                            state = state,
-                            cleanData = data,
-                            navController = navController,
-                            screen = isDialogScreen
-                        )
-                        Edit -> EditUI(
-                            state = state,
-                            isSoftShowing = isSoftShowing
-                        )
-                        Del -> DelUI(
-                            state = state,
-                            data = data,
-                            screen = isDialogScreen,
-                            onRemove = onRemove
-                        )
-                    }
+            Crossfade(targetState = isDialogScreen.value) { screen ->
+                when (screen) {
+                    Main -> ConfigUI(
+                        state = state,
+                        cleanData = data,
+                        navController = navController,
+                        screen = isDialogScreen
+                    )
+                    Edit -> EditUI(
+                        state = state,
+                        isSoftShowing = isSoftShowing
+                    )
+                    Del -> DelUI(
+                        state = state,
+                        data = data,
+                        screen = isDialogScreen,
+                        onRemove = onRemove
+                    )
                 }
+            }
         }
     }
 }
@@ -96,7 +97,7 @@ private fun EditUI(
     val context = LocalContext.current as Activity
     val text = remember { mutableStateOf("") }
     val name = remember { mutableStateOf("") }
-    Column() {
+    Column {
 
         EditText(
             modifier = Modifier
@@ -112,8 +113,8 @@ private fun EditUI(
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
                 // 实际上还是保留了类似早期 android 及实体按键的东西
                 // 返回是一个按键
-                if (it.nativeKeyEvent.action == ACTION_UP
-                    && it.nativeKeyEvent.keyCode == KEYCODE_BACK
+                if (this.nativeKeyEvent.action == ACTION_UP
+                    && this.nativeKeyEvent.keyCode == KEYCODE_BACK
                 ) {
                     if (!isSoftShowing.value)
                         state.value = false
@@ -139,8 +140,8 @@ private fun EditUI(
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
                 // 实际上还是保留了类似早期 android 及实体按键的东西
                 // 返回是一个按键
-                if (it.nativeKeyEvent.action == ACTION_UP
-                    && it.nativeKeyEvent.keyCode == KEYCODE_BACK
+                if (this.nativeKeyEvent.action == ACTION_UP
+                    && this.nativeKeyEvent.keyCode == KEYCODE_BACK
                 ) {
                     if (!isSoftShowing.value)
                         state.value = false
@@ -171,7 +172,6 @@ private fun ConfigUI(
     Column {
         // 线条绘制
         Line(
-            colors.dialogLineColor,
             Modifier
                 .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
                 .fillMaxWidth()
@@ -248,7 +248,7 @@ private fun DelUI(
                 ),
             text = "您确定要删除「${data.title}」吗？",
             style = itemTextStyle,
-            color = colors.textColor.copy(0.8f)
+            color = colors.secondTextColor
         )
         Row(modifier = Modifier.padding(24.dp)) {
             Box(
@@ -257,7 +257,7 @@ private fun DelUI(
                     .weight(1f)
                     .height(48.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(colors.themeColor)
+                    .background(colors.mainThemeColor)
                     .clickable {
                         screen.value = Main
                     },
@@ -265,18 +265,18 @@ private fun DelUI(
             ) {
                 Text(
                     text = stringResource(id = cancel),
-                    color = colors.buttonTextColor,
+                    color = colors.whiteColor,
                     style = itemTextStyle
                 )
             }
-            CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme) {
+            CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme(color = colors.fourPercentThemeColor)) {
                 Box(
                     modifier = Modifier
                         .padding(start = 12.dp)
                         .weight(1f)
                         .height(48.dp)
                         .clip(RoundedCornerShape(10.dp))
-                        .background(colors.dialogButtonPress)
+                        .background(colors.mainThemeColor)
                         .clip(RoundedCornerShape(10.dp))
                         .clickable {
                             state.value = false
@@ -287,7 +287,7 @@ private fun DelUI(
                 ) {
                     Text(
                         text = stringResource(id = confirm),
-                        color = colors.dialogButtonTextPress,
+                        color = colors.fourPercentThemeColor,
                         style = itemTextStyle
                     )
                 }

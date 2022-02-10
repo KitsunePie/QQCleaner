@@ -28,20 +28,21 @@ fun DialogButton(
     text: String = stringResource(id = R.string.confirm),
     onClick: () -> Unit
 ) {
-    CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme) {
+
+    CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme(color = colors.fourPercentThemeColor)) {
         val dialogButtonColor by animateColorAsState(
             if (!isFix)
-                colors.dialogButtonDefault
+                colors.twoPercentThemeColor
             else
-                colors.dialogButtonPress,
+                colors.fourPercentThemeColor,
             tween(300)
         )
 
         val dialogButtonTextColor by animateColorAsState(
             if (!isFix)
-                colors.dialogButtonTextDisabledColor
+                colors.thirtyEightPercentThemeColor
             else
-                colors.dialogButtonTextPress,
+                colors.mainThemeColor,
             tween(300)
         )
         Row(

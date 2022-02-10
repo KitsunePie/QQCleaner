@@ -18,14 +18,14 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Item
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 
 @Composable
 fun AboutScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = QQCleanerColorTheme.colors.cardBackgroundColor)
+            .background(color = colors.pageBackgroundColor)
             .padding(top = QQCleanerData.statusBarHeight)
     ) {
         TopBar(

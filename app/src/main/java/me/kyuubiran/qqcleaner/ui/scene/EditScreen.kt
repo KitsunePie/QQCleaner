@@ -27,6 +27,7 @@ import me.kyuubiran.qqcleaner.ui.composable.dialog.AddConfigDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.EmptyTipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.TipStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.itemTextStyle
 import me.kyuubiran.qqcleaner.util.CleanManager
@@ -52,7 +53,7 @@ fun EditScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = colors.cardBackgroundColor)
+            .background(color = colors.pageBackgroundColor)
             .padding(top = statusBarHeight)
     ) {
             Column {
@@ -68,7 +69,10 @@ fun EditScreen(navController: NavController) {
                         modifier = Modifier
                             .padding(top = 24.dp)
                             .padding(horizontal = 24.dp)
-                            .background(color = colors.background, shape = cardGroupBackground)
+                            .background(
+                                color = colors.appBarsAndItemBackgroundColor,
+                                shape = cardGroupBackground
+                            )
                     ) {
                         items(cfgList.size) { idx ->
                             EditItem(
@@ -94,9 +98,10 @@ fun EditScreen(navController: NavController) {
                                 id = R.string.list_empty
                             ), modifier = Modifier.size(96.dp)
                         )
-                        // todo 颜色和字体大小
                         Text(
                             text = "点击按钮添加配置",
+                            style = EmptyTipStyle,
+                            color = colors.thirdTextColor,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.padding(top = 24.dp)
                         )
@@ -150,11 +155,11 @@ private fun EditItem(data: CleanData, onRemove: (CleanData) -> Unit, navControll
                 contentAlignment = Alignment.CenterStart
             ) {
                 Column {
-                    Text(text = data.title, style = itemTextStyle, color = colors.textColor)
+                    Text(text = data.title, style = itemTextStyle, color = colors.secondTextColor)
                     Text(
                         text = stringResource(id = R.string.config_author, data.author),
                         style = TipStyle,
-                        color = colors.textColor.copy(alpha = 0.8f)
+                        color = colors.thirdTextColor
                     )
                 }
             }

@@ -58,8 +58,8 @@ fun ConfigItemFixDialog(
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
                 // 实际上还是保留了类似早期 android 及实体按键的东西
                 // 返回是一个按键
-                if (it.nativeKeyEvent.action == ACTION_UP
-                    && it.nativeKeyEvent.keyCode == KEYCODE_BACK
+                if (this.nativeKeyEvent.action == ACTION_UP
+                    && this.nativeKeyEvent.keyCode == KEYCODE_BACK
                 ) {
                     if (!isSoftShowing.value)
                         state.value = false
@@ -81,33 +81,33 @@ fun ConfigItemFixDialog(
                 modifier = Modifier
                     .background(
                         shape = QQCleanerShapes.dialogConfigItemBackground,
-                        color = colors.themeColor
+                        color = colors.mainThemeColor
                     )
                     .height(28.dp)
                     .width(84.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = "共有目录", style = ConfigItemFixStyle, color = colors.buttonTextColor)
+                Text(text = "共有目录", style = ConfigItemFixStyle, color = colors.whiteColor)
             }
             Row(
                 modifier = Modifier
                     .background(
                         shape = QQCleanerShapes.dialogConfigItemBackground,
-                        color = colors.themeColor
+                        color = colors.mainThemeColor
                     )
                     .height(28.dp)
                     .width(84.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = "私有目录", style = ConfigItemFixStyle, color = colors.buttonTextColor)
+                Text(text = "私有目录", style = ConfigItemFixStyle, color = colors.whiteColor)
             }
             Row(
                 modifier = Modifier
                     .background(
                         shape = QQCleanerShapes.dialogConfigItemBackground,
-                        color = colors.themeColor
+                        color = colors.mainThemeColor
                     )
                     .height(28.dp)
                     .width(84.dp),
@@ -117,7 +117,7 @@ fun ConfigItemFixDialog(
                 Text(
                     text = "Tencent 目录",
                     style = ConfigItemFixStyle,
-                    color = colors.buttonTextColor
+                    color = colors.whiteColor
                 )
             }
         }

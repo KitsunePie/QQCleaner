@@ -39,9 +39,9 @@ import kotlin.math.roundToInt
 @Composable
 fun Switch(
     checked: MutableState<Boolean>,
-    switchBorderColor: Color = colors.toggleBorderColor,
-    switchOffColor: Color = colors.toggleOffColor,
-    switchOnColor: Color = colors.toggleOnColor,
+    switchBorderColor: Color = colors.switchLineColor,
+    switchOffColor: Color = colors.switchOffColor,
+    switchOnColor: Color = colors.eightyPercentThemeColor,
 ) {
     val context = LocalContext.current
 

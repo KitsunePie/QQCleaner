@@ -16,11 +16,11 @@ fun TextField(
     onValueChange: (String) -> Unit
 ) {
     BasicTextField(
-        textStyle = DialogEditStyle.copy(color = colors.textColor),
+        textStyle = DialogEditStyle.copy(color = colors.secondTextColor),
         modifier = modifier,
         value = value,
         keyboardOptions = keyboardOptions,
-        cursorBrush = SolidColor(colors.themeColor),
+        cursorBrush = SolidColor(colors.mainThemeColor),
         onValueChange = onValueChange
     )
 }

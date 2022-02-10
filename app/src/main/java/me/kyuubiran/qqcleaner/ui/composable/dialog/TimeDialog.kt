@@ -55,8 +55,8 @@ fun TimeDialog(
                 // 因为输入的时候焦点会聚集在 输入框，所以输入框的需要进行是否为返回事件的判断
                 // 实际上还是保留了类似早期 android 及实体按键的东西
                 // 返回是一个按键
-                if (it.nativeKeyEvent.action == ACTION_UP
-                    && it.nativeKeyEvent.keyCode == KEYCODE_BACK
+                if (this.nativeKeyEvent.action == ACTION_UP
+                    && this.nativeKeyEvent.keyCode == KEYCODE_BACK
                 ) {
                     if (!isSoftShowing.value)
                         state.value = false

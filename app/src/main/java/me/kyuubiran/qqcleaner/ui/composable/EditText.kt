@@ -13,20 +13,21 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 
-// todo 编辑框抽出为组件
 @Composable
 fun EditText(
     modifier: Modifier,
     text: MutableState<String>,
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions,
-    onKeyEvent: (androidx.compose.ui.input.key.KeyEvent) -> Boolean,
+    onKeyEvent: KeyEvent.() -> Boolean,
     hintText: String
 ) {
 
@@ -35,7 +36,7 @@ fun EditText(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .background(
-                color = QQCleanerColorTheme.colors.dialogEditColor,
+                color = colors.typeBoxBackgroundColor,
                 shape = QQCleanerShapes.dialogEditBackGround
             )
             .padding(
@@ -48,7 +49,7 @@ fun EditText(
                 .align(Alignment.Center)
                 .fillMaxSize()
                 .onKeyEvent {
-                    onKeyEvent(it)
+                    it.onKeyEvent()
                 },
             value = text.value,
             keyboardOptions = keyboardOptions,
@@ -56,7 +57,7 @@ fun EditText(
         )
         val editHintColor by animateColorAsState(
             if (text.value.isEmpty())
-                QQCleanerColorTheme.colors.dialogEditHintColor else QQCleanerColorTheme.colors.transparent,
+                colors.disableSecondTextColor else Color.Transparent,
             tween(100)
         )
 

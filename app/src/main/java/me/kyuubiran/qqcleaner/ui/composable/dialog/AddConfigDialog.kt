@@ -44,7 +44,6 @@ fun AddConfigDialog(
     ) {
         // 线条绘制
         Line(
-            colors.dialogLineColor,
             Modifier
                 .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
                 .fillMaxWidth()
@@ -123,11 +122,11 @@ fun ConfigItem(
         Icon(
             painter = painterResource(id = id),
             contentDescription = text + "的图标",
-            tint = colors.textColor
+            tint = colors.secondTextColor
         )
         Text(
             text = text,
-            color = colors.textColor,
+            color = colors.secondTextColor,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .weight(1f)

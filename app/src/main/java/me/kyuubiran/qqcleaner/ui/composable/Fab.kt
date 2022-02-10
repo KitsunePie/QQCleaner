@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.QQCleanerData
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.util.drawColoredShadow
 
@@ -26,7 +26,7 @@ fun Fab(modifier: Modifier, text: String, onClick: () -> Unit) {
             .width(98.dp)
             .height(35.dp)
             .drawColoredShadow(
-                QQCleanerColorTheme.colors.cleanerShadowColor,
+                colors.mainThemeColor,
                 0.3f,
                 shadowRadius = 30.dp,
                 offsetX = 0.dp,
@@ -34,7 +34,7 @@ fun Fab(modifier: Modifier, text: String, onClick: () -> Unit) {
             )
             .clip(RoundedCornerShape(80.dp))
             .background(
-                QQCleanerColorTheme.colors.themeColor,
+                colors.mainThemeColor,
             )
             .clickable {
                 onClick()
@@ -44,7 +44,7 @@ fun Fab(modifier: Modifier, text: String, onClick: () -> Unit) {
         Text(
             text = text,
             style = QQCleanerTypes.cleanerTextStyle,
-            color = QQCleanerColorTheme.colors.buttonTextColor
+            color = colors.whiteColor
         )
     }
 }

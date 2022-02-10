@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.QQCleanerData
 
 /**
  * 就是为了少写几行代码
@@ -30,21 +30,21 @@ fun Modifier.noClick(): Modifier = composed {
 
 // 恕我直言，这个水波纹真的不优雅，我想给这xx两巴掌
 /**
- * 这是一个蓝色水波纹
+ * 这是一个水波纹
+ * @param color 水波纹颜色
  */
-object RippleCustomTheme : RippleTheme {
-
+class RippleCustomTheme(private val color: Color) : RippleTheme {
     @Composable
     override fun defaultColor() =
         RippleTheme.defaultRippleColor(
-            Color(QQCleanerColorTheme.colors.themeColor.toArgb()),
-            lightTheme = true
+            Color(color = color.toArgb()),
+            lightTheme = !QQCleanerData.isDark
         )
 
     @Composable
     override fun rippleAlpha(): RippleAlpha =
         RippleTheme.defaultRippleAlpha(
-            Color(QQCleanerColorTheme.colors.themeColor.toArgb()),
-            lightTheme = true
+            Color(color = color.toArgb()),
+            lightTheme = !QQCleanerData.isDark
         )
 }

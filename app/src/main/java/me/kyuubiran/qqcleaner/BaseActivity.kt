@@ -31,7 +31,7 @@ open class BaseActivity : ComponentActivity() {
             Dark -> true
             System -> isNightMode()
         }
-        setLightOldMode(isDark)
+        setLightOldMode(!isDark)
         super.onCreate(savedInstanceState)
 
     }
@@ -74,7 +74,7 @@ open class BaseActivity : ComponentActivity() {
      * 判断当前是否是暗色模式
      * @return 当前是否是暗色模式
      */
-    fun isNightMode(): Boolean {
+    private fun isNightMode(): Boolean {
         return when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_YES -> true
             else -> false

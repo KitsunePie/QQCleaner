@@ -17,7 +17,7 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
 import me.kyuubiran.qqcleaner.ui.composable.dialog.ConfigItemFixDialog
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.util.Shared
@@ -33,7 +33,7 @@ fun FixConfigScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = QQCleanerColorTheme.colors.cardBackgroundColor)
+            .background(color = colors.pageBackgroundColor)
             .padding(top = QQCleanerData.statusBarHeight)
     ) {
         TopBar(
@@ -53,7 +53,7 @@ fun FixConfigScreen(navController: NavController) {
                 .fillMaxWidth()
                 .height(56.dp)
                 .background(
-                    color = QQCleanerColorTheme.colors.background,
+                    color = colors.appBarsAndItemBackgroundColor,
                     shape = QQCleanerShapes.cardGroupBackground
                 )
                 .clip(QQCleanerShapes.cardGroupBackground)
@@ -64,13 +64,13 @@ fun FixConfigScreen(navController: NavController) {
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_add),
-                tint = QQCleanerColorTheme.colors.textColor,
+                tint = colors.itemRightIconColor,
                 contentDescription = "添加路径"
             )
             Text(
                 modifier = Modifier.padding(start = 16.dp),
                 style = QQCleanerTypes.itemTextStyle, text = stringResource(id = R.string.add_path),
-                color = QQCleanerColorTheme.colors.textColor,
+                color = colors.secondTextColor,
             )
         }
     }

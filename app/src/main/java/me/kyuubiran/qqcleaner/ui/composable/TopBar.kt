@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 
 @Composable
@@ -39,7 +39,7 @@ fun TopBar(backClick: () -> Unit, iconClick: () -> Unit, titleText: String, @Dra
                 painter = painterResource(id = id),
                 contentDescription = "返回",
                 modifier = Modifier.size(24.dp),
-                tint = QQCleanerColorTheme.colors.textColor
+                tint = colors.secondTextColor
             )
         }
     }
@@ -67,7 +67,7 @@ fun TopBar(click: () -> Unit, titleText: String, content: @Composable () -> Unit
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = "返回",
                 modifier = Modifier.size(24.dp),
-                tint = QQCleanerColorTheme.colors.textColor
+                tint = colors.firstTextColor
             )
         }
 
@@ -77,7 +77,7 @@ fun TopBar(click: () -> Unit, titleText: String, content: @Composable () -> Unit
                 .weight(1f),
             style = QQCleanerTypes.TitleStyle,
             text = titleText,
-            color = QQCleanerColorTheme.colors.textColor
+            color = colors.firstTextColor
         )
         content()
 

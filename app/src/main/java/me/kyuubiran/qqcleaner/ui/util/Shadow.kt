@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.ui.util
 
 
+import android.graphics.Color.toArgb
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
@@ -16,8 +17,8 @@ fun Modifier.drawColoredShadow(
     offsetX: Dp = 0.dp,
     offsetY: Dp = 0.dp
 ) = this.drawBehind {
-    val transparentColor = android.graphics.Color.toArgb(color.copy(alpha = .0f).value.toLong())
-    val shadowColor = android.graphics.Color.toArgb(color.copy(alpha = alpha).value.toLong())
+    val transparentColor = toArgb(color.copy(alpha = .0f).value.toLong())
+    val shadowColor = toArgb(color.copy(alpha = alpha).value.toLong())
     this.drawIntoCanvas {
         val paint = Paint()
         val frameworkPaint = paint.asFrameworkPaint()

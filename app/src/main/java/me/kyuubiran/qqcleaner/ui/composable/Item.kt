@@ -29,7 +29,7 @@ fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit
         Text(
             text = text,
             style = QQCleanerTypes.itemTextStyle,
-            color = QQCleanerColorTheme.colors.textColor,
+            color = QQCleanerColorTheme.colors.secondTextColor,
             modifier = Modifier.weight(1f),
         )
         content()

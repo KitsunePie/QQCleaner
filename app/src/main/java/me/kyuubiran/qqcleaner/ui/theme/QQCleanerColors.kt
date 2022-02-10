@@ -1,137 +1,209 @@
 package me.kyuubiran.qqcleaner.ui.theme
 
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.colorspace.ColorSpaces
-import me.kyuubiran.qqcleaner.annotation.ThemeColor
 
+val BlackColorPalette = QQCleanerColors(
+    mainThemeColor = Color(0xFF82A8E7),
+    eightyPercentThemeColor = Color(0xCC82A8E7),
+    sixtyThreePercentThemeColor = Color(0xA182A8E7),
+    sixtyPercentThemeColor = Color(0x9982A8E7),
+    thirtyEightPercentThemeColor = Color(0x6182A8E7),
+    fourPercentThemeColor = Color(0x1482A8E7),
+    twoPercentThemeColor = Color(0x0582A8E7),
+
+    firstTextColor = Color(0xFFFFFFFF),
+    secondTextColor = Color(0xDEFFFFFF),
+    disableSecondTextColor = Color(0x61FFFFFF),
+    thirdTextColor = Color(0x99FFFFFF),
+
+    pageBackgroundColor = Color(0xFF000000),
+    appBarsAndItemBackgroundColor = Color(0xFF303134),
+    dialogBackgroundColor = Color(0xFF3C4043),
+    typeBoxBackgroundColor = Color(0xFF4F5355),
+
+    dividerColor = Color(0xFF474C4F),
+    rippleColor = Color(0xFF3C4043),
+    maskColor = Color(0x61202124),
+    whiteColor = Color(0xFFFFFFFF),
+    iconQQCleanerRingColor = Color(0xFFB0C8F0),
+
+    itemRightIconColor = Color(0x99FFFFFF),
+    itemRightTextColor = Color(0x61FFFFFF),
+
+    switchLineColor = Color(0xFF4F5355),
+    switchOffColor = Color(0xFF5F6368),
+    switchWhiteOnColor = Color(0xFFFFFFFF),
+    switchWhiteOnLineColor = Color(0xDEFFFFFF)
+)
 val DarkColorPalette = QQCleanerColors(
-    background = Color(0xFF303134).convert(ColorSpaces.CieXyz),
-    cardBackgroundColor = Color(0xFF202124).convert(ColorSpaces.CieXyz),
-    cardBackgroundShadowColor = Color(0xFF202124).convert(ColorSpaces.CieXyz),
-    textColor = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
-    themeColor = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
-    themeElevationColor = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
-    buttonTextColor = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
-    dialogEditColor = Color(0xFF4F5355).convert(ColorSpaces.CieXyz),
-    dialogEditHintColor = Color(0x61FFFFFF).convert(ColorSpaces.CieXyz),
-    transparent = Color(0x00202124).convert(ColorSpaces.CieXyz),
-    dialogButtonPress = Color(0x1482A8E7).convert(ColorSpaces.CieXyz),
-    dialogButtonDefault = Color(0x1482A8E7).convert(ColorSpaces.CieXyz),
-    dialogButtonTextPress = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
-    dialogButtonTextDefault = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz),
-    iconColor = Color(0x60FFFFFF).convert(ColorSpaces.CieXyz),
-    tipTextColor = Color(0x99FFFFFF).convert(ColorSpaces.CieXyz),
-    toggleBorderColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
-    toggleOffColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
-    toggleOnColor = Color(0xFF82a8e7).convert(ColorSpaces.CieXyz),
-    dialogBackgroundColor = Color(0x33202124).convert(ColorSpaces.CieXyz),
-    dialogButtonTextDisabledColor = Color(0x6182A8E7).convert(ColorSpaces.CieXyz),
-    dialogLineColor = Color(0xFF474C4F).convert(ColorSpaces.CieXyz),
-    cleanerShadowColor = Color(0xFF82A8E7).convert(ColorSpaces.CieXyz)
+    mainThemeColor = Color(0XFF82A8E7),
+    eightyPercentThemeColor = Color(0xCC82A8E7),
+    sixtyThreePercentThemeColor = Color(0xA182A8E7),
+    sixtyPercentThemeColor = Color(0x9982A8E7),
+    thirtyEightPercentThemeColor = Color(0x6182A8E7),
+    fourPercentThemeColor = Color(0x1482A8E7),
+    twoPercentThemeColor = Color(0x0582A8E7),
+
+    firstTextColor = Color(0xFFFFFFFF),
+    secondTextColor = Color(0xDEFFFFFF),
+    disableSecondTextColor = Color(0x61FFFFFF),
+    thirdTextColor = Color(0x99FFFFFF),
+
+    pageBackgroundColor = Color(0xFF202124),
+    appBarsAndItemBackgroundColor = Color(0xFF303134),
+    dialogBackgroundColor = Color(0xFF3C4043),
+    typeBoxBackgroundColor = Color(0xFF4F5355),
+
+    dividerColor = Color(0xFF474C4F),
+    rippleColor = Color(0xFF3C4043),
+    maskColor = Color(0x61202124),
+    whiteColor = Color(0xFFFFFFFF),
+    iconQQCleanerRingColor = Color(0xFFB0C8F0),
+
+    itemRightIconColor = Color(0x99FFFFFF),
+    itemRightTextColor = Color(0x61FFFFFF),
+
+    switchLineColor = Color(0xFF4F5355),
+    switchOffColor = Color(0xFF5F6368),
+    switchWhiteOnColor = Color(0xFFFFFFFF),
+    switchWhiteOnLineColor = Color(0xDEFFFFFF)
 )
 
 val LightColorPalette = QQCleanerColors(
-    background = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
-    cardBackgroundColor = Color(0xFFF7F7F7).convert(ColorSpaces.CieXyz),
-    cardBackgroundShadowColor = Color(0xFF3C4043).convert(ColorSpaces.CieXyz),
-    textColor = Color(0xFF3C4043).convert(ColorSpaces.CieXyz),
-    themeColor = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
-    themeElevationColor = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
-    buttonTextColor = Color(0xFFFFFFFF).convert(ColorSpaces.CieXyz),
-    dialogEditColor = Color(0xFFF7F7F7).convert(ColorSpaces.CieXyz),
-    dialogEditHintColor = Color(0x613C4043).convert(ColorSpaces.CieXyz),
-    transparent = Color(0x00FFFFFF).convert(ColorSpaces.CieXyz),
-    dialogButtonPress = Color(0x0A0095FF).convert(ColorSpaces.CieXyz),
-    dialogButtonDefault = Color(0x050095FF).convert(ColorSpaces.CieXyz),
-    dialogButtonTextPress = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
-    dialogButtonTextDefault = Color(0xFF0095FF).convert(ColorSpaces.CieXyz),
-    iconColor = Color(0xFF5f6368).convert(ColorSpaces.CieXyz),
-    tipTextColor = Color(0xFF5F6368).convert(ColorSpaces.CieXyz),
-    toggleBorderColor = Color(0xFFd6dde7).convert(ColorSpaces.CieXyz),
-    toggleOffColor = Color(0xFFd6dde7).convert(ColorSpaces.CieXyz),
-    toggleOnColor = Color(0xFF2196f3).convert(ColorSpaces.CieXyz),
-    dialogBackgroundColor = Color(0x33202124).convert(ColorSpaces.CieXyz),
-    dialogButtonTextDisabledColor = Color(0x610095FF).convert(ColorSpaces.CieXyz),
-    dialogLineColor = Color(0xFFF7F7F7).convert(ColorSpaces.CieXyz),
-    cleanerShadowColor = Color(0xFF0095FF).convert(ColorSpaces.CieXyz)
+    mainThemeColor = Color(0XFF0095FF),
+    eightyPercentThemeColor = Color(0xCC0095FF),
+    sixtyThreePercentThemeColor = Color(0xA10095FF),
+    sixtyPercentThemeColor = Color(0x990095FF),
+    thirtyEightPercentThemeColor = Color(0x610095FF),
+    fourPercentThemeColor = Color(0x0A0095FF),
+    twoPercentThemeColor = Color(0x050095FF),
+
+    firstTextColor = Color(0xFF202124),
+    secondTextColor = Color(0xFF3C4043),
+    disableSecondTextColor = Color(0x613C4043),
+    thirdTextColor = Color(0xFF5F6368),
+
+    pageBackgroundColor = Color(0xFFF7F7F7),
+    appBarsAndItemBackgroundColor = Color(0xFFFFFFFF),
+    dialogBackgroundColor = Color(0xFFFFFFFF),
+    typeBoxBackgroundColor = Color(0xFFF7F7F7),
+
+    dividerColor = Color(0xFFF7F7F7),
+    rippleColor = Color(0x143C4043),
+    maskColor = Color(0x61202124),
+    whiteColor = Color(0xFFFFFFFF),
+    iconQQCleanerRingColor = Color(0xFF5FBCFF),
+
+    itemRightIconColor = Color(0xFF5F6368),
+    itemRightTextColor = Color(0xFF5F6368),
+
+    switchLineColor = Color(0xFFD6DDE7),
+    switchOffColor = Color(0xFFC0CBD9),
+    switchWhiteOnColor = Color(0xFFFFFFFF),
+    switchWhiteOnLineColor = Color(0xDEFFFFFF)
 )
 
-
-@[Stable ThemeColor]
+/**
+ * 这是颜色对应的类
+ */
 class QQCleanerColors(
-    background: Color,
-    cardBackgroundColor: Color,
-    cardBackgroundShadowColor: Color,
-    textColor: Color,
-    themeColor: Color,
-    themeElevationColor: Color,
-    buttonTextColor: Color,
-    dialogEditColor: Color,
-    dialogEditHintColor: Color,
-    transparent: Color,
-    dialogButtonPress: Color,
-    dialogButtonDefault: Color,
-    dialogButtonTextPress: Color,
-    dialogButtonTextDefault: Color,
-    iconColor: Color,
-    tipTextColor: Color,
-    toggleBorderColor: Color,
-    toggleOffColor: Color,
-    toggleOnColor: Color,
+    mainThemeColor: Color,
+    eightyPercentThemeColor: Color,
+    sixtyThreePercentThemeColor: Color,
+    sixtyPercentThemeColor: Color,
+    thirtyEightPercentThemeColor: Color,
+    fourPercentThemeColor: Color,
+    twoPercentThemeColor: Color,
+
+    firstTextColor: Color,
+    secondTextColor: Color,
+    disableSecondTextColor: Color,
+    thirdTextColor: Color,
+
+    pageBackgroundColor: Color,
+    appBarsAndItemBackgroundColor: Color,
     dialogBackgroundColor: Color,
-    dialogButtonTextDisabledColor: Color,
-    dialogLineColor: Color,
-    cleanerShadowColor: Color
+    typeBoxBackgroundColor: Color,
+
+    dividerColor: Color,
+    rippleColor: Color,
+    maskColor: Color,
+    whiteColor: Color,
+    iconQQCleanerRingColor: Color,
+
+    itemRightIconColor: Color,
+    itemRightTextColor: Color,
+
+    switchLineColor: Color,
+    switchOffColor: Color,
+    switchWhiteOnColor: Color,
+    switchWhiteOnLineColor: Color
+
 ) {
-    var background: Color by mutableStateOf(background)
+    var mainThemeColor: Color by mutableStateOf(mainThemeColor)
         private set
-    var cardBackgroundColor: Color by mutableStateOf(cardBackgroundColor)
+    var eightyPercentThemeColor: Color by mutableStateOf(eightyPercentThemeColor)
         private set
-    var cardBackgroundShadowColor: Color by mutableStateOf(cardBackgroundShadowColor)
+    var sixtyThreePercentThemeColor: Color by mutableStateOf(sixtyThreePercentThemeColor)
         private set
-    var textColor: Color by mutableStateOf(textColor)
+    var sixtyPercentThemeColor: Color by mutableStateOf(sixtyPercentThemeColor)
         private set
-    var themeColor: Color by mutableStateOf(themeColor)
+    var thirtyEightPercentThemeColor: Color by mutableStateOf(thirtyEightPercentThemeColor)
         private set
-    var themeElevationColor: Color by mutableStateOf(themeElevationColor)
+    var fourPercentThemeColor: Color by mutableStateOf(fourPercentThemeColor)
         private set
-    var buttonTextColor: Color by mutableStateOf(buttonTextColor)
+    var twoPercentThemeColor: Color by mutableStateOf(twoPercentThemeColor)
         private set
-    var dialogEditColor: Color by mutableStateOf(dialogEditColor)
+
+
+    var firstTextColor: Color by mutableStateOf(firstTextColor)
         private set
-    var dialogEditHintColor: Color by mutableStateOf(dialogEditHintColor)
+    var secondTextColor: Color by mutableStateOf(secondTextColor)
         private set
-    var transparent: Color by mutableStateOf(transparent)
+    var disableSecondTextColor: Color by mutableStateOf(disableSecondTextColor)
         private set
-    var dialogButtonPress: Color by mutableStateOf(dialogButtonPress)
+    var thirdTextColor: Color by mutableStateOf(thirdTextColor)
         private set
-    var dialogButtonDefault: Color by mutableStateOf(dialogButtonDefault)
+
+
+    var pageBackgroundColor: Color by mutableStateOf(pageBackgroundColor)
         private set
-    var dialogButtonTextPress: Color by mutableStateOf(dialogButtonTextPress)
-        private set
-    var dialogButtonTextDefault: Color by mutableStateOf(dialogButtonTextDefault)
-        private set
-    var iconColor: Color by mutableStateOf(iconColor)
-        private set
-    var toggleBorderColor: Color by mutableStateOf(toggleBorderColor)
-        private set
-    var toggleOffColor: Color by mutableStateOf(toggleOffColor)
-        private set
-    var toggleOnColor: Color by mutableStateOf(toggleOnColor)
-        private set
-    var tipTextColor: Color by mutableStateOf(tipTextColor)
+    var appBarsAndItemBackgroundColor: Color by mutableStateOf(appBarsAndItemBackgroundColor)
         private set
     var dialogBackgroundColor: Color by mutableStateOf(dialogBackgroundColor)
         private set
-    var dialogButtonTextDisabledColor: Color by mutableStateOf(dialogButtonTextDisabledColor)
+    var typeBoxBackgroundColor: Color by mutableStateOf(typeBoxBackgroundColor)
         private set
-    var dialogLineColor: Color by mutableStateOf(dialogLineColor)
+
+
+    var dividerColor: Color by mutableStateOf(dividerColor)
         private set
-    var cleanerShadowColor: Color by mutableStateOf(cleanerShadowColor)
+    var rippleColor: Color by mutableStateOf(rippleColor)
+        private set
+    var maskColor: Color by mutableStateOf(maskColor)
+        private set
+    var whiteColor: Color by mutableStateOf(whiteColor)
+        private set
+    var iconQQCleanerRingColor: Color by mutableStateOf(iconQQCleanerRingColor)
+        private set
+
+
+    var itemRightIconColor: Color by mutableStateOf(itemRightIconColor)
+        private set
+    var itemRightTextColor: Color by mutableStateOf(itemRightTextColor)
+        private set
+
+
+    var switchLineColor: Color by mutableStateOf(switchLineColor)
+        private set
+    var switchOffColor: Color by mutableStateOf(switchOffColor)
+        private set
+    var switchWhiteOnColor: Color by mutableStateOf(switchWhiteOnColor)
+        private set
+    var switchWhiteOnLineColor: Color by mutableStateOf(switchWhiteOnLineColor)
         private set
 }
 

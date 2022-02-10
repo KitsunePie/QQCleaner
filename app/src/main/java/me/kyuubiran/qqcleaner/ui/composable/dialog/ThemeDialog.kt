@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.QQCleanerData.theme
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.composable.Line
@@ -34,9 +33,7 @@ fun ThemeDialog(
 ) {
 
     // 这里是当前主题的获取
-    // 理论应该是获取对应的值，然后给他，需要修改 ksp 生成那部分，暂时先别改他
-    // 让 ksp 生成一个对应的System，system 通过系统当前主题指向对应对应的主题
-    var theme by remember {
+    var currentTheme by remember {
         mutableStateOf(
             // 只在第一次调用
             when (theme) {
@@ -57,7 +54,6 @@ fun ThemeDialog(
     ) {
         // 线条绘制
         Line(
-            colors.dialogLineColor,
             Modifier
                 .padding(top = 4.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
                 .fillMaxWidth()
@@ -67,31 +63,30 @@ fun ThemeDialog(
         ThemeItem(
             text = stringResource(id = R.string.light_theme),
             id = R.drawable.ic_sun,
-            checked = theme == 0x0,
+            checked = currentTheme == 0x0,
             onClick = {
-                theme = 0x0
+                currentTheme = 0x0
             }
         )
         ThemeItem(
             text = stringResource(id = R.string.dark_theme),
             id = R.drawable.ic_moon,
-            checked = theme == 0x1,
+            checked = currentTheme == 0x1,
             onClick = {
-                theme = 0x1
+                currentTheme = 0x1
             }
         )
         ThemeItem(
             text = stringResource(id = R.string.follow_system_theme),
             id = R.drawable.ic_android,
-            checked = theme == 0x2,
+            checked = currentTheme == 0x2,
             onClick = {
-                theme = 0x2
+                currentTheme = 0x2
             }
         )
 
         // 线条绘制
         Line(
-            colors.dialogLineColor,
             modifier = Modifier
                 .padding(top = 12.dp, start = 32.dp, end = 32.dp, bottom = 12.dp)
                 .fillMaxWidth()
@@ -102,18 +97,21 @@ fun ThemeDialog(
 
         DialogButton(
             // 这里进行当前选择和主题是否相同，如果不同则则可以点击选择
-            theme != when (QQCleanerData.theme) {
+            currentTheme != when (theme) {
                 Light -> 0x0
                 Dark -> 0x1
                 System -> 0x2
             }
         ) {
-            when (theme) {
-                0x0 -> QQCleanerData.theme = Light
-                0x1 -> QQCleanerData.theme = Dark
-                0x2 -> QQCleanerData.theme = System
+            when (currentTheme) {
+                0x0 ->
+                    theme = Light
+                0x1 -> theme = Dark
+
+                0x2 -> theme = System
+
             }
-            ConfigManager.sThemeSelect = theme
+            ConfigManager.sThemeSelect = currentTheme
             state.value = false
         }
     }
@@ -127,10 +125,10 @@ private fun ThemeItem(
     onClick: () -> Unit = {}
 ) {
     // 如果添加 animateColorAsState 动画，则在点击确定的时候有概率闪退，我也不知道什么问题，不过这个加不加点击动画都那样不管他
-    val backgroundColor = if (checked) colors.dialogButtonDefault else Color.Transparent
-    val textColor = if (checked) colors.dialogButtonTextDefault else colors.textColor
-    // 替换了原本的颜色
-    CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme) {
+    val backgroundColor = if (checked) colors.fourPercentThemeColor else Color.Transparent
+    val textColor = if (checked) colors.mainThemeColor else colors.secondTextColor
+    // 替换了水波纹原本的颜色
+    CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme(color = colors.fourPercentThemeColor)) {
         Row(
             modifier = Modifier
                 .padding(horizontal = 24.dp)

@@ -18,7 +18,7 @@ fun DeveloperScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = QQCleanerColorTheme.colors.cardBackgroundColor)
+            .background(color = QQCleanerColorTheme.colors.pageBackgroundColor)
             .padding(top = QQCleanerData.statusBarHeight)
     ) {
         TopBar(

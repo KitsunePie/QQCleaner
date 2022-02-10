@@ -79,7 +79,7 @@ fun MainScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(colors.background)
+            .background(colors.appBarsAndItemBackgroundColor)
     ) {
         Column {
             // 标题
@@ -103,7 +103,7 @@ fun MainScreen(navController: NavController) {
                             .padding(top = 24.dp)
                             .height(29.dp),
                         style = TitleTextStyle,
-                        color = colors.textColor
+                        color = colors.secondTextColor
                     )
                     // 上次瘦身日期
                     Text(
@@ -116,7 +116,7 @@ fun MainScreen(navController: NavController) {
                             .padding(top = 16.dp)
                             .height(21.dp),
                         style = SubTitleTextStyle,
-                        color = colors.textColor
+                        color = colors.secondTextColor
                     )
                     // 蓝色日期
                     Box(
@@ -124,7 +124,7 @@ fun MainScreen(navController: NavController) {
                             .padding(top = 16.dp, bottom = 24.dp)
                             .height(18.dp)
                             .background(
-                                colors.themeColor,
+                                color = colors.mainThemeColor,
                                 RoundedCornerShape(4.dp)
                             )
                             .padding(horizontal = 8.dp, vertical = 4.dp)
@@ -134,7 +134,7 @@ fun MainScreen(navController: NavController) {
                                 id = R.string.last_clean_date_title,
                                 getLastCleanTimeText(lastClean)
                             ) else stringResource(id = R.string.no_last_clean_date_record_mini),
-                            color = colors.buttonTextColor,
+                            color = colors.whiteColor,
                             style = ButtonTitleTextStyle
                         )
                     }
@@ -159,14 +159,14 @@ fun MainScreen(navController: NavController) {
             Box(
                 modifier = Modifier
                     .drawColoredShadow(
-                        colors.cardBackgroundShadowColor,
+                        colors.rippleColor,
                         0.1f,
                         shadowRadius = 10.dp,
                         offsetX = 0.dp,
                         offsetY = (-3).dp
                     )
                     .background(
-                        colors.cardBackgroundColor,
+                        colors.pageBackgroundColor,
                         RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
                     )
             ) {
@@ -174,7 +174,7 @@ fun MainScreen(navController: NavController) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(shape = cardBackground, color = colors.cardBackgroundColor)
+                        .background(shape = cardBackground, color = colors.pageBackgroundColor)
                 ) {
                     CardTitle(text = stringResource(id = R.string.title_setup))
 
@@ -208,7 +208,7 @@ fun MainScreen(navController: NavController) {
                                         id = R.string.item_cleaner_time_tip,
                                         autoCleanInterval
                                     ),
-                                    color = colors.textColor,
+                                    color = colors.itemRightTextColor,
                                     style = TipStyle
                                 )
                             }
@@ -278,7 +278,7 @@ fun ForwardIcon(@StringRes id: Int) {
         painter = painterResource(id = R.drawable.ic_chevron_right),
         contentDescription = stringResource(id = id),
         modifier = Modifier.size(24.dp),
-        tint = colors.iconColor
+        tint = colors.itemRightIconColor
     )
 }
 
@@ -289,7 +289,7 @@ private fun CardGroup(height: Dp, content: @Composable ColumnScope.() -> Unit) {
             .fillMaxWidth()
             .height(height)
             .padding(horizontal = 24.dp)
-            .background(shape = cardGroupBackground, color = colors.background),
+            .background(shape = cardGroupBackground, color = colors.appBarsAndItemBackgroundColor),
         content = content
     )
 }
@@ -299,7 +299,7 @@ private fun CardTitle(text: String) {
     Text(
         text = text,
         style = cardTitleTextStyle,
-        color = colors.textColor,
+        color = colors.secondTextColor,
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
     )
 }
