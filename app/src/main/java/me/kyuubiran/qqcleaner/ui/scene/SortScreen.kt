@@ -105,7 +105,7 @@ fun SortScreen(navController: NavController) {
                         )
                 ) {
                     items(Shared.currentEditCleanData.content) { item ->
-                        ConfigItem(data = item, onLongClick = {
+                        SortItem(data = item, onLongClick = {
                             sortDialogShow = true
                         })
                     }
@@ -158,7 +158,7 @@ fun SortScreen(navController: NavController) {
 }
 
 @Composable
-fun ConfigItem(data: CleanData.PathData, onLongClick: () -> Unit = {}) {
+fun SortItem(data: CleanData.PathData, onLongClick: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
