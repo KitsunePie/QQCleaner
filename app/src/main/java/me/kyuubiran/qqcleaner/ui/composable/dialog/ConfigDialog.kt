@@ -191,7 +191,7 @@ private fun ConfigUI(
                 state.value = false
                 Shared.currentEditCleanData = cleanData
                 navController.navigate(
-                    QQCleanerApp.Config,
+                    QQCleanerApp.Sort,
                 )
             }
         )

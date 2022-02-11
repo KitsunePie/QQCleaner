@@ -216,7 +216,7 @@ fun MainScreen(navController: NavController) {
                         Item(
                             text = stringResource(id = R.string.item_cleaner_config),
                             onClick = {
-                                navController.navigate(QQCleanerApp.Edit) {
+                                navController.navigate(QQCleanerApp.Config) {
                                     popUpTo(QQCleanerApp.Main)
                                 }
                             },

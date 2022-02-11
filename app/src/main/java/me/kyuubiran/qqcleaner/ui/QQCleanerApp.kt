@@ -8,10 +8,9 @@ import androidx.navigation.compose.rememberNavController
 import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.About
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Config
-import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigFix
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Developer
-import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Edit
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Main
+import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Sort
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.SortFix
 import me.kyuubiran.qqcleaner.ui.scene.*
 
@@ -32,38 +31,34 @@ fun QQCleanerApp() {
             MainScreen(navController = navController)
         }
 
-        composable(Developer) {
-            DeveloperScreen(navController = navController)
-        }
 
         composable(Config) {
             ConfigScreen(navController = navController)
         }
-
-        composable(Edit) {
-            EditScreen(navController = navController)
+        composable(Sort) {
+            SortScreen(navController = navController)
+        }
+        composable(SortFix) {
+            SortFixScreen(navController = navController)
         }
 
-        composable(ConfigFix) {
-            ConfigFixScreen(navController = navController)
-        }
 
         composable(About) {
             AboutScreen(navController = navController)
         }
-
-        composable(SortFix) {
-            SortFixScreen(navController = navController)
+        composable(Developer) {
+            DeveloperScreen(navController = navController)
         }
+
     }
 
 }
 
 object QQCleanerApp {
-    const val Edit = "edit_screen"
+    const val Config = "config_screen"
     const val Main = "main_screen"
     const val Developer = "developer_screen"
-    const val Config = "config_screen"
+    const val Sort = "sort_screen"
     const val ConfigFix = "config_fix_screen"
     const val About = "about_screen"
     const val SortFix = "sort_fix_screen"
