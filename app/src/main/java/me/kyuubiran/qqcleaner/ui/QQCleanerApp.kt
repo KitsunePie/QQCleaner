@@ -12,6 +12,7 @@ import me.kyuubiran.qqcleaner.ui.QQCleanerApp.ConfigFix
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Developer
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Edit
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Main
+import me.kyuubiran.qqcleaner.ui.QQCleanerApp.SortFix
 import me.kyuubiran.qqcleaner.ui.scene.*
 
 /**
@@ -44,21 +45,26 @@ fun QQCleanerApp() {
         }
 
         composable(ConfigFix) {
-            FixConfigScreen(navController = navController)
+            ConfigFixScreen(navController = navController)
         }
 
         composable(About) {
             AboutScreen(navController = navController)
+        }
+
+        composable(SortFix) {
+            SortFixScreen(navController = navController)
         }
     }
 
 }
 
 object QQCleanerApp {
-    const val Edit = "editScreen"
-    const val Main = "mainScreen"
-    const val Developer = "developerScreen"
-    const val Config = "configScreen"
-    const val ConfigFix = "fixConfigScreenScreen"
-    const val About = "aboutScreen"
+    const val Edit = "edit_screen"
+    const val Main = "main_screen"
+    const val Developer = "developer_screen"
+    const val Config = "config_screen"
+    const val ConfigFix = "config_fix_screen"
+    const val About = "about_screen"
+    const val SortFix = "sort_fix_screen"
 }

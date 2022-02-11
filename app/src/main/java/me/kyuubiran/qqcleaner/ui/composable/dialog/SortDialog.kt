@@ -35,14 +35,14 @@ private enum class SortDialogScreen {
 }
 
 @Composable
-fun SortAddDialog(
+fun SortDialog(
     navController: NavController,
     onDismissRequest: () -> Unit
 ) {
     val state = remember { mutableStateOf(true) }
     val isSoftShowing = remember { mutableStateOf(true) }
     val isDialogScreen = remember { mutableStateOf(Main) }
-    EditBottomDialog(
+    EditDialog(
         onDismissRequest = onDismissRequest,
         dialogHeight = when (isDialogScreen.value) {
             Main -> 352f
@@ -99,7 +99,7 @@ private fun ConfigUI(
             onClick = {
                 state.value = false
                 navController.navigate(
-                    QQCleanerApp.Config,
+                    QQCleanerApp.SortFix,
                 )
             }
         )

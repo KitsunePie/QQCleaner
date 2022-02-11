@@ -1,6 +1,8 @@
 package me.kyuubiran.qqcleaner.ui.composable
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,6 +25,40 @@ fun Item(text: String, onClick: () -> Unit = {}, content: @Composable () -> Unit
             .height(56.dp)
             .clip(QQCleanerShapes.cardGroupBackground)
             .clickable { onClick() }
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = text,
+            style = QQCleanerTypes.itemTextStyle,
+            color = QQCleanerColorTheme.colors.secondTextColor,
+            modifier = Modifier.weight(1f),
+        )
+        content()
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun Item(
+    text: String,
+    onClick: () -> Unit = {},
+    onLongClick: () -> Unit = {},
+    content: @Composable () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .clip(QQCleanerShapes.cardGroupBackground)
+            .combinedClickable(
+                onClick = {
+                    onClick()
+                },
+                onLongClick = {
+                    onLongClick()
+                }
+            )
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

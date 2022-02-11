@@ -5,7 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,6 +20,7 @@ import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Fab
 import me.kyuubiran.qqcleaner.ui.composable.SwitchItem
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
+import me.kyuubiran.qqcleaner.ui.composable.dialog.SortDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
 import me.kyuubiran.qqcleaner.ui.util.Shared
@@ -28,6 +29,17 @@ import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
 @Composable
 fun ConfigScreen(navController: NavController) {
     val enable = rememberMutableStateOf(Shared.currentEditCleanData.enable)
+
+    var sortDialogShow by remember { mutableStateOf(false) }
+    if (sortDialogShow) {
+        SortDialog(
+            navController = navController,
+        ) {
+            sortDialogShow = false
+        }
+
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +80,8 @@ fun ConfigScreen(navController: NavController) {
                     checked = enable,
                     onClick = {
                         Shared.currentEditCleanData.enable = it
-                    })
+                    }
+                )
             }
 
             LazyColumn(
@@ -82,7 +95,9 @@ fun ConfigScreen(navController: NavController) {
                     )
             ) {
                 items(Shared.currentEditCleanData.content) { item ->
-                    ConfigItem(data = item)
+                    ConfigItem(data = item, onLongClick = {
+                        sortDialogShow = true
+                    })
                 }
             }
         }
@@ -99,7 +114,7 @@ fun ConfigScreen(navController: NavController) {
 }
 
 @Composable
-fun ConfigItem(data: CleanData.PathData) {
+fun ConfigItem(data: CleanData.PathData, onLongClick: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -112,6 +127,9 @@ fun ConfigItem(data: CleanData.PathData) {
             checked = rememberMutableStateOf(value = data.enable),
             onClick = {
                 data.enable = it
+            },
+            onLongClick = {
+                onLongClick()
             }
         )
     }

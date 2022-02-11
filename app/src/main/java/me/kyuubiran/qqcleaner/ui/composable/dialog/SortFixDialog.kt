@@ -24,7 +24,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.ConfigItemFixStyle
 import me.kyuubiran.qqcleaner.ui.util.hideKeyBoard
 
 @Composable
-fun ConfigItemFixDialog(
+fun SortFixDialog(
     onDismissRequest: (String) -> Unit,
 ) {
 
@@ -33,7 +33,7 @@ fun ConfigItemFixDialog(
     val state = remember { mutableStateOf(true) }
 
     val isSoftShowing = remember { mutableStateOf(true) }
-    EditBottomDialog(
+    EditDialog(
         onDismissRequest = {
             onDismissRequest(text.value)
         },

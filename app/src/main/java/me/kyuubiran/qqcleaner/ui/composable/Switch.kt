@@ -153,6 +153,7 @@ fun SwitchItem(
     text: String,
     checked: MutableState<Boolean>,
     onClick: ((Boolean) -> Unit)? = null,
+    onLongClick: () -> Unit = {},
     clickNoToggle: Boolean = false
 ) {
     fun toggle() {
@@ -164,7 +165,7 @@ fun SwitchItem(
         }
     }
 
-    Item(text = text, onClick = { toggle() }) {
+    Item(text = text, onClick = { toggle() }, onLongClick = onLongClick) {
         Switch(checked = checked)
     }
 }

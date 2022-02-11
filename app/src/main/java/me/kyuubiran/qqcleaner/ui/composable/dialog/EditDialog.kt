@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import me.kyuubiran.qqcleaner.ui.util.px2dp
 
 @Composable
-fun EditBottomDialog(
+fun EditDialog(
     dialogHeight: Float,
     dialogText: String,
     isSoftShowing: MutableState<Boolean>,

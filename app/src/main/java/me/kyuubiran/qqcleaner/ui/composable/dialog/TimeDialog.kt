@@ -30,7 +30,7 @@ fun TimeDialog(
     val state = remember { mutableStateOf(true) }
 
     val isSoftShowing = remember { mutableStateOf(true) }
-    EditBottomDialog(
+    EditDialog(
         onDismissRequest = {
             onDismissRequest(text.value)
         },

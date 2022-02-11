@@ -49,7 +49,7 @@ fun ConfigDialog(
     val state = remember { mutableStateOf(true) }
     val isSoftShowing = remember { mutableStateOf(true) }
     val isDialogScreen = remember { mutableStateOf(Main) }
-    EditBottomDialog(
+    EditDialog(
         onDismissRequest = onDismissRequest,
         dialogHeight = when (isDialogScreen.value) {
             Main -> 520f
