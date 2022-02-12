@@ -33,6 +33,9 @@ object QQCleanerTypes {
     val EmptyTipStyle = intoTextStyle(fontSize = 16.sp, lineHeight = 19.sp, fontWeight = Normal)
 
     val FileTextStyle = intoTextStyle(fontSize = 12.sp, lineHeight = 19.sp, fontWeight = Normal)
+
+    val AboutTextStyle = intoTextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = Bold)
+    val VersionTextStyle = intoTextStyle(fontSize = 12.sp, lineHeight = 24.sp, fontWeight = Normal)
 }
 
 private fun intoTextStyle(

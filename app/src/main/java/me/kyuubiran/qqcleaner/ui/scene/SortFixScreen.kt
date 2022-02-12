@@ -20,7 +20,7 @@ import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.composable.Fab
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
-import me.kyuubiran.qqcleaner.ui.composable.dialog.SortFixDialog
+import me.kyuubiran.qqcleaner.ui.composable.dialog.FileDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
@@ -35,7 +35,7 @@ fun SortFixScreen(navController: NavController) {
 
     var fileDialogShow by remember { mutableStateOf(false) }
     if (fileDialogShow) {
-        SortFixDialog {
+        FileDialog {
             fileDialogShow = false
         }
 

@@ -24,7 +24,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.ConfigItemFixStyle
 import me.kyuubiran.qqcleaner.ui.util.hideKeyBoard
 
 @Composable
-fun SortFixDialog(
+fun FileDialog(
     onDismissRequest: (String) -> Unit,
 ) {
 

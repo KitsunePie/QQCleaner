@@ -19,6 +19,8 @@ import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Item
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.AboutTextStyle
+import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.VersionTextStyle
 
 @Composable
 fun AboutScreen(navController: NavController) {
@@ -57,57 +59,83 @@ fun AboutScreen(navController: NavController) {
                     ),
                     contentDescription = stringResource(id = R.string.icon_content_description),
                 )
+
                 Text(
                     text = "瘦身模块",
                     modifier = Modifier
                         .padding(top = 24.dp)
-                        .align(Alignment.CenterHorizontally)
+                        .align(Alignment.CenterHorizontally),
+                    style = AboutTextStyle,
+                    color = colors.firstTextColor
                 )
                 Text(
                     text = "版本",
                     modifier = Modifier
-                        .padding(top = 24.dp)
-                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 18.dp)
+                        .align(Alignment.CenterHorizontally),
+                    style = VersionTextStyle,
+                    color = colors.secondTextColor
                 )
-                // todo 一个新的 Item 保留 modifier
-                Item(
-                    text = stringResource(id = R.string.item_about),
-                    onClick = {
-                        navController.navigate(QQCleanerApp.Developer)
-                    },
-                    content = {
-                        ForwardIcon(R.string.item_about)
-                    }
+                Spacer(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(24.dp)
                 )
-                Item(
-                    text = stringResource(id = R.string.item_about),
-                    onClick = {
-                        navController.navigate(QQCleanerApp.Developer)
-                    },
-                    content = {
-                        ForwardIcon(R.string.item_about)
-                    }
-                )
-                Item(
-                    text = stringResource(id = R.string.item_about),
-                    onClick = {
-                        navController.navigate(QQCleanerApp.Developer)
-                    },
-                    content = {
-                        ForwardIcon(R.string.item_about)
-                    }
-                )
-                Item(
-                    text = stringResource(id = R.string.item_about),
-                    onClick = {
-                        navController.navigate(QQCleanerApp.Developer)
-                    },
-                    content = {
-                        ForwardIcon(R.string.item_about)
-                    }
-                )
-            }
+                CardGroup(56.dp) {
+                    Item(
+                        text = "Github",
+                        onClick = {
+                            navController.navigate(QQCleanerApp.Developer)
+                        },
+                        content = {
+                            ForwardIcon(R.string.item_about)
+                        }
+                    )
+                }
 
+                Spacer(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(24.dp)
+                )
+                CardGroup(112.dp) {
+                    Item(
+                        text = "Telegram 频道",
+                        onClick = {
+                            navController.navigate(QQCleanerApp.Developer)
+                        },
+                        content = {
+                            ForwardIcon(R.string.item_about)
+                        }
+                    )
+                    Item(
+                        text = "QQ 群组",
+                        onClick = {
+                            navController.navigate(QQCleanerApp.Developer)
+                        },
+                        content = {
+                            ForwardIcon(R.string.item_about)
+                        }
+                    )
+                }
+
+                Spacer(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(24.dp)
+                )
+                CardGroup(56.dp) {
+                    Item(
+                        text = stringResource(id = R.string.item_about),
+                        onClick = {
+                            navController.navigate(QQCleanerApp.Developer)
+                        },
+                        content = {
+                            ForwardIcon(R.string.item_about)
+                        }
+                    )
+                }
+            }
 
         }
     }

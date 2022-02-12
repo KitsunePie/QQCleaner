@@ -31,7 +31,7 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.dialogButtonBackground
 
 
 @Composable
-fun AddConfigDialog(
+fun ConfigAddDialog(
     list: SnapshotStateList<CleanData>,
     onDismissRequest: () -> Unit,
 ) {

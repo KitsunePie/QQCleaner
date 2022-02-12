@@ -283,19 +283,21 @@ fun ForwardIcon(@StringRes id: Int) {
 }
 
 @Composable
-private fun CardGroup(height: Dp, content: @Composable ColumnScope.() -> Unit) {
+fun CardGroup(height: Dp, content: @Composable ColumnScope.() -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .height(height)
             .padding(horizontal = 24.dp)
             .background(shape = cardGroupBackground, color = colors.appBarsAndItemBackgroundColor),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
         content = content
     )
 }
 
 @Composable
-private fun CardTitle(text: String) {
+fun CardTitle(text: String) {
     Text(
         text = text,
         style = cardTitleTextStyle,
