@@ -11,8 +11,8 @@ android {
         applicationId = "me.kyuubiran.qqcleaner"
         minSdk = 26
         targetSdk = 32
-        versionCode = 60
-        versionName = "2.0.0"
+        versionCode = 66
+        versionName = "2.0.0-beta4"
         vectorDrawables {
             useSupportLibrary = true
         }
