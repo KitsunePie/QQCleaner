@@ -67,9 +67,10 @@ dependencies {
 
 //    implementation(files("./libs/EzXHelper-release.aar"))
 
-    implementation("com.github.kyuubiran:EzXHelper:0.6.1")
+    implementation("com.github.kyuubiran:EzXHelper:0.6.2")
     compileOnly("de.robv.android.xposed:api:82")
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.navigation:navigation-compose:2.5.0-alpha01")
+    implementation("androidx.navigation:navigation-compose:2.5.0-alpha02")
+    implementation("io.coil-kt:coil-compose:1.4.0")
 }

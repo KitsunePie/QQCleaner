@@ -98,7 +98,6 @@ fun SortScreen(navController: NavController) {
                     modifier = Modifier
                         .padding(top = 24.dp)
                         .padding(horizontal = 24.dp)
-                        .padding(bottom = 108.dp)
                         .background(
                             color = colors.appBarsAndItemBackgroundColor,
                             shape = cardGroupBackground
@@ -149,7 +148,7 @@ fun SortScreen(navController: NavController) {
         Fab(
             modifier = Modifier
                 .align(Alignment.BottomCenter),
-            text = stringResource(id = R.string.add_config),
+            text = "添加类别",
             onClick = {
 
             }

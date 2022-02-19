@@ -1,5 +1,7 @@
 package me.kyuubiran.qqcleaner.ui.scene
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -85,7 +87,11 @@ fun AboutScreen(navController: NavController) {
                     Item(
                         text = "Github",
                         onClick = {
-                            navController.navigate(QQCleanerApp.Developer)
+                            navController.context.startActivity(Intent().apply {
+                                action = Intent.ACTION_VIEW
+                                data = Uri.parse("https://github.com/KitsunePie/QQCleaner")
+                            }
+                            )
                         },
                         content = {
                             ForwardIcon(R.string.item_about)
@@ -100,18 +106,26 @@ fun AboutScreen(navController: NavController) {
                 )
                 CardGroup(112.dp) {
                     Item(
-                        text = "Telegram 频道",
+                        text = "Telegram 群组",
                         onClick = {
-                            navController.navigate(QQCleanerApp.Developer)
+                            navController.context.startActivity(Intent().apply {
+                                action = Intent.ACTION_VIEW
+                                data = Uri.parse("https://t.me/QQCleanerChat")
+                            }
+                            )
                         },
                         content = {
                             ForwardIcon(R.string.item_about)
                         }
                     )
                     Item(
-                        text = "QQ 群组",
+                        text = "Telegram 频道",
                         onClick = {
-                            navController.navigate(QQCleanerApp.Developer)
+                            navController.context.startActivity(Intent().apply {
+                                action = Intent.ACTION_VIEW
+                                data = Uri.parse("https://t.me/QQCleaner")
+                            }
+                            )
                         },
                         content = {
                             ForwardIcon(R.string.item_about)

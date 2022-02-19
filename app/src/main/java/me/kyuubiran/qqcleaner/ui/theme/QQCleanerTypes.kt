@@ -36,6 +36,8 @@ object QQCleanerTypes {
 
     val AboutTextStyle = intoTextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = Bold)
     val VersionTextStyle = intoTextStyle(fontSize = 12.sp, lineHeight = 24.sp, fontWeight = Normal)
+    val NameTextStyle = intoTextStyle(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = Normal)
+    val DescribeTextStyle = intoTextStyle(fontSize = 12.sp, lineHeight = 19.sp, fontWeight = Normal)
 }
 
 private fun intoTextStyle(
