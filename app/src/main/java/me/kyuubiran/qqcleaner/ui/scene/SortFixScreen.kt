@@ -20,6 +20,7 @@ import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.composable.Fab
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
+import me.kyuubiran.qqcleaner.ui.composable.dialog.FileAddDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.FileDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
@@ -38,8 +39,15 @@ fun SortFixScreen(navController: NavController) {
         FileDialog {
             fileDialogShow = false
         }
-
     }
+
+    var fileAddDialogShow by remember { mutableStateOf(false) }
+    if (fileAddDialogShow) {
+        FileAddDialog {
+            fileDialogShow = false
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -108,7 +116,7 @@ fun SortFixScreen(navController: NavController) {
                 .align(Alignment.BottomCenter),
             text = "添加路径",
             onClick = {
-
+                fileAddDialogShow = true
             }
         )
     }

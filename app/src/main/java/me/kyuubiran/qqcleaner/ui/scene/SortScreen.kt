@@ -25,6 +25,7 @@ import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Fab
 import me.kyuubiran.qqcleaner.ui.composable.SwitchItem
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
+import me.kyuubiran.qqcleaner.ui.composable.dialog.SortAddDialog
 import me.kyuubiran.qqcleaner.ui.composable.dialog.SortDialog
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes.cardGroupBackground
@@ -46,7 +47,13 @@ fun SortScreen(navController: NavController) {
         ) {
             sortDialogShow = false
         }
+    }
 
+    var sortAddDialogShow by remember { mutableStateOf(false) }
+    if (sortAddDialogShow) {
+        SortAddDialog {
+            sortDialogShow = false
+        }
     }
 
     Box(
@@ -150,7 +157,7 @@ fun SortScreen(navController: NavController) {
                 .align(Alignment.BottomCenter),
             text = "添加类别",
             onClick = {
-
+                sortAddDialogShow = true
             }
         )
     }
