@@ -25,12 +25,13 @@ fun Fab(modifier: Modifier, text: String, onClick: () -> Unit) {
             .padding(QQCleanerData.navigationBarHeight + 16.dp)
             .width(98.dp)
             .height(35.dp)
+
             .drawColoredShadow(
                 colors.mainThemeColor,
-                0.6f,
-                shadowRadius = 30.dp,
+                0.7f,
+                shadowRadius = 6.dp,
                 offsetX = 0.dp,
-                offsetY = (3).dp
+                offsetY = (3).dp,
             )
             .clip(RoundedCornerShape(80.dp))
             .background(

@@ -13,29 +13,37 @@ import androidx.compose.ui.unit.dp
 fun Modifier.drawColoredShadow(
     color: Color,
     alpha: Float = 0.2f,
-    shadowRadius: Dp = 20.dp,
+    borderRadius: Dp = 0.dp,
+    shadowRadius: Dp = 0.dp,
     offsetX: Dp = 0.dp,
-    offsetY: Dp = 0.dp
+    offsetY: Dp = 0.dp,
+    roundedRect: Boolean = true
 ) = this.drawBehind {
+    /**将颜色转换为Argb的Int类型*/
     val transparentColor = toArgb(color.copy(alpha = .0f).value.toLong())
     val shadowColor = toArgb(color.copy(alpha = alpha).value.toLong())
+    /**调用Canvas绘制*/
     this.drawIntoCanvas {
         val paint = Paint()
+        paint.color = Color.Transparent
+        /**调用底层fragment Paint绘制*/
         val frameworkPaint = paint.asFrameworkPaint()
         frameworkPaint.color = transparentColor
+        /**绘制阴影*/
         frameworkPaint.setShadowLayer(
             shadowRadius.toPx(),
             offsetX.toPx(),
             offsetY.toPx(),
             shadowColor
         )
+        /**形状绘制*/
         it.drawRoundRect(
             0f,
             0f,
             this.size.width,
             this.size.height,
-            0f,
-            0f,
+            if (roundedRect) this.size.height / 2 else borderRadius.toPx(),
+            if (roundedRect) this.size.height / 2 else borderRadius.toPx(),
             paint
         )
     }

@@ -160,10 +160,11 @@ fun MainScreen(navController: NavController) {
                 modifier = Modifier
                     .drawColoredShadow(
                         colors.rippleColor,
-                        0.1f,
-                        shadowRadius = 10.dp,
+                        0.13f,
+                        shadowRadius = 3.dp,
                         offsetX = 0.dp,
-                        offsetY = (-3).dp
+                        offsetY = (-3).dp,
+                        roundedRect = false
                     )
                     .background(
                         colors.pageBackgroundColor,
