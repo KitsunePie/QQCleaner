@@ -27,7 +27,7 @@ fun Fab(modifier: Modifier, text: String, onClick: () -> Unit) {
             .height(35.dp)
             .drawColoredShadow(
                 colors.mainThemeColor,
-                0.3f,
+                0.6f,
                 shadowRadius = 30.dp,
                 offsetX = 0.dp,
                 offsetY = (3).dp

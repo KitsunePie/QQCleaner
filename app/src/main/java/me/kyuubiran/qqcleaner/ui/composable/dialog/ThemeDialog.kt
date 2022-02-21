@@ -137,7 +137,7 @@ private fun ThemeItem(
     val backgroundColor = if (checked) colors.fourPercentThemeColor else Color.Transparent
     val textColor = if (checked) colors.mainThemeColor else colors.secondTextColor
     // 替换了水波纹原本的颜色
-    CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme(color = colors.fourPercentThemeColor)) {
+    CompositionLocalProvider(LocalRippleTheme provides RippleCustomTheme(color = if (checked) colors.fourPercentThemeColor else colors.rippleColor)) {
         Row(
             modifier = Modifier
                 .padding(horizontal = 24.dp)

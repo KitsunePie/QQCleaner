@@ -52,11 +52,11 @@ fun TopBar(click: () -> Unit, titleText: String, content: @Composable () -> Unit
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .padding(horizontal = 16.dp)
+            .padding(end = 16.dp)
     ) {
         Box(
             modifier = Modifier
-                .size(56.dp)
+                .size(60.dp)
                 .clip(CircleShape)
                 .clickable {
                     click()
@@ -73,7 +73,6 @@ fun TopBar(click: () -> Unit, titleText: String, content: @Composable () -> Unit
 
         Text(
             modifier = Modifier
-                .padding(end = 16.dp)
                 .weight(1f),
             style = QQCleanerTypes.TitleStyle,
             text = titleText,

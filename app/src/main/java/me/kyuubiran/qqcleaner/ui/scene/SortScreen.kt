@@ -23,6 +23,7 @@ import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Fab
+import me.kyuubiran.qqcleaner.ui.composable.Switch
 import me.kyuubiran.qqcleaner.ui.composable.SwitchItem
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
 import me.kyuubiran.qqcleaner.ui.composable.dialog.SortAddDialog
@@ -87,17 +88,38 @@ fun SortScreen(navController: NavController) {
                     .fillMaxWidth()
                     .clickable { enable.value = !enable.value }
                     .background(
-                        color = colors.appBarsAndItemBackgroundColor,
+                        color = if (enable.value)
+                            colors.mainThemeColor else colors.appBarsAndItemBackgroundColor,
                         shape = cardGroupBackground
                     )
             ) {
-                SwitchItem(
-                    text = stringResource(id = R.string.enable_config),
-                    checked = enable,
-                    onClick = {
-                        Shared.currentEditCleanData.enable = it
-                    }
-                )
+
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .clip(cardGroupBackground)
+                        .clickable { enable.value = !enable.value }
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.enable_config),
+                        style = QQCleanerTypes.itemTextStyle,
+                        color = if (enable.value) colors.whiteColor else colors.secondTextColor,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(
+                        checked = enable,
+                        switchBorderColor = if (enable.value)
+                            colors.whiteColor else colors.switchLineColor,
+                        switchOffColor = if (enable.value)
+                            colors.whiteColor else colors.switchLineColor,
+                        switchOnColor = if (enable.value)
+                            colors.whiteColor else colors.switchLineColor,
+                    )
+                }
             }
             // 这里是列表的判断
             if (true) {
