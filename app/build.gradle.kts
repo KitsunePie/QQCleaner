@@ -67,7 +67,7 @@ dependencies {
 
 //    implementation(files("./libs/EzXHelper-release.aar"))
 
-    implementation("com.github.kyuubiran:EzXHelper:0.6.2")
+    implementation("com.github.kyuubiran:EzXHelper:0.7.1")
     compileOnly("de.robv.android.xposed:api:82")
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")

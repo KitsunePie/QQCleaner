@@ -52,18 +52,18 @@ object EntryHook : BaseHook() {
                 }.parent as ViewGroup
                 //创建入口
                 val entry = cFormSimpleItem.newInstanceAs<View>(
-                    arrayOf(param.thisObject),
-                    arrayOf(Context::class.java)
+                    args(param.thisObject),
+                    argTypes(Context::class.java)
                 )!!.also {
                     it.invokeMethod(
                         "setLeftText",
-                        arrayOf("${hostAppName}瘦身"),
-                        arrayOf(CharSequence::class.java)
+                        args("${hostAppName}瘦身"),
+                        argTypes(CharSequence::class.java)
                     )
                     it.invokeMethod(
                         "setRightText",
-                        arrayOf("芜狐~"),
-                        arrayOf(CharSequence::class.java)
+                        args("芜狐~"),
+                        argTypes(CharSequence::class.java)
                     )
                 }
                 //设置点击事件
@@ -109,19 +109,19 @@ object EntryHook : BaseHook() {
                         // 设置入口的属性
                         invokeMethod(
                             "setKey",
-                            arrayOf("QQCleaner"),
-                            arrayOf(String::class.java)
+                            args("QQCleaner"),
+                            argTypes(String::class.java)
                         )
                         // 新版微信这里坏了
                         invokeMethod(
                             "setSummary",
-                            arrayOf("芜狐~"),
-                            arrayOf(CharSequence::class.java)
+                            args("芜狐~"),
+                            argTypes(CharSequence::class.java)
                         )
                         invokeMethod(
                             "setTitle",
-                            arrayOf("微信瘦身"),
-                            arrayOf(java.lang.CharSequence::class.java)
+                            args("微信瘦身"),
+                            argTypes(java.lang.CharSequence::class.java)
                         )
                     }
 
