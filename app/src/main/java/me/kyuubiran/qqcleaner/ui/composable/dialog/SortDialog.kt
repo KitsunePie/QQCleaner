@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.EditText
 import me.kyuubiran.qqcleaner.ui.composable.Line
@@ -26,6 +27,7 @@ import me.kyuubiran.qqcleaner.ui.composable.dialog.SortDialogScreen.*
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.util.RippleCustomTheme
+import me.kyuubiran.qqcleaner.ui.util.Shared
 import me.kyuubiran.qqcleaner.ui.util.hideKeyBoard
 
 private enum class SortDialogScreen {
@@ -37,6 +39,7 @@ private enum class SortDialogScreen {
 @Composable
 fun SortDialog(
     navController: NavController,
+    data: CleanData.PathData,
     onDismissRequest: () -> Unit
 ) {
     val state = remember { mutableStateOf(true) }
@@ -50,8 +53,8 @@ fun SortDialog(
             Del -> 219f
         },
         dialogText = when (isDialogScreen.value) {
-            Main -> "名字"
-            Edit -> stringResource(id = R.string.dialog_title_edit_config)
+            Main -> data.title
+            Edit -> stringResource(id = R.string.dialog_title_edit_path)
             Del -> stringResource(id = R.string.dialog_del_title)
         },
         isSoftShowing = isSoftShowing,
@@ -63,6 +66,7 @@ fun SortDialog(
                     Main -> ConfigUI(
                         state = state,
                         navController = navController,
+                        data = data,
                         screen = isDialogScreen
                     )
                     Edit -> EditUI(
@@ -83,7 +87,8 @@ fun SortDialog(
 private fun ConfigUI(
     state: MutableState<Boolean>,
     navController: NavController,
-    screen: MutableState<SortDialogScreen>
+    screen: MutableState<SortDialogScreen>,
+    data: CleanData.PathData
 ) {
     Column {
         // 线条绘制
@@ -95,8 +100,9 @@ private fun ConfigUI(
         )
         ConfigItem(
             id = R.drawable.ic_edit,
-            text = stringResource(id = R.string.modify_config),
+            text = stringResource(id = R.string.dialog_title_edit_path),
             onClick = {
+                Shared.currentEditCleanPathData = data
                 state.value = false
                 navController.navigate(
                     QQCleanerApp.SortFix,
@@ -105,8 +111,9 @@ private fun ConfigUI(
         )
         ConfigItem(
             id = R.drawable.ic_edit_name,
-            text = stringResource(id = R.string.modify_config_name),
+            text = stringResource(id = R.string.dialog_title_change_path_name),
             onClick = {
+                //TODO("修改路径类别名字")
                 screen.value = Edit
             }
         )
@@ -155,7 +162,7 @@ private fun EditUI(
                 }
                 false
             },
-            hintText = "配置名称"
+            hintText = stringResource(id = R.string.path_name)
         )
 
         // 判断是否为空，为空的时候无法点击不为空的时候，可以点击
@@ -182,7 +189,8 @@ private fun DelUI(
                     end = 24.dp,
                     bottom = 24.dp
                 ),
-            text = "您确定要删除「」吗？",
+            //TODO("路径名称")
+            text = stringResource(id = R.string.confirm_delete, "config"),
             style = QQCleanerTypes.itemTextStyle,
             color = colors.secondTextColor
         )

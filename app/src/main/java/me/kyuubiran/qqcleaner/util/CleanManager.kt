@@ -41,11 +41,11 @@ object CleanManager {
         if (showToast) Log.toast(moduleRes.getString(R.string.clean_start))
         getAllConfigsAsync {
             if (it.isEmpty() || it.all { c -> !c.enable }) {
-                Log.toast(moduleRes.getString(R.string.no_config_enabled))
-                return@getAllConfigsAsync
-            }
-            it.forEach { data ->
-                execute(data, showToast)
+                if (showToast) Log.toast(moduleRes.getString(R.string.no_config_enabled))
+            } else {
+                it.forEach { data ->
+                    execute(data, showToast)
+                }
             }
         }
     }

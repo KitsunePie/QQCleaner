@@ -69,7 +69,6 @@ fun Switch(
     // 通过 Boolean 反向给按钮赋值
     LaunchedEffect(checked.value) {
         swipeableState.animateTo(if (checked.value) 1 else 0)
-
     }
 
     // 按钮的宽高

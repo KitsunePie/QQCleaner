@@ -33,7 +33,6 @@ import me.kyuubiran.qqcleaner.ui.util.Shared
  */
 @Composable
 fun SortFixScreen(navController: NavController) {
-
     var fileDialogShow by remember { mutableStateOf(false) }
     if (fileDialogShow) {
         FileDialog {
@@ -65,8 +64,8 @@ fun SortFixScreen(navController: NavController) {
                 titleText = Shared.currentEditCleanData.title,
                 id = R.drawable.ic_save
             )
-            // 这里判断是否为空
-            if (true) {
+
+            if (Shared.currentEditCleanPathData.pathList.isNotEmpty()) {
                 LazyColumn(
                     modifier = Modifier
                         .padding(top = 24.dp)
@@ -76,9 +75,9 @@ fun SortFixScreen(navController: NavController) {
                             shape = QQCleanerShapes.cardGroupBackground
                         )
                 ) {
-                    items(2) { item ->
+                    items(Shared.currentEditCleanPathData.pathList.size) { item ->
                         FileItem(
-                            text = "这个是第{$item}个，啦啦啦啦啦啦",
+                            text = "这个是第${item}个，啦啦啦啦啦啦",
                             onClick = {
                                 fileDialogShow = true
                             }

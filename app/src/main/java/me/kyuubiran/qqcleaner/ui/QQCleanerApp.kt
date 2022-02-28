@@ -11,7 +11,6 @@ import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Config
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Developer
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Main
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp.Sort
-import me.kyuubiran.qqcleaner.ui.QQCleanerApp.SortFix
 import me.kyuubiran.qqcleaner.ui.scene.*
 
 /**
@@ -34,13 +33,18 @@ fun QQCleanerApp() {
 
         composable(Config) {
             ConfigScreen(navController = navController)
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.route == Config) {
+
+                }
+            }
         }
         composable(Sort) {
             SortScreen(navController = navController)
         }
-        composable(SortFix) {
-            SortFixScreen(navController = navController)
-        }
+//        composable(SortFix) {
+//            SortFixScreen(navController = navController)
+//        }
 
 
         composable(About) {

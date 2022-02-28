@@ -52,8 +52,8 @@ fun ConfigDialog(
     EditDialog(
         onDismissRequest = onDismissRequest,
         dialogHeight = when (isDialogScreen.value) {
-            Main -> 520f
-            Edit -> 312f
+            Main -> /* 520f */ 464f
+            Edit -> /* 312f */ 256f
             Del -> 219f
         },
         dialogText = when (isDialogScreen.value) {
@@ -195,13 +195,14 @@ private fun ConfigUI(
                 )
             }
         )
-        ConfigItem(
-            id = R.drawable.ic_edit_name,
-            text = stringResource(id = modify_config_name),
-            onClick = {
-                screen.value = Edit
-            }
-        )
+//        ConfigItem(
+//            id = R.drawable.ic_edit_name,
+//            text = stringResource(id = modify_config_name),
+//            onClick = {
+//                //TODO("修改配置名称、作者")
+//                screen.value = Edit
+//            }
+//        )
         ConfigItem(
             id = R.drawable.ic_save,
             text = stringResource(id = export_this_config),

@@ -72,7 +72,7 @@ fun AboutScreen(navController: NavController) {
                     color = colors.firstTextColor
                 )
                 Text(
-                    text = "ver.${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})",
+                    text = "Ver. ${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})",
                     modifier = Modifier
                         .padding(top = 18.dp)
                         .align(Alignment.CenterHorizontally),

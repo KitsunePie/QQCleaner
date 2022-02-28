@@ -20,14 +20,15 @@ import me.kyuubiran.qqcleaner.ui.util.hideKeyBoard
 
 @Composable
 fun SortAddDialog(
-    onDismissRequest: () -> Unit
+    isNew: Boolean = false,
+    onDismissRequest: () -> Unit = {},
 ) {
     val state = remember { mutableStateOf(true) }
     val isSoftShowing = remember { mutableStateOf(true) }
     EditDialog(
         onDismissRequest = onDismissRequest,
         dialogHeight = 240f,
-        dialogText = stringResource(id = R.string.dialog_title_edit_config),
+        dialogText = stringResource(id = if (isNew) R.string.dialog_title_new_path else R.string.dialog_title_change_path_name),
         isSoftShowing = isSoftShowing,
         state = state
     ) {
@@ -59,7 +60,7 @@ fun SortAddDialog(
                     }
                     false
                 },
-                hintText = "配置名称"
+                hintText = stringResource(id = R.string.path_name)
             )
 
             // 判断是否为空，为空的时候无法点击不为空的时候，可以点击

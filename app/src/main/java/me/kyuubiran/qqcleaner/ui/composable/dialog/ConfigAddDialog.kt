@@ -38,7 +38,7 @@ fun ConfigAddDialog(
     val state = remember { mutableStateOf(true) }
     BottomDialog(
         onDismissRequest = onDismissRequest,
-        dialogHeight = if (list.isEmpty()) 408f else 352f,
+        dialogHeight = if (list.isEmpty()) /* 408f else 352f */ 352f else 296f,
         dialogText = stringResource(id = dialog_title_config),
         state = state
     ) {
@@ -78,13 +78,14 @@ fun ConfigAddDialog(
                 state.value = false
             }
         )
-        ConfigItem(
-            id = R.drawable.ic_add,
-            text = stringResource(id = R.string.create_config),
-            onClick = {
-                state.value = false
-            }
-        )
+//        ConfigItem(
+//            id = R.drawable.ic_add,
+//            text = stringResource(id = R.string.create_config),
+//            onClick = {
+//                //TODO("新建配置")
+//                state.value = false
+//            }
+//        )
         if (list.isEmpty()) {
             ConfigItem(
                 id = R.drawable.ic_default,

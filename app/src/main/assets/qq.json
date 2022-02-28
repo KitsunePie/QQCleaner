@@ -309,6 +309,30 @@
           "suffix": "/TMAssistantSDK"
         }
       ]
+    },
+    {
+      "title": "虚幻引擎",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/UE4Game"
+        }
+      ]
+    },
+    {
+      "title": "超级QQ秀",
+      "enable": false,
+      "path": [
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/QQShowDownload"
+        },
+        {
+          "prefix": "!PublicDataDir",
+          "suffix": "/files/zootopia_download"
+        }
+      ]
     }
   ]
 }

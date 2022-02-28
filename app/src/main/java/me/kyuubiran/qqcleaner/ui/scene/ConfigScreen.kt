@@ -38,12 +38,9 @@ import me.kyuubiran.qqcleaner.util.rememberMutableStateOf
  */
 @Composable
 fun ConfigScreen(navController: NavController) {
-
     // 配置文件列表
     val cfgList = remember {
-        mutableStateListOf<CleanData>().apply {
-            addAll(CleanManager.getAllConfigs())
-        }
+        mutableStateListOf(*CleanManager.getAllConfigs())
     }
 
     // 新建配置对话框
