@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import me.kyuubiran.qqcleaner.BuildConfig
 import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
@@ -63,7 +64,7 @@ fun AboutScreen(navController: NavController) {
                 )
 
                 Text(
-                    text = "瘦身模块",
+                    text = stringResource(id = R.string.module_name),
                     modifier = Modifier
                         .padding(top = 24.dp)
                         .align(Alignment.CenterHorizontally),
@@ -71,7 +72,7 @@ fun AboutScreen(navController: NavController) {
                     color = colors.firstTextColor
                 )
                 Text(
-                    text = "版本",
+                    text = "ver.${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})",
                     modifier = Modifier
                         .padding(top = 18.dp)
                         .align(Alignment.CenterHorizontally),
@@ -85,7 +86,7 @@ fun AboutScreen(navController: NavController) {
                 )
                 CardGroup(56.dp) {
                     Item(
-                        text = "Github",
+                        text = stringResource(id = R.string.goto_github),
                         onClick = {
                             navController.context.startActivity(Intent().apply {
                                 action = Intent.ACTION_VIEW
@@ -106,26 +107,24 @@ fun AboutScreen(navController: NavController) {
                 )
                 CardGroup(112.dp) {
                     Item(
-                        text = "Telegram 群组",
+                        text = stringResource(id = R.string.join_tg_channel),
                         onClick = {
                             navController.context.startActivity(Intent().apply {
                                 action = Intent.ACTION_VIEW
-                                data = Uri.parse("https://t.me/QQCleanerChat")
-                            }
-                            )
+                                data = Uri.parse("https://t.me/QQCleaner")
+                            })
                         },
                         content = {
                             ForwardIcon(R.string.item_about)
                         }
                     )
                     Item(
-                        text = "Telegram 频道",
+                        text = stringResource(id = R.string.join_tg_group),
                         onClick = {
                             navController.context.startActivity(Intent().apply {
                                 action = Intent.ACTION_VIEW
-                                data = Uri.parse("https://t.me/QQCleaner")
-                            }
-                            )
+                                data = Uri.parse("https://t.me/QQCleanerChat")
+                            })
                         },
                         content = {
                             ForwardIcon(R.string.item_about)
@@ -140,7 +139,7 @@ fun AboutScreen(navController: NavController) {
                 )
                 CardGroup(56.dp) {
                     Item(
-                        text = stringResource(id = R.string.item_about),
+                        text = stringResource(id = R.string.title_dev),
                         onClick = {
                             navController.navigate(QQCleanerApp.Developer)
                         },
@@ -150,7 +149,6 @@ fun AboutScreen(navController: NavController) {
                     )
                 }
             }
-
         }
     }
 }

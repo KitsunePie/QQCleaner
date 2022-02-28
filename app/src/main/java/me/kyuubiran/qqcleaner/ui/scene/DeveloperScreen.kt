@@ -47,46 +47,46 @@ fun DeveloperScreen(navController: NavController) {
         )
         CardGroup(72.dp) {
             DevItem(
-                name = "KitsunePie",
-                text = "画大饼",
+                name = stringResource(id = R.string.dev_org_name),
+                text = stringResource(id = R.string.dev_org_desc),
                 imageUri = "https://avatars.githubusercontent.com/u/80496274?s=200&v=4",
                 uri = "https://github.com/KitsunePie",
                 navController = navController
             )
         }
-        CardTitle(text = "开发者")
+        CardTitle(text = stringResource(id = R.string.title_dev))
         CardGroup(360.dp) {
             DevItem(
-                name = "KyuubiRan",
-                text = "主要开发者",
+                name = stringResource(id = R.string.dev_KyuubiRan_name),
+                text = stringResource(id = R.string.dev_KyuubiRan_desc),
                 imageUri = "https://avatars.githubusercontent.com/u/45789471?v=4",
                 uri = "https://github.com/KyuubiRan",
                 navController = navController
             )
             DevItem(
-                name = "Ketal",
-                text = "开发者",
+                name = stringResource(id = R.string.dev_Ketal_name),
+                text = stringResource(id = R.string.dev_Ketal_desc),
                 imageUri = "https://avatars.githubusercontent.com/u/41381927?v=4",
                 uri = "https://github.com/keta1",
                 navController = navController
             )
             DevItem(
-                name = "NextAlone",
-                text = "开发者",
+                name = stringResource(id = R.string.dev_NextAlone_name),
+                text = stringResource(id = R.string.dev_NextAlone_desc),
                 imageUri = "https://avatars.githubusercontent.com/u/12210746?v=4",
                 uri = "https://github.com/NextAlone",
                 navController = navController
             )
             DevItem(
-                name = "Agoines",
-                text = "UI 开发者",
+                name = stringResource(id = R.string.dev_Agoines_name),
+                text = stringResource(id = R.string.dev_Agoines_desc),
                 imageUri = "https://avatars.githubusercontent.com/u/50230626?s=96&v=4",
                 uri = "https://github.com/Agoines",
                 navController = navController
             )
             DevItem(
-                name = "MaiTungTM",
-                text = "UI & Icon 设计师",
+                name = stringResource(id = R.string.dev_MaiTungTM_name),
+                text = stringResource(id = R.string.dev_MaiTungTM_desc),
                 imageUri = "https://avatars.githubusercontent.com/u/49202599?v=4",
                 uri = "https://github.com/Lagrio",
                 navController = navController
@@ -98,8 +98,8 @@ fun DeveloperScreen(navController: NavController) {
 @Composable
 fun DevItem(
     navController: NavController,
-    name: String = "名字",
-    text: String = "描述",
+    name: String,
+    text: String,
     imageUri: String,
     uri: String
 ) {

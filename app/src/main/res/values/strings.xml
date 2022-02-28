@@ -3,6 +3,7 @@
     <string name="last_clean_date">上次瘦身是%s</string>
     <string name="title_setup">设定</string>
     <string name="app_name">QQ瘦身</string>
+    <string name="module_name">瘦身模块</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
 
@@ -68,4 +69,25 @@
     <string name="title_about">关于</string>
     <string name="list_empty">啊，这只是空的展示图</string>
     <string name="dialog_del_title">删除确定</string>
+
+    <string name="dev_org">组织</string>
+    <string name="dev_org_name">KitsunePie</string>
+    <string name="dev_org_desc">狐狸派画大饼！</string>
+
+    <string name="dev_KyuubiRan_name">KyuubiRan</string>
+    <string name="dev_KyuubiRan_desc">主要开发者</string>
+    <string name="dev_Ketal_name">Ketal ⑨</string>
+    <string name="dev_Ketal_desc">开发者</string>
+    <string name="dev_NextAlone_name">NextAlone</string>
+    <string name="dev_NextAlone_desc">开发者</string>
+    <string name="dev_Agoines_name">Agoines</string>
+    <string name="dev_Agoines_desc">UI 开发者</string>
+    <string name="dev_MaiTungTM_name">MaiTungTM</string>
+    <string name="dev_MaiTungTM_desc">UI &amp; 图标设计</string>
+
+    <string name="goto_github">前往Github浏览项目</string>
+    <string name="join_tg_channel">Telegram 频道</string>
+    <string name="join_tg_group">Telegram 聊天群组</string>
+
+
 </resources>

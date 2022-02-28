@@ -122,7 +122,7 @@ fun SortScreen(navController: NavController) {
                 }
             }
             // 这里是列表的判断
-            if (true) {
+            if (Shared.currentEditCleanData.content.isNotEmpty()) {
                 LazyColumn(
                     modifier = Modifier
                         .padding(top = 24.dp)
@@ -164,7 +164,7 @@ fun SortScreen(navController: NavController) {
                         modifier = Modifier.size(96.dp)
                     )
                     Text(
-                        text = "点击按钮添加类别",
+                        text = stringResource(id = R.string.add_sort),
                         style = QQCleanerTypes.EmptyTipStyle,
                         color = colors.thirdTextColor,
                         textAlign = TextAlign.Center,
@@ -177,7 +177,7 @@ fun SortScreen(navController: NavController) {
         Fab(
             modifier = Modifier
                 .align(Alignment.BottomCenter),
-            text = "添加类别",
+            text = stringResource(id = R.string.add_sort),
             onClick = {
                 sortAddDialogShow = true
             }
