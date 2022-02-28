@@ -6,6 +6,9 @@ import me.kyuubiran.qqcleaner.util.path.QQPath
 import me.kyuubiran.qqcleaner.util.path.WeChatPath
 
 object PathUtil {
+    /**
+     * @throws IllegalArgumentException if [path] is not a valid path
+     */
     fun getFullPath(path: CleanData.PathData.Path): String {
         var tmp = path.suffix
 
@@ -15,12 +18,14 @@ object PathUtil {
             CommonPath.privateData.first ->
                 tmp = CommonPath.privateData.second + path.suffix
             QQPath.tencentDir.first ->
-                tmp = QQPath.tencentDir.second + path.suffix
+                if (hostApp.isQqOrTim) tmp = QQPath.tencentDir.second + path.suffix
             WeChatPath.publicUserData.first ->
-                tmp = WeChatPath.publicUserData.second + path.suffix
+                if (hostApp.isWeChat) tmp = WeChatPath.publicUserData.second + path.suffix
             WeChatPath.privateUserData.first ->
-                tmp = WeChatPath.privateUserData.second + path.suffix
+                if (hostApp.isWeChat) tmp = WeChatPath.privateUserData.second + path.suffix
         }
+
+        if (tmp == path.suffix) throw IllegalArgumentException("Unsupported path prefix: ${path.prefix}")
         return tmp
     }
 }
