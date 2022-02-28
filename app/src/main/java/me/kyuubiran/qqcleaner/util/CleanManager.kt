@@ -10,6 +10,7 @@ import java.io.File
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
+import kotlin.concurrent.thread
 
 object CleanManager {
     private val pool = ThreadPoolExecutor(1, 1, 5L, TimeUnit.MINUTES, LinkedBlockingQueue(256))
@@ -38,10 +39,10 @@ object CleanManager {
 
     fun executeAll(showToast: Boolean = true) {
         if (showToast) Log.toast(moduleRes.getString(R.string.clean_start))
-        getAllConfigs().let {
-            if (it.isEmpty()) {
+        getAllConfigsAsync {
+            if (it.isEmpty() || it.all { c -> !c.enable }) {
                 Log.toast(moduleRes.getString(R.string.no_config_enabled))
-                return@let
+                return@getAllConfigsAsync
             }
             it.forEach { data ->
                 execute(data, showToast)
@@ -74,6 +75,13 @@ object CleanManager {
         if (f.exists()) return f
         f.mkdir()
         return f
+    }
+
+    fun getAllConfigsAsync(onFinish: (Array<CleanData>) -> Unit) {
+        thread {
+            val arr = getAllConfigs()
+            onFinish(arr)
+        }
     }
 
     fun getAllConfigs(): Array<CleanData> {
