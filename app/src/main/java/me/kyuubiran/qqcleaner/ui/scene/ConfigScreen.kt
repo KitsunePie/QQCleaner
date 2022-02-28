@@ -99,7 +99,7 @@ fun ConfigScreen(navController: NavController) {
                         ), modifier = Modifier.size(96.dp)
                     )
                     Text(
-                        text = "点击按钮添加配置",
+                        text = stringResource(id = R.string.empty),
                         style = EmptyTipStyle,
                         color = colors.thirdTextColor,
                         textAlign = TextAlign.Center,
