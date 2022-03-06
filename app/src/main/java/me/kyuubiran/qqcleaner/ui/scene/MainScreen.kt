@@ -83,7 +83,7 @@ fun MainScreen(navController: NavController) {
             .fillMaxSize()
             .background(colors.appBarsAndItemBackgroundColor)
     ) {
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        Column {
             // 标题
             Row(
                 modifier = Modifier
@@ -174,10 +174,12 @@ fun MainScreen(navController: NavController) {
                     )
             ) {
                 //设定
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(shape = cardBackground, color = colors.pageBackgroundColor)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     CardTitle(text = stringResource(id = R.string.title_setup))
 

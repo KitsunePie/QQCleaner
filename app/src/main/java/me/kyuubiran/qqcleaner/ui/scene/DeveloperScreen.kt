@@ -12,11 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.rememberImagePainter
-import coil.transform.RoundedCornersTransformation
 import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
@@ -24,7 +23,6 @@ import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerShapes
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.DescribeTextStyle
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes.NameTextStyle
-import me.kyuubiran.qqcleaner.ui.util.dp2px
 
 @Composable
 fun DeveloperScreen(navController: NavController) {
@@ -49,9 +47,8 @@ fun DeveloperScreen(navController: NavController) {
             DevItem(
                 name = stringResource(id = R.string.dev_org_name),
                 text = stringResource(id = R.string.dev_org_desc),
-                imageUri = "https://avatars.githubusercontent.com/u/80496274?s=200&v=4",
-                uri = "https://github.com/KitsunePie",
-                navController = navController
+                id = R.drawable.kitsune_pie,
+                uri = "https://github.com/KitsunePie"
             )
         }
         CardTitle(text = stringResource(id = R.string.title_dev))
@@ -59,37 +56,32 @@ fun DeveloperScreen(navController: NavController) {
             DevItem(
                 name = stringResource(id = R.string.dev_KyuubiRan_name),
                 text = stringResource(id = R.string.dev_KyuubiRan_desc),
-                imageUri = "https://avatars.githubusercontent.com/u/45789471?v=4",
-                uri = "https://github.com/KyuubiRan",
-                navController = navController
+                id = R.drawable.kyuubi_ran,
+                uri = "https://github.com/KyuubiRan"
             )
             DevItem(
                 name = stringResource(id = R.string.dev_Ketal_name),
                 text = stringResource(id = R.string.dev_Ketal_desc),
-                imageUri = "https://avatars.githubusercontent.com/u/41381927?v=4",
-                uri = "https://github.com/keta1",
-                navController = navController
+                id = R.drawable.ketal,
+                uri = "https://github.com/keta1"
             )
             DevItem(
                 name = stringResource(id = R.string.dev_NextAlone_name),
                 text = stringResource(id = R.string.dev_NextAlone_desc),
-                imageUri = "https://avatars.githubusercontent.com/u/12210746?v=4",
-                uri = "https://github.com/NextAlone",
-                navController = navController
+                id = R.drawable.next_alone,
+                uri = "https://github.com/NextAlone"
             )
             DevItem(
                 name = stringResource(id = R.string.dev_Agoines_name),
                 text = stringResource(id = R.string.dev_Agoines_desc),
-                imageUri = "https://avatars.githubusercontent.com/u/50230626?s=96&v=4",
-                uri = "https://github.com/Agoines",
-                navController = navController
+                id = R.drawable.agoines,
+                uri = "https://github.com/Agoines"
             )
             DevItem(
                 name = stringResource(id = R.string.dev_MaiTungTM_name),
                 text = stringResource(id = R.string.dev_MaiTungTM_desc),
-                imageUri = "https://avatars.githubusercontent.com/u/49202599?v=4",
-                uri = "https://github.com/Lagrio",
-                navController = navController
+                id = R.drawable.mai_tung_tm,
+                uri = "https://github.com/Lagrio"
             )
         }
     }
@@ -97,19 +89,19 @@ fun DeveloperScreen(navController: NavController) {
 
 @Composable
 fun DevItem(
-    navController: NavController,
     name: String,
     text: String,
-    imageUri: String,
+    id: Int,
     uri: String
 ) {
+    val context = LocalContext.current
     Row(
         Modifier
             .height(72.dp)
             .fillMaxWidth()
             .clip(QQCleanerShapes.cardGroupBackground)
             .clickable {
-                navController.context.startActivity(Intent().apply {
+                context.startActivity(Intent().apply {
                     action = Intent.ACTION_VIEW
                     data = Uri.parse(uri)
                 }
@@ -119,17 +111,11 @@ fun DevItem(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val context = LocalContext.current
         Image(
             modifier = Modifier
                 .padding(end = 16.dp)
                 .size(40.dp),
-            painter = rememberImagePainter(
-                data = imageUri,
-                builder = {
-                    transformations(RoundedCornersTransformation(10.dp2px(context)))
-                }
-            ),
+            painter = painterResource(id = id),
             contentDescription = ""
         )
         Column(modifier = Modifier.weight(1f)) {
