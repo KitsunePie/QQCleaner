@@ -101,7 +101,7 @@ fun SortFixScreen(navController: NavController) {
                         ), modifier = Modifier.size(96.dp)
                     )
                     Text(
-                        text = "点击按钮添加路径",
+                        text = stringResource(R.string.sort_empty_tip),
                         style = QQCleanerTypes.EmptyTipStyle,
                         color = colors.thirdTextColor,
                         textAlign = TextAlign.Center,
@@ -113,7 +113,7 @@ fun SortFixScreen(navController: NavController) {
         Fab(
             modifier = Modifier
                 .align(Alignment.BottomCenter),
-            text = "添加路径",
+            text = stringResource(R.string.sort_fab_text),
             onClick = {
                 fileAddDialogShow = true
             }
@@ -138,7 +138,7 @@ fun FileItem(
         Icon(
             painter = painterResource(id = R.drawable.ic_file),
             tint = colors.secondTextColor,
-            contentDescription = "文件夹图标"
+            contentDescription = stringResource(R.string.sort_icon_tip)
         )
         Text(
             text = text,

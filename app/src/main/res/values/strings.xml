@@ -68,6 +68,8 @@
     <string name="list_empty">啊，这只是空的展示图</string>
     <string name="dialog_del_title">删除确定</string>
 
+    <string name="sort_empty_tip">点击按钮添加路径</string>
+
     <string name="dev_org">组织</string>
     <string name="dev_org_name">KitsunePie</string>
     <string name="dev_org_desc">狐狸派画大饼！</string>
@@ -93,6 +95,8 @@
     <string name="confirm_delete">您确定要删除「%s」吗？</string>
 
     <string name="empty">空空如也~</string>
+    <string name="sort_fab_text">添加路径</string>
+    <string name="sort_icon_tip">文件夹图标</string>
 
 
 </resources>

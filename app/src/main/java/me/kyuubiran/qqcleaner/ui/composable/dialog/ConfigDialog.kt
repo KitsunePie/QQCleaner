@@ -277,7 +277,7 @@ private fun DelUI(
                         .weight(1f)
                         .height(48.dp)
                         .clip(RoundedCornerShape(10.dp))
-                        .background(colors.mainThemeColor)
+                        .background(colors.fourPercentThemeColor)
                         .clip(RoundedCornerShape(10.dp))
                         .clickable {
                             state.value = false
@@ -288,7 +288,7 @@ private fun DelUI(
                 ) {
                     Text(
                         text = stringResource(id = confirm),
-                        color = colors.fourPercentThemeColor,
+                        color = colors.mainThemeColor,
                         style = itemTextStyle
                     )
                 }
