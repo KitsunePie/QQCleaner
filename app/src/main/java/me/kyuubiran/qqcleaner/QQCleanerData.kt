@@ -11,8 +11,6 @@ object QQCleanerData {
 
     var theme by mutableStateOf(getCurrentTheme())
 
-    var statusBarHeight by mutableStateOf(0.dp)
-
     var navigationBarHeight by mutableStateOf(0.dp)
 
     var isDark by mutableStateOf(false)

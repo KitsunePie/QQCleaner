@@ -72,4 +72,5 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.navigation:navigation-compose:2.5.0-alpha02")
+    implementation("com.google.accompanist:accompanist-insets:0.24.3-alpha")
 }

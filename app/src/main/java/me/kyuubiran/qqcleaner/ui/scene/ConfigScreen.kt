@@ -17,7 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import me.kyuubiran.qqcleaner.QQCleanerData
-import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Fab
@@ -54,7 +53,7 @@ fun ConfigScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(color = colors.pageBackgroundColor)
-            .padding(top = statusBarHeight)
+            .statusBarsPadding()
     ) {
         Column {
             TopBar(
@@ -67,12 +66,13 @@ fun ConfigScreen(navController: NavController) {
             if (!cfgList.isEmpty()) {
                 LazyColumn(
                     modifier = Modifier
+                        .navigationBarsPadding()
                         .padding(top = 24.dp)
                         .padding(horizontal = 24.dp)
                         .background(
                             color = colors.appBarsAndItemBackgroundColor,
                             shape = cardGroupBackground
-                        )
+                        ),
                 ) {
                     items(cfgList.size) { idx ->
                         EditItem(

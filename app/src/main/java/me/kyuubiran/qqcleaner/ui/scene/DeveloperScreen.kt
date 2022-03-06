@@ -16,7 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import me.kyuubiran.qqcleaner.QQCleanerData
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.composable.TopBar
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
@@ -30,7 +29,7 @@ fun DeveloperScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(color = colors.pageBackgroundColor)
-            .padding(top = QQCleanerData.statusBarHeight)
+            .statusBarsPadding()
     ) {
         TopBar(
             click = {

@@ -51,7 +51,7 @@ fun SortFixScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(color = colors.pageBackgroundColor)
-            .padding(top = QQCleanerData.statusBarHeight)
+            .statusBarsPadding()
     ) {
         Column {
             TopBar(

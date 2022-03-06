@@ -22,7 +22,6 @@ import androidx.navigation.NavController
 import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
 import me.kyuubiran.qqcleaner.QQCleanerData.isDark
-import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.QQCleanerApp
 import me.kyuubiran.qqcleaner.ui.composable.Fab
@@ -88,7 +87,7 @@ fun MainScreen(navController: NavController) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = statusBarHeight)
+                    .statusBarsPadding()
                     .height(148.dp)
                     .padding(horizontal = 24.dp)
             ) {

@@ -18,13 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.LocalWindowInsets
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import me.kyuubiran.qqcleaner.QQCleanerData.navigationBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
@@ -46,7 +47,9 @@ fun BottomDialog(
     val color = remember { Animatable(Color.Transparent) }
     val height = remember { Animatable(0f) }
     val context = LocalContext.current as Activity
+    val insets = LocalWindowInsets.current
 
+    val navigationHeight = with(LocalDensity.current) { insets.navigationBars.bottom.toDp() }
     // 通过外部修改 flag 控制 dialog 的关闭与否
     LaunchedEffect(state.value) {
         flag = state.value
@@ -75,7 +78,7 @@ fun BottomDialog(
                 async {
                     // 高度的动画
                     height.animateTo(
-                        targetValue = if (flag) dialogHeight + navigationBarHeight.value else 0f,
+                        targetValue = if (flag) dialogHeight + navigationHeight.value else 0f,
                         animationSpec = tween(600)
                     )
                 }
@@ -85,7 +88,7 @@ fun BottomDialog(
         LaunchedEffect(dialogHeight) {
             if (flag) {
                 height.animateTo(
-                    targetValue = dialogHeight + navigationBarHeight.value,
+                    targetValue = dialogHeight + navigationHeight.value,
                     animationSpec = tween(600)
                 )
             }
@@ -106,7 +109,7 @@ fun BottomDialog(
                         shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp),
                         color = colors.dialogBackgroundColor
                     )
-                    .padding(bottom = navigationBarHeight)
+                    .padding(bottom = navigationHeight)
             ) {
                 Row(
                     Modifier

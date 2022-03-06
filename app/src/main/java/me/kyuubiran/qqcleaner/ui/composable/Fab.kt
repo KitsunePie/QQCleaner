@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import me.kyuubiran.qqcleaner.QQCleanerData
+import com.google.accompanist.insets.navigationBarsPadding
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.colors
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerTypes
 import me.kyuubiran.qqcleaner.ui.util.drawColoredShadow
@@ -22,7 +22,8 @@ import me.kyuubiran.qqcleaner.ui.util.drawColoredShadow
 fun Fab(modifier: Modifier, text: String, onClick: () -> Unit) {
     Box(
         modifier = modifier
-            .padding(QQCleanerData.navigationBarHeight + 16.dp)
+            .navigationBarsPadding()
+            .padding(16.dp)
             .width(98.dp)
             .height(35.dp)
 

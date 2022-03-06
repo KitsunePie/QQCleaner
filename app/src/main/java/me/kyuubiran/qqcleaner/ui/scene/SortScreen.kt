@@ -18,8 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
 import com.github.kyuubiran.ezxhelper.utils.Log
+import com.google.accompanist.insets.LocalWindowInsets
+import com.google.accompanist.insets.rememberInsetsPaddingValues
 import me.kyuubiran.qqcleaner.QQCleanerData
-import me.kyuubiran.qqcleaner.QQCleanerData.statusBarHeight
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.data.CleanData
 import me.kyuubiran.qqcleaner.ui.composable.Switch
@@ -46,7 +47,7 @@ fun SortScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(color = colors.pageBackgroundColor)
-            .padding(top = statusBarHeight)
+            .statusBarsPadding()
     ) {
         Column {
             TopBar(
@@ -117,7 +118,8 @@ fun SortScreen(navController: NavController) {
                         .background(
                             color = colors.appBarsAndItemBackgroundColor,
                             shape = cardGroupBackground
-                        )
+                        ),
+                    contentPadding = rememberInsetsPaddingValues(LocalWindowInsets.current.navigationBars)
                 ) {
                     items(Shared.currentEditCleanData.content) { item ->
 //                        var sortDialogShow by remember { mutableStateOf(false) }
