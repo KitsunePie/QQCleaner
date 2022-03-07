@@ -100,12 +100,7 @@ fun SortScreen(navController: NavController) {
                     )
                     Switch(
                         checked = enable,
-                        switchBorderColor = if (enable.value)
-                            colors.whiteColor else colors.switchLineColor,
-                        switchOffColor = if (enable.value)
-                            colors.whiteColor else colors.switchLineColor,
-                        switchOnColor = if (enable.value)
-                            colors.whiteColor else colors.switchLineColor,
+                        isWhite = true
                     )
                 }
             }

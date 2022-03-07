@@ -69,8 +69,13 @@ dependencies {
 
     implementation("com.github.kyuubiran:EzXHelper:0.7.1")
     compileOnly("de.robv.android.xposed:api:82")
+
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.navigation:navigation-compose:2.5.0-alpha02")
+    // 导航
+    implementation("androidx.navigation:navigation-compose:2.5.0-alpha03")
+    // 虚拟键之类的适配工具
     implementation("com.google.accompanist:accompanist-insets:0.24.3-alpha")
+    // 为了按钮添加的支持库
+    implementation("androidx.compose.animation:animation-graphics:1.2.0-alpha04")
 }

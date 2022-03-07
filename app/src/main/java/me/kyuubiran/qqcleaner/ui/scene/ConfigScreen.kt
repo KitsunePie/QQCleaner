@@ -124,6 +124,10 @@ fun ConfigScreen(navController: NavController) {
 private fun EditItem(data: CleanData, onRemove: (CleanData) -> Unit, navController: NavController) {
     val enable = rememberMutableStateOf(value = data.enable)
 
+    LaunchedEffect(data.enable) {
+        enable.value = data.enable
+    }
+
     var configFixDialogShow by remember { mutableStateOf(false) }
     if (configFixDialogShow) {
         ConfigDialog(data, onRemove, navController) {
