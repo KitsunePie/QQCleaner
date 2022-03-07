@@ -113,9 +113,11 @@ fun DevItem(
         Image(
             modifier = Modifier
                 .padding(end = 16.dp)
+                // 这个命名当时没取好，迟点改改
+                .clip(QQCleanerShapes.cardGroupBackground)
                 .size(40.dp),
             painter = painterResource(id = id),
-            contentDescription = ""
+            contentDescription = "$text + $name 的头像"
         )
         Column(modifier = Modifier.weight(1f)) {
             Text(text = name, style = NameTextStyle, color = colors.secondTextColor)
