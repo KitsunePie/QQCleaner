@@ -11,7 +11,7 @@ android {
         applicationId = "me.kyuubiran.qqcleaner"
         minSdk = 26
         targetSdk = 32
-        versionCode = 69
+        versionCode = 70
         versionName = "2.0.0"
         vectorDrawables {
             useSupportLibrary = true
@@ -67,7 +67,7 @@ dependencies {
 
 //    implementation(files("./libs/EzXHelper-release.aar"))
 
-    implementation("com.github.kyuubiran:EzXHelper:0.7.1")
+    implementation("com.github.kyuubiran:EzXHelper:0.7.5")
     compileOnly("de.robv.android.xposed:api:82")
 
     implementation("androidx.compose.ui:ui:$composeVersion")
