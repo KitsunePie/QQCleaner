@@ -46,7 +46,7 @@ fun DeveloperScreen(navController: NavController) {
             DevItem(
                 name = stringResource(id = R.string.dev_org_name),
                 text = stringResource(id = R.string.dev_org_desc),
-                id = R.drawable.kitsune_pie,
+                id = R.drawable.ic_developer_kitsunepie,
                 uri = "https://github.com/KitsunePie"
             )
         }
@@ -55,31 +55,31 @@ fun DeveloperScreen(navController: NavController) {
             DevItem(
                 name = stringResource(id = R.string.dev_KyuubiRan_name),
                 text = stringResource(id = R.string.dev_KyuubiRan_desc),
-                id = R.drawable.kyuubi_ran,
+                id = R.drawable.ic_developer_kyuubiran,
                 uri = "https://github.com/KyuubiRan"
             )
             DevItem(
                 name = stringResource(id = R.string.dev_Ketal_name),
                 text = stringResource(id = R.string.dev_Ketal_desc),
-                id = R.drawable.ketal,
+                id = R.drawable.ic_developer_ketal,
                 uri = "https://github.com/keta1"
             )
             DevItem(
                 name = stringResource(id = R.string.dev_NextAlone_name),
                 text = stringResource(id = R.string.dev_NextAlone_desc),
-                id = R.drawable.next_alone,
+                id = R.drawable.ic_developer_nextalone,
                 uri = "https://github.com/NextAlone"
             )
             DevItem(
                 name = stringResource(id = R.string.dev_Agoines_name),
                 text = stringResource(id = R.string.dev_Agoines_desc),
-                id = R.drawable.agoines,
+                id = R.drawable.ic_developer_agoines,
                 uri = "https://github.com/Agoines"
             )
             DevItem(
                 name = stringResource(id = R.string.dev_MaiTungTM_name),
                 text = stringResource(id = R.string.dev_MaiTungTM_desc),
-                id = R.drawable.mai_tung_tm,
+                id = R.drawable.ic_developer_maitungtm,
                 uri = "https://github.com/Lagrio"
             )
         }
