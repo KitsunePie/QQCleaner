@@ -1,23 +1,25 @@
 <resources>
-    <string name="xposed_description">设置->关于->QQ/TIM/微信瘦身</string>
-    <string name="last_clean_date">上次瘦身是%s</string>
-    <string name="title_setup">设定</string>
+    <string name="xposed_description">设置->关于-> QQ / TIM / 微信瘦身</string>
     <string name="app_name">QQ瘦身</string>
     <string name="module_name">瘦身模块</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
 
-    <string name="config_author">作者 %s</string>
-
+    <string name="last_clean_date">上次瘦身是%s</string>
+    <string name="title_setup">设定</string>
     <string name="cleaner_text">立即瘦身</string>
-
-    <string name="icon_content_description">这是一个装饰性图标，并无实际用处</string>
-
+    <string name="icon_content_description">QQ瘦身 logo</string>
     <string name="set_auto_clean_interval_desc">单位：h（默认 24）</string>
-
     <string name="last_clean_date_title">上次瘦身 %s</string>
     <string name="no_last_clean_date_record">暂时还没有瘦身记录</string>
     <string name="no_last_clean_date_record_mini">暂无瘦身记录</string>
+    <string name="title_more">更多</string>
+    <string name="item_theme">主题风格</string>
+    <string name="light_theme">浅色主题</string>
+    <string name="dark_theme">深色主题</string>
+    <string name="follow_system_theme">跟随系统</string>
+    <string name="use_black_dark_theme">使用纯黑色深色主题</string>
+    <string name="item_about">关于瘦身</string>
 
     <string name="modify_config">编辑配置</string>
     <string name="modify_config_name">编辑配置信息</string>
@@ -34,69 +36,59 @@
     <string name="create_default_config">导入默认配置</string>
     <string name="create_default_config_success">已导入默认配置</string>
     <string name="import_from_clipboard">从剪贴板导入</string>
+    <string name="import_from_clipboard_success">已从剪贴板导入“%s”！</string>
+    <string name="import_from_clipboard_error">导入失败，请检查剪贴板内容或是否已授予 QQ 或微信「读取剪贴板内容」权限。</string>
 
-    <string name="import_from_clipboard_success">已从剪切板导入“%s”！</string>
-    <string name="import_from_clipboard_error">导入失败，请检查剪切板内容或是否已授予 QQ 或微信「读取剪贴板内容」权限。</string>
-
-    <string name="load_config_failed">读取配置文件“%s”时发生错误，请检查配置文件是否完整，此配置文件已被暂时关闭。</string>
-
-    <string name="clean_start">正在执行清理…</string>
+    <string name="config_author">作者 %s</string>
+    <string name="load_config_failed">读取配置文件“%s”时发生错误，请检查配置文件是否完整。</string>
+    <string name="clean_start">正在瘦身…</string>
     <string name="clean_failed">执行配置文件“%s”时发生错误，已跳过剩余部分。</string>
     <string name="item_cleaner">自动瘦身</string>
     <string name="silence_clean">静默自动瘦身</string>
-    <string name="silence_clean_toast_off">拜托，你很烦内！</string>
-    <string name="silence_clean_toast_on">我才弹两个Toast你就嫌我烦！</string>
+    <string name="silence_clean_toast_off">已关闭静默瘦身</string>
+    <string name="silence_clean_toast_on">执行自动瘦身任务时将不会弹出 Toast</string>
     <string name="item_cleaner_time">自动瘦身间隔</string>
     <string name="item_cleaner_time_tip">"%d" h</string>
     <string name="item_cleaner_config">瘦身配置</string>
-    <string name="title_more">更多</string>
-    <string name="item_theme">主题风格</string>
-    <string name="light_theme">浅色主题</string>
-    <string name="dark_theme">深色主题</string>
-    <string name="follow_system_theme">跟随系统</string>
-    <string name="use_black_dark_theme">使用纯黑色深色主题</string>
-    <string name="item_about">关于瘦身</string>
     <string name="dialog_title_config">瘦身配置</string>
     <string name="dialog_title_time">设置自动瘦身时长</string>
     <string name="dialog_title_edit_config">编辑配置信息</string>
     <string name="dialog_icon_clone">取消</string>
     <string name="executing_config">正在执行配置文件：%s</string>
-    <string name="no_config_enabled">你是故意找茬是不是！你还没有启用任何配置文件！</string>
+    <string name="no_config_enabled">瘦身失败，你还没有启用任何配置文件！</string>
     <string name="config_saved">已应用对配置文件“%s”的更改。</string>
     <string name="title_dev">开发者</string>
     <string name="title_about">关于</string>
-    <string name="list_empty">啊，这只是空的展示图</string>
+    <string name="list_empty">空视图</string>
     <string name="dialog_del_title">删除确定</string>
 
     <string name="sort_empty_tip">点击按钮添加路径</string>
-
     <string name="dev_org">组织</string>
     <string name="dev_org_name">KitsunePie</string>
-    <string name="dev_org_desc">狐狸派画大饼！</string>
+    <string name="dev_org_desc">画大饼</string>
 
     <string name="dev_KyuubiRan_name">KyuubiRan</string>
     <string name="dev_KyuubiRan_desc">主要开发者</string>
-    <string name="dev_Ketal_name">Ketal ⑨</string>
+    <string name="dev_Ketal_name">Ketal</string>
     <string name="dev_Ketal_desc">开发者</string>
     <string name="dev_NextAlone_name">NextAlone</string>
     <string name="dev_NextAlone_desc">开发者</string>
     <string name="dev_Agoines_name">Agoines</string>
     <string name="dev_Agoines_desc">UI 开发者</string>
     <string name="dev_MaiTungTM_name">MaiTungTM</string>
-    <string name="dev_MaiTungTM_desc">UI &amp; 图标设计</string>
+    <string name="dev_MaiTungTM_desc">UI &amp; Icon 设计师</string>
 
-    <string name="goto_github">前往Github浏览项目</string>
+    <string name="goto_github">Github</string>
     <string name="join_tg_channel">Telegram 频道</string>
-    <string name="join_tg_group">Telegram 聊天群组</string>
-    <string name="dialog_title_new_path">添加路径类别</string>
-    <string name="dialog_title_edit_path">编辑路径类别内容</string>
+    <string name="join_tg_group">Telegram 群组</string>
+    <string name="dialog_title_new_path">添加路径</string>
+    <string name="dialog_title_edit_path">编辑路径</string>
     <string name="dialog_title_change_path_name">修改路径类别名称</string>
     <string name="path_name">路径类别名称</string>
     <string name="confirm_delete">您确定要删除「%s」吗？</string>
 
-    <string name="empty">空空如也~</string>
+    <string name="empty">空空如也</string>
     <string name="sort_fab_text">添加路径</string>
     <string name="sort_icon_tip">文件夹图标</string>
-
 
 </resources>
