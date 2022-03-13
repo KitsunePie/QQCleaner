@@ -90,5 +90,6 @@
     <string name="empty">空空如也</string>
     <string name="sort_fab_text">添加路径</string>
     <string name="sort_icon_tip">文件夹图标</string>
+    <string name="clean_finished">瘦身完毕！</string>
 
 </resources>

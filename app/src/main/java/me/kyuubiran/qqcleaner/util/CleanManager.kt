@@ -18,10 +18,10 @@ object CleanManager {
     fun execute(data: CleanData, showToast: Boolean = true, forceExec: Boolean = false) {
         if (!data.valid) return
         if (!data.enable && !forceExec) return
-        if (showToast) Log.toast(
-            moduleRes.getString(R.string.executing_config).format(data.title)
-        )
         pool.execute e@{
+            if (showToast) Log.toast(
+                moduleRes.getString(R.string.executing_config).format(data.title)
+            )
             runCatching {
                 data.content.forEach { data ->
                     if (!data.enable) return@forEach
@@ -45,6 +45,9 @@ object CleanManager {
             } else {
                 it.forEach { data ->
                     execute(data, showToast)
+                }
+                pool.execute {
+                    if (showToast) Log.toast(moduleRes.getString(R.string.clean_finished))
                 }
             }
         }
