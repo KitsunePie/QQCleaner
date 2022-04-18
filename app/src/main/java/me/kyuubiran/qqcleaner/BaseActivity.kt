@@ -4,13 +4,12 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Window.FEATURE_NO_TITLE
 import android.view.WindowManager
-import androidx.activity.ComponentActivity
 import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
 import me.kyuubiran.qqcleaner.QQCleanerData.isDark
 import me.kyuubiran.qqcleaner.ui.theme.QQCleanerColorTheme.Theme.*
 import me.kyuubiran.qqcleaner.util.*
-
-open class BaseActivity : ComponentActivity() {
+//open class BaseActivity : ComponentActivity()
+open class BaseActivity : TestActivity() {
 
     private val mLoder by lazy { BaseActivity::class.java.classLoader }
 
@@ -33,6 +32,7 @@ open class BaseActivity : ComponentActivity() {
         }
         setLightOldMode(!isDark)
         super.onCreate(savedInstanceState)
+
 
     }
 

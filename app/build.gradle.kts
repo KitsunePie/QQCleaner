@@ -1,12 +1,13 @@
 plugins {
     id("com.android.application")
-    id("kotlin-android")
+    kotlin("android")
 }
+val composeVersion: String = "1.2.0-alpha07"
 
 android {
     compileSdk = 32
     buildToolsVersion = "32.0.0"
-
+    namespace = "me.kyuubiran.qqcleaner"
     defaultConfig {
         applicationId = "me.kyuubiran.qqcleaner"
         minSdk = 26
@@ -23,10 +24,6 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             setProguardFiles(listOf("proguard-rules.pro"))
-            signingConfig = signingConfigs.getByName("debug") {
-                enableV3Signing = true
-                enableV4Signing = true
-            }
         }
     }
 
@@ -34,7 +31,6 @@ android {
         compose = true
     }
 
-    val composeVersion: String by project
     composeOptions {
         kotlinCompilerExtensionVersion = composeVersion
     }
@@ -59,11 +55,10 @@ android {
     dependenciesInfo {
         includeInApk = false
     }
-    namespace = "me.kyuubiran.qqcleaner"
 }
 
 dependencies {
-    val composeVersion: String by project
+
 
 //    implementation(files("./libs/EzXHelper-release.aar"))
 
@@ -73,9 +68,9 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     // 导航
-    implementation("androidx.navigation:navigation-compose:2.5.0-alpha03")
+    implementation("androidx.navigation:navigation-compose:2.5.0-alpha04")
     // 虚拟键之类的适配工具
     implementation("com.google.accompanist:accompanist-insets:0.24.3-alpha")
     // 为了按钮添加的支持库
-    implementation("androidx.compose.animation:animation-graphics:1.2.0-alpha04")
+    implementation("androidx.compose.animation:animation-graphics:$composeVersion")
 }
