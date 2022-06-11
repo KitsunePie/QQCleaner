@@ -2,6 +2,8 @@
 
 # 瘦身模块(QQCleaner)
 
+轻量版本请点[这里](https://github.com/KyuubiRan/QQCleanerLite)
+
 [Telegram频道](https://t.me/QQCleaner)
 
 注:本模块完全免费且开源，一切开发旨在学习，请勿用于非法用途。
