@@ -14,16 +14,17 @@ import me.kyuubiran.qqcleaner.util.isWeChat
 object ContextHook : BaseHook() {
     override val hookName: String = "BaseContextHook"
 
-    var unhook: XC_MethodHook.Unhook? = null
+    private var unhook: XC_MethodHook.Unhook? = null
 
     override fun init() {
         when {
-            hostApp.isQqOrTim -> {
-                initQqOrTim()
-            }
-            hostApp.isWeChat -> {
-                initWeChat()
-            }
+//            hostApp.isQqOrTim -> {
+//                initQqOrTim()
+//            }
+//            hostApp.isWeChat -> {
+//                initWeChat()
+//            }
+            else -> Unit
         }
     }
 
@@ -52,25 +53,25 @@ object ContextHook : BaseHook() {
             }
     }
 
-    private fun initWeChat() {
-        unhook = Application::class.java.getDeclaredMethod("onCreate").hookBefore {
-            unhook?.unhook()
-            val context = it.thisObject as Application
-            //初始化全局Context
-            Log.i("Init Context")
-            // wechat的热修复Resources直接`addAssetPath`会失败
-            EzXHelperInit.initAppContext(context, addPath = false)
-            Log.i("Init ActivityProxyManager")
-            EzXHelperInit.initActivityProxyManager(
-                modulePackageName = BuildConfig.APPLICATION_ID,
-                hostActivityProxyName = "com.tencent.mm.ui.contact.AddressUI",
-                moduleClassLoader = HookEntry::class.java.classLoader!!,
-                hostClassLoader = context.classLoader
-            )
-            Log.i("Init ActivitySubActivity")
-            EzXHelperInit.initSubActivity()
-
-            AutoCleanManager.initAutoClean
-        }
-    }
+//    private fun initWeChat() {
+//        unhook = Application::class.java.getDeclaredMethod("onCreate").hookBefore {
+//            unhook?.unhook()
+//            val context = it.thisObject as Application
+//            //初始化全局Context
+//            Log.i("Init Context")
+//            // wechat的热修复Resources直接`addAssetPath`会失败
+//            EzXHelperInit.initAppContext(context, addPath = false)
+//            Log.i("Init ActivityProxyManager")
+//            EzXHelperInit.initActivityProxyManager(
+//                modulePackageName = BuildConfig.APPLICATION_ID,
+//                hostActivityProxyName = "com.tencent.mm.ui.contact.AddressUI",
+//                moduleClassLoader = HookEntry::class.java.classLoader!!,
+//                hostClassLoader = context.classLoader
+//            )
+//            Log.i("Init ActivitySubActivity")
+//            EzXHelperInit.initSubActivity()
+//
+//            AutoCleanManager.initAutoClean
+//        }
+//    }
 }
