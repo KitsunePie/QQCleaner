@@ -11,13 +11,17 @@ android {
     namespace = "me.kyuubiran.qqcleaner"
     defaultConfig {
         applicationId = "me.kyuubiran.qqcleaner"
-        minSdk = 26
+        minSdk = 24
         targetSdk = 33
         versionCode = 100
         versionName = "3.0.0"
         vectorDrawables {
             useSupportLibrary = true
         }
+    }
+
+    viewBinding {
+        enable = true
     }
 
     buildTypes {
@@ -54,8 +58,17 @@ dependencies {
 //    implementation(files("./libs/EzXHelper-release.aar"))
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("kotlinx-collections-android:1.1.0")
+
+    val lifecycle_version = "2.6.0-alpha02"
+    // ViewModel
+    implementation("androidx.vilifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
+    // 引入 androidx 的 fragment 作为页面承接
+    implementation("androidx.fragment:fragment-ktx:1.6.0-alpha02")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+
     implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
 
