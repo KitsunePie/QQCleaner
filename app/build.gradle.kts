@@ -58,11 +58,10 @@ dependencies {
 //    implementation(files("./libs/EzXHelper-release.aar"))
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("kotlinx-collections-android:1.1.0")
 
     val lifecycle_version = "2.6.0-alpha02"
     // ViewModel
-    implementation("androidx.vilifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
 
     // 引入 androidx 的 fragment 作为页面承接
     implementation("androidx.fragment:fragment-ktx:1.6.0-alpha02")
