@@ -4,7 +4,6 @@ import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import me.kyuubiran.qqcleaner.hook.BaseHook
 
 
 class HookEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
@@ -16,7 +15,7 @@ class HookEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
         EzXHelperInit.initHandleLoadPackage(lpparam)
         EzXHelperInit.setLogTag("QQCleaner")
         EzXHelperInit.setToastTag("瘦身模块")
-        BaseHook.initHooks()
+
     }
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {

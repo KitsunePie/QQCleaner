@@ -53,6 +53,9 @@ android {
         includeInApk = false
     }
 }
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class).all {
+    kotlinOptions.freeCompilerArgs = listOf("-Xcontext-receivers")
+}
 
 dependencies {
 //    implementation(files("./libs/EzXHelper-release.aar"))
