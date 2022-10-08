@@ -1,10 +1,11 @@
-package me.kyuubiran.qqcleaner.fragment
+package me.kyuubiran.qqcleaner.page
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.flow.MutableStateFlow
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
 
 class HomeFragment : Fragment() {
@@ -28,4 +29,9 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    public class MainStates() : StateHolder() {
+        val cleanerStateFlow = MutableStateFlow(false)
+    }
+
 }
