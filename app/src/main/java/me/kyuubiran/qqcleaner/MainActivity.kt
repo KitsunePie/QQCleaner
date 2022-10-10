@@ -5,8 +5,8 @@ import android.view.Window
 import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import me.kyuubiran.qqcleaner.page.StateHolder
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
 import me.kyuubiran.qqcleaner.uitls.navigationBarLightOldMode
 import me.kyuubiran.qqcleaner.uitls.setNavigationBarTranslation
@@ -15,7 +15,7 @@ import me.kyuubiran.qqcleaner.uitls.statusBarLightOldMode
 
 
 class MainActivity : FragmentActivity() {
-    val mainView :MainActivityStates by viewModels()
+    val mainViewModel :MainActivityStates by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         // 去除顶栏
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -29,7 +29,7 @@ class MainActivity : FragmentActivity() {
         this.setContentView(R.layout.main_activity)
     }
 
-    public class MainActivityStates : StateHolder() {
+    public class MainActivityStates : ViewModel() {
         val theme = MutableStateFlow(LightColorPalette)
     }
 }

@@ -93,22 +93,9 @@
                 android:layout_marginTop="24dp"
                 android:background="#ffffff"
                 android:orientation="vertical">
-
-                <LinearLayout
+                <me.kyuubiran.qqcleaner.widget.SwitchItem
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="自动瘦身"
-                        android:textColor="#ff202124"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
 

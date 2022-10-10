@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.RelativeLayout
 import androidx.core.view.updateLayoutParams
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +19,7 @@ import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
 import me.kyuubiran.qqcleaner.theme.DarkColorPalette
 import me.kyuubiran.qqcleaner.uitls.dp
 
-class HomeFragment : Fragment() {
-    private var _binding: HomeFragmentBinding? = null
-    private val binding get() = _binding!!
+class HomeFragment : BaseFragment() {
 
     private val model: MainActivityStates by activityViewModels()
 
@@ -30,34 +27,15 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    @Suppress("DEPRECATION")
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
-
-        binding.topBar.setOnApplyWindowInsetsListener { view, insets ->
-            view.updateLayoutParams {
-                (this as RelativeLayout.LayoutParams).topMargin =
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-                        insets.getInsets(WindowInsets.Type.systemBars()).top
-                    else insets.systemWindowInsetTop
-            }
-
-            insets
-        }
-
-        binding.cleanerBtn.setOnApplyWindowInsetsListener { view, insets ->
-            view.updateLayoutParams {
-                (this as RelativeLayout.LayoutParams).bottomMargin =
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-                        insets.getInsets(WindowInsets.Type.navigationBars()).bottom
-                    else insets.systemWindowInsetBottom
-            }
-            insets
-        }
+        setOnApplyWindowInsetsListener()
 
         lifecycleScope.launch {
             model.theme.collect {
@@ -77,19 +55,38 @@ class HomeFragment : Fragment() {
                 binding.cleanerBtn.setShadowColor(it.sixtyThreePercentThemeColor)
             }
         }
+
         binding.cleanerBtn.setOnClickListener {
             model.theme.tryEmit(DarkColorPalette)
         }
 
         return binding.root
     }
+    @Suppress("DEPRECATION")
+    private fun setOnApplyWindowInsetsListener(){
+        binding.root.setOnApplyWindowInsetsListener { _, insets ->
+            binding.topBar.updateLayoutParams {
+                (this as RelativeLayout.LayoutParams).topMargin =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                        insets.getInsets(WindowInsets.Type.systemBars()).top
+                    else insets.systemWindowInsetTop
+            }
+            binding.cleanerBtn.updateLayoutParams {
+                (this as RelativeLayout.LayoutParams).bottomMargin =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                        insets.getInsets(WindowInsets.Type.navigationBars()).bottom
+                    else insets.systemWindowInsetBottom
+            }
 
+            insets
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    public class HomeStates() : StateHolder() {
+    private class HomeStates() : StateHolder() {
         val cleanerStateFlow = MutableStateFlow(false)
     }
 
