@@ -5,15 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="56dp">
     <TextView
-        android:id="@+id/switch_text"
+        android:id="@+id/text_title"
         android:textSize="16sp"
         android:gravity="center_vertical"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"/>
-    <ImageView
-        android:id="@+id/switch_img"
-        android:src="@drawable/switch_default_off_to_on"
+    <TextView
+
+        android:id="@+id/text_sub"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 

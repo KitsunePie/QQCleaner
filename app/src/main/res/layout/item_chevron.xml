@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="56dp">
     <TextView
-        android:id="@+id/switch_text"
+        android:id="@+id/chevron_text"
         android:textSize="16sp"
         android:gravity="center_vertical"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"/>
     <ImageView
-        android:id="@+id/switch_img"
-        android:src="@drawable/switch_default_off_to_on"
+        android:id="@+id/chevron_img"
+        android:src="@drawable/ic_chevron_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 

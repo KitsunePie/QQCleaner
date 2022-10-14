@@ -67,7 +67,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
 
     // 引入 androidx 的 fragment 作为页面承接
-    implementation("androidx.fragment:fragment-ktx:1.6.0-alpha02")
+    implementation("androidx.fragment:fragment-ktx:1.6.0-alpha03")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
 
     implementation("com.google.android.material:material:1.6.1")
@@ -77,5 +77,7 @@ dependencies {
     implementation("com.github.lihangleo2:ShadowLayout:3.2.4")
 
     implementation("com.github.kyuubiran:EzXHelper:1.0.3")
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
     compileOnly("de.robv.android.xposed:api:82")
 }

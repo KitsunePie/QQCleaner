@@ -94,41 +94,18 @@
                 android:background="#ffffff"
                 android:orientation="vertical">
                 <me.kyuubiran.qqcleaner.widget.SwitchItem
+                    app:text="自动瘦身"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <me.kyuubiran.qqcleaner.widget.TextItem
+                    app:text="自动瘦身间隔"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <LinearLayout
-
+                <me.kyuubiran.qqcleaner.widget.ChevronItem
+                    app:text="瘦身配置"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="自动瘦身间隔"
-                        android:textColor="#ff202124"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="瘦身配置"
-                        android:textColor="#ff202124"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <TextView
@@ -148,38 +125,14 @@
                 android:layout_marginTop="24dp"
                 android:background="#ffffff"
                 android:orientation="vertical">
-
-                <LinearLayout
+                <me.kyuubiran.qqcleaner.widget.ChevronItem
+                    app:text="主题风格"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="主题风格"
-                        android:textColor="#ff202124"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
+                    android:layout_height="wrap_content"/>
+                <me.kyuubiran.qqcleaner.widget.ChevronItem
+                    app:text="关于瘦身"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="关于瘦身"
-                        android:textColor="#ff202124"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
         </LinearLayout>
