@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <me.kyuubiran.qqcleaner.widget.ToolBar
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_home_qqcleaner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="瘦身模块"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="18dp"
+        android:text="v2.0.0"
+        android:textSize="12sp" />
+
+    <com.gcssloop.widget.RCLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        app:clip_background="true"
+        app:round_corner="10dp">
+
+        <me.kyuubiran.qqcleaner.widget.ChevronItem
+            android:id="@+id/github_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:text="Github" />
+    </com.gcssloop.widget.RCLinearLayout>
+
+    <com.gcssloop.widget.RCLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        app:clip_background="true"
+        app:round_corner="10dp">
+
+        <me.kyuubiran.qqcleaner.widget.ChevronItem
+            android:id="@+id/tg_channel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:text="Telegram 频道" />
+
+        <me.kyuubiran.qqcleaner.widget.ChevronItem
+            android:id="@+id/tg_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:text="Telegram 群组" />
+    </com.gcssloop.widget.RCLinearLayout>
+
+    <com.gcssloop.widget.RCLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        app:clip_background="true"
+        app:round_corner="10dp">
+
+        <me.kyuubiran.qqcleaner.widget.ChevronItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:text="开发者" />
+    </com.gcssloop.widget.RCLinearLayout>
+</LinearLayout>

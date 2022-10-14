@@ -8,8 +8,8 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="24dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -33,12 +33,12 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
                 android:id="@+id/last_time_sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
                 android:text="上次瘦身 11 / 21 03:00"
                 android:textColor="#ffffffff"
                 android:textSize="8sp" />
@@ -70,91 +70,101 @@
             app:hl_shadowLimit="3dp"
             app:hl_shadowOffsetY="-3dp" />
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/title_setup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:text="设定"
+            android:textColor="#ff202124"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.gcssloop.widget.RCLinearLayout
+            android:id="@+id/setup_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_setup"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:background="#ffffff"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            app:clip_background="true"
+            app:round_corner="10dp">
 
-            <TextView
-                android:textStyle="bold"
+            <me.kyuubiran.qqcleaner.widget.SwitchItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="设定"
-                android:textColor="#ff202124"
-                android:textSize="18sp" />
+                app:text="自动瘦身" />
 
-            <LinearLayout
-                android:layout_marginHorizontal="6dp"
-                android:paddingHorizontal="16dp"
+            <me.kyuubiran.qqcleaner.widget.TextItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="#ffffff"
-                android:orientation="vertical">
-                <me.kyuubiran.qqcleaner.widget.SwitchItem
-                    app:text="自动瘦身"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <me.kyuubiran.qqcleaner.widget.TextItem
-                    app:text="自动瘦身间隔"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                app:text="自动瘦身间隔" />
 
-                <me.kyuubiran.qqcleaner.widget.ChevronItem
-                    app:text="瘦身配置"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <TextView
-                android:textStyle="bold"
+            <me.kyuubiran.qqcleaner.widget.ChevronItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="更多"
-                android:textColor="#ff202124"
-                android:textSize="18sp" />
+                app:text="瘦身配置" />
+        </com.gcssloop.widget.RCLinearLayout>
 
-            <LinearLayout
-                android:layout_marginHorizontal="6dp"
-                android:paddingHorizontal="16dp"
+        <TextView
+            android:id="@+id/title_more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/setup_layout"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:text="更多"
+            android:textColor="#ff202124"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.gcssloop.widget.RCLinearLayout
+            android:id="@+id/more_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_more"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            app:clip_background="true"
+            app:round_corner="10dp">
+
+            <me.kyuubiran.qqcleaner.widget.ChevronItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="#ffffff"
-                android:orientation="vertical">
-                <me.kyuubiran.qqcleaner.widget.ChevronItem
-                    app:text="主题风格"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <me.kyuubiran.qqcleaner.widget.ChevronItem
-                    app:text="关于瘦身"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                app:text="主题风格" />
 
-            </LinearLayout>
-        </LinearLayout>
+            <me.kyuubiran.qqcleaner.widget.ChevronItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="关于瘦身" />
+
+        </com.gcssloop.widget.RCLinearLayout>
+
         <com.lihang.ShadowLayout
             android:id="@+id/cleaner_btn"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
             app:hl_cornerRadius="18dp"
+            app:hl_layoutBackground="#0095FF"
+            app:hl_layoutBackground_true="#ffffff"
             app:hl_shadowColor="#600095FF"
             app:hl_shadowLimit="6dp"
             app:hl_shadowOffsetY="3dp"
-            app:hl_layoutBackground="#0095FF"
-            app:hl_layoutBackground_true="#ffffff"
             app:hl_shapeMode="ripple">
 
             <TextView
-                android:gravity="center"
                 android:layout_width="98dp"
                 android:layout_height="35dp"
+                android:gravity="center"
                 android:text="立即瘦身"
                 android:textColor="#ffffffff"
                 android:textSize="12sp" />

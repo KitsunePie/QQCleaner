@@ -1,8 +1,12 @@
 package me.kyuubiran.qqcleaner.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -14,6 +18,7 @@ import me.kyuubiran.qqcleaner.R.drawable.switch_default_off_to_on
 import me.kyuubiran.qqcleaner.R.drawable.switch_default_on_to_off
 import me.kyuubiran.qqcleaner.R.styleable.Item_text
 import me.kyuubiran.qqcleaner.databinding.ItemSwitchBinding
+import me.kyuubiran.qqcleaner.uitls.dp
 
 
 class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
@@ -30,6 +35,16 @@ class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, a
             this,
             true
         )
+        binding.root.apply {
+            val background = GradientDrawable()
+            background.setColor(Color.WHITE)
+            background.cornerRadius = 10.dp
+            this.background = RippleDrawable(
+                ColorStateList.valueOf(Color.GRAY),
+                null,
+                background
+            )
+        }
         binding.switchText.text = text
         binding.switchImg.showAnimate(checked)
         this.setOnClickListener {

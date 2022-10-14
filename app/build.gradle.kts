@@ -59,6 +59,8 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class).all {
 
 dependencies {
 //    implementation(files("./libs/EzXHelper-release.aar"))
+    implementation(project(":RCLayout"))
+    implementation("androidx.browser:browser:1.4.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.5.1")
 
@@ -75,7 +77,6 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
     // 阴影
     implementation("com.github.lihangleo2:ShadowLayout:3.2.4")
-
     implementation("com.github.kyuubiran:EzXHelper:1.0.3")
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")

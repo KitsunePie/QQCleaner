@@ -12,22 +12,23 @@ import android.widget.RelativeLayout
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
 import me.kyuubiran.qqcleaner.theme.DarkColorPalette
 import me.kyuubiran.qqcleaner.uitls.dp
 
 class HomeFragment : BaseFragment() {
 
+    private val binding get() = _binding!! as HomeFragmentBinding
     private val model: MainActivityStates by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +58,8 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.cleanerBtn.setOnClickListener {
-            model.theme.tryEmit(DarkColorPalette)
+            val navController = findNavController(this)
+            navController.navigate(R.id.action_homeFragment_to_aboutFragment)
         }
 
         return binding.root

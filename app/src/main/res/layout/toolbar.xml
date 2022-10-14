@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_gravity="center_vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="56dp">
+    <ImageView
+        android:src="@drawable/ic_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"/>
+<TextView
+    android:textStyle="bold"
+    android:text="测试"
+    android:layout_marginStart="16dp"
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:textSize="20sp"
+    android:layout_height="match_parent"/>
+</LinearLayout>

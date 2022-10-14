@@ -2,11 +2,10 @@ package me.kyuubiran.qqcleaner.page
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
+import androidx.viewbinding.ViewBinding
 
 open class BaseFragment: Fragment() {
-    protected var _binding: HomeFragmentBinding? = null
-    protected val binding get() = _binding!!
+    protected var _binding: ViewBinding? = null
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,11 +1,16 @@
 package me.kyuubiran.qqcleaner.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ItemChevronBinding
+import me.kyuubiran.qqcleaner.uitls.dp
 
 class ChevronItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
 
@@ -19,6 +24,16 @@ class ChevronItem(context: Context, attr: AttributeSet) : LinearLayout(context, 
             this,
             true
         )
+        binding.root.apply {
+            val background = GradientDrawable()
+            background.setColor(Color.WHITE)
+            background.cornerRadius = 10.dp
+            this.background = RippleDrawable(
+                ColorStateList.valueOf(Color.GRAY),
+                null,
+                background
+            )
+        }
         binding.chevronText.text = text
     }
 
