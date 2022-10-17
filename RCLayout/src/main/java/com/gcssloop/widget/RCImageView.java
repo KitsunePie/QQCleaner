@@ -33,6 +33,8 @@ import android.widget.ImageView;
 import com.gcssloop.widget.helper.RCAttrs;
 import com.gcssloop.widget.helper.RCHelper;
 
+import java.util.Arrays;
+
 /**
  * 作用：圆角图片
  * 作者：GcsSloop
@@ -111,9 +113,7 @@ public class RCImageView extends ImageView implements Checkable, RCAttrs {
     }
 
     public void setRadius(int radius) {
-        for (int i = 0; i < mRCHelper.radii.length; i++) {
-            mRCHelper.radii[i] = radius;
-        }
+        Arrays.fill(mRCHelper.radii, radius);
         invalidate();
     }
 
