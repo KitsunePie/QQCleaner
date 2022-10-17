@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.navigation.fragment.NavHostFragment
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.AboutFragmentBinding
 
 class AboutFragment : BaseFragment() {
@@ -27,6 +29,10 @@ class AboutFragment : BaseFragment() {
         binding.tgGroup.setOnClickListener {
             CustomTabsIntent.Builder().build()
                 .launchUrl(inflater.context, Uri.parse("https://t.me/QQCleanerChat"))
+        }
+        binding.developerItem.setOnClickListener {
+            val navController = NavHostFragment.findNavController(this)
+            navController.navigate(R.id.action_aboutFragment_to_developerFragment)
         }
         return binding.root
     }

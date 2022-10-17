@@ -5,10 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <me.kyuubiran.qqcleaner.widget.ToolBar
-        android:layout_width="match_parent"
-        android:layout_height="56dp" />
-
     <ImageView
         android:layout_width="96dp"
         android:layout_height="96dp"
@@ -84,6 +80,7 @@
         app:round_corner="10dp">
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
+            android:id="@+id/developer_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:text="开发者" />

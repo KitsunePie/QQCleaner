@@ -6,13 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.WindowInsets
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import androidx.core.view.updateLayoutParams
 import me.kyuubiran.qqcleaner.databinding.ToolbarBinding
 
 
 class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
-    init{
+    init {
         val binding = ToolbarBinding.inflate(
             LayoutInflater.from(getContext()),
             this,
@@ -23,7 +22,7 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
                 (this as LayoutParams).topMargin =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.systemBars()).top
-                    else insets.systemWindowInsetTop
+                    else @Suppress("DEPRECATION") insets.systemWindowInsetTop
             }
             insets
         }

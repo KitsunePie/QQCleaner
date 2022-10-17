@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.gcssloop.widget.RCLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        app:clip_background="true"
+        app:round_corner="10dp">
+
+        <me.kyuubiran.qqcleaner.widget.DeveloperItem
+            android:id="@+id/developer_kitsunepie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="KitsunePie"
+            app:src="@drawable/ic_developer_kitsunepie"
+            app:text="画大饼" />
+    </com.gcssloop.widget.RCLinearLayout>
+
+    <com.gcssloop.widget.RCLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        app:clip_background="true"
+        app:round_corner="10dp">
+
+        <me.kyuubiran.qqcleaner.widget.DeveloperItem
+            android:id="@+id/developer_kyuubiran"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="KitsunePie"
+            app:src="@drawable/ic_developer_kyuubiran"
+            app:text="主要开发者" />
+
+        <me.kyuubiran.qqcleaner.widget.DeveloperItem
+            android:id="@+id/developer_ketal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="KitsunePie"
+            app:src="@drawable/ic_developer_ketal"
+            app:text="开发者" />
+
+        <me.kyuubiran.qqcleaner.widget.DeveloperItem
+            android:id="@+id/developer_nextalone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="KitsunePie"
+            app:src="@drawable/ic_developer_nextalone"
+            app:text="开发者" />
+
+        <me.kyuubiran.qqcleaner.widget.DeveloperItem
+            android:id="@+id/developer_agoines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="KitsunePie"
+            app:src="@drawable/ic_developer_agoines"
+            app:text="UI 开发者" />
+
+        <me.kyuubiran.qqcleaner.widget.DeveloperItem
+            android:id="@+id/developer_maitungtm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:name="KitsunePie"
+            app:src="@drawable/ic_developer_maitungtm"
+            app:text="UI &amp; Icon 设计师" />
+    </com.gcssloop.widget.RCLinearLayout>
+
+</LinearLayout>

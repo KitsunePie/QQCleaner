@@ -4,4 +4,10 @@
     <declare-styleable name="Item">
         <attr name="text"/>
     </declare-styleable>
+
+    <declare-styleable name="DeveloperItem">
+        <attr name="name" format="string"/>
+        <attr name="src" format="reference"/>
+        <attr name="text"/>
+    </declare-styleable>
 </resources>

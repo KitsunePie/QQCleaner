@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/module_nav_graph"
+    app:startDestination="@id/aboutFragment">
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="me.kyuubiran.qqcleaner.page.AboutFragment"
+        android:label="AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment_to_developerFragment"
+            app:destination="@id/developerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/developerFragment"
+        android:name="me.kyuubiran.qqcleaner.page.DeveloperFragment"
+        android:label="DeveloperFragment" />
+</navigation>

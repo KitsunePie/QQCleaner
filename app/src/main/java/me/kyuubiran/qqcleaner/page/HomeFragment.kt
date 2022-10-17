@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
-import me.kyuubiran.qqcleaner.theme.DarkColorPalette
 import me.kyuubiran.qqcleaner.uitls.dp
 
 class HomeFragment : BaseFragment() {
@@ -59,7 +58,9 @@ class HomeFragment : BaseFragment() {
 
         binding.cleanerBtn.setOnClickListener {
             val navController = findNavController(this)
-            navController.navigate(R.id.action_homeFragment_to_aboutFragment)
+            val bundle = Bundle()
+            bundle.putString("subFragment", "about")
+            navController.navigate(R.id.action_homeFragment_to_moduleFragment, bundle)
         }
 
         return binding.root

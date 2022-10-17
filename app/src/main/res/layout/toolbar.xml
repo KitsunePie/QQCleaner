@@ -8,7 +8,7 @@
     <ImageView
         android:src="@drawable/ic_back"
         android:layout_width="24dp"
-        android:layout_height="24dp"/>
+        android:layout_height="24dp" />
 <TextView
     android:textStyle="bold"
     android:text="测试"
