@@ -16,4 +16,8 @@
         android:id="@+id/developerFragment"
         android:name="me.kyuubiran.qqcleaner.page.DeveloperFragment"
         android:label="DeveloperFragment" />
+    <fragment
+        android:id="@+id/configFragment"
+        android:name="me.kyuubiran.qqcleaner.page.ConfigFragment"
+        android:label="ConfigFragment" />
 </navigation>
