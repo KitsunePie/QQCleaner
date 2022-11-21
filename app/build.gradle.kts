@@ -64,17 +64,17 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.5.1")
 
-    val lifecycle_version = "2.6.0-alpha02"
+    val lifecycleVersion = "2.6.0-alpha02"
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
 
     // 引入 androidx 的 fragment 作为页面承接
     implementation("androidx.fragment:fragment-ktx:1.6.0-alpha03")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
 
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
+    implementation("com.google.android.material:material:1.7.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     // 阴影
     implementation("com.github.lihangleo2:ShadowLayout:3.2.4")
     implementation("com.github.kyuubiran:EzXHelper:1.0.3")

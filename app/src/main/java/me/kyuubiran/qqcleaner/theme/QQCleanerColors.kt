@@ -2,6 +2,7 @@ package me.kyuubiran.qqcleaner.theme
 
 import android.graphics.Color
 
+// 纯黑主题配色
 val BlackColorPalette = QQCleanerColors(
     mainThemeColor = Color.parseColor("#FF82A8E7"),
     eightyPercentThemeColor = Color.parseColor("#CC82A8E7"),
@@ -36,6 +37,7 @@ val BlackColorPalette = QQCleanerColors(
     switchWhiteOnLineColor = Color.parseColor("#DEFFFFFF")
 )
 
+// 默认的暗色主题配色
 val DarkColorPalette = QQCleanerColors(
     mainThemeColor = Color.parseColor("#FF82A8E7"),
     eightyPercentThemeColor = Color.parseColor("#CC82A8E7"),
@@ -70,6 +72,7 @@ val DarkColorPalette = QQCleanerColors(
     switchWhiteOnLineColor = Color.parseColor("#DEFFFFFF")
 )
 
+// 亮色主题配色
 val LightColorPalette = QQCleanerColors(
     mainThemeColor = Color.parseColor("#FF0095FF"),
     eightyPercentThemeColor = Color.parseColor("#CC0095FF"),

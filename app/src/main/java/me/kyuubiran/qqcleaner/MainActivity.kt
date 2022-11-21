@@ -26,10 +26,12 @@ class MainActivity : FragmentActivity() {
         statusBarLightOldMode()
         navigationBarLightOldMode()
         super.onCreate(savedInstanceState)
+        // 加载对应的布局
         this.setContentView(R.layout.main_activity)
     }
 
     public class MainActivityStates : ViewModel() {
+        // 加载主题
         val theme = MutableStateFlow(LightColorPalette)
     }
 }

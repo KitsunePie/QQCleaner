@@ -1,6 +1,5 @@
 package me.kyuubiran.qqcleaner.uitls
 
-import android.app.Activity
 import android.icu.util.Calendar
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -23,7 +22,6 @@ private fun isBelong(beg: String, end: String): Boolean {
 /**
  * 获取当前时间对应的标语
  */
-
 fun getCurrentTimeText(): String {
     return when {
         isBelong("00:00", "04:59") -> "夜深了，"

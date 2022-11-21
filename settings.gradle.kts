@@ -10,6 +10,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":app")
-include(":RCLayout")
+include(":app", ":RCLayout")
 rootProject.name = "瘦身模块"

@@ -12,7 +12,14 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ItemTextBinding.*
 import me.kyuubiran.qqcleaner.uitls.dp
 
+/**
+ * 展示 Text 的子菜单
+ * @param context 对应的 Context 参数
+ * @param attr 对应的 AttributeSet 参数
+ */
 class TextItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
+
+    // 菜单小字对应的文本
     public var subtext: String = "默认"
 
     private lateinit var text: String
@@ -39,7 +46,9 @@ class TextItem(context: Context, attr: AttributeSet) : LinearLayout(context, att
     }
 
     private fun initAttrs(attrs: AttributeSet) {
+        // 加载对应的 AttributeSet
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.Item)
+        // 获取对应 text 属性的内容
         text = typedArray.getString(R.styleable.Item_text).toString()
         typedArray.recycle()
     }

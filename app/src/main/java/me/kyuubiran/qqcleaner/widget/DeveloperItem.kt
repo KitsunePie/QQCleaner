@@ -8,6 +8,11 @@ import android.widget.LinearLayout
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.DeveloperItemBinding
 
+/**
+ * 开发者页面对应菜单项
+ * @param context 对应的 Context 参数
+ * @param attr 对应的 AttributeSet 参数
+ */
 class DeveloperItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
     lateinit var text: String
     lateinit var name: String

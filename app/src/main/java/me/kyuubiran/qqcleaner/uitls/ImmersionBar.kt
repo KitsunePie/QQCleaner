@@ -11,7 +11,7 @@ import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.WindowManager.LayoutParams.*
 
 /**
- * 状态栏透明
+ * 在 Activity 的上下文中，设置状态栏透明
  */
 context(Activity)
 @Suppress("DEPRECATION")
@@ -28,7 +28,7 @@ fun setStatusBarTranslation() {
 
 
 /**
- * 导航栏透明
+ * 在 Activity 的上下文中，设置导航栏透明
  */
 context(Activity)
 @Suppress("DEPRECATION")
@@ -47,7 +47,7 @@ fun setNavigationBarTranslation() {
 }
 
 /**
- * 亮色状态栏
+ * 在 Activity 的上下文中，设置亮色状态栏
  * @param enable 默认为亮色
  * https://qa.1r1g.com/sf/ask/4595541261/ 没有找到英文原文，
  * 这个更适合在页面有绘制的 View 的时候调用
@@ -65,7 +65,7 @@ fun statusBarLightMode(enable: Boolean = true) {
 }
 
 /**
- * 亮色状态栏（对应旧版本）
+ * 在 Activity 的上下文中，设置亮色状态栏（对应旧版本）
  * @param enable 默认为亮色
  */
 context(Activity)
@@ -82,7 +82,7 @@ fun statusBarLightOldMode(enable: Boolean = true) {
 
 
 /**
- * 亮色导航栏
+ * 在 Activity 的上下文中，设置亮色导航栏
  * @param enable 默认为亮色
  * 同上
  */
@@ -100,7 +100,7 @@ fun navigationBarLightMode(enable: Boolean = true) {
 }
 
 /**
- * 亮色导航栏（对应旧版本）
+ * 在 Activity 的上下文中，设置亮色导航栏（对应旧版本）
  * @param enable 默认为亮色
  */
 context(Activity)

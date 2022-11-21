@@ -12,6 +12,11 @@ import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ItemChevronBinding
 import me.kyuubiran.qqcleaner.uitls.dp
 
+/**
+ * 左侧有前进按钮的子菜单项
+ * @param context 对应的 Context 参数
+ * @param attr 对应的 AttributeSet 参数
+ */
 class ChevronItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
 
 

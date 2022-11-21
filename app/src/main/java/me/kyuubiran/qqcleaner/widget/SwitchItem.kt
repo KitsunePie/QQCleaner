@@ -20,9 +20,13 @@ import me.kyuubiran.qqcleaner.R.styleable.Item_text
 import me.kyuubiran.qqcleaner.databinding.ItemSwitchBinding
 import me.kyuubiran.qqcleaner.uitls.dp
 
-
+/**
+ * 有 Switch 开关的菜单项
+ * @param context 对应的 Context 参数
+ * @param attr 对应的 AttributeSet 参数
+ */
 class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
-    public var checked = false
+    var checked = false
 
     private var isRun = false
 
