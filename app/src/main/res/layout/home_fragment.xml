@@ -28,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:singleLine="true"
                 android:text="上次瘦身是 5 天前"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -39,6 +40,7 @@
                 android:layout_marginTop="16dp"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
+                android:singleLine="true"
                 android:text="上次瘦身 11 / 21 03:00"
                 android:textColor="#ffffffff"
                 android:textSize="8sp" />
@@ -48,6 +50,7 @@
             android:layout_width="88dp"
             android:layout_height="88dp"
             android:layout_gravity="center_vertical|end"
+            android:singleLine="true"
             android:src="@drawable/ic_home_qqcleaner" />
     </LinearLayout>
 
@@ -77,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
+            android:singleLine="true"
             android:text="设定"
             android:textColor="#ff202124"
             android:textSize="18sp"
@@ -118,6 +122,7 @@
             android:layout_below="@id/setup_layout"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
+            android:singleLine="true"
             android:text="更多"
             android:textColor="#ff202124"
             android:textSize="18sp"
@@ -166,6 +171,7 @@
                 android:layout_width="98dp"
                 android:layout_height="35dp"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="立即瘦身"
                 android:textColor="#ffffffff"
                 android:textSize="12sp" />
