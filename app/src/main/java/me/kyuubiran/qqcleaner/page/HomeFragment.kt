@@ -56,6 +56,15 @@ class HomeFragment : BaseFragment() {
             }
         }
 
+        // 配置按钮
+        binding.configChevrItem.setOnClickListener {
+            val navController = findNavController(this)
+            val bundle = Bundle()
+            bundle.putString("subFragment", "config")
+            navController.navigate(R.id.action_homeFragment_to_moduleFragment, bundle)
+        }
+
+        // 立即瘦身按钮
         binding.cleanerBtn.setOnClickListener {
             val navController = findNavController(this)
             val bundle = Bundle()

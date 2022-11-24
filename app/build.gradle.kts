@@ -3,6 +3,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.devtools.ksp").version("1.7.20-1.0.8")
 }
 
 android {
@@ -81,4 +82,8 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     compileOnly("de.robv.android.xposed:api:82")
+
+    // moshi json 解析库
+    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 }

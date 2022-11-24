@@ -105,6 +105,7 @@
                 app:text="自动瘦身间隔" />
 
             <me.kyuubiran.qqcleaner.widget.ChevronItem
+                android:id="@+id/config_chevr_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:text="瘦身配置" />
