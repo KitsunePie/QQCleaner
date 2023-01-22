@@ -6,11 +6,11 @@
     android:orientation="vertical">
 
     <ImageView
-        android:contentDescription="QQ瘦身的 Icon"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
+        android:contentDescription="@string/app_icon_content_description"
         android:src="@drawable/ic_home_qqcleaner" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
         android:singleLine="true"
-        android:text="瘦身模块"
+        android:text="@string/module_name"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
             android:id="@+id/github_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="Github" />
+            app:text="@string/goto_github" />
     </com.gcssloop.widget.RCLinearLayout>
 
     <com.gcssloop.widget.RCLinearLayout
@@ -63,13 +63,13 @@
             android:id="@+id/tg_channel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="Telegram 频道" />
+            app:text="@string/join_tg_channel" />
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
             android:id="@+id/tg_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="Telegram 群组" />
+            app:text="@string/join_tg_group" />
     </com.gcssloop.widget.RCLinearLayout>
 
     <com.gcssloop.widget.RCLinearLayout
@@ -86,6 +86,6 @@
             android:id="@+id/developer_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="开发者" />
+            app:text="@string/title_dev" />
     </com.gcssloop.widget.RCLinearLayout>
 </LinearLayout>

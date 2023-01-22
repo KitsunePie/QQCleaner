@@ -19,9 +19,9 @@
             android:id="@+id/developer_kitsunepie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:name="KitsunePie"
+            app:name="@string/dev_org_name"
             app:src="@drawable/ic_developer_kitsunepie"
-            app:text="画大饼" />
+            app:text="@string/dev_org_desc" />
     </com.gcssloop.widget.RCLinearLayout>
 
     <com.gcssloop.widget.RCLinearLayout
@@ -38,41 +38,41 @@
             android:id="@+id/developer_kyuubiran"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:name="KitsunePie"
+            app:name="@string/dev_KyuubiRan_name"
             app:src="@drawable/ic_developer_kyuubiran"
-            app:text="主要开发者" />
+            app:text="@string/dev_KyuubiRan_desc" />
 
         <me.kyuubiran.qqcleaner.widget.DeveloperItem
             android:id="@+id/developer_ketal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:name="KitsunePie"
+            app:name="@string/dev_Ketal_name"
             app:src="@drawable/ic_developer_ketal"
-            app:text="开发者" />
+            app:text="@string/dev_Ketal_desc" />
 
         <me.kyuubiran.qqcleaner.widget.DeveloperItem
             android:id="@+id/developer_nextalone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:name="KitsunePie"
+            app:name="@string/dev_NextAlone_name"
             app:src="@drawable/ic_developer_nextalone"
-            app:text="开发者" />
+            app:text="@string/dev_NextAlone_desc" />
 
         <me.kyuubiran.qqcleaner.widget.DeveloperItem
             android:id="@+id/developer_agoines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:name="KitsunePie"
+            app:name="@string/dev_Agoines_name"
             app:src="@drawable/ic_developer_agoines"
-            app:text="UI 开发者" />
+            app:text="@string/dev_Agoines_desc" />
 
         <me.kyuubiran.qqcleaner.widget.DeveloperItem
             android:id="@+id/developer_maitungtm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:name="KitsunePie"
+            app:name="@string/dev_MaiTungTM_name"
             app:src="@drawable/ic_developer_maitungtm"
-            app:text="UI &amp; Icon 设计师" />
+            app:text="@string/dev_MaiTungTM_desc" />
     </com.gcssloop.widget.RCLinearLayout>
 
 </LinearLayout>

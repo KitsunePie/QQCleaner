@@ -81,7 +81,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
             android:singleLine="true"
-            android:text="设定"
+            android:text="@string/title_setup"
             android:textColor="#ff202124"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -101,18 +101,18 @@
             <me.kyuubiran.qqcleaner.widget.SwitchItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:text="自动瘦身" />
+                app:text="@string/item_cleaner" />
 
             <me.kyuubiran.qqcleaner.widget.TextItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:text="自动瘦身间隔" />
+                app:text="@string/item_cleaner_time" />
 
             <me.kyuubiran.qqcleaner.widget.ChevronItem
                 android:id="@+id/config_chevr_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:text="瘦身配置" />
+                app:text="@string/item_cleaner_config" />
         </com.gcssloop.widget.RCLinearLayout>
 
         <TextView
@@ -123,7 +123,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
             android:singleLine="true"
-            android:text="更多"
+            android:text="@string/title_more"
             android:textColor="#ff202124"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -143,13 +143,13 @@
             <me.kyuubiran.qqcleaner.widget.ChevronItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:text="主题风格" />
+                app:text="@string/item_theme" />
 
             <me.kyuubiran.qqcleaner.widget.ChevronItem
                 android:id="@+id/about_chevr_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:text="关于瘦身" />
+                app:text="@string/item_about" />
 
         </com.gcssloop.widget.RCLinearLayout>
 
@@ -173,7 +173,7 @@
                 android:layout_height="35dp"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="立即瘦身"
+                android:text="@string/cleaner_text"
                 android:textColor="#ffffffff"
                 android:textSize="12sp" />
 
