@@ -19,16 +19,24 @@
  * WeiBo: http://weibo.com/GcsSloop
  * WebSite: http://www.gcssloop.com
  */
-
-apply plugin: 'com.android.library'
 // 来自 https://github.com/GcsSloop/rclayout
+
+@file:Suppress("UnstableApiUsage")
+
+plugins {
+    id("com.android.library")
+}
 android {
-    compileSdkVersion 33
-    buildToolsVersion = "33.0.0"
+    compileSdk = 33
+    buildToolsVersion = "33.0.1"
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 33
+        minSdk = 14
+        targetSdk = 33
     }
-    namespace 'com.gcssloop.rclayout'
+    namespace = "com.gcssloop.rclayout"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
