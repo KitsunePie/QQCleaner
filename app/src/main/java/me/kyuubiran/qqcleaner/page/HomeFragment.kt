@@ -64,8 +64,8 @@ class HomeFragment : BaseFragment() {
             navController.navigate(R.id.action_homeFragment_to_moduleFragment, bundle)
         }
 
-        // 立即瘦身按钮
-        binding.cleanerBtn.setOnClickListener {
+        // 关于页面
+        binding.aboutChevrItem.setOnClickListener {
             val navController = findNavController(this)
             val bundle = Bundle()
             bundle.putString("subFragment", "about")

@@ -146,6 +146,7 @@
                 app:text="主题风格" />
 
             <me.kyuubiran.qqcleaner.widget.ChevronItem
+                android:id="@+id/about_chevr_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:text="关于瘦身" />

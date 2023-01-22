@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_margin="24dp"
         android:background="#ffffff"
+        app:clip_background="true"
         app:round_corner="10dp">
 
         <me.kyuubiran.qqcleaner.widget.ConfigItem
