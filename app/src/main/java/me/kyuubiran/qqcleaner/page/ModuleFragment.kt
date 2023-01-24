@@ -33,6 +33,7 @@ class ModuleFragment : BaseFragment() {
             // 虽然不知道为什么，但是一定需要加上这行，不然顶栏无法显示
             Navigation.findNavController(this.requireActivity(), binding.fragment.id)
             binding.fragment.getFragment<AboutFragment>().findNavController().apply {
+                // 判断需要前往的页面是什么
                 val graph = navInflater.inflate(R.navigation.module_nav_graph).apply {
                     when (it.getString("subFragment", "none").toString()) {
                         "about" -> setStartDestination(R.id.aboutFragment)

@@ -65,7 +65,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.0")
 
-    val lifecycleVersion = "2.6.0-alpha03"
+    val lifecycleVersion = "2.6.0-alpha04"
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
 
@@ -86,4 +86,7 @@ dependencies {
     // moshi json 解析库
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+
+
+    implementation("com.github.liangjingkanji:BRV:1.3.90")
 }

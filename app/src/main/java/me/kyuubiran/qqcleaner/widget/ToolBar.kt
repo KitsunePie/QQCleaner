@@ -24,12 +24,13 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
         )
 
         // 顶栏边距
+        @Suppress("DEPRECATION")
         binding.root.rootView.setOnApplyWindowInsetsListener { _, insets ->
             this.updateLayoutParams {
                 (this as LayoutParams).topMargin =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.systemBars()).top
-                    else @Suppress("DEPRECATION") insets.systemWindowInsetTop
+                    else insets.systemWindowInsetTop
             }
             insets
         }
