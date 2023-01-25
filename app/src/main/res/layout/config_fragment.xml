@@ -41,4 +41,30 @@
             android:text="点击按钮添加配置"
             android:textSize="16sp" />
     </LinearLayout>
+
+    <com.lihang.ShadowLayout
+        android:id="@+id/add_config_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        app:hl_cornerRadius="18dp"
+        app:hl_layoutBackground="#0095FF"
+        app:hl_layoutBackground_true="#ffffff"
+        app:hl_shadowColor="#600095FF"
+        app:hl_shadowLimit="6dp"
+        app:hl_shadowOffsetY="3dp"
+        app:hl_shapeMode="ripple">
+
+        <TextView
+            android:layout_width="98dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/add_config"
+            android:textColor="#ffffffff"
+            android:textSize="12sp" />
+
+    </com.lihang.ShadowLayout>
 </RelativeLayout>

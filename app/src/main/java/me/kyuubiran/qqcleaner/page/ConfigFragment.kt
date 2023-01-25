@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.models
 import com.drake.brv.utils.setup
@@ -48,6 +49,11 @@ class ConfigFragment : BaseFragment() {
             }
         }else{
             this.binding.emptyLayout.visibility = View.VISIBLE
+        }
+
+        binding.addConfigBtn.setOnClickListener {
+            val navController = NavHostFragment.findNavController(this)
+            navController.navigate(R.id.action_configFragment_to_editFragment)
         }
 
 

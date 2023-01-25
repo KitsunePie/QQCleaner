@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="me.kyuubiran.qqcleaner.page.AboutFragment"
-        android:label="AboutFragment" >
+        android:label="AboutFragment">
         <action
             android:id="@+id/action_aboutFragment_to_developerFragment"
             app:destination="@id/developerFragment" />
@@ -19,5 +19,13 @@
     <fragment
         android:id="@+id/configFragment"
         android:name="me.kyuubiran.qqcleaner.page.ConfigFragment"
-        android:label="ConfigFragment" />
+        android:label="ConfigFragment">
+        <action
+            android:id="@+id/action_configFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="me.kyuubiran.qqcleaner.page.EditFragment"
+        android:label="EditFragment" />
 </navigation>
