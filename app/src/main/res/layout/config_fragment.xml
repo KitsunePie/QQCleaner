@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
-            android:text="点击按钮添加配置"
+            android:text="@string/config_empty"
             android:textSize="16sp" />
     </LinearLayout>
 

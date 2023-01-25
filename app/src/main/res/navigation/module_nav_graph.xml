@@ -27,5 +27,13 @@
     <fragment
         android:id="@+id/editFragment"
         android:name="me.kyuubiran.qqcleaner.page.EditFragment"
-        android:label="EditFragment" />
+        android:label="EditFragment">
+        <action
+            android:id="@+id/action_editFragment_to_fileFragment"
+            app:destination="@id/fileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fileFragment"
+        android:name="me.kyuubiran.qqcleaner.page.FileFragment"
+        android:label="FileFragment" />
 </navigation>

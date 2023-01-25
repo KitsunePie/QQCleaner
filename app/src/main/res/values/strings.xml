@@ -28,6 +28,7 @@
     <string name="copy_this_into_clipboard_config">复制到剪贴板</string>
     <string name="delete_this_config">删除</string>
 
+    <string name="config_empty">点击按钮添加配置</string>
     <string name="add_config">添加配置</string>
     <string name="add_sort">添加类别</string>
     <string name="create_config">新建配置</string>
@@ -88,8 +89,8 @@
     <string name="confirm_delete">您确定要删除「%s」吗？</string>
 
     <string name="empty">空空如也</string>
-    <string name="sort_fab_text">添加路径</string>
-    <string name="sort_icon_tip">文件夹图标</string>
+    <string name="add_file">添加路径</string>
+    <string name="file_icon_tip">文件夹图标</string>
     <string name="clean_finished">瘦身完毕！</string>
 
 </resources>

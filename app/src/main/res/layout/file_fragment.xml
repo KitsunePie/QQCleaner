@@ -4,34 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.gcssloop.widget.RCLinearLayout
-        android:id="@+id/config_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:background="#ffffff"
-        app:clip_background="true"
-        app:round_corner="10dp">
-
-        <me.kyuubiran.qqcleaner.widget.SwitchItem
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:text="@string/item_cleaner" />
-    </com.gcssloop.widget.RCLinearLayout>
-
-    <com.gcssloop.widget.RCLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/config_switch"
-        android:layout_marginHorizontal="24dp"
-        android:background="#ffffff"
-        app:clip_background="true"
-        app:round_corner="10dp">
-
-    </com.gcssloop.widget.RCLinearLayout>
-
     <com.lihang.ShadowLayout
-        android:id="@+id/add_sort_btn"
+        android:id="@+id/add_file_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -50,7 +24,7 @@
             android:layout_height="35dp"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/add_sort"
+            android:text="@string/add_file"
             android:textColor="#ffffffff"
             android:textSize="12sp" />
 
