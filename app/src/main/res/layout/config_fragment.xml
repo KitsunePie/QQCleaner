@@ -7,7 +7,8 @@
     <me.kyuubiran.qqcleaner.widget.ToolBar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="56dp" />
+        android:layout_height="56dp"
+        app:title="编辑配置" />
 
     <com.gcssloop.widget.RCLinearLayout
         android:id="@+id/config_layout"
@@ -37,6 +38,7 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_gravity="center"
+            android:contentDescription="@string/list_empty"
             android:src="@drawable/ic_list_empty" />
 
         <TextView

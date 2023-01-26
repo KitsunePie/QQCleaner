@@ -7,18 +7,19 @@
     android:padding="16dp">
 
     <ImageView
+        android:id="@+id/back_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:contentDescription="@string/top_bar_back_icon_tip"
         android:src="@drawable/ic_back" />
 
     <TextView
+        android:id="@+id/title_text"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:layout_weight="1"
         android:singleLine="true"
-        android:text="测试"
         android:textSize="20sp"
         android:textStyle="bold" />
 </LinearLayout>

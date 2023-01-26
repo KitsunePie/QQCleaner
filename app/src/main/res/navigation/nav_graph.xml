@@ -7,21 +7,33 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="me.kyuubiran.qqcleaner.page.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_configFragment"
-            app:destination="@id/configFragment" />
+            app:destination="@id/configFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="me.kyuubiran.qqcleaner.page.AboutFragment"
-        android:label="AboutFragment" >
+        android:label="AboutFragment">
         <action
             android:id="@+id/action_aboutFragment_to_developerFragment"
-            app:destination="@id/developerFragment" />
+            app:destination="@id/developerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/developerFragment"
@@ -34,17 +46,25 @@
     <fragment
         android:id="@+id/configFragment"
         android:name="me.kyuubiran.qqcleaner.page.ConfigFragment"
-        android:label="ConfigFragment" >
+        android:label="ConfigFragment">
         <action
             android:id="@+id/action_configFragment_to_editFragment"
-            app:destination="@id/editFragment" />
+            app:destination="@id/editFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
         android:name="me.kyuubiran.qqcleaner.page.EditFragment"
-        android:label="EditFragment" >
+        android:label="EditFragment">
         <action
             android:id="@+id/action_editFragment_to_fileFragment"
-            app:destination="@id/fileFragment" />
+            app:destination="@id/fileFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>

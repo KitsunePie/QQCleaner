@@ -5,6 +5,10 @@
         <attr name="text"/>
     </declare-styleable>
 
+    <declare-styleable name="ToolBar">
+        <attr name="title"/>
+    </declare-styleable>
+
     <declare-styleable name="DeveloperItem">
         <attr name="name" format="string"/>
         <attr name="src" format="reference"/>
