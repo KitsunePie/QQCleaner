@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.WindowInsets
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.core.view.updateLayoutParams
 import me.kyuubiran.qqcleaner.databinding.ToolbarBinding
 
@@ -27,7 +28,7 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
         @Suppress("DEPRECATION")
         binding.root.rootView.setOnApplyWindowInsetsListener { _, insets ->
             this.updateLayoutParams {
-                (this as LayoutParams).topMargin =
+                (this as RelativeLayout.LayoutParams).topMargin =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.systemBars()).top
                     else insets.systemWindowInsetTop

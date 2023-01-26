@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:paddingHorizontal="16dp"
-    android:gravity="center_vertical"
     android:layout_width="match_parent"
-    android:layout_height="56dp">
+    android:layout_height="56dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp">
+
     <TextView
-        android:singleLine="true"
         android:id="@+id/switch_text"
-        android:textSize="16sp"
-        android:gravity="center_vertical"
-        android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textSize="16sp" />
+
     <ImageView
         android:id="@+id/switch_img"
-        android:src="@drawable/switch_default_off_to_on"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:src="@drawable/switch_default_off_to_on" />
 
 </LinearLayout>

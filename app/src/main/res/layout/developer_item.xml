@@ -21,28 +21,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:singleLine="true"
             android:id="@+id/developer_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:singleLine="true"
             android:textSize="18sp" />
 
         <TextView
-            android:singleLine="true"
             android:id="@+id/developer_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:gravity="center_vertical"
+            android:singleLine="true"
             android:textSize="12sp" />
     </LinearLayout>
 
     <ImageView
-        android:contentDescription="装饰箭头"
         android:id="@+id/developer_chevron"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:contentDescription="装饰箭头"
         android:src="@drawable/ic_chevron_right" />
 
 </LinearLayout>

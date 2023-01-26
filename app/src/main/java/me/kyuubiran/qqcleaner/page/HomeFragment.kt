@@ -12,13 +12,13 @@ import android.widget.RelativeLayout
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
 import me.kyuubiran.qqcleaner.uitls.dp
+import me.kyuubiran.qqcleaner.uitls.navigatePage
 
 class HomeFragment : BaseFragment() {
 
@@ -58,18 +58,12 @@ class HomeFragment : BaseFragment() {
 
         // 配置按钮
         binding.configChevrItem.setOnClickListener {
-            val navController = findNavController(this)
-            val bundle = Bundle()
-            bundle.putString("subFragment", "config")
-            navController.navigate(R.id.action_homeFragment_to_moduleFragment, bundle)
+            navigatePage(R.id.action_homeFragment_to_configFragment)
         }
 
         // 关于页面
         binding.aboutChevrItem.setOnClickListener {
-            val navController = findNavController(this)
-            val bundle = Bundle()
-            bundle.putString("subFragment", "about")
-            navController.navigate(R.id.action_homeFragment_to_moduleFragment, bundle)
+            navigatePage(R.id.action_homeFragment_to_aboutFragment)
         }
 
         return binding.root

@@ -87,6 +87,6 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 
-
+    // RecyclerView框架
     implementation("com.github.liangjingkanji:BRV:1.3.90")
 }

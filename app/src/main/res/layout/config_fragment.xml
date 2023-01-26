@@ -4,10 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <me.kyuubiran.qqcleaner.widget.ToolBar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+
     <com.gcssloop.widget.RCLinearLayout
         android:id="@+id/config_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tool_bar"
         android:layout_margin="24dp"
         android:background="#ffffff"
         app:clip_background="true"

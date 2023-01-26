@@ -93,4 +93,6 @@
     <string name="file_icon_tip">文件夹图标</string>
     <string name="clean_finished">瘦身完毕！</string>
 
+    <string name="top_bar_back_icon_tip">返回图标</string>
+
 </resources>

@@ -7,9 +7,9 @@
     android:padding="16dp">
 
     <ImageView
-        android:contentDescription="返回图标"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:contentDescription="@string/top_bar_back_icon_tip"
         android:src="@drawable/ic_back" />
 
     <TextView

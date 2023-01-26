@@ -1,8 +1,9 @@
 package me.kyuubiran.qqcleaner.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatTextView
+import android.widget.TextView
 import me.kyuubiran.qqcleaner.uitls.getCurrentTimeText
 
 /**
@@ -10,7 +11,8 @@ import me.kyuubiran.qqcleaner.uitls.getCurrentTimeText
  * @param context 对应的 Context 参数
  * @param attr 对应的 AttributeSet 参数
  */
-class TimeTextView(context: Context, attr: AttributeSet) : AppCompatTextView(context, attr) {
+@SuppressLint("AppCompatCustomView")
+class TimeTextView(context: Context, attr: AttributeSet) : TextView(context, attr) {
     init {
         // 设置 text 为当前时间
         this.text = getCurrentTimeText()

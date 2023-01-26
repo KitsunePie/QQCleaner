@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <me.kyuubiran.qqcleaner.widget.ToolBar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
 
     <ImageView
+        android:id="@+id/about_logo"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/tool_bar"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:contentDescription="@string/app_icon_content_description"
         android:src="@drawable/ic_home_qqcleaner" />
 
     <TextView
+        android:id="@+id/about_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/about_logo"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:singleLine="true"
         android:text="@string/module_name"
@@ -24,17 +32,21 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/about_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/about_text"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:singleLine="true"
-        android:text="v2.0.0"
         android:textSize="12sp" />
 
     <com.gcssloop.widget.RCLinearLayout
+
+        android:id="@+id/github_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/about_version"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
         android:background="#ffffff"
@@ -43,15 +55,17 @@
         app:round_corner="10dp">
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
-            android:id="@+id/github_item"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:text="@string/goto_github" />
     </com.gcssloop.widget.RCLinearLayout>
 
     <com.gcssloop.widget.RCLinearLayout
+        android:id="@+id/tg_channel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/github_item"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
         android:background="#ffffff"
@@ -60,7 +74,6 @@
         app:round_corner="10dp">
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
-            android:id="@+id/tg_channel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:text="@string/join_tg_channel" />
@@ -73,8 +86,10 @@
     </com.gcssloop.widget.RCLinearLayout>
 
     <com.gcssloop.widget.RCLinearLayout
+        android:id="@+id/developer_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tg_channel"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
         android:background="#ffffff"
@@ -83,9 +98,8 @@
         app:round_corner="10dp">
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
-            android:id="@+id/developer_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:text="@string/title_dev" />
     </com.gcssloop.widget.RCLinearLayout>
-</LinearLayout>
+</RelativeLayout>

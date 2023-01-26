@@ -22,7 +22,6 @@
 
 package com.gcssloop.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
@@ -39,7 +38,6 @@ import java.util.Arrays;
  * 作用：圆角图片
  * 作者：GcsSloop
  */
-@SuppressLint("AppCompatCustomView")
 public class RCImageView extends ImageView implements Checkable, RCAttrs {
 
     RCHelper mRCHelper;

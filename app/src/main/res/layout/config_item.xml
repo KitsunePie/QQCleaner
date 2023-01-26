@@ -39,10 +39,10 @@
         android:background="#202124" />
 
     <ImageView
-        android:contentDescription="开关"
         android:id="@+id/switch_img"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:contentDescription="开关"
         android:src="@drawable/switch_default_off_to_on" />
 
 </LinearLayout>
