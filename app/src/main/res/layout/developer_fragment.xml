@@ -7,9 +7,9 @@
 
     <me.kyuubiran.qqcleaner.widget.ToolBar
         android:id="@+id/tool_bar"
-        app:title="@string/title_dev"
         android:layout_width="match_parent"
-        android:layout_height="56dp" />
+        android:layout_height="56dp"
+        app:title="@string/title_dev" />
 
     <com.gcssloop.widget.RCLinearLayout
         android:id="@+id/dev_org"

@@ -3,20 +3,12 @@ package me.kyuubiran.qqcleaner.widget
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.AnimatedVectorDrawable
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.vectordrawable.graphics.drawable.Animatable2Compat
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.R.drawable.switch_default_off_to_on
-import me.kyuubiran.qqcleaner.R.drawable.switch_default_on_to_off
-import me.kyuubiran.qqcleaner.R.styleable.Item_text
 import me.kyuubiran.qqcleaner.databinding.ItemSwitchBinding
 import me.kyuubiran.qqcleaner.uitls.dp
 
@@ -26,19 +18,19 @@ import me.kyuubiran.qqcleaner.uitls.dp
  * @param attr 对应的 AttributeSet 参数
  */
 class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
-    var checked = false
 
-    private var isRun = false
+    private var checked: Boolean = false
 
-    private lateinit var text: String
+    lateinit var text: String
+
+    private lateinit var listener: (Boolean) -> Unit
+
+    val binding = ItemSwitchBinding.inflate(
+        LayoutInflater.from(getContext()), this, true
+    )
 
     init {
         initAttrs(attr)
-        val binding = ItemSwitchBinding.inflate(
-            LayoutInflater.from(getContext()),
-            this,
-            true
-        )
         binding.root.apply {
             val background = GradientDrawable()
             background.setColor(Color.WHITE)
@@ -49,46 +41,37 @@ class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, a
                 background
             )
         }
+
+        // 设置默认值，防止为空
         binding.switchText.text = text
-        binding.switchImg.showAnimate(checked)
+        binding.switchImg.setChecked(checked, false)
+
+        // 设置点击事件
         this.setOnClickListener {
-            if (!isRun) {
-                checked = !checked
-                isRun = true
-                binding.switchImg.showAnimate(checked)
-            }
+            checked = !checked
+            binding.switchImg.setChecked(checked, true)
+            listener(checked)
         }
     }
+
+    fun setSwitchChecked(on: Boolean) {
+        if (on != checked) {
+            checked = on
+            binding.switchImg.setChecked(on, false)
+        }
+    }
+
+
+    fun setSwitchListener(listener: (Boolean) -> Unit) {
+        this.listener = listener
+    }
+
 
     private fun initAttrs(attrs: AttributeSet) {
         val typedArray =
             context.obtainStyledAttributes(attrs, R.styleable.Item)
-        text = typedArray.getString(Item_text).toString()
+        text = typedArray.getString(R.styleable.Item_text).toString()
         typedArray.recycle()
-    }
-
-
-    fun getAnimateImageRes(on: Boolean): Int{
-
-        return if (on)
-            switch_default_on_to_off
-        else
-            switch_default_off_to_on
-    }
-    private fun ImageView.showAnimate(on: Boolean) {
-        val animateRes = getAnimateImageRes(on)
-        setImageResource(animateRes)
-        AnimatedVectorDrawableCompat.clearAnimationCallbacks(drawable)
-        AnimatedVectorDrawableCompat.registerAnimationCallback(
-            drawable,
-            object : Animatable2Compat.AnimationCallback() {
-                override fun onAnimationEnd(drawable: Drawable?) {
-                    AnimatedVectorDrawableCompat.clearAnimationCallbacks(drawable)
-                    isRun = false
-                    setImageResource(getAnimateImageRes(!on))
-                }
-            })
-        (drawable as AnimatedVectorDrawable).start()
     }
 
 }
