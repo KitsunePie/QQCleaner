@@ -11,6 +11,7 @@ import android.view.WindowInsets
 import android.widget.RelativeLayout
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +28,7 @@ class HomeFragment : BaseFragment() {
 
     private val model: MainActivityStates by activityViewModels()
 
-    private val state = HomeStates()
+    private val state: HomeStates by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,7 +123,7 @@ class HomeFragment : BaseFragment() {
         _binding = null
     }
 
-    private class HomeStates : StateHolder() {
+    class HomeStates : StateHolder() {
         val cleanerStateFlow = MutableStateFlow(false)
     }
 

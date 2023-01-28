@@ -12,5 +12,5 @@ open class BaseFragment : Fragment() {
         _binding = null
     }
 
-    protected open class StateHolder : ViewModel()
+    open class StateHolder : ViewModel()
 }
