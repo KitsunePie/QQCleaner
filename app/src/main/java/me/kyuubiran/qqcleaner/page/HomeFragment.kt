@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.page
 
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -14,12 +15,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
+import me.kyuubiran.qqcleaner.uitls.AUTO_CLEANER_TIME
+import me.kyuubiran.qqcleaner.uitls.IS_AUTO_CLEANER
+import me.kyuubiran.qqcleaner.uitls.dataStore
 import me.kyuubiran.qqcleaner.uitls.dp
+import me.kyuubiran.qqcleaner.uitls.editData
 import me.kyuubiran.qqcleaner.uitls.navigatePage
 
 class HomeFragment : BaseFragment() {
@@ -32,6 +40,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        state.initViewModel(this.requireContext())
     }
 
     override fun onCreateView(
@@ -71,7 +80,7 @@ class HomeFragment : BaseFragment() {
 
         // 设置按钮状态
         lifecycleScope.launch {
-            state.cleanerStateFlow.collect {
+            state.autoCleanerState.collect {
                 binding.autoCleaner.setSwitchChecked(it)
             }
         }
@@ -81,12 +90,13 @@ class HomeFragment : BaseFragment() {
         // 接受按钮当前状态
         binding.autoCleaner.setSwitchListener {
             state.viewModelScope.launch {
-                state.cleanerStateFlow.emit(it)
+                state.setAutoCleaner(this@HomeFragment.requireContext(), it)
             }
         }
 
         // 配置按钮
         binding.configChevrItem.setOnClickListener {
+
             navigatePage(R.id.action_homeFragment_to_configFragment)
         }
 
@@ -123,8 +133,40 @@ class HomeFragment : BaseFragment() {
         _binding = null
     }
 
+    /**
+     * 存储持久化状态
+     */
     class HomeStates : StateHolder() {
-        val cleanerStateFlow = MutableStateFlow(false)
+        // 是否自动清理
+        lateinit var autoCleanerState: StateFlow<Boolean>
+
+        // 自动清理的间隔时间
+        lateinit var autoCleanerTimeState: StateFlow<Int>
+        fun initViewModel(context: Context) {
+            viewModelScope.launch(Dispatchers.IO) {
+
+                autoCleanerTimeState = context.dataStore.data.map { preferences ->
+                    preferences[AUTO_CLEANER_TIME] ?: 24
+                }.stateIn(this)
+
+                autoCleanerState = context.dataStore.data.map { preferences ->
+                    preferences[IS_AUTO_CLEANER] ?: false
+                }.stateIn(this)
+            }
+        }
+
+        fun setAutoCleanerTime(context: Context, time: Int) {
+            viewModelScope.launch(Dispatchers.IO) {
+                context.editData(AUTO_CLEANER_TIME, time)
+            }
+        }
+
+        fun setAutoCleaner(context: Context, boolean: Boolean) {
+            viewModelScope.launch(Dispatchers.IO) {
+                context.editData(IS_AUTO_CLEANER, boolean)
+            }
+        }
+
     }
 
 }

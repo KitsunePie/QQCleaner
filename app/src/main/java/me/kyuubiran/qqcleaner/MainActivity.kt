@@ -6,8 +6,12 @@ import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
+import me.kyuubiran.qqcleaner.uitls.dataStore
 import me.kyuubiran.qqcleaner.uitls.navigationBarLightOldMode
 import me.kyuubiran.qqcleaner.uitls.setNavigationBarTranslation
 import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
@@ -28,6 +32,11 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         // 加载对应的布局
         this.setContentView(R.layout.main_activity)
+
+        lifecycleScope.launch {
+            dataStore.data.first()
+            // You should also handle IOExceptions here.
+        }
     }
 
     public class MainActivityStates : ViewModel() {
