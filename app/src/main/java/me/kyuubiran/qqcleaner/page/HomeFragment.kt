@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
-import me.kyuubiran.qqcleaner.dialog.BaseDialog
 import me.kyuubiran.qqcleaner.uitls.AUTO_CLEANER_TIME
 import me.kyuubiran.qqcleaner.uitls.IS_AUTO_CLEANER
 import me.kyuubiran.qqcleaner.uitls.dataStore
@@ -54,9 +53,9 @@ class HomeFragment : BaseFragment() {
         setOnApplyWindowInsetsListener()
         intoLayout()
         intoClickListener()
-        BaseDialog().show(
-            parentFragmentManager,"android"
-        )
+//        BaseDialog().show(
+//            parentFragmentManager,"android"
+//        )
         return binding.root
     }
 
@@ -123,9 +122,9 @@ class HomeFragment : BaseFragment() {
             // 设置按钮边距
             binding.cleanerBtn.updateLayoutParams {
                 (this as RelativeLayout.LayoutParams).bottomMargin =
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                    ((if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.navigationBars()).bottom
-                    else insets.systemWindowInsetBottom
+                    else insets.systemWindowInsetBottom) + 24.dp(requireContext())).toInt()
             }
             insets
         }

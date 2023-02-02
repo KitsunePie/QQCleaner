@@ -26,7 +26,11 @@ fun Window.setStatusBarTranslation() {
         isStatusBarContrastEnforced = false
     // 设置状态栏透明,暂时没有更好的办法解决透明问题
     addFlags(FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-    clearFlags(FLAG_TRANSLUCENT_STATUS)
+    if (isMiuiDevices())
+        addFlags(FLAG_TRANSLUCENT_STATUS)
+    else
+        clearFlags(FLAG_TRANSLUCENT_STATUS)
+
     statusBarColor = TRANSPARENT
 }
 
@@ -41,8 +45,12 @@ fun setNavigationBarTranslation() {
  */
 @Suppress("DEPRECATION")
 fun Window.setNavigationBarTranslation() {
-    // 设置导航栏透明,暂时没有更好的办法解决透明问题
-    addFlags(FLAG_TRANSLUCENT_NAVIGATION)
+    if (isMiuiDevices())
+        addFlags(FLAG_TRANSLUCENT_NAVIGATION)
+    else
+        clearFlags(FLAG_TRANSLUCENT_NAVIGATION)
+
+
     // 防止透明以后高对比度
     if (SDK_INT >= Q)
         isNavigationBarContrastEnforced = false
