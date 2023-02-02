@@ -65,7 +65,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.0")
 
-    val lifecycleVersion = "2.6.0-alpha04"
+    val lifecycleVersion = "2.6.0-alpha05"
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
 
@@ -73,7 +73,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.0-alpha04")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
 
-    implementation("com.google.android.material:material:1.7.0")
+    implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     // 阴影
