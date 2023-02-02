@@ -1,5 +1,7 @@
 package me.kyuubiran.qqcleaner
 
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import androidx.activity.viewModels
@@ -19,7 +21,7 @@ import me.kyuubiran.qqcleaner.uitls.statusBarLightOldMode
 
 
 class MainActivity : FragmentActivity() {
-    val mainViewModel :MainActivityStates by viewModels()
+    val mainViewModel: MainActivityStates by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         // 去除顶栏
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -30,17 +32,35 @@ class MainActivity : FragmentActivity() {
         statusBarLightOldMode()
         navigationBarLightOldMode()
         super.onCreate(savedInstanceState)
+        // 关闭系统暗色模式
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            this.window.decorView.isForceDarkAllowed = false
+
         // 加载对应的布局
         this.setContentView(R.layout.main_activity)
-
         lifecycleScope.launch {
             dataStore.data.first()
-            // You should also handle IOExceptions here.
         }
+
     }
 
-    public class MainActivityStates : ViewModel() {
+    class MainActivityStates : ViewModel() {
         // 加载主题
         val theme = MutableStateFlow(LightColorPalette)
     }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+
+            }
+
+        }
+    }
+
 }
+
