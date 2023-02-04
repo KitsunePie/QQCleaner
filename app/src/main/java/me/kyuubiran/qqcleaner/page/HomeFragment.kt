@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
+import me.kyuubiran.qqcleaner.dialog.ThemeDialog
 import me.kyuubiran.qqcleaner.uitls.AUTO_CLEANER_TIME
 import me.kyuubiran.qqcleaner.uitls.IS_AUTO_CLEANER
 import me.kyuubiran.qqcleaner.uitls.dataStore
@@ -53,9 +54,9 @@ class HomeFragment : BaseFragment() {
         setOnApplyWindowInsetsListener()
         intoLayout()
         intoClickListener()
-//        BaseDialog().show(
-//            parentFragmentManager,"android"
-//        )
+        ThemeDialog(model).show(
+            parentFragmentManager,"android"
+        )
         return binding.root
     }
 
@@ -98,7 +99,6 @@ class HomeFragment : BaseFragment() {
 
         // 配置按钮
         binding.configChevrItem.setOnClickListener {
-
             navigatePage(R.id.action_homeFragment_to_configFragment)
         }
 

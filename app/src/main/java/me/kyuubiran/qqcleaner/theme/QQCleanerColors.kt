@@ -2,6 +2,14 @@ package me.kyuubiran.qqcleaner.theme
 
 import android.graphics.Color
 
+enum class Theme(val value: Int) {
+    Light_THEME(0),
+    Dark_THEME(1),
+    AUTO_THEME(2)
+}
+
+
+
 // 纯黑主题配色
 val BlackColorPalette = QQCleanerColors(
     mainThemeColor = Color.parseColor("#FF82A8E7"),
@@ -126,12 +134,12 @@ class QQCleanerColors(
 
     pageBackgroundColor: Int,
     val appBarsAndItemBackgroundColor: Int,
-    dialogBackgroundColor: Int,
+    val dialogBackgroundColor: Int,
     typeBoxBackgroundColor: Int,
 
     dividerColor: Int,
     rippleColor: Int,
-    maskColor: Int,
+    val maskColor: Int,
     val whiteColor: Int,
     iconQQCleanerRingColor: Int,
 

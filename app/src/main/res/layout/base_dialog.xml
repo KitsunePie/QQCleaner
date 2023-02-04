@@ -5,12 +5,18 @@
     android:layout_height="match_parent"
     android:gravity="bottom">
 
-    <com.gcssloop.widget.RCRelativeLayout
+    <com.gcssloop.widget.RCLinearLayout
+        android:id="@+id/dialog_layout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#222222"
         app:clip_background="true"
         app:round_corner_top_left="10dp"
-        app:round_corner_top_right="10dp" />
+        app:round_corner_top_right="10dp" >
+        <Space
+            android:id="@+id/nav_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.gcssloop.widget.RCLinearLayout>
 
 </RelativeLayout>

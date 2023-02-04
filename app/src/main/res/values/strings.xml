@@ -14,6 +14,7 @@
     <string name="no_last_clean_date_record">暂时还没有瘦身记录</string>
     <string name="no_last_clean_date_record_mini">暂无瘦身记录</string>
     <string name="title_more">更多</string>
+    <string name="item_theme_close">取消按钮</string>
     <string name="item_theme">主题风格</string>
     <string name="light_theme">浅色主题</string>
     <string name="dark_theme">深色主题</string>
