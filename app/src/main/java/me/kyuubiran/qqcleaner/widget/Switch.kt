@@ -14,12 +14,12 @@ import me.kyuubiran.qqcleaner.R
 class Switch(context: Context, attr: AttributeSet) : ImageView(context, attr) {
 
     private var isRun = false
-    fun setChecked(on: Boolean, hasAnim: Boolean) {
+    fun setChecked(on: Boolean, isWhite: Boolean, isDark: Boolean, hasAnim: Boolean) {
         this.contentDescription = getContentDescriptionRes(on)
         if (hasAnim) {
-            if (!isRun) showAnimate(on)
+            if (!isRun) showAnimate(on, isWhite, isDark)
         } else {
-            setImageResource(getAnimateImageRes(!on))
+            setImageResource(getAnimateImageRes(!on, isWhite, isDark))
         }
 
     }
@@ -33,15 +33,33 @@ class Switch(context: Context, attr: AttributeSet) : ImageView(context, attr) {
         )
     }
 
-    fun getAnimateImageRes(on: Boolean): Int {
+    fun getAnimateImageRes(on: Boolean, isWhite: Boolean, isDark: Boolean): Int {
         return if (on)
-            R.drawable.switch_default_on_to_off
+            if (isDark)
+                if (isWhite)
+                    R.drawable.switch_on_to_off_white
+                else
+                    R.drawable.switch_default_on_to_off
+            else
+                if (isWhite)
+                    R.drawable.switch_on_to_off_white_drak
+                else
+                    R.drawable.switch_default_on_to_off_drak
         else
-            R.drawable.switch_default_off_to_on
+            if (isDark)
+                if (isWhite)
+                    R.drawable.switch_off_to_on_white
+                else
+                    R.drawable.switch_default_off_to_on
+            else
+                if (isWhite)
+                    R.drawable.switch_off_to_on_white_drak
+                else
+                    R.drawable.switch_default_off_to_on_drak
     }
 
-    private fun showAnimate(on: Boolean) {
-        val animateRes = getAnimateImageRes(on)
+    private fun showAnimate(on: Boolean, isWhite: Boolean, isDark: Boolean) {
+        val animateRes = getAnimateImageRes(on, isWhite, isDark)
         setImageResource(animateRes)
         AnimatedVectorDrawableCompat.clearAnimationCallbacks(drawable)
         AnimatedVectorDrawableCompat.registerAnimationCallback(
@@ -50,7 +68,7 @@ class Switch(context: Context, attr: AttributeSet) : ImageView(context, attr) {
                 override fun onAnimationEnd(drawable: Drawable?) {
                     AnimatedVectorDrawableCompat.clearAnimationCallbacks(drawable)
                     isRun = false
-                    setImageResource(getAnimateImageRes(!on))
+                    setImageResource(getAnimateImageRes(!on, isWhite, isDark))
                 }
             })
         (drawable as AnimatedVectorDrawable).start()

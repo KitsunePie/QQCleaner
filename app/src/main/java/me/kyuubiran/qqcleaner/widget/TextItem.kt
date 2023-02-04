@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -8,6 +9,7 @@ import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ItemTextBinding.*
 import me.kyuubiran.qqcleaner.uitls.dp
@@ -20,17 +22,14 @@ import me.kyuubiran.qqcleaner.uitls.dp
 class TextItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
 
     // 菜单小字对应的文本
-    public var subtext: String = "默认"
+    var subtext: String = "默认"
 
     private lateinit var text: String
+    val binding = inflate(LayoutInflater.from(getContext()), this, true)
 
     init {
         initAttrs(attr)
-        val binding = inflate(
-            LayoutInflater.from(getContext()),
-            this,
-            true
-        )
+
         binding.root.apply {
             val background = GradientDrawable()
             background.setColor(Color.WHITE)
@@ -45,11 +44,20 @@ class TextItem(context: Context, attr: AttributeSet) : LinearLayout(context, att
         binding.textSub.text = subtext
     }
 
+    @SuppressLint("CustomViewStyleable")
     private fun initAttrs(attrs: AttributeSet) {
         // 加载对应的 AttributeSet
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.Item)
         // 获取对应 text 属性的内容
         text = typedArray.getString(R.styleable.Item_text).toString()
         typedArray.recycle()
+    }
+
+    fun setTextColor(@ColorInt color: Int) {
+        binding.textTitle.setTextColor(color)
+    }
+
+    fun setTipTextColor(@ColorInt color: Int) {
+        binding.textSub.setTextColor(color)
     }
 }

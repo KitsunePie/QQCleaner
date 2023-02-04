@@ -21,14 +21,12 @@ import me.kyuubiran.qqcleaner.databinding.ToolbarBinding
 class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
     private lateinit var text: String
 
+    val binding = ToolbarBinding.inflate(
+        LayoutInflater.from(getContext()), this, true
+    )
+
     init {
         initAttrs(attr)
-        // 和对应的 xml 进行绑定
-        val binding = ToolbarBinding.inflate(
-            LayoutInflater.from(getContext()),
-            this,
-            true
-        )
         binding.titleText.text = text
         binding.backIcon.setOnClickListener {
             val fragment =

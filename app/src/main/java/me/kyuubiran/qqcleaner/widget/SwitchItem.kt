@@ -21,6 +21,11 @@ class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, a
 
     private var checked: Boolean = false
 
+    private var isWhite: Boolean = false
+
+    private var isDark: Boolean = false
+
+
     lateinit var text: String
 
     private lateinit var listener: (Boolean) -> Unit
@@ -44,21 +49,31 @@ class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, a
 
         // 设置默认值，防止为空
         binding.switchText.text = text
-        binding.switchImg.setChecked(checked, false)
+        binding.switchImg.setChecked(checked, isWhite, isDark, false)
 
         // 设置点击事件
         this.setOnClickListener {
             checked = !checked
-            binding.switchImg.setChecked(checked, true)
+            binding.switchImg.setChecked(checked, isWhite, isDark, true)
             listener(checked)
         }
+    }
+
+    fun setTextColor(color: Int) {
+        binding.switchText.setTextColor(color)
     }
 
     fun setSwitchChecked(on: Boolean) {
         if (on != checked) {
             checked = on
-            binding.switchImg.setChecked(on, false)
+            binding.switchImg.setChecked(on, isWhite, isDark, false)
         }
+    }
+
+    fun setSwitchColor(white: Boolean, dark: Boolean) {
+        isWhite = white
+        isDark = dark
+        binding.switchImg.setChecked(checked, isWhite, isDark, false)
     }
 
 

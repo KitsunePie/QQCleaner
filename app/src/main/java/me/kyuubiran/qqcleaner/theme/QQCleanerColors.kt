@@ -132,19 +132,19 @@ class QQCleanerColors(
     disableSecondTextColor: Int,
     thirdTextColor: Int,
 
-    pageBackgroundColor: Int,
+    val pageBackgroundColor: Int,
     val appBarsAndItemBackgroundColor: Int,
     val dialogBackgroundColor: Int,
     typeBoxBackgroundColor: Int,
 
     dividerColor: Int,
-    rippleColor: Int,
+    val rippleColor: Int,
     val maskColor: Int,
     val whiteColor: Int,
     iconQQCleanerRingColor: Int,
 
-    itemRightIconColor: Int,
-    itemRightTextColor: Int,
+    val itemRightIconColor: Int,
+    val itemRightTextColor: Int,
 
     switchLineColor: Int,
     switchOffColor: Int,

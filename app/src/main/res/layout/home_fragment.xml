@@ -43,12 +43,12 @@
                 android:paddingVertical="4dp"
                 android:singleLine="true"
                 android:text="上次瘦身 11 / 21 03:00"
-                android:textColor="#ffffffff"
                 android:textSize="8sp"
                 tools:ignore="SmallSp" />
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/qqcleaner_icon"
             android:layout_width="88dp"
             android:layout_height="88dp"
             android:layout_gravity="center_vertical|end"
@@ -68,8 +68,7 @@
             android:layout_height="match_parent"
             app:hl_cornerRadius_leftTop="10dp"
             app:hl_cornerRadius_rightTop="10dp"
-            app:hl_layoutBackground="#F7F7F7"
-            app:hl_shadowColor="#283C4043"
+
             app:hl_shadowHiddenBottom="true"
             app:hl_shadowHiddenLeft="true"
             app:hl_shadowHiddenRight="true"
@@ -85,7 +84,6 @@
             android:layout_marginTop="24dp"
             android:singleLine="true"
             android:text="@string/title_setup"
-            android:textColor="#ff202124"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -108,6 +106,7 @@
                 app:text="@string/item_cleaner" />
 
             <me.kyuubiran.qqcleaner.widget.TextItem
+                android:id="@+id/auto_cleaner_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:text="@string/item_cleaner_time" />
@@ -128,7 +127,6 @@
             android:layout_marginTop="24dp"
             android:singleLine="true"
             android:text="@string/title_more"
-            android:textColor="#ff202124"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -139,12 +137,12 @@
             android:layout_below="@id/title_more"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="24dp"
-            android:background="#ffffff"
             android:orientation="vertical"
             app:clip_background="true"
             app:round_corner="10dp">
 
             <me.kyuubiran.qqcleaner.widget.ChevronItem
+                android:id="@+id/theme_chevr_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:text="@string/item_theme" />
@@ -157,6 +155,7 @@
 
         </com.gcssloop.widget.RCLinearLayout>
 
+        <!-- app:hl_layoutBackground_true 是占位用的 -->
         <com.lihang.ShadowLayout
             android:id="@+id/cleaner_btn"
             android:layout_width="wrap_content"
@@ -164,9 +163,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             app:hl_cornerRadius="18dp"
-            app:hl_layoutBackground="#0095FF"
             app:hl_layoutBackground_true="#ffffff"
-            app:hl_shadowColor="#600095FF"
             app:hl_shadowLimit="6dp"
             app:hl_shadowOffsetY="3dp"
             app:hl_shapeMode="ripple">

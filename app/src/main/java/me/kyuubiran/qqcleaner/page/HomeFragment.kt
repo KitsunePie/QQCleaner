@@ -24,6 +24,7 @@ import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
 import me.kyuubiran.qqcleaner.dialog.ThemeDialog
+import me.kyuubiran.qqcleaner.theme.LightColorPalette
 import me.kyuubiran.qqcleaner.uitls.AUTO_CLEANER_TIME
 import me.kyuubiran.qqcleaner.uitls.IS_AUTO_CLEANER
 import me.kyuubiran.qqcleaner.uitls.dataStore
@@ -55,7 +56,7 @@ class HomeFragment : BaseFragment() {
         intoLayout()
         intoClickListener()
         ThemeDialog(model).show(
-            parentFragmentManager,"android"
+            parentFragmentManager, "android"
         )
         return binding.root
     }
@@ -76,8 +77,37 @@ class HomeFragment : BaseFragment() {
                     setBackground(background)
                 }
 
+                binding.qqcleanerIcon.setImageResource(
+                    if (it == LightColorPalette)
+                        R.drawable.ic_home_qqcleaner
+                    else
+                        R.drawable.ic_home_qqcleaner_dark
+                )
+
+                binding.mShadowLayout.setLayoutBackground(it.pageBackgroundColor)
+                binding.mShadowLayout.setShadowColor(it.rippleColor)
+
+                binding.titleSetup.setTextColor(it.secondTextColor)
+                binding.setupLayout.setBackgroundColor(it.appBarsAndItemBackgroundColor)
+                binding.autoCleaner.setTextColor(it.secondTextColor)
+                binding.autoCleaner.setSwitchColor(false, it != LightColorPalette)
+                binding.autoCleanerText.setTextColor(it.secondTextColor)
+                binding.autoCleanerText.setTipTextColor(it.itemRightTextColor)
+                binding.configChevrItem.setTextColor(it.secondTextColor)
+                binding.configChevrItem.setIconColor(it.itemRightIconColor)
+
+                binding.titleMore.setTextColor(it.secondTextColor)
+                binding.moreLayout.setBackgroundColor(it.appBarsAndItemBackgroundColor)
+                binding.themeChevrItem.setTextColor(it.secondTextColor)
+                binding.themeChevrItem.setIconColor(it.itemRightIconColor)
+                binding.aboutChevrItem.setTextColor(it.secondTextColor)
+                binding.aboutChevrItem.setIconColor(it.itemRightIconColor)
+
+                // todo 这个最后应该使用自定 ViewGroup 完成
                 binding.cleanerBtn.setLayoutBackground(it.mainThemeColor)
+                binding.cleanerBtn.setLayoutBackgroundTrue(it.whiteColor)
                 binding.cleanerBtn.setShadowColor(it.sixtyThreePercentThemeColor)
+
             }
         }
 

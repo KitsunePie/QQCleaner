@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.DeveloperItemBinding
 
@@ -16,15 +17,16 @@ import me.kyuubiran.qqcleaner.databinding.DeveloperItemBinding
 class DeveloperItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
     lateinit var text: String
     lateinit var name: String
-    lateinit var image: Drawable
+    private lateinit var image: Drawable
 
+    val binding = DeveloperItemBinding.inflate(
+        LayoutInflater.from(getContext()),
+        this,
+        true
+    )
     init {
         initAttrs(attr)
-        val binding = DeveloperItemBinding.inflate(
-            LayoutInflater.from(getContext()),
-            this,
-            true
-        )
+
         binding.developerName.text = name
         binding.developerText.text = text
         binding.developerImage.setImageDrawable(image)
@@ -39,5 +41,9 @@ class DeveloperItem(context: Context, attr: AttributeSet) : LinearLayout(context
         name = typedArray.getString(R.styleable.DeveloperItem_name).toString()
         image = typedArray.getDrawable(R.styleable.DeveloperItem_src)!!
         typedArray.recycle()
+    }
+
+    fun setTextColor(@ColorInt color: Int) {
+        binding.developerText.setTextColor(color)
     }
 }
