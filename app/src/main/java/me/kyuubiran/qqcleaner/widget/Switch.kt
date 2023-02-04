@@ -37,25 +37,26 @@ class Switch(context: Context, attr: AttributeSet) : ImageView(context, attr) {
         return if (on)
             if (isDark)
                 if (isWhite)
-                    R.drawable.switch_on_to_off_white
-                else
-                    R.drawable.switch_default_on_to_off
-            else
-                if (isWhite)
                     R.drawable.switch_on_to_off_white_drak
                 else
                     R.drawable.switch_default_on_to_off_drak
+            else
+                if (isWhite)
+                    R.drawable.switch_on_to_off_white
+                else
+                    R.drawable.switch_default_on_to_off
         else
             if (isDark)
-                if (isWhite)
-                    R.drawable.switch_off_to_on_white
-                else
-                    R.drawable.switch_default_off_to_on
-            else
                 if (isWhite)
                     R.drawable.switch_off_to_on_white_drak
                 else
                     R.drawable.switch_default_off_to_on_drak
+            else
+                if (isWhite)
+                    R.drawable.switch_off_to_on_white
+                else
+                    R.drawable.switch_default_off_to_on
+
     }
 
     private fun showAnimate(on: Boolean, isWhite: Boolean, isDark: Boolean) {

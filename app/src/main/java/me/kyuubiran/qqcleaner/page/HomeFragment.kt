@@ -55,9 +55,7 @@ class HomeFragment : BaseFragment() {
         setOnApplyWindowInsetsListener()
         intoLayout()
         intoClickListener()
-        ThemeDialog(model).show(
-            parentFragmentManager, "android"
-        )
+        ThemeDialog(model).show(parentFragmentManager, "")
         return binding.root
     }
 
