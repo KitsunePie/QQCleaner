@@ -4,25 +4,89 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:padding="24dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:drawablePadding="24dp"
+            android:padding="24dp"
             android:text="@string/item_theme"
             android:textSize="18sp"
+            android:drawableEnd="@drawable/ic_close"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@string/item_theme_close"
-            android:src="@drawable/ic_close" />
-    </LinearLayout>
+    <View
+        android:id="@+id/top_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="12dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/light_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:drawableStart="@drawable/ic_sun"
+        android:drawableEnd="@drawable/ic_chosen"
+        android:drawablePadding="16dp"
+        android:padding="16dp"
+        android:text="@string/light_theme"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dark_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:drawableStart="@drawable/ic_moon"
+        android:drawableEnd="@drawable/ic_chosen"
+        android:drawablePadding="16dp"
+        android:padding="16dp"
+        android:text="@string/dark_theme"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/follow_system_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:drawableStart="@drawable/ic_android"
+        android:drawableEnd="@drawable/ic_chosen"
+        android:drawablePadding="16dp"
+        android:padding="16dp"
+        android:text="@string/follow_system_theme"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/black_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:drawableStart="@drawable/ic_a"
+        android:drawableEnd="@drawable/ic_chosen"
+        android:drawablePadding="16dp"
+        android:padding="16dp"
+        android:text="@string/use_black_dark_theme"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/theme_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/theme_select"
+        android:textSize="16sp" />
 
 </LinearLayout>

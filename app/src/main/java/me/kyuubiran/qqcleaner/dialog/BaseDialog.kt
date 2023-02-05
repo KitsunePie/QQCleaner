@@ -26,7 +26,7 @@ import me.kyuubiran.qqcleaner.uitls.statusBarLightOldMode
 
 
 
-open class BaseDialog(private val states: MainActivity.MainActivityStates) : DialogFragment() {
+open class BaseDialog(val states: MainActivity.MainActivityStates) : DialogFragment() {
 
     lateinit var layout: View
 

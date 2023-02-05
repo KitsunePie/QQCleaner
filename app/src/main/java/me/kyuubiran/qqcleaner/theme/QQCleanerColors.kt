@@ -137,7 +137,7 @@ class QQCleanerColors(
     val dialogBackgroundColor: Int,
     typeBoxBackgroundColor: Int,
 
-    dividerColor: Int,
+    val dividerColor: Int,
     val rippleColor: Int,
     val maskColor: Int,
     val whiteColor: Int,

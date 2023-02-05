@@ -20,6 +20,7 @@
     <string name="dark_theme">深色主题</string>
     <string name="follow_system_theme">跟随系统</string>
     <string name="use_black_dark_theme">使用纯黑色深色主题</string>
+    <string name="theme_select">保存</string>
     <string name="item_about">关于瘦身</string>
 
     <string name="modify_config">编辑配置</string>

@@ -68,11 +68,11 @@ class HomeFragment : BaseFragment() {
                 binding.lastTime.setTextColor(it.secondTextColor)
 
                 binding.lastTimeSub.apply {
-                    val background = GradientDrawable()
-                    background.setColor(it.mainThemeColor)
-                    background.cornerRadius = 4.dp
                     setTextColor(it.whiteColor)
-                    setBackground(background)
+                    this.background = GradientDrawable().apply {
+                        setColor(it.mainThemeColor)
+                        cornerRadius = 4.dp
+                    }
                 }
 
                 binding.qqcleanerIcon.setImageResource(
@@ -82,24 +82,36 @@ class HomeFragment : BaseFragment() {
                         R.drawable.ic_home_qqcleaner_dark
                 )
 
-                binding.mShadowLayout.setLayoutBackground(it.pageBackgroundColor)
-                binding.mShadowLayout.setShadowColor(it.rippleColor)
+                binding.mShadowLayout.apply {
+                    setLayoutBackground(it.pageBackgroundColor)
+                    setShadowColor(it.rippleColor)
+                }
 
                 binding.titleSetup.setTextColor(it.secondTextColor)
                 binding.setupLayout.setBackgroundColor(it.appBarsAndItemBackgroundColor)
-                binding.autoCleaner.setTextColor(it.secondTextColor)
-                binding.autoCleaner.setSwitchColor(false, it != LightColorPalette)
-                binding.autoCleanerText.setTextColor(it.secondTextColor)
-                binding.autoCleanerText.setTipTextColor(it.itemRightTextColor)
-                binding.configChevrItem.setTextColor(it.secondTextColor)
-                binding.configChevrItem.setIconColor(it.itemRightIconColor)
+                binding.autoCleaner.apply {
+                    setTextColor(it.secondTextColor)
+                    setSwitchColor(false, it != LightColorPalette)
+                }
+                binding.autoCleanerText.apply {
+                    setTextColor(it.secondTextColor)
+                    setTipTextColor(it.itemRightTextColor)
+                }
+                binding.configChevrItem.apply {
+                    setTextColor(it.secondTextColor)
+                    setIconColor(it.itemRightIconColor)
+                }
 
                 binding.titleMore.setTextColor(it.secondTextColor)
                 binding.moreLayout.setBackgroundColor(it.appBarsAndItemBackgroundColor)
-                binding.themeChevrItem.setTextColor(it.secondTextColor)
-                binding.themeChevrItem.setIconColor(it.itemRightIconColor)
-                binding.aboutChevrItem.setTextColor(it.secondTextColor)
-                binding.aboutChevrItem.setIconColor(it.itemRightIconColor)
+                binding.themeChevrItem.apply {
+                    setTextColor(it.secondTextColor)
+                    setIconColor(it.itemRightIconColor)
+                }
+                binding.aboutChevrItem.apply {
+                    setTextColor(it.secondTextColor)
+                    setIconColor(it.itemRightIconColor)
+                }
 
                 // todo 这个最后应该使用自定 ViewGroup 完成
                 binding.cleanerBtn.setLayoutBackground(it.mainThemeColor)
