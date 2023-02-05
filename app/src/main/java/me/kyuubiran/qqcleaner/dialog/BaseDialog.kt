@@ -27,14 +27,18 @@ import me.kyuubiran.qqcleaner.uitls.statusBarLightOldMode
 
 
 open class BaseDialog(private val states: MainActivity.MainActivityStates) : DialogFragment() {
-    lateinit var layout: View
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val binding = BaseDialogBinding.inflate(requireActivity().layoutInflater)
+    lateinit var layout: View
+
+    lateinit var dialogLayout: View
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 随便设置一个空主题，这是一个带动画的主题
         val dialog = Dialog(requireContext(), android.R.style.Animation_Dialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val binding = BaseDialogBinding.inflate(layoutInflater)
 
+        dialogLayout = binding.dialogLayout
         binding.dialogLayout.addView(
             layout,
             0,
@@ -47,7 +51,7 @@ open class BaseDialog(private val states: MainActivity.MainActivityStates) : Dia
 
         // 内部填充
         @Suppress("DEPRECATION")
-        binding.root.setOnApplyWindowInsetsListener { _, insets ->
+        binding.navMargin.setOnApplyWindowInsetsListener { _, insets ->
             binding.navMargin.updateLayoutParams {
                 height =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
