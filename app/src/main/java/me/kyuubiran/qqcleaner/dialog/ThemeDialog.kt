@@ -2,11 +2,15 @@ package me.kyuubiran.qqcleaner.dialog
 
 
 import android.app.Dialog
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.widget.TextViewCompat.setCompoundDrawableTintList
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
@@ -18,10 +22,47 @@ import me.kyuubiran.qqcleaner.theme.Theme.Type.LIGHT_THEME
 import me.kyuubiran.qqcleaner.uitls.dpInt
 
 
-class ThemeDialog(states: MainActivityStates) : BaseDialog(states) {
+class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityStates) {
+
+    private val state: ThemeStates by viewModels()
+    lateinit var binding: ThemeDialogBinding
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val binding = ThemeDialogBinding.inflate(layoutInflater)
+        state.initViewModel(activityStates)
+        binding = ThemeDialogBinding.inflate(layoutInflater)
         layout = binding.root
+        initIcon()
+
+        lifecycleScope.launch {
+
+            activityStates.colorPalette.collect {
+                binding.topDivider.setBackgroundColor(it.dividerColor)
+                setCompoundDrawableTintList(
+                    binding.lightTheme,
+                    ColorStateList.valueOf(it.mainThemeColor)
+                )
+
+                setCompoundDrawableTintList(
+                    binding.darkTheme,
+                    ColorStateList.valueOf(it.mainThemeColor)
+                )
+                setCompoundDrawableTintList(
+                    binding.followSystemTheme,
+                    ColorStateList.valueOf(it.mainThemeColor)
+                )
+                setCompoundDrawableTintList(
+                    binding.blackTheme,
+                    ColorStateList.valueOf(it.mainThemeColor)
+                )
+                binding.bottomDivider.setBackgroundColor(it.dividerColor)
+            }
+        }
+
+        initOnClick()
+
+        return super.onCreateDialog(savedInstanceState)
+    }
+
+    private fun initIcon() {
         val chosenDrawable = getDrawable(requireContext(), R.drawable.ic_chosen)!!.apply {
             setBounds(0, 0, 24.dpInt, 24.dpInt)
         }
@@ -39,9 +80,10 @@ class ThemeDialog(states: MainActivityStates) : BaseDialog(states) {
         val blackDrawable = getDrawable(requireContext(), R.drawable.ic_a)!!.apply {
             setBounds(0, 0, 24.dpInt, 24.dpInt)
         }
+
         lifecycleScope.launch {
 
-            states.appTheme.collect {
+            state.tempTheme.collect {
 
                 binding.lightTheme.apply {
                     setCompoundDrawables(
@@ -86,47 +128,52 @@ class ThemeDialog(states: MainActivityStates) : BaseDialog(states) {
                 }
             }
         }
+    }
 
-        lifecycleScope.launch {
-
-            states.colorPalette.collect {
-                binding.topDivider.setBackgroundColor(it.dividerColor)
-                setCompoundDrawableTintList(
-                    binding.lightTheme,
-                    ColorStateList.valueOf(it.mainThemeColor)
-                )
-
-                setCompoundDrawableTintList(
-                    binding.darkTheme,
-                    ColorStateList.valueOf(it.mainThemeColor)
-                )
-                setCompoundDrawableTintList(
-                    binding.followSystemTheme,
-                    ColorStateList.valueOf(it.mainThemeColor)
-                )
-                setCompoundDrawableTintList(
-                    binding.blackTheme,
-                    ColorStateList.valueOf(it.mainThemeColor)
-                )
-                binding.bottomDivider.setBackgroundColor(it.dividerColor)
-            }
-        }
-
+    private fun initOnClick() {
         binding.lightTheme.setOnClickListener {
-            states.setTheme(LIGHT_THEME, false, requireContext())
+            state.setTheme(LIGHT_THEME)
         }
         binding.darkTheme.setOnClickListener {
-            states.setTheme(Theme.Type.DARK_THEME, false, requireContext())
+            state.setTheme(Theme.Type.DARK_THEME)
         }
         binding.followSystemTheme.setOnClickListener {
-            states.setTheme(Theme.Type.AUTO_THEME, false, requireContext())
+            state.setTheme(Theme.Type.AUTO_THEME)
         }
 
         binding.blackTheme.setOnClickListener {
-            states.setTheme(Theme.Type.DARK_THEME, true, requireContext())
+            state.switchBlackTheme()
         }
 
-        return super.onCreateDialog(savedInstanceState)
+        binding.themeSelect.setOnClickListener {
+            state.setActivityTheme(activityStates, requireContext())
+        }
+    }
+
+    class ThemeStates : StateHolder() {
+        lateinit var tempTheme: MutableStateFlow<Theme>
+        fun initViewModel(states: MainActivityStates) {
+            // 给 temp 为当前值
+            viewModelScope.launch {
+                tempTheme = MutableStateFlow(states.appTheme.value)
+            }
+        }
+
+        fun setTheme(theme: Theme.Type) {
+            viewModelScope.launch {
+                tempTheme.emit(tempTheme.value.copy(value = theme.value))
+            }
+        }
+
+        fun switchBlackTheme() {
+            viewModelScope.launch {
+                tempTheme.emit(tempTheme.value.copy(isBlack = !tempTheme.value.isBlack))
+            }
+        }
+
+        fun setActivityTheme(states: MainActivityStates, context: Context) {
+            states.setTheme(this.tempTheme.value, context)
+        }
     }
 
 }

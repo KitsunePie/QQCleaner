@@ -13,7 +13,7 @@ open class EditDialog(states: MainActivity.MainActivityStates) : BaseDialog(stat
 
         val dialog = super.onCreateDialog(savedInstanceState)
 
-        // 实现边对边动画
+        // 实现 edge to edge 动画
         ViewCompat.setWindowInsetsAnimationCallback(
             dialogLayout,
             object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP) {

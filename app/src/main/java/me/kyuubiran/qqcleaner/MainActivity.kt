@@ -36,7 +36,7 @@ class MainActivity : FragmentActivity() {
     private val mainViewModel: MainActivityStates by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        this.setTheme(androidx.appcompat.R.style.Theme_AppCompat)
+        this.setTheme(androidx.appcompat.R.style.Base_Theme_AppCompat_Light)
         // 去除顶栏
         mainViewModel.initViewModel(context = this)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -106,9 +106,13 @@ class MainActivity : FragmentActivity() {
             }
         }
 
-        fun setTheme(theme: Theme.Type, isBlack: Boolean, context: Context) {
+        fun setTheme(theme: Theme, context: Context) {
+            setTheme(theme.type, theme.isBlack, context)
+        }
+
+        private fun setTheme(type: Theme.Type, isBlack: Boolean, context: Context) {
             viewModelScope.launch(Dispatchers.IO) {
-                context.editData(THEME_SELECT, theme.value)
+                context.editData(THEME_SELECT, type.value)
                 context.editData(IS_BLACK_THEME, isBlack)
             }
         }

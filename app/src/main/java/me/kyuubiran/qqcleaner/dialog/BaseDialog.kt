@@ -13,6 +13,7 @@ import android.view.WindowInsets
 import androidx.core.view.WindowCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity
@@ -24,8 +25,7 @@ import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
 import me.kyuubiran.qqcleaner.uitls.statusBarLightMode
 
 
-
-open class BaseDialog(val states: MainActivity.MainActivityStates) : DialogFragment() {
+open class BaseDialog(val activityStates: MainActivity.MainActivityStates) : DialogFragment() {
 
     lateinit var layout: View
 
@@ -66,14 +66,13 @@ open class BaseDialog(val states: MainActivity.MainActivityStates) : DialogFragm
             setStatusBarTranslation()
             setNavigationBarTranslation()
 
-
             lifecycleScope.launch {
-                states.colorPalette.collect {
+                activityStates.colorPalette.collect {
                     statusBarLightMode(it == LightColorPalette)
                     navigationBarLightMode(it == LightColorPalette)
                     binding.dialogLayout.background =
-                        ColorDrawable(states.colorPalette.value.dialogBackgroundColor)
-                    setBackgroundDrawable(ColorDrawable(states.colorPalette.value.maskColor))
+                        ColorDrawable(activityStates.colorPalette.value.dialogBackgroundColor)
+                    setBackgroundDrawable(ColorDrawable(activityStates.colorPalette.value.maskColor))
                 }
             }
 
@@ -86,4 +85,6 @@ open class BaseDialog(val states: MainActivity.MainActivityStates) : DialogFragm
         }
         return dialog
     }
+
+    open class StateHolder : ViewModel()
 }
