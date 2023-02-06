@@ -25,12 +25,10 @@ fun Window.setStatusBarTranslation() {
     if (SDK_INT >= Q)
         isStatusBarContrastEnforced = false
     // 设置状态栏透明,暂时没有更好的办法解决透明问题
+    clearFlags(FLAG_TRANSLUCENT_STATUS)
     addFlags(FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     if (isMiuiDevices())
         addFlags(FLAG_TRANSLUCENT_STATUS)
-    else
-        clearFlags(FLAG_TRANSLUCENT_STATUS)
-
     statusBarColor = TRANSPARENT
 }
 
@@ -45,12 +43,9 @@ fun setNavigationBarTranslation() {
  */
 @Suppress("DEPRECATION")
 fun Window.setNavigationBarTranslation() {
+    clearFlags(FLAG_TRANSLUCENT_NAVIGATION)
     if (isMiuiDevices())
         addFlags(FLAG_TRANSLUCENT_NAVIGATION)
-    else
-        clearFlags(FLAG_TRANSLUCENT_NAVIGATION)
-
-
     // 防止透明以后高对比度
     if (SDK_INT >= Q)
         isNavigationBarContrastEnforced = false
@@ -63,7 +58,7 @@ fun Window.setNavigationBarTranslation() {
 
 context(Activity)
 fun statusBarLightMode(enable: Boolean = true) {
-    window.statusBarLightMode()
+    window.statusBarLightMode(enable)
 }
 
 /**
@@ -83,12 +78,6 @@ fun Window.statusBarLightMode(enable: Boolean = true) {
     statusBarLightOldMode(enable)
 }
 
-
-context(Activity)
-fun statusBarLightOldMode(enable: Boolean = true) {
-    window.statusBarLightOldMode()
-}
-
 /**
  * 设置亮色状态栏（对应旧版本）
  * @param enable 默认为亮色
@@ -106,7 +95,7 @@ fun Window.statusBarLightOldMode(enable: Boolean = true) {
 
 context(Activity)
 fun navigationBarLightMode(enable: Boolean = true) {
-    window.navigationBarLightMode()
+    window.navigationBarLightMode(enable)
 }
 
 /**
@@ -125,11 +114,6 @@ fun Window.navigationBarLightMode(enable: Boolean = true) {
             )
         }
     navigationBarLightOldMode(enable)
-}
-
-context(Activity)
-fun navigationBarLightOldMode(enable: Boolean = true) {
-    window.navigationBarLightOldMode()
 }
 
 /**

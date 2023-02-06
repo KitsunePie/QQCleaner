@@ -18,11 +18,10 @@ import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity
 import me.kyuubiran.qqcleaner.databinding.BaseDialogBinding
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
-import me.kyuubiran.qqcleaner.theme.Theme
-import me.kyuubiran.qqcleaner.uitls.navigationBarLightOldMode
+import me.kyuubiran.qqcleaner.uitls.navigationBarLightMode
 import me.kyuubiran.qqcleaner.uitls.setNavigationBarTranslation
 import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
-import me.kyuubiran.qqcleaner.uitls.statusBarLightOldMode
+import me.kyuubiran.qqcleaner.uitls.statusBarLightMode
 
 
 
@@ -44,10 +43,6 @@ open class BaseDialog(val states: MainActivity.MainActivityStates) : DialogFragm
             0,
             LayoutParams(MATCH_PARENT, WRAP_CONTENT)
         )
-
-        binding.dialogLayout.setOnClickListener {
-            states.setTheme(Theme.AUTO_THEME, false, requireContext())
-        }
 
         // 内部填充
         @Suppress("DEPRECATION")
@@ -73,12 +68,12 @@ open class BaseDialog(val states: MainActivity.MainActivityStates) : DialogFragm
 
 
             lifecycleScope.launch {
-                states.theme.collect {
-                    statusBarLightOldMode(it == LightColorPalette)
-                    navigationBarLightOldMode(it == LightColorPalette)
+                states.colorPalette.collect {
+                    statusBarLightMode(it == LightColorPalette)
+                    navigationBarLightMode(it == LightColorPalette)
                     binding.dialogLayout.background =
-                        ColorDrawable(states.theme.value.dialogBackgroundColor)
-                    setBackgroundDrawable(ColorDrawable(states.theme.value.maskColor))
+                        ColorDrawable(states.colorPalette.value.dialogBackgroundColor)
+                    setBackgroundDrawable(ColorDrawable(states.colorPalette.value.maskColor))
                 }
             }
 

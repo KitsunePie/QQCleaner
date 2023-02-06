@@ -21,21 +21,22 @@ import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.theme.BlackColorPalette
 import me.kyuubiran.qqcleaner.theme.DarkColorPalette
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
-import me.kyuubiran.qqcleaner.theme.QQCleanerColors
 import me.kyuubiran.qqcleaner.theme.Theme
 import me.kyuubiran.qqcleaner.uitls.IS_BLACK_THEME
 import me.kyuubiran.qqcleaner.uitls.THEME_SELECT
 import me.kyuubiran.qqcleaner.uitls.dataStore
 import me.kyuubiran.qqcleaner.uitls.editData
-import me.kyuubiran.qqcleaner.uitls.navigationBarLightOldMode
+import me.kyuubiran.qqcleaner.uitls.navigationBarLightMode
 import me.kyuubiran.qqcleaner.uitls.setNavigationBarTranslation
 import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
-import me.kyuubiran.qqcleaner.uitls.statusBarLightOldMode
+import me.kyuubiran.qqcleaner.uitls.statusBarLightMode
 
 
 class MainActivity : FragmentActivity() {
-    val mainViewModel: MainActivityStates by viewModels()
+    private val mainViewModel: MainActivityStates by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        this.setTheme(androidx.appcompat.R.style.Theme_AppCompat)
         // 去除顶栏
         mainViewModel.initViewModel(context = this)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -43,94 +44,84 @@ class MainActivity : FragmentActivity() {
         // 导航栏与状态栏沉浸
         setStatusBarTranslation()
         setNavigationBarTranslation()
-        statusBarLightOldMode()
-        navigationBarLightOldMode()
-        super.onCreate(savedInstanceState)
         // 关闭系统暗色模式
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
             this.window.decorView.isForceDarkAllowed = false
 
+        super.onCreate(savedInstanceState)
+
+
+        lifecycleScope.launch {
+            mainViewModel.colorPalette.collect {
+                statusBarLightMode(it == LightColorPalette)
+                navigationBarLightMode(it == LightColorPalette)
+            }
+        }
         // 加载对应的布局
         this.setContentView(R.layout.main_activity)
         lifecycleScope.launch {
             dataStore.data.first()
         }
 
-        this.addOnConfigurationChangedListener {
-            when (it.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_NO -> {
-                    mainViewModel.setSystemTheme(true, this)
-                }
+    }
 
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    mainViewModel.setSystemTheme(false, this)
-                }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        this.lifecycleScope.launch {
+            mainViewModel.appTheme.collect {
+                if (it.type == Theme.Type.AUTO_THEME) {
+                    when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                        Configuration.UI_MODE_NIGHT_NO ->
+                            mainViewModel.setSystemTheme(true, it.isBlack)
 
+                        Configuration.UI_MODE_NIGHT_YES ->
+                            mainViewModel.setSystemTheme(false, it.isBlack)
+                    }
+                }
             }
         }
-
     }
 
 
     class MainActivityStates : ViewModel() {
-        private lateinit var themeSelect: StateFlow<QQCleanerColors>
+        lateinit var appTheme: StateFlow<Theme>
 
-        private var _theme = MutableStateFlow(LightColorPalette)
+        private var _colorPalette = MutableStateFlow(LightColorPalette)
+
         // 加载主题
-        var theme = _theme
+        var colorPalette = _colorPalette
 
         fun initViewModel(context: Context) {
+
             viewModelScope.launch(Dispatchers.IO) {
-
-                themeSelect = context.dataStore.data.map { preferences ->
-                    val themeSelect = preferences[THEME_SELECT] ?: Theme.Light_THEME.value
+                appTheme = context.dataStore.data.map { preferences ->
+                    val themeValue = preferences[THEME_SELECT] ?: Theme.Type.LIGHT_THEME.value
                     val isBlackTheme = preferences[IS_BLACK_THEME] ?: false
-                    when (themeSelect) {
-                        Theme.Light_THEME.value -> LightColorPalette
-                        Theme.Dark_THEME.value -> if (isBlackTheme) BlackColorPalette else DarkColorPalette
-                        Theme.AUTO_THEME.value -> {
-                            when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                                Configuration.UI_MODE_NIGHT_NO -> LightColorPalette
-                                Configuration.UI_MODE_NIGHT_YES -> if (isBlackTheme) BlackColorPalette else DarkColorPalette
-                                else -> LightColorPalette
-                            }
-                        }
-
-                        else -> LightColorPalette
-                    }
+                    Theme(themeValue, isBlackTheme)
                 }.stateIn(this)
 
-                themeSelect.collect {
-                    _theme.emit(it)
+                appTheme.collect {
+                    _colorPalette.emit(it.getColorPalette(context))
                 }
             }
         }
 
-        fun setTheme(theme: Theme, isBlack: Boolean, context: Context) {
+        fun setTheme(theme: Theme.Type, isBlack: Boolean, context: Context) {
             viewModelScope.launch(Dispatchers.IO) {
                 context.editData(THEME_SELECT, theme.value)
                 context.editData(IS_BLACK_THEME, isBlack)
             }
         }
 
-        fun setSystemTheme(isLight: Boolean, context: Context) {
+        fun setSystemTheme(isLight: Boolean, isBlack: Boolean) {
             viewModelScope.launch(Dispatchers.IO) {
-                val themeSelect = context.dataStore.data.map { preferences ->
-                    preferences[THEME_SELECT] ?: Theme.Light_THEME.value
-                }.stateIn(this).value
-                val isBlackTheme = context.dataStore.data.map { preferences ->
-                    preferences[IS_BLACK_THEME] ?: false
-                }.stateIn(this).value
-                if (themeSelect == Theme.AUTO_THEME.value) {
-                    _theme.emit(
-                        if (isLight) {
-                            LightColorPalette
-                        } else {
-                            if (isBlackTheme) BlackColorPalette else DarkColorPalette
-                        }
-                    )
-
-                }
+                _colorPalette.emit(
+                    if (isLight) {
+                        LightColorPalette
+                    } else {
+                        if (isBlack) BlackColorPalette else DarkColorPalette
+                    }
+                )
             }
 
 

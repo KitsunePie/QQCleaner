@@ -2,14 +2,6 @@ package me.kyuubiran.qqcleaner.theme
 
 import android.graphics.Color
 
-enum class Theme(val value: Int) {
-    Light_THEME(0),
-    Dark_THEME(1),
-    AUTO_THEME(2)
-}
-
-
-
 // 纯黑主题配色
 val BlackColorPalette = QQCleanerColors(
     mainThemeColor = Color.parseColor("#FF82A8E7"),

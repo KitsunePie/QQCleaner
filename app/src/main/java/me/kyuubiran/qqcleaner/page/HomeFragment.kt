@@ -29,6 +29,7 @@ import me.kyuubiran.qqcleaner.uitls.AUTO_CLEANER_TIME
 import me.kyuubiran.qqcleaner.uitls.IS_AUTO_CLEANER
 import me.kyuubiran.qqcleaner.uitls.dataStore
 import me.kyuubiran.qqcleaner.uitls.dp
+import me.kyuubiran.qqcleaner.uitls.dpInt
 import me.kyuubiran.qqcleaner.uitls.editData
 import me.kyuubiran.qqcleaner.uitls.navigatePage
 
@@ -62,7 +63,7 @@ class HomeFragment : BaseFragment() {
     private fun intoLayout() {
         // 设置主题颜色
         lifecycleScope.launch {
-            model.theme.collect {
+            model.colorPalette.collect {
                 binding.root.background = ColorDrawable(it.appBarsAndItemBackgroundColor)
                 binding.time.setTextColor(it.secondTextColor)
                 binding.lastTime.setTextColor(it.secondTextColor)
@@ -71,7 +72,7 @@ class HomeFragment : BaseFragment() {
                     setTextColor(it.whiteColor)
                     this.background = GradientDrawable().apply {
                         setColor(it.mainThemeColor)
-                        cornerRadius = 4.dp
+                            cornerRadius = 4.dp
                     }
                 }
 
@@ -162,9 +163,9 @@ class HomeFragment : BaseFragment() {
             // 设置按钮边距
             binding.cleanerBtn.updateLayoutParams {
                 (this as RelativeLayout.LayoutParams).bottomMargin =
-                    ((if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                    (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.navigationBars()).bottom
-                    else insets.systemWindowInsetBottom) + 24.dp(requireContext())).toInt()
+                    else insets.systemWindowInsetBottom) + 24.dpInt
             }
             insets
         }
