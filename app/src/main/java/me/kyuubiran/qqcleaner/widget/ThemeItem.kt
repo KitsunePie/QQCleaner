@@ -27,32 +27,26 @@ class ThemeItem(context: Context, attr: AttributeSet) : AppCompatTextView(contex
             invalidate()
         }
     var checked: Boolean = false
-
+        set(value) {
+            if (field != value) {
+                field = value
+                showAnimate()
+            }
+        }
 
     var itemTextColor = Color.TRANSPARENT
-        set(value) {
-            field = value
-            invalidate()
-        }
 
     private val backgroundPaint = Paint()
 
     var itemTextColorPress = Color.TRANSPARENT
-        set(value) {
-            field = value
-            invalidate()
-        }
+
     var itemBackgroundColorPress = Color.TRANSPARENT
-        set(value) {
-            field = value
-            invalidate()
-        }
+
 
     private val chosenDrawable = getDrawable(context, ic_chosen)!!.apply {
         setBounds(0, 0, 24.dpInt, 24.dpInt)
     }
 
-    @Keep
     fun setIconDrawable(icon: Drawable) {
         icon.setBounds(0, 0, 24.dpInt, 24.dpInt)
         setCompoundDrawables(
@@ -62,6 +56,7 @@ class ThemeItem(context: Context, attr: AttributeSet) : AppCompatTextView(contex
             null
         )
     }
+
     @Keep
     fun setDrawableColor(@ColorInt color: Int) {
         TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(color))
@@ -81,24 +76,8 @@ class ThemeItem(context: Context, attr: AttributeSet) : AppCompatTextView(contex
         super.onDraw(canvas)
     }
 
-    fun setChecked(on: Boolean, hasAnim: Boolean) {
-        checked = on
-        if (hasAnim) {
-            showAnimate()
-        } else {
-            initChecked()
-        }
-
-    }
-
-    private fun initChecked() {
-        itemBackgroundColor = if (checked) itemBackgroundColorPress else Color.TRANSPARENT
-        setTextColor(if (checked) itemTextColorPress else itemTextColor)
-        setDrawableColor(if (checked) itemTextColorPress else itemTextColor)
-    }
-
     @Keep
-    private fun showAnimate() {
+    fun showAnimate() {
         val backgroundAnimator = ObjectAnimator.ofArgb(
             this,
             "itemBackgroundColor",
@@ -125,6 +104,5 @@ class ThemeItem(context: Context, attr: AttributeSet) : AppCompatTextView(contex
             start()
         }
     }
-
 
 }

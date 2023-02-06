@@ -3,16 +3,14 @@ package me.kyuubiran.qqcleaner.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import group.infotech.drawable.dsl.shapeDrawable
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
@@ -21,9 +19,7 @@ import me.kyuubiran.qqcleaner.theme.Theme
 import me.kyuubiran.qqcleaner.theme.Theme.Type.AUTO_THEME
 import me.kyuubiran.qqcleaner.theme.Theme.Type.DARK_THEME
 import me.kyuubiran.qqcleaner.theme.Theme.Type.LIGHT_THEME
-import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.dpInt
-import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 
 
 class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityStates) {
@@ -34,8 +30,13 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         state.initViewModel(model)
         binding = ThemeDialogBinding.inflate(layoutInflater)
         layout = binding.root
+        initColor()
+        initIcon()
+        initOnClick()
+        return super.onCreateDialog(savedInstanceState)
+    }
 
-
+    private fun initColor() {
         lifecycleScope.launch {
 
             model.colorPalette.collect {
@@ -45,53 +46,44 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
                     itemTextColor = it.secondTextColor
                     itemTextColorPress = it.mainThemeColor
                     itemBackgroundColorPress = it.fourPercentThemeColor
-                    setChecked(checked, true)
+                    // 触发一次颜色的刷新
+                    showAnimate()
                 }
 
                 binding.darkTheme.apply {
                     itemTextColor = it.secondTextColor
                     itemTextColorPress = it.mainThemeColor
                     itemBackgroundColorPress = it.fourPercentThemeColor
-                    setChecked(checked, true)
+                    showAnimate()
                 }
 
                 binding.followSystemTheme.apply {
                     itemTextColor = it.secondTextColor
                     itemTextColorPress = it.mainThemeColor
                     itemBackgroundColorPress = it.fourPercentThemeColor
-                    setChecked(checked, true)
+                    showAnimate()
                 }
 
                 binding.blackTheme.apply {
                     itemTextColor = it.secondTextColor
                     itemTextColorPress = it.mainThemeColor
                     itemBackgroundColorPress = it.fourPercentThemeColor
-                    setChecked(checked, true)
+                    showAnimate()
                 }
 
                 binding.bottomDivider.setBackgroundColor(it.dividerColor)
 
                 binding.themeSelect.apply {
-                    background = rippleDrawable(
-                        it.thirtyEightPercentThemeColor,
-                        shapeDrawable {
-                            shape = GradientDrawable.RECTANGLE
-                            cornerRadius = 10.dp
-                            setColor(it.twoPercentThemeColor)
-                        },
-                        shapeDrawable {
-                            shape = GradientDrawable.RECTANGLE
-                            cornerRadius = 10.dp
-                            setColor(Color.WHITE)
-                        }
-                    )
+                    buttonTextColor = it.thirtyEightPercentThemeColor
+                    buttonTextModifyColor = it.mainThemeColor
+                    buttonBackgroundColor = it.twoPercentThemeColor
+                    buttonBackgroundModifyColor = it.fourPercentThemeColor
+                    buttonRippleColor = it.fourPercentThemeColor
+                    // 触发一次颜色的刷新
+                    modifyBackground()
                 }
             }
         }
-        initIcon()
-        initOnClick()
-
-        return super.onCreateDialog(savedInstanceState)
     }
 
     @Keep
@@ -117,24 +109,36 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
             state.tempTheme.collect {
 
                 binding.lightTheme.apply {
-                    setChecked(it.type == LIGHT_THEME, true)
+                    checked = it.type == LIGHT_THEME
                     setIconDrawable(sunDrawable)
                 }
                 binding.darkTheme.apply {
-
-                    setChecked(it.type == DARK_THEME, true)
+                    checked = it.type == DARK_THEME
                     setIconDrawable(moonDrawable)
                 }
                 binding.followSystemTheme.apply {
-                    setChecked(it.type == AUTO_THEME, true)
+                    checked = it.type == AUTO_THEME
                     setIconDrawable(androidDrawable)
                 }
 
                 binding.blackTheme.apply {
-                    setChecked(it.isBlack, true)
+                    checked = it.isBlack
                     setIconDrawable(blackDrawable)
                 }
+
+
             }
+
+        }
+
+        lifecycleScope.launch {
+
+            state.tempTheme.combine(model.appTheme) { a, b -> a != b }
+                .collect {
+                    binding.themeSelect.apply {
+                        modify = it
+                    }
+                }
         }
     }
 
@@ -155,7 +159,8 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         }
 
         binding.themeSelect.setOnClickListener {
-            state.setActivityTheme(model, requireContext())
+            if (binding.themeSelect.modify)
+                state.setActivityTheme(model, requireContext())
         }
     }
 

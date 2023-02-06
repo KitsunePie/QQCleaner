@@ -71,7 +71,7 @@
         android:textSize="16sp" />
 
 
-    <TextView
+    <me.kyuubiran.qqcleaner.widget.ThemeButton
         android:id="@+id/theme_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
