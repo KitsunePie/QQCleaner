@@ -3,13 +3,15 @@ package me.kyuubiran.qqcleaner.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import androidx.annotation.Keep
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.widget.TextViewCompat.setCompoundDrawableTintList
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import group.infotech.drawable.dsl.shapeDrawable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
@@ -19,7 +21,9 @@ import me.kyuubiran.qqcleaner.theme.Theme
 import me.kyuubiran.qqcleaner.theme.Theme.Type.AUTO_THEME
 import me.kyuubiran.qqcleaner.theme.Theme.Type.DARK_THEME
 import me.kyuubiran.qqcleaner.theme.Theme.Type.LIGHT_THEME
+import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.dpInt
+import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 
 
 class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityStates) {
@@ -30,50 +34,77 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         state.initViewModel(model)
         binding = ThemeDialogBinding.inflate(layoutInflater)
         layout = binding.root
-        initIcon()
-        setItemBackground()
+
+
         lifecycleScope.launch {
 
             model.colorPalette.collect {
                 binding.topDivider.setBackgroundColor(it.dividerColor)
-                setCompoundDrawableTintList(
-                    binding.lightTheme,
-                    ColorStateList.valueOf(it.mainThemeColor)
-                )
 
-                setCompoundDrawableTintList(
-                    binding.darkTheme,
-                    ColorStateList.valueOf(it.mainThemeColor)
-                )
-                setCompoundDrawableTintList(
-                    binding.followSystemTheme,
-                    ColorStateList.valueOf(it.mainThemeColor)
-                )
-                setCompoundDrawableTintList(
-                    binding.blackTheme,
-                    ColorStateList.valueOf(it.mainThemeColor)
-                )
+                binding.lightTheme.apply {
+                    itemTextColor = it.secondTextColor
+                    itemTextColorPress = it.mainThemeColor
+                    itemBackgroundColorPress = it.fourPercentThemeColor
+                    setChecked(checked, true)
+                }
+
+                binding.darkTheme.apply {
+                    itemTextColor = it.secondTextColor
+                    itemTextColorPress = it.mainThemeColor
+                    itemBackgroundColorPress = it.fourPercentThemeColor
+                    setChecked(checked, true)
+                }
+
+                binding.followSystemTheme.apply {
+                    itemTextColor = it.secondTextColor
+                    itemTextColorPress = it.mainThemeColor
+                    itemBackgroundColorPress = it.fourPercentThemeColor
+                    setChecked(checked, true)
+                }
+
+                binding.blackTheme.apply {
+                    itemTextColor = it.secondTextColor
+                    itemTextColorPress = it.mainThemeColor
+                    itemBackgroundColorPress = it.fourPercentThemeColor
+                    setChecked(checked, true)
+                }
+
                 binding.bottomDivider.setBackgroundColor(it.dividerColor)
+
+                binding.themeSelect.apply {
+                    background = rippleDrawable(
+                        it.thirtyEightPercentThemeColor,
+                        shapeDrawable {
+                            shape = GradientDrawable.RECTANGLE
+                            cornerRadius = 10.dp
+                            setColor(it.twoPercentThemeColor)
+                        },
+                        shapeDrawable {
+                            shape = GradientDrawable.RECTANGLE
+                            cornerRadius = 10.dp
+                            setColor(Color.WHITE)
+                        }
+                    )
+                }
             }
         }
-
+        initIcon()
         initOnClick()
 
         return super.onCreateDialog(savedInstanceState)
     }
 
+    @Keep
     private fun initIcon() {
-        val chosenDrawable = getDrawable(requireContext(), R.drawable.ic_chosen)!!.apply {
-            setBounds(0, 0, 24.dpInt, 24.dpInt)
-        }
+
 
         val sunDrawable = getDrawable(requireContext(), R.drawable.ic_sun)!!.apply {
             setBounds(0, 0, 24.dpInt, 24.dpInt)
         }
-        val moonDrawable = getDrawable(requireContext(), R.drawable.ic_sun)!!.apply {
+        val moonDrawable = getDrawable(requireContext(), R.drawable.ic_moon)!!.apply {
             setBounds(0, 0, 24.dpInt, 24.dpInt)
         }
-        val androidDrawable = getDrawable(requireContext(), R.drawable.ic_sun)!!.apply {
+        val androidDrawable = getDrawable(requireContext(), R.drawable.ic_android)!!.apply {
             setBounds(0, 0, 24.dpInt, 24.dpInt)
         }
 
@@ -86,53 +117,27 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
             state.tempTheme.collect {
 
                 binding.lightTheme.apply {
-                    setCompoundDrawables(
-                        sunDrawable,
-                        null,
-                        if (it.type == LIGHT_THEME) chosenDrawable else null,
-                        null
-                    )
+                    setChecked(it.type == LIGHT_THEME, true)
+                    setIconDrawable(sunDrawable)
                 }
                 binding.darkTheme.apply {
-                    setCompoundDrawables(
-                        moonDrawable,
-                        null,
-                        if (it.type == DARK_THEME) chosenDrawable else null,
-                        null
-                    )
+
+                    setChecked(it.type == DARK_THEME, true)
+                    setIconDrawable(moonDrawable)
                 }
                 binding.followSystemTheme.apply {
-                    setCompoundDrawables(
-                        androidDrawable,
-                        null,
-                        if (it.type == AUTO_THEME) chosenDrawable else null,
-                        null
-                    )
+                    setChecked(it.type == AUTO_THEME, true)
+                    setIconDrawable(androidDrawable)
                 }
 
-                binding.followSystemTheme.apply {
-                    setCompoundDrawables(
-                        androidDrawable,
-                        null,
-                        if (it.type == AUTO_THEME) chosenDrawable else null,
-                        null
-                    )
-                }
                 binding.blackTheme.apply {
-                    setCompoundDrawables(
-                        blackDrawable,
-                        null,
-                        if (it.isBlack) chosenDrawable else null,
-                        null
-                    )
+                    setChecked(it.isBlack, true)
+                    setIconDrawable(blackDrawable)
                 }
             }
         }
     }
 
-    private fun setItemBackground() {
-
-    }
 
     private fun initOnClick() {
         binding.lightTheme.setOnClickListener {

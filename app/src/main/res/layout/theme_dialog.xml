@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <me.kyuubiran.qqcleaner.widget.ThemeItem
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_close"
@@ -22,7 +22,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="12dp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <me.kyuubiran.qqcleaner.widget.ThemeItem
         android:id="@+id/light_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:text="@string/light_theme"
         android:textSize="16sp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <me.kyuubiran.qqcleaner.widget.ThemeItem
         android:id="@+id/dark_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:text="@string/dark_theme"
         android:textSize="16sp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <me.kyuubiran.qqcleaner.widget.ThemeItem
         android:id="@+id/follow_system_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <me.kyuubiran.qqcleaner.widget.ThemeItem
         android:id="@+id/black_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
