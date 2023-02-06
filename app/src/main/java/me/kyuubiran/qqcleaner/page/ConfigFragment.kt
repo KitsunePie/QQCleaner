@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.models
 import com.drake.brv.utils.setup
+import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ConfigFragmentBinding
 import me.kyuubiran.qqcleaner.databinding.ConfigItemBinding
@@ -26,6 +28,12 @@ class ConfigFragment : BaseFragment() {
         val configList: List<ConfigModel> = listOf(
             //ConfigModel("新配置", "我", true)
         )
+
+        lifecycleScope.launch {
+            model.colorPalette.collect {
+                binding.toolBar.setIconRippleColor(it.rippleColor)
+            }
+        }
 
         if(configList.isNotEmpty()){
             this.binding.configLayout.visibility = View.VISIBLE

@@ -4,15 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:drawablePadding="24dp"
-            android:padding="24dp"
-            android:text="@string/item_theme"
-            android:textSize="18sp"
-            android:drawableEnd="@drawable/ic_close"
-            android:textStyle="bold" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_close"
+        android:drawablePadding="24dp"
+        android:padding="24dp"
+        android:text="@string/item_theme"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <View
         android:id="@+id/top_divider"
@@ -27,8 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:drawableStart="@drawable/ic_sun"
-        android:drawableEnd="@drawable/ic_chosen"
         android:drawablePadding="16dp"
         android:padding="16dp"
         android:text="@string/light_theme"
@@ -39,8 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:drawableStart="@drawable/ic_moon"
-        android:drawableEnd="@drawable/ic_chosen"
         android:drawablePadding="16dp"
         android:padding="16dp"
         android:text="@string/dark_theme"
@@ -51,8 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:drawableStart="@drawable/ic_android"
-        android:drawableEnd="@drawable/ic_chosen"
         android:drawablePadding="16dp"
         android:padding="16dp"
         android:text="@string/follow_system_theme"
@@ -71,8 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:drawableStart="@drawable/ic_a"
-        android:drawableEnd="@drawable/ic_chosen"
         android:drawablePadding="16dp"
         android:padding="16dp"
         android:text="@string/use_black_dark_theme"

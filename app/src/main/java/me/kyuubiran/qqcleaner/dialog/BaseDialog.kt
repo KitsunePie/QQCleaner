@@ -25,7 +25,7 @@ import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
 import me.kyuubiran.qqcleaner.uitls.statusBarLightMode
 
 
-open class BaseDialog(val activityStates: MainActivity.MainActivityStates) : DialogFragment() {
+open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragment() {
 
     lateinit var layout: View
 
@@ -67,12 +67,12 @@ open class BaseDialog(val activityStates: MainActivity.MainActivityStates) : Dia
             setNavigationBarTranslation()
 
             lifecycleScope.launch {
-                activityStates.colorPalette.collect {
+                model.colorPalette.collect {
                     statusBarLightMode(it == LightColorPalette)
                     navigationBarLightMode(it == LightColorPalette)
                     binding.dialogLayout.background =
-                        ColorDrawable(activityStates.colorPalette.value.dialogBackgroundColor)
-                    setBackgroundDrawable(ColorDrawable(activityStates.colorPalette.value.maskColor))
+                        ColorDrawable(model.colorPalette.value.dialogBackgroundColor)
+                    setBackgroundDrawable(ColorDrawable(model.colorPalette.value.maskColor))
                 }
             }
 

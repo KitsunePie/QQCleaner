@@ -11,16 +11,16 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.RelativeLayout
 import androidx.core.view.updateLayoutParams
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import group.infotech.drawable.dsl.shapeDrawable
+import group.infotech.drawable.dsl.solidColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
 import me.kyuubiran.qqcleaner.dialog.ThemeDialog
@@ -36,8 +36,6 @@ import me.kyuubiran.qqcleaner.uitls.navigatePage
 class HomeFragment : BaseFragment() {
 
     private val binding get() = _binding!! as HomeFragmentBinding
-
-    private val model: MainActivityStates by activityViewModels()
 
     private val state: HomeStates by viewModels()
 
@@ -56,7 +54,6 @@ class HomeFragment : BaseFragment() {
         setOnApplyWindowInsetsListener()
         intoLayout()
         intoClickListener()
-        ThemeDialog(model).show(parentFragmentManager, "")
         return binding.root
     }
 
@@ -70,11 +67,13 @@ class HomeFragment : BaseFragment() {
 
                 binding.lastTimeSub.apply {
                     setTextColor(it.whiteColor)
-                    this.background = GradientDrawable().apply {
-                        setColor(it.mainThemeColor)
-                            cornerRadius = 4.dp
+                    this.background = shapeDrawable {
+                        shape = GradientDrawable.RECTANGLE
+                        solidColor = it.mainThemeColor
+                        cornerRadius = 4.dp
                     }
                 }
+
 
                 binding.qqcleanerIcon.setImageResource(
                     if (it == LightColorPalette)
@@ -91,14 +90,18 @@ class HomeFragment : BaseFragment() {
                 binding.titleSetup.setTextColor(it.secondTextColor)
                 binding.setupLayout.setBackgroundColor(it.appBarsAndItemBackgroundColor)
                 binding.autoCleaner.apply {
+                    setRippleColor(it.rippleColor)
                     setTextColor(it.secondTextColor)
                     setSwitchColor(false, it != LightColorPalette)
                 }
                 binding.autoCleanerText.apply {
+                    setRippleColor(it.rippleColor)
                     setTextColor(it.secondTextColor)
                     setTipTextColor(it.itemRightTextColor)
                 }
+
                 binding.configChevrItem.apply {
+                    setRippleColor(it.rippleColor)
                     setTextColor(it.secondTextColor)
                     setIconColor(it.itemRightIconColor)
                 }
@@ -106,10 +109,12 @@ class HomeFragment : BaseFragment() {
                 binding.titleMore.setTextColor(it.secondTextColor)
                 binding.moreLayout.setBackgroundColor(it.appBarsAndItemBackgroundColor)
                 binding.themeChevrItem.apply {
+                    setRippleColor(it.rippleColor)
                     setTextColor(it.secondTextColor)
                     setIconColor(it.itemRightIconColor)
                 }
                 binding.aboutChevrItem.apply {
+                    setRippleColor(it.rippleColor)
                     setTextColor(it.secondTextColor)
                     setIconColor(it.itemRightIconColor)
                 }
@@ -126,6 +131,14 @@ class HomeFragment : BaseFragment() {
         lifecycleScope.launch {
             state.autoCleanerState.collect {
                 binding.autoCleaner.setSwitchChecked(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            state.autoCleanerTimeState.collect {
+                binding.autoCleanerText.apply {
+                    setTipText(if (it != 24) it.toString() else defaultText)
+                }
             }
         }
     }
@@ -146,6 +159,10 @@ class HomeFragment : BaseFragment() {
         // 关于页面
         binding.aboutChevrItem.setOnClickListener {
             navigatePage(R.id.action_homeFragment_to_aboutFragment)
+        }
+
+        binding.themeChevrItem.setOnClickListener {
+            ThemeDialog(model).show(parentFragmentManager, "")
         }
 
     }
@@ -171,11 +188,6 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     /**
      * 存储持久化状态
      */
@@ -187,7 +199,6 @@ class HomeFragment : BaseFragment() {
         lateinit var autoCleanerTimeState: StateFlow<Int>
         fun initViewModel(context: Context) {
             viewModelScope.launch(Dispatchers.IO) {
-
                 autoCleanerTimeState = context.dataStore.data.map { preferences ->
                     preferences[AUTO_CLEANER_TIME] ?: 24
                 }.stateIn(this)

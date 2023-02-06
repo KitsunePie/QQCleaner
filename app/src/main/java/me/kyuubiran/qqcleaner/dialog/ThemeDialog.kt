@@ -27,14 +27,14 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
     private val state: ThemeStates by viewModels()
     lateinit var binding: ThemeDialogBinding
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        state.initViewModel(activityStates)
+        state.initViewModel(model)
         binding = ThemeDialogBinding.inflate(layoutInflater)
         layout = binding.root
         initIcon()
-
+        setItemBackground()
         lifecycleScope.launch {
 
-            activityStates.colorPalette.collect {
+            model.colorPalette.collect {
                 binding.topDivider.setBackgroundColor(it.dividerColor)
                 setCompoundDrawableTintList(
                     binding.lightTheme,
@@ -130,6 +130,10 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         }
     }
 
+    private fun setItemBackground() {
+
+    }
+
     private fun initOnClick() {
         binding.lightTheme.setOnClickListener {
             state.setTheme(LIGHT_THEME)
@@ -146,7 +150,7 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         }
 
         binding.themeSelect.setOnClickListener {
-            state.setActivityTheme(activityStates, requireContext())
+            state.setActivityTheme(model, requireContext())
         }
     }
 

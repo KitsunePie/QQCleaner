@@ -3,17 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:layout_gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="16dp">
-
+    android:orientation="horizontal">
+<RelativeLayout
+    android:id="@+id/back_background"
+    android:padding="8dp"
+    android:layout_gravity="center_vertical"
+    android:layout_marginStart="8dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/back_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:contentDescription="@string/top_bar_back_icon_tip"
         android:src="@drawable/ic_back" />
+</RelativeLayout>
+
 
     <TextView
+        android:gravity="center_vertical"
         android:id="@+id/title_text"
         android:layout_width="0dp"
         android:layout_height="match_parent"

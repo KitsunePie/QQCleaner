@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.EditFragmentBinding
 import me.kyuubiran.qqcleaner.uitls.navigatePage
@@ -22,6 +24,11 @@ class EditFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = EditFragmentBinding.inflate(inflater, container, false)
+        lifecycleScope.launch {
+            model.colorPalette.collect {
+                binding.toolBar.setIconRippleColor(it.rippleColor)
+            }
+        }
         binding.addSortBtn.setOnClickListener {
             navigatePage(R.id.action_editFragment_to_fileFragment)
 

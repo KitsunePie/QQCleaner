@@ -1,17 +1,22 @@
 package me.kyuubiran.qqcleaner.widget
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.WindowInsets
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import androidx.annotation.ColorInt
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
+import group.infotech.drawable.dsl.shapeDrawable
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ToolbarBinding
+import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 
 /**
  * 子页面的顶栏
@@ -28,11 +33,13 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
     init {
         initAttrs(attr)
         binding.titleText.text = text
-        binding.backIcon.setOnClickListener {
-            val fragment =
-                (this.context as FragmentActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
-            val navController = NavHostFragment.findNavController(fragment)
-            navController.popBackStack()
+        binding.backBackground.apply {
+            setOnClickListener {
+                val fragment =
+                    (this.context as FragmentActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
+                val navController = NavHostFragment.findNavController(fragment)
+                navController.popBackStack()
+            }
         }
 
         // 顶栏边距
@@ -48,6 +55,18 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
         }
     }
 
+    fun setIconRippleColor(@ColorInt color: Int){
+        binding.backBackground.apply {
+            background = rippleDrawable(
+                color,
+                null,
+                shapeDrawable {
+                    shape = GradientDrawable.OVAL
+                    setColor(Color.WHITE)
+                }
+            )
+        }
+    }
     private fun initAttrs(attrs: AttributeSet) {
         // 加载对应的 AttributeSet
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ToolBar)
