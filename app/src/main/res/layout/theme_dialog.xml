@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <me.kyuubiran.qqcleaner.widget.ThemeItem
+    <me.kyuubiran.qqcleaner.widget.DialogTopBar
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_close"
-        android:drawablePadding="24dp"
-        android:padding="24dp"
-        android:text="@string/item_theme"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        app:title="@string/item_theme" />
 
     <View
         android:id="@+id/top_divider"
@@ -27,30 +24,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:drawablePadding="16dp"
-        android:padding="16dp"
-        android:text="@string/light_theme"
-        android:textSize="16sp" />
+        android:text="@string/light_theme" />
 
     <me.kyuubiran.qqcleaner.widget.ThemeItem
         android:id="@+id/dark_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:drawablePadding="16dp"
-        android:padding="16dp"
-        android:text="@string/dark_theme"
-        android:textSize="16sp" />
+        android:text="@string/dark_theme" />
 
     <me.kyuubiran.qqcleaner.widget.ThemeItem
         android:id="@+id/follow_system_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:drawablePadding="16dp"
-        android:padding="16dp"
-        android:text="@string/follow_system_theme"
-        android:textSize="16sp" />
+        android:text="@string/follow_system_theme" />
 
     <View
         android:id="@+id/bottom_divider"
@@ -65,10 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:drawablePadding="16dp"
-        android:padding="16dp"
-        android:text="@string/use_black_dark_theme"
-        android:textSize="16sp" />
+        android:text="@string/use_black_dark_theme" />
 
 
     <me.kyuubiran.qqcleaner.widget.ThemeButton
@@ -76,9 +61,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="@string/theme_select"
-        android:textSize="16sp" />
+        android:text="@string/theme_select" />
 
 </LinearLayout>

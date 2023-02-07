@@ -4,9 +4,12 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import android.util.TypedValue
+import android.view.Gravity
 import androidx.appcompat.widget.AppCompatTextView
 import group.infotech.drawable.dsl.shapeDrawable
 import me.kyuubiran.qqcleaner.uitls.dp
+import me.kyuubiran.qqcleaner.uitls.dpInt
 import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 
 class ThemeButton(context: Context, attr: AttributeSet) : AppCompatTextView(context, attr) {
@@ -27,6 +30,12 @@ class ThemeButton(context: Context, attr: AttributeSet) : AppCompatTextView(cont
 
     var buttonTextModifyColor = Color.TRANSPARENT
 
+    init {
+        setPadding(16.dpInt, 16.dpInt, 16.dpInt, 16.dpInt)
+        gravity = Gravity.CENTER
+        isSingleLine = true
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+    }
 
     fun modifyBackground() {
         this.setTextColor(if (modify) buttonTextModifyColor else buttonTextColor)

@@ -7,16 +7,18 @@
 
     <com.gcssloop.widget.RCLinearLayout
         android:id="@+id/dialog_layout"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
         app:clip_background="true"
         app:round_corner_top_left="10dp"
-        app:round_corner_top_right="10dp" >
+        app:round_corner_top_right="10dp">
+
         <Space
             android:id="@+id/nav_margin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </com.gcssloop.widget.RCLinearLayout>
 
 </RelativeLayout>

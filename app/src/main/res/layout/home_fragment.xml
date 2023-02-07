@@ -115,7 +115,7 @@
                 android:id="@+id/config_chevr_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:text="@string/item_cleaner_config" />
+                android:text="@string/item_cleaner_config" />
         </com.gcssloop.widget.RCLinearLayout>
 
         <TextView
@@ -145,13 +145,13 @@
                 android:id="@+id/theme_chevr_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:text="@string/item_theme" />
+                android:text="@string/item_theme" />
 
             <me.kyuubiran.qqcleaner.widget.ChevronItem
                 android:id="@+id/about_chevr_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:text="@string/item_about" />
+                android:text="@string/item_about" />
 
         </com.gcssloop.widget.RCLinearLayout>
 

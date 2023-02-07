@@ -40,6 +40,12 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         lifecycleScope.launch {
 
             model.colorPalette.collect {
+                binding.topBar.apply {
+                    setTitleColor(it.firstTextColor)
+                    setIconColor(it.firstTextColor)
+                    setIconRippleColor(it.rippleColor)
+                }
+
                 binding.topDivider.setBackgroundColor(it.dividerColor)
 
                 binding.lightTheme.apply {

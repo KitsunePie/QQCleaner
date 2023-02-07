@@ -24,11 +24,12 @@ class DeveloperItem(context: Context, attr: AttributeSet) : LinearLayout(context
     lateinit var name: String
     private lateinit var image: Drawable
 
-    val binding = DeveloperItemBinding.inflate(
+    private val binding = DeveloperItemBinding.inflate(
         LayoutInflater.from(getContext()),
         this,
         true
     )
+
     init {
         initAttrs(attr)
         binding.developerName.text = name

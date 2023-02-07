@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -31,7 +32,7 @@ class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, a
 
     private lateinit var listener: (Boolean) -> Unit
 
-    val binding = ItemSwitchBinding.inflate(
+    private val binding = ItemSwitchBinding.inflate(
         LayoutInflater.from(getContext()), this, true
     )
 
@@ -86,6 +87,7 @@ class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, a
     }
 
 
+    @SuppressLint("CustomViewStyleable")
     private fun initAttrs(attrs: AttributeSet) {
         val typedArray =
             context.obtainStyledAttributes(attrs, R.styleable.Item)

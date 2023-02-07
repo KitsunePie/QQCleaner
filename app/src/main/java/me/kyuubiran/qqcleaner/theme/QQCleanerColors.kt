@@ -119,7 +119,7 @@ class QQCleanerColors(
     val fourPercentThemeColor: Int,
     val twoPercentThemeColor: Int,
 
-    firstTextColor: Int,
+    val firstTextColor: Int,
     val secondTextColor: Int,
     disableSecondTextColor: Int,
     thirdTextColor: Int,

@@ -5,10 +5,10 @@
     android:layout_height="match_parent">
 
     <me.kyuubiran.qqcleaner.widget.ToolBar
-        app:title="@string/title_about"
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="56dp" />
+        android:layout_height="56dp"
+        app:title="@string/title_about" />
 
     <ImageView
         android:id="@+id/about_logo"
@@ -56,10 +56,9 @@
         app:round_corner="10dp">
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="@string/goto_github" />
+            android:text="@string/goto_github" />
     </com.gcssloop.widget.RCLinearLayout>
 
     <com.gcssloop.widget.RCLinearLayout
@@ -77,13 +76,13 @@
         <me.kyuubiran.qqcleaner.widget.ChevronItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="@string/join_tg_channel" />
+            android:text="@string/join_tg_channel" />
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
             android:id="@+id/tg_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="@string/join_tg_group" />
+            android:text="@string/join_tg_group" />
     </com.gcssloop.widget.RCLinearLayout>
 
     <com.gcssloop.widget.RCLinearLayout
@@ -101,6 +100,6 @@
         <me.kyuubiran.qqcleaner.widget.ChevronItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="@string/title_dev" />
+            android:text="@string/title_dev" />
     </com.gcssloop.widget.RCLinearLayout>
 </RelativeLayout>

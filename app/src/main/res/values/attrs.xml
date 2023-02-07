@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="text" format="string"/>
+    <attr name="text" format="string" />
     <declare-styleable name="Item">
-        <attr name="text"/>
+        <attr name="text" />
     </declare-styleable>
 
     <declare-styleable name="ToolBar">
-        <attr name="title"/>
+        <attr name="title" />
     </declare-styleable>
 
     <declare-styleable name="DeveloperItem">
-        <attr name="name" format="string"/>
-        <attr name="src" format="reference"/>
-        <attr name="text"/>
+        <attr name="name" format="string" />
+        <attr name="src" format="reference" />
+        <attr name="text" />
     </declare-styleable>
 </resources>
