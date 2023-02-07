@@ -56,7 +56,7 @@
         android:text="@string/use_black_dark_theme" />
 
 
-    <me.kyuubiran.qqcleaner.widget.ThemeButton
+    <me.kyuubiran.qqcleaner.widget.ModifyButton
         android:id="@+id/theme_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

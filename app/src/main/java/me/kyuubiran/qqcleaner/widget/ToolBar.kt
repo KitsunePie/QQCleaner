@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.WindowInsets
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
@@ -45,8 +44,8 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
         // 顶栏边距
         @Suppress("DEPRECATION")
         binding.root.rootView.setOnApplyWindowInsetsListener { _, insets ->
-            this.updateLayoutParams {
-                (this as RelativeLayout.LayoutParams).topMargin =
+            this.updateLayoutParams<MarginLayoutParams> {
+                topMargin =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.systemBars()).top
                     else insets.systemWindowInsetTop

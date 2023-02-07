@@ -12,7 +12,7 @@ import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.dpInt
 import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 
-class ThemeButton(context: Context, attr: AttributeSet) : AppCompatTextView(context, attr) {
+class ModifyButton(context: Context, attr: AttributeSet) : AppCompatTextView(context, attr) {
     var modify: Boolean = false
         set(value) {
             if (field != value) {

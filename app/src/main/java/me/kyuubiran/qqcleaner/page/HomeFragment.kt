@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
-import android.widget.RelativeLayout
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,13 +23,16 @@ import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
 import me.kyuubiran.qqcleaner.dialog.ThemeDialog
+import me.kyuubiran.qqcleaner.dialog.TimeDialog
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
 import me.kyuubiran.qqcleaner.uitls.AUTO_CLEANER_TIME
 import me.kyuubiran.qqcleaner.uitls.IS_AUTO_CLEANER
+import me.kyuubiran.qqcleaner.uitls.checkDeviceHasNavigationBar
 import me.kyuubiran.qqcleaner.uitls.dataStore
 import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.dpInt
 import me.kyuubiran.qqcleaner.uitls.editData
+import me.kyuubiran.qqcleaner.uitls.getNavigationBarHeight
 import me.kyuubiran.qqcleaner.uitls.navigatePage
 
 class HomeFragment : BaseFragment() {
@@ -151,19 +153,21 @@ class HomeFragment : BaseFragment() {
             }
         }
 
+        binding.autoCleanerText.setOnClickListener {
+            TimeDialog(model, state.autoCleanerTimeState.value).show(parentFragmentManager, "")
+        }
         // 配置按钮
         binding.configChevrItem.setOnClickListener {
             navigatePage(R.id.action_homeFragment_to_configFragment)
         }
-
+        binding.themeChevrItem.setOnClickListener {
+            ThemeDialog(model).show(parentFragmentManager, "")
+        }
         // 关于页面
         binding.aboutChevrItem.setOnClickListener {
             navigatePage(R.id.action_homeFragment_to_aboutFragment)
         }
 
-        binding.themeChevrItem.setOnClickListener {
-            ThemeDialog(model).show(parentFragmentManager, "")
-        }
 
     }
 
@@ -171,18 +175,18 @@ class HomeFragment : BaseFragment() {
     private fun setOnApplyWindowInsetsListener() {
         binding.root.setOnApplyWindowInsetsListener { _, insets ->
             // 设置顶栏边距
-            binding.topBar.updateLayoutParams {
-                (this as RelativeLayout.LayoutParams).topMargin =
+            binding.topBar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.systemBars()).top
                     else insets.systemWindowInsetTop
             }
             // 设置按钮边距
-            binding.cleanerBtn.updateLayoutParams {
-                (this as RelativeLayout.LayoutParams).bottomMargin =
+            binding.cleanerBtn.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin =
                     (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.navigationBars()).bottom
-                    else insets.systemWindowInsetBottom) + 24.dpInt
+                    else if (checkDeviceHasNavigationBar()) getNavigationBarHeight() else 0) + 24.dpInt
             }
             insets
         }

@@ -5,11 +5,13 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.Window
 import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.core.view.WindowCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.DialogFragment
@@ -19,10 +21,13 @@ import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity
 import me.kyuubiran.qqcleaner.databinding.BaseDialogBinding
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
+import me.kyuubiran.qqcleaner.uitls.checkDeviceHasNavigationBar
+import me.kyuubiran.qqcleaner.uitls.getNavigationBarHeight
 import me.kyuubiran.qqcleaner.uitls.navigationBarLightMode
 import me.kyuubiran.qqcleaner.uitls.setNavigationBarTranslation
 import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
 import me.kyuubiran.qqcleaner.uitls.statusBarLightMode
+
 
 
 open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragment() {
@@ -51,7 +56,15 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
                 height =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.navigationBars()).bottom
-                    else insets.systemWindowInsetBottom
+                    else if (checkDeviceHasNavigationBar()) getNavigationBarHeight() else 0
+            }
+
+            binding.dialogLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                        insets.getInsets(WindowInsets.Type.ime()).bottom
+                    else
+                        insets.systemWindowInsetBottom
             }
             insets
         }
@@ -62,6 +75,8 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
 
         dialog.window!!.apply {
             WindowCompat.setDecorFitsSystemWindows(this, false)
+            @Suppress("DEPRECATION")
+            setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
             // 设置导航栏透明
             setStatusBarTranslation()
             setNavigationBarTranslation()

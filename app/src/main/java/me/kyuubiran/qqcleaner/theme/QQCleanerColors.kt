@@ -121,13 +121,13 @@ class QQCleanerColors(
 
     val firstTextColor: Int,
     val secondTextColor: Int,
-    disableSecondTextColor: Int,
+    val disableSecondTextColor: Int,
     thirdTextColor: Int,
 
     val pageBackgroundColor: Int,
     val appBarsAndItemBackgroundColor: Int,
     val dialogBackgroundColor: Int,
-    typeBoxBackgroundColor: Int,
+    val typeBoxBackgroundColor: Int,
 
     val dividerColor: Int,
     val rippleColor: Int,
