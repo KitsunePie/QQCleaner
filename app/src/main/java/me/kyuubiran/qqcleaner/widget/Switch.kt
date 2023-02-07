@@ -37,9 +37,9 @@ class Switch(context: Context, attr: AttributeSet) : ImageView(context, attr) {
         return if (on)
             if (isDark)
                 if (isWhite)
-                    R.drawable.switch_on_to_off_white_drak
+                    R.drawable.switch_on_to_off_white_dark
                 else
-                    R.drawable.switch_default_on_to_off_drak
+                    R.drawable.switch_default_on_to_off_dark
             else
                 if (isWhite)
                     R.drawable.switch_on_to_off_white
@@ -48,9 +48,9 @@ class Switch(context: Context, attr: AttributeSet) : ImageView(context, attr) {
         else
             if (isDark)
                 if (isWhite)
-                    R.drawable.switch_off_to_on_white_drak
+                    R.drawable.switch_off_to_on_white_dark
                 else
-                    R.drawable.switch_default_off_to_on_drak
+                    R.drawable.switch_default_off_to_on_dark
             else
                 if (isWhite)
                     R.drawable.switch_off_to_on_white

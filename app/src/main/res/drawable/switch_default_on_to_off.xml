@@ -11,7 +11,7 @@
                 android:name="path"
                 android:pathData="M 10 3 L 26 3 C 28.386 3 30.677 3.949 32.364 5.636 C 34.051 7.323 35 9.614 35 12 C 35 13.58 34.584 15.132 33.794 16.5 C 33.004 17.868 31.868 19.004 30.5 19.794 C 29.132 20.584 27.58 21 26 21 L 10 21 C 7.614 21 5.323 20.051 3.636 18.364 C 1.949 16.677 1 14.386 1 12 C 1 9.614 1.949 7.323 3.636 5.636 C 5.323 3.949 7.614 3 10 3"
                 android:strokeWidth="2"
-                android:strokeColor="#d6dde7"
+                android:strokeColor="#FFD6DDE7"
                 android:strokeLineCap="round"
                 android:strokeLineJoin="round" />
             <path
@@ -38,7 +38,7 @@
                     android:propertyName="fillColor"
                     android:startOffset="100"
                     android:valueFrom="#FF0095FF"
-                    android:valueTo="#c0cbd9"
+                    android:valueTo="#FFC0CBD9"
                     android:valueType="colorType" />
             </set>
         </aapt:attr>

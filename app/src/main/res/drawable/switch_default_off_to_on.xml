@@ -10,14 +10,14 @@
             <path
                 android:name="path"
                 android:pathData="M 10 3 L 26 3 C 28.386 3 30.677 3.949 32.364 5.636 C 34.051 7.323 35 9.614 35 12 C 35 13.58 34.584 15.132 33.794 16.5 C 33.004 17.868 31.868 19.004 30.5 19.794 C 29.132 20.584 27.58 21 26 21 L 10 21 C 7.614 21 5.323 20.051 3.636 18.364 C 1.949 16.677 1 14.386 1 12 C 1 9.614 1.949 7.323 3.636 5.636 C 5.323 3.949 7.614 3 10 3"
-                android:strokeColor="#d6dde7"
                 android:strokeWidth="2"
+                android:strokeColor="#FFD6DDE7"
                 android:strokeLineCap="round"
                 android:strokeLineJoin="round" />
             <path
                 android:name="path_2"
+                android:fillColor="#FFC0CBD9"
                 android:pathData="M 7.5 10.5 L 12.5 10.5 C 12.898 10.5 13.279 10.658 13.561 10.939 C 13.842 11.221 14 11.602 14 12 C 14 12.398 13.842 12.779 13.561 13.061 C 13.279 13.342 12.898 13.5 12.5 13.5 L 7.5 13.5 C 7.102 13.5 6.721 13.342 6.439 13.061 C 6.158 12.779 6 12.398 6 12 C 6 11.602 6.158 11.221 6.439 10.939 C 6.721 10.658 7.102 10.5 7.5 10.5"
-                android:fillColor="#c0cbd9"
                 android:strokeWidth="1" />
         </vector>
     </aapt:attr>
@@ -25,21 +25,21 @@
         <aapt:attr name="android:animation">
             <set>
                 <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
                     android:propertyName="pathData"
                     android:startOffset="40"
-                    android:duration="@android:integer/config_mediumAnimTime"
                     android:valueFrom="M 7.5 10.5 L 12.5 10.5 C 12.898 10.5 13.279 10.658 13.561 10.939 C 13.842 11.221 14 11.602 14 12 C 14 12.398 13.842 12.779 13.561 13.061 C 13.279 13.342 12.898 13.5 12.5 13.5 L 7.5 13.5 C 7.102 13.5 6.721 13.342 6.439 13.061 C 6.158 12.779 6 12.398 6 12 C 6 11.602 6.158 11.221 6.439 10.939 C 6.721 10.658 7.102 10.5 7.5 10.5"
                     android:valueTo="M 26 7 L 26 7 C 27.326 7 28.598 7.527 29.536 8.464 C 30.473 9.402 31 10.674 31 12 C 31 13.326 30.473 14.598 29.536 15.536 C 28.598 16.473 27.326 17 26 17 L 26 17 C 24.674 17 23.402 16.473 22.464 15.536 C 21.527 14.598 21 13.326 21 12 C 21 10.674 21.527 9.402 22.464 8.464 C 23.402 7.527 24.674 7 26 7"
-                    android:valueType="pathType"
-                    android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+                    android:valueType="pathType" />
                 <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
                     android:propertyName="fillColor"
                     android:startOffset="100"
-                    android:duration="@android:integer/config_mediumAnimTime"
-                    android:valueFrom="#c0cbd9"
+                    android:valueFrom="#FFC0CBD9"
                     android:valueTo="#FF0095FF"
-                    android:valueType="colorType"
-                    android:interpolator="@android:interpolator/fast_out_slow_in" />
+                    android:valueType="colorType" />
             </set>
         </aapt:attr>
     </target>

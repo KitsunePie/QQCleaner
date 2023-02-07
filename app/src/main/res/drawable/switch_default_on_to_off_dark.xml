@@ -11,12 +11,12 @@
                 android:name="path"
                 android:pathData="M 10 3 L 26 3 C 28.386 3 30.677 3.949 32.364 5.636 C 34.051 7.323 35 9.614 35 12 C 35 13.58 34.584 15.132 33.794 16.5 C 33.004 17.868 31.868 19.004 30.5 19.794 C 29.132 20.584 27.58 21 26 21 L 10 21 C 7.614 21 5.323 20.051 3.636 18.364 C 1.949 16.677 1 14.386 1 12 C 1 9.614 1.949 7.323 3.636 5.636 C 5.323 3.949 7.614 3 10 3"
                 android:strokeWidth="2"
-                android:strokeColor="#FF5F6368"
+                android:strokeColor="#FF4F5355"
                 android:strokeLineCap="round"
                 android:strokeLineJoin="round" />
             <path
                 android:name="path_3"
-                android:fillColor="#FF0095FF"
+                android:fillColor="#FF82A8E7"
                 android:pathData="M 26 7 C 27.326 7 28.598 7.527 29.536 8.464 C 30.473 9.402 31 10.674 31 12 C 31 13.326 30.473 14.598 29.536 15.536 C 28.598 16.473 27.326 17 26 17 C 24.674 17 23.402 16.473 22.464 15.536 C 21.527 14.598 21 13.326 21 12 C 21 10.674 21.527 9.402 22.464 8.464 C 23.402 7.527 24.674 7 26 7"
                 android:strokeWidth="1" />
         </vector>
