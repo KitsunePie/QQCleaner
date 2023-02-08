@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -56,6 +57,10 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
 
     fun setTitleColor(@ColorInt color: Int) {
         binding.titleText.setTextColor(color)
+    }
+
+    fun setIconColor(@ColorInt color: Int) {
+        binding.backIcon.imageTintList = ColorStateList.valueOf(color)
     }
     fun setIconRippleColor(@ColorInt color: Int){
         binding.backBackground.apply {

@@ -42,7 +42,7 @@
         android:singleLine="true"
         android:textSize="12sp" />
 
-    <com.gcssloop.widget.RCLinearLayout
+    <me.kyuubiran.qqcleaner.widget.ChevronItem
 
         android:id="@+id/github_item"
         android:layout_width="match_parent"
@@ -50,56 +50,39 @@
         android:layout_below="@id/about_version"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
-        android:background="#ffffff"
-        android:orientation="vertical"
-        app:clip_background="true"
-        app:round_corner="10dp">
-
-        <me.kyuubiran.qqcleaner.widget.ChevronItem
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/goto_github" />
-    </com.gcssloop.widget.RCLinearLayout>
+        android:text="@string/goto_github" />
 
     <com.gcssloop.widget.RCLinearLayout
-        android:id="@+id/tg_channel"
+        android:id="@+id/tg_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/github_item"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
-        android:background="#ffffff"
         android:orientation="vertical"
         app:clip_background="true"
         app:round_corner="10dp">
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
+            android:id="@+id/tg_channel_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/join_tg_channel" />
 
         <me.kyuubiran.qqcleaner.widget.ChevronItem
-            android:id="@+id/tg_group"
+            android:id="@+id/tg_group_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/join_tg_group" />
     </com.gcssloop.widget.RCLinearLayout>
 
-    <com.gcssloop.widget.RCLinearLayout
+
+    <me.kyuubiran.qqcleaner.widget.ChevronItem
         android:id="@+id/developer_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tg_channel"
+        android:layout_below="@id/tg_background"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
-        android:background="#ffffff"
-        android:orientation="vertical"
-        app:clip_background="true"
-        app:round_corner="10dp">
-
-        <me.kyuubiran.qqcleaner.widget.ChevronItem
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_dev" />
-    </com.gcssloop.widget.RCLinearLayout>
+        android:text="@string/title_dev" />
 </RelativeLayout>

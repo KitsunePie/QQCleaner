@@ -122,7 +122,7 @@ class QQCleanerColors(
     val firstTextColor: Int,
     val secondTextColor: Int,
     val disableSecondTextColor: Int,
-    thirdTextColor: Int,
+    val thirdTextColor: Int,
 
     val pageBackgroundColor: Int,
     val appBarsAndItemBackgroundColor: Int,

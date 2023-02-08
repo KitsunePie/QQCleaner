@@ -37,9 +37,17 @@ class ChevronItem(context: Context, attr: AttributeSet) : AppCompatTextView(cont
     }
 
     fun setRippleColor(@ColorInt color: Int) {
-        this.background = rippleDrawable(
+        setRippleColor(color, Color.TRANSPARENT)
+    }
+
+    fun setRippleColor(@ColorInt color: Int, contentColor: Int) {
+        background = rippleDrawable(
             color,
-            null,
+            shapeDrawable {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 10.dp
+                setColor(contentColor)
+            },
             shapeDrawable {
                 shape = GradientDrawable.RECTANGLE
                 cornerRadius = 10.dp

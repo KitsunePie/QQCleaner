@@ -11,26 +11,17 @@
         android:layout_height="56dp"
         app:title="@string/title_dev" />
 
-    <com.gcssloop.widget.RCLinearLayout
+
+    <me.kyuubiran.qqcleaner.widget.DeveloperItem
         android:id="@+id/dev_org"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp"
-        android:background="#ffffff"
-        android:orientation="vertical"
-        app:clip_background="true"
-        app:round_corner="10dp">
-
-        <me.kyuubiran.qqcleaner.widget.DeveloperItem
-            android:id="@+id/developer_kitsunepie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:name="@string/dev_org_name"
-            app:src="@drawable/ic_developer_kitsunepie"
-            app:text="@string/dev_org_desc" />
-    </com.gcssloop.widget.RCLinearLayout>
+        app:name="@string/dev_org_name"
+        app:src="@drawable/ic_developer_kitsunepie"
+        app:text="@string/dev_org_desc" />
 
     <com.gcssloop.widget.RCLinearLayout
         android:id="@+id/dev_list"

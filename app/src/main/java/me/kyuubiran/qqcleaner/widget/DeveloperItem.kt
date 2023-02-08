@@ -1,6 +1,7 @@
 package me.kyuubiran.qqcleaner.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -37,10 +38,30 @@ class DeveloperItem(context: Context, attr: AttributeSet) : LinearLayout(context
         binding.developerImage.setImageDrawable(image)
     }
 
+    fun setTextColor(@ColorInt color: Int) {
+        binding.developerText.setTextColor(color)
+    }
+
+    fun setNameColor(@ColorInt color: Int) {
+        binding.developerName.setTextColor(color)
+    }
+
+    fun setIconColor(@ColorInt color: Int) {
+        binding.developerChevron.imageTintList = ColorStateList.valueOf(color)
+    }
+
     fun setRippleColor(@ColorInt color: Int) {
-        binding.root.background = rippleDrawable(
+        setRippleColor(color, Color.TRANSPARENT)
+    }
+
+    fun setRippleColor(@ColorInt color: Int, contentColor: Int) {
+        background = rippleDrawable(
             color,
-            null,
+            shapeDrawable {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 10.dp
+                setColor(contentColor)
+            },
             shapeDrawable {
                 shape = GradientDrawable.RECTANGLE
                 cornerRadius = 10.dp
@@ -58,7 +79,4 @@ class DeveloperItem(context: Context, attr: AttributeSet) : LinearLayout(context
         typedArray.recycle()
     }
 
-    fun setTextColor(@ColorInt color: Int) {
-        binding.developerText.setTextColor(color)
-    }
 }

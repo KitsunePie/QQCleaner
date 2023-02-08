@@ -1,7 +1,6 @@
 package me.kyuubiran.qqcleaner.page
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
@@ -63,7 +62,7 @@ class HomeFragment : BaseFragment() {
         // 设置主题颜色
         lifecycleScope.launch {
             model.colorPalette.collect {
-                binding.root.background = ColorDrawable(it.appBarsAndItemBackgroundColor)
+                binding.root.setBackgroundColor(it.appBarsAndItemBackgroundColor)
                 binding.time.setTextColor(it.secondTextColor)
                 binding.lastTime.setTextColor(it.secondTextColor)
 

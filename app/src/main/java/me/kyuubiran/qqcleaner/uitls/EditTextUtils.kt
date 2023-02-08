@@ -6,15 +6,15 @@ import android.os.Build
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.annotation.ColorInt
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import group.infotech.drawable.dsl.shapeDrawable
 import group.infotech.drawable.dsl.size
 import group.infotech.drawable.dsl.solidColor
-import me.kyuubiran.qqcleaner.R
 
+// 暂时无法解决 icon 错位问题
 fun EditText.setTextSelectHandleRightColor(@ColorInt color: Int) {
-    val icon = getDrawable(context, R.drawable.text_select_handle_right)
+    // val icon = getDrawable(context, R.drawable.text_select_handle_right)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val icon = textSelectHandleRight
         setTextSelectHandleRight(
             icon!!.apply {
                 setTintList(ColorStateList.valueOf(color))
@@ -24,8 +24,9 @@ fun EditText.setTextSelectHandleRightColor(@ColorInt color: Int) {
 }
 
 fun EditText.setTextSelectHandleLeftColor(@ColorInt color: Int) {
-    val icon = getDrawable(context, R.drawable.text_select_handle_left)
+    // val icon = getDrawable(context, R.drawable.text_select_handle_left)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val icon = textSelectHandleLeft
         setTextSelectHandleLeft(
             icon!!.apply {
                 setTintList(ColorStateList.valueOf(color))
@@ -36,8 +37,9 @@ fun EditText.setTextSelectHandleLeftColor(@ColorInt color: Int) {
 
 
 fun EditText.setTextSelectHandleColor(@ColorInt color: Int) {
-    val icon = getDrawable(context, R.drawable.text_select_handle)
+    // val icon = getDrawable(context, R.drawable.text_select_handle)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val icon = textSelectHandle
         setTextSelectHandle(
             icon!!.apply {
                 setTintList(ColorStateList.valueOf(color))

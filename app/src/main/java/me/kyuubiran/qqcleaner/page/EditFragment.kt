@@ -24,15 +24,26 @@ class EditFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = EditFragmentBinding.inflate(inflater, container, false)
-        lifecycleScope.launch {
-            model.colorPalette.collect {
-                binding.toolBar.setIconRippleColor(it.rippleColor)
-            }
-        }
+        intoLayout()
         binding.addSortBtn.setOnClickListener {
             navigatePage(R.id.action_editFragment_to_fileFragment)
 
         }
         return binding.root
+    }
+
+    private fun intoLayout() {
+        // 设置主题颜色
+        lifecycleScope.launch {
+            model.colorPalette.collect {
+
+                binding.root.setBackgroundColor(it.pageBackgroundColor)
+                binding.toolBar.apply {
+                    setIconRippleColor(it.rippleColor)
+                    setTitleColor(it.firstTextColor)
+                    setIconColor(it.firstTextColor)
+                }
+            }
+        }
     }
 }
