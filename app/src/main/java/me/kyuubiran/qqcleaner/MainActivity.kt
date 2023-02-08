@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import androidx.activity.viewModels
+import androidx.appcompat.R.style.Base_Theme_AppCompat_Light
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import me.kyuubiran.qqcleaner.databinding.MainActivityBinding
 import me.kyuubiran.qqcleaner.theme.BlackColorPalette
 import me.kyuubiran.qqcleaner.theme.DarkColorPalette
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
@@ -30,13 +32,15 @@ import me.kyuubiran.qqcleaner.uitls.navigationBarLightMode
 import me.kyuubiran.qqcleaner.uitls.setNavigationBarTranslation
 import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
 import me.kyuubiran.qqcleaner.uitls.statusBarLightMode
-
+import com.dylanc.viewbinding.nonreflection.binding
 
 class MainActivity : FragmentActivity() {
+
+    private val binding by binding(MainActivityBinding::inflate)
+
     private val mainViewModel: MainActivityStates by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        this.setTheme(androidx.appcompat.R.style.Base_Theme_AppCompat_Light)
+        this.setTheme(Base_Theme_AppCompat_Light)
         // 去除顶栏
         mainViewModel.initViewModel(context = this)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -49,8 +53,6 @@ class MainActivity : FragmentActivity() {
             this.window.decorView.isForceDarkAllowed = false
 
         super.onCreate(savedInstanceState)
-
-
         lifecycleScope.launch {
             mainViewModel.colorPalette.collect {
                 statusBarLightMode(it == LightColorPalette)
@@ -58,7 +60,7 @@ class MainActivity : FragmentActivity() {
             }
         }
         // 加载对应的布局
-        this.setContentView(R.layout.main_activity)
+        this.setContentView(binding.root)
         lifecycleScope.launch {
             dataStore.data.first()
         }
@@ -127,8 +129,6 @@ class MainActivity : FragmentActivity() {
                     }
                 )
             }
-
-
         }
     }
 

@@ -8,11 +8,11 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import androidx.annotation.ColorInt
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.TextViewCompat
 import group.infotech.drawable.dsl.shapeDrawable
-import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.R.drawable.ic_chevron_right
 import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.dpInt
 import me.kyuubiran.qqcleaner.uitls.rippleDrawable
@@ -23,10 +23,10 @@ import me.kyuubiran.qqcleaner.uitls.rippleDrawable
  * @param attr 对应的 AttributeSet 参数
  */
 class ChevronItem(context: Context, attr: AttributeSet) : AppCompatTextView(context, attr) {
-    private val icon =
-        AppCompatResources.getDrawable(context, R.drawable.ic_chevron_right)!!.apply {
-            setBounds(0, 0, 24.dpInt, 24.dpInt)
-        }
+
+    private val icon = getDrawable(context, ic_chevron_right)!!.apply {
+        setBounds(0, 0, 24.dpInt, 24.dpInt)
+    }
 
     init {
         setPadding(16.dpInt, 16.dpInt, 16.dpInt, 16.dpInt)

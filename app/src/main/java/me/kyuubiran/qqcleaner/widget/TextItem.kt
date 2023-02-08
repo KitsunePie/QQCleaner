@@ -5,12 +5,12 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
+import com.dylanc.viewbinding.nonreflection.inflate
 import group.infotech.drawable.dsl.shapeDrawable
 import me.kyuubiran.qqcleaner.R
-import me.kyuubiran.qqcleaner.databinding.ItemTextBinding.*
+import me.kyuubiran.qqcleaner.databinding.ItemTextBinding
 import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 
@@ -25,8 +25,7 @@ class TextItem(context: Context, attr: AttributeSet) : LinearLayout(context, att
     val defaultText: String = "默认"
 
     private lateinit var text: String
-
-    private val binding = inflate(LayoutInflater.from(getContext()), this, true)
+    private val binding = inflate(ItemTextBinding::inflate)
 
     init {
         initAttrs(attr)

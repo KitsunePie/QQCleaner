@@ -6,9 +6,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
-import me.kyuubiran.qqcleaner.MainActivity
 
-open class EditDialog(model: MainActivity.MainActivityStates) : BaseDialog(model) {
+
+open class EditDialogFragment : BaseDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val dialog = super.onCreateDialog(savedInstanceState)

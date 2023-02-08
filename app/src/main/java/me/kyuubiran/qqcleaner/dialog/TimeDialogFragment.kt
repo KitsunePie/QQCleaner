@@ -1,6 +1,5 @@
 package me.kyuubiran.qqcleaner.dialog
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -10,9 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import group.infotech.drawable.dsl.shapeDrawable
 import group.infotech.drawable.dsl.solidColor
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import me.kyuubiran.qqcleaner.MainActivity
 import me.kyuubiran.qqcleaner.databinding.TimeDialogBinding
+import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.setTextCursorDrawableColor
 import me.kyuubiran.qqcleaner.uitls.setTextSelectHandleColor
@@ -20,24 +21,34 @@ import me.kyuubiran.qqcleaner.uitls.setTextSelectHandleLeftColor
 import me.kyuubiran.qqcleaner.uitls.setTextSelectHandleRightColor
 
 
-class TimeDialog(model: MainActivity.MainActivityStates, private val time: Int) :
-    EditDialog(model) {
+class TimeDialogFragment(private val time: StateFlow<Int>) : EditDialogFragment(),
+    ThemeFragmentRegistry {
 
     private val state: TimeStates by viewModels()
 
     lateinit var binding: TimeDialogBinding
+
+    private var onSuccessListener: (Int) -> Unit = {}
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 把当前值发送给保存起来
 
         binding = TimeDialogBinding.inflate(layoutInflater)
         layout = binding.root
-        initColor()
+        initFragment()
 
+        return super.onCreateDialog(savedInstanceState)
+    }
+
+
+    override fun initLayout() {
         lifecycleScope.launch {
-            state.tempTime.emit(time)
+            state.tempTime.emit(time.value)
         }
-        binding.timeEdit.setText(if (time == 24) "" else time.toString())
+        binding.timeEdit.setText(if (time.value == 24) "" else time.value.toString())
 
+    }
+
+    override fun initListener() {
         binding.timeEdit.doOnTextChanged { text, _, _, _ ->
             lifecycleScope.launch {
                 state.tempTime.emit(
@@ -45,21 +56,24 @@ class TimeDialog(model: MainActivity.MainActivityStates, private val time: Int) 
 
                 )
             }
-
         }
 
+        binding.topBar.setIconOnClickListener {
+            animateDismiss()
+        }
         lifecycleScope.launch {
-            state.tempTime.collect {
-                binding.timeSelect.modify = time != it
-            }
+            state.tempTime.combine(time) { new, old -> new != old }
+                .collect {
+                    binding.timeSelect.modify = it
+                }
         }
 
-        return super.onCreateDialog(savedInstanceState)
+        binding.timeSelect.setOnClickListener {
+            onSuccessListener(state.tempTime.value)
+        }
     }
 
-
-    @SuppressLint("SoonBlockedPrivateApi")
-    private fun initColor() {
+    override fun initColor() {
         lifecycleScope.launch {
             model.colorPalette.collect {
                 binding.topBar.apply {
@@ -99,8 +113,13 @@ class TimeDialog(model: MainActivity.MainActivityStates, private val time: Int) 
         }
     }
 
+    fun setOnSuccessListener(onSuccessListener: (Int) -> Unit) {
+        this.onSuccessListener = onSuccessListener
+    }
+
     class TimeStates : StateHolder() {
         var tempTime = MutableStateFlow(0)
     }
+
 
 }

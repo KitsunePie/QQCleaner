@@ -1,39 +1,27 @@
 package me.kyuubiran.qqcleaner.page
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.EditFragmentBinding
-import me.kyuubiran.qqcleaner.uitls.navigatePage
+import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 
-class EditFragment : BaseFragment() {
-
-    private val binding get() = _binding!! as EditFragmentBinding
+class EditFragment : BaseFragment<EditFragmentBinding>(EditFragmentBinding::inflate),
+    ThemeFragmentRegistry {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = EditFragmentBinding.inflate(inflater, container, false)
-        intoLayout()
-        binding.addSortBtn.setOnClickListener {
-            navigatePage(R.id.action_editFragment_to_fileFragment)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initFragment()
 
-        }
-        return binding.root
     }
 
-    private fun intoLayout() {
-        // 设置主题颜色
+    override fun initColor() {
         lifecycleScope.launch {
             model.colorPalette.collect {
 
@@ -44,6 +32,12 @@ class EditFragment : BaseFragment() {
                     setIconColor(it.firstTextColor)
                 }
             }
+        }
+    }
+
+    override fun initListener() {
+        binding.addSortBtn.setOnClickListener {
+            navigatePage(R.id.action_editFragment_to_fileFragment)
         }
     }
 }

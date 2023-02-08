@@ -6,9 +6,10 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
+import com.dylanc.viewbinding.nonreflection.inflate
 import group.infotech.drawable.dsl.shapeDrawable
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.DialogTopbarBinding
@@ -17,18 +18,15 @@ import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 class DialogTopBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
     private lateinit var text: String
 
-    private val binding = DialogTopbarBinding.inflate(
-        LayoutInflater.from(getContext()), this, true
-    )
+    private val binding = inflate(DialogTopbarBinding::inflate)
 
     init {
         initAttrs(attr)
         binding.titleText.text = text
-        binding.backBackground.apply {
-            setOnClickListener {
+    }
 
-            }
-        }
+    fun setIconOnClickListener(onClickListener: (View)-> Unit) {
+        this.setOnClickListener(onClickListener)
     }
 
     fun setTitleColor(@ColorInt color: Int) {

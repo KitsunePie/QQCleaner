@@ -19,10 +19,11 @@ import me.kyuubiran.qqcleaner.theme.Theme
 import me.kyuubiran.qqcleaner.theme.Theme.Type.AUTO_THEME
 import me.kyuubiran.qqcleaner.theme.Theme.Type.DARK_THEME
 import me.kyuubiran.qqcleaner.theme.Theme.Type.LIGHT_THEME
+import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 import me.kyuubiran.qqcleaner.uitls.dpInt
 
 
-class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityStates) {
+class ThemeDialogFragment : BaseDialogFragment(), ThemeFragmentRegistry {
 
     private val state: ThemeStates by viewModels()
     lateinit var binding: ThemeDialogBinding
@@ -30,13 +31,11 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         state.initViewModel(model)
         binding = ThemeDialogBinding.inflate(layoutInflater)
         layout = binding.root
-        initColor()
-        initIcon()
-        initOnClick()
+        initFragment()
         return super.onCreateDialog(savedInstanceState)
     }
 
-    private fun initColor() {
+    override fun initColor() {
         lifecycleScope.launch {
 
             model.colorPalette.collect {
@@ -92,10 +91,9 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         }
     }
 
+
     @Keep
-    private fun initIcon() {
-
-
+    override fun initDrawable() {
         val sunDrawable = getDrawable(requireContext(), R.drawable.ic_sun)!!.apply {
             setBounds(0, 0, 24.dpInt, 24.dpInt)
         }
@@ -138,8 +136,7 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         }
 
         lifecycleScope.launch {
-
-            state.tempTheme.combine(model.appTheme) { a, b -> a != b }
+            state.tempTheme.combine(model.appTheme) { new, old -> new != old }
                 .collect {
                     binding.themeSelect.apply {
                         modify = it
@@ -148,14 +145,19 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         }
     }
 
+    override fun initListener() {
+        binding.topBar.setIconOnClickListener {
+            animateDismiss()
+        }
 
-    private fun initOnClick() {
         binding.lightTheme.setOnClickListener {
             state.setTheme(LIGHT_THEME)
         }
+
         binding.darkTheme.setOnClickListener {
             state.setTheme(Theme.Type.DARK_THEME)
         }
+
         binding.followSystemTheme.setOnClickListener {
             state.setTheme(Theme.Type.AUTO_THEME)
         }
@@ -167,6 +169,7 @@ class ThemeDialog(activityStates: MainActivityStates) : BaseDialog(activityState
         binding.themeSelect.setOnClickListener {
             if (binding.themeSelect.modify)
                 state.setActivityTheme(model, requireContext())
+            animateDismiss()
         }
     }
 

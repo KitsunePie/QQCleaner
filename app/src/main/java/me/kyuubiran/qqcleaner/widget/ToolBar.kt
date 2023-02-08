@@ -6,13 +6,13 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.WindowInsets
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.dylanc.viewbinding.nonreflection.inflate
 import group.infotech.drawable.dsl.shapeDrawable
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ToolbarBinding
@@ -26,9 +26,7 @@ import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
     private lateinit var text: String
 
-    private val binding = ToolbarBinding.inflate(
-        LayoutInflater.from(getContext()), this, true
-    )
+    private val binding = inflate(ToolbarBinding::inflate)
 
     init {
         initAttrs(attr)

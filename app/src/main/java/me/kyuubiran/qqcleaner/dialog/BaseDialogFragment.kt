@@ -20,12 +20,14 @@ import android.view.WindowManager
 import androidx.core.view.WindowCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.MainActivity
 import me.kyuubiran.qqcleaner.databinding.BaseDialogBinding
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
+import me.kyuubiran.qqcleaner.uitls.AnimatorListener
 import me.kyuubiran.qqcleaner.uitls.checkDeviceHasNavigationBar
 import me.kyuubiran.qqcleaner.uitls.getNavigationBarHeight
 import me.kyuubiran.qqcleaner.uitls.navigationBarLightMode
@@ -33,14 +35,16 @@ import me.kyuubiran.qqcleaner.uitls.setNavigationBarTranslation
 import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
 import me.kyuubiran.qqcleaner.uitls.statusBarLightMode
 
-
-open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragment() {
+open class BaseDialogFragment : DialogFragment() {
 
     lateinit var layout: View
 
     lateinit var dialogLayout: View
 
     private var height: Float = 0f
+
+    protected val model: MainActivity.MainActivityStates by activityViewModels()
+
     private lateinit var baseBinding: BaseDialogBinding
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 随便设置一个空主题，这是一个带动画的主题
@@ -106,26 +110,14 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
             attributes = wlp
         }
 
-        fun dialogEnterAnim(height: Float) {
-            val markColor = model.colorPalette.value.maskColor
-            val animator = ObjectAnimator.ofArgb(
-                baseBinding.root,
-                "backgroundColor",
-                Color.TRANSPARENT,
-                markColor
-            )
-            animator.start()
-            this.height = height
-            dialogLayout.translationY = height
-            dialogLayout.animate()
-                .translationY(0f)
-        }
+
 
         dialogLayout.viewTreeObserver.addOnGlobalLayoutListener(
             object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     if (dialogLayout.height != 0) {
-                        dialogEnterAnim(dialogLayout.height.toFloat())
+                        this@BaseDialogFragment.height = dialogLayout.height.toFloat()
+                        dialogEnterAnim()
                         if (dialogLayout.viewTreeObserver.isAlive) {
                             dialogLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
                         }
@@ -136,44 +128,57 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
         return dialog
     }
 
+    private fun dialogEnterAnim() {
+        val markColor = model.colorPalette.value.maskColor
+        val animator = ObjectAnimator.ofArgb(
+            baseBinding.root,
+            "backgroundColor",
+            Color.TRANSPARENT,
+            markColor
+        )
+        animator.start()
+
+        dialogLayout.translationY = height
+        dialogLayout.animate()
+            .translationY(0f)
+    }
+
+    private fun dialogExitAnim() {
+        val markColor = model.colorPalette.value.maskColor
+        val animator = ObjectAnimator.ofArgb(
+            baseBinding.root,
+            "backgroundColor",
+            markColor,
+            Color.TRANSPARENT
+        )
+        animator.start()
+        dialogLayout.animate()
+            .translationY(height)
+            .setListener(object : AnimatorListener {
+                override fun onAnimationEnd(animation: Animator) {
+                    dialog!!.dismiss()
+                }
+            })
+            .start()
+    }
+
+    open fun animateDismiss() {
+        dialogExitAnim()
+    }
+
     override fun onResume() {
         super.onResume()
-        dialog!!.setOnKeyListener { dialog, keyCode, event ->
+        dialog!!.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK) {
 
                 if (event!!.action != KeyEvent.ACTION_DOWN) true else {
-                    val markColor = model.colorPalette.value.maskColor
-                    val animator = ObjectAnimator.ofArgb(
-                        baseBinding.root,
-                        "backgroundColor",
-                        markColor,
-                        Color.TRANSPARENT
-                    )
-                    animator.start()
-                    dialogLayout.animate()
-                        .translationY(height)
-                        .setListener(object : Animator.AnimatorListener {
-                            override fun onAnimationStart(animation: Animator) {
-                            }
-
-                            override fun onAnimationEnd(animation: Animator) {
-                                dialog.dismiss()
-                            }
-
-                            override fun onAnimationCancel(animation: Animator) {
-                            }
-
-                            override fun onAnimationRepeat(animation: Animator) {
-
-                            }
-
-                        })
-                        .start()
-                    true // pretend we've processed it
+                    dialogExitAnim()
+                    true
                 }
-            } else false // pass on to be processed as normal
+            } else false
         }
     }
+
 
     open class StateHolder : ViewModel()
 }

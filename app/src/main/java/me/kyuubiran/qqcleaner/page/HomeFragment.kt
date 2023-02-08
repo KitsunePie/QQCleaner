@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
@@ -21,9 +20,10 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.HomeFragmentBinding
-import me.kyuubiran.qqcleaner.dialog.ThemeDialog
-import me.kyuubiran.qqcleaner.dialog.TimeDialog
+import me.kyuubiran.qqcleaner.dialog.ThemeDialogFragment
+import me.kyuubiran.qqcleaner.dialog.TimeDialogFragment
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
+import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 import me.kyuubiran.qqcleaner.uitls.AUTO_CLEANER_TIME
 import me.kyuubiran.qqcleaner.uitls.IS_AUTO_CLEANER
 import me.kyuubiran.qqcleaner.uitls.checkDeviceHasNavigationBar
@@ -32,11 +32,9 @@ import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.dpInt
 import me.kyuubiran.qqcleaner.uitls.editData
 import me.kyuubiran.qqcleaner.uitls.getNavigationBarHeight
-import me.kyuubiran.qqcleaner.uitls.navigatePage
 
-class HomeFragment : BaseFragment() {
-
-    private val binding get() = _binding!! as HomeFragmentBinding
+class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::inflate),
+    ThemeFragmentRegistry {
 
     private val state: HomeStates by viewModels()
 
@@ -45,21 +43,13 @@ class HomeFragment : BaseFragment() {
         state.initViewModel(this.requireContext())
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = HomeFragmentBinding.inflate(inflater, container, false)
-        setOnApplyWindowInsetsListener()
-        intoLayout()
-        intoClickListener()
-        return binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initFragment()
     }
 
-    private fun intoLayout() {
-        // 设置主题颜色
+
+    override fun initColor() {
         lifecycleScope.launch {
             model.colorPalette.collect {
                 binding.root.setBackgroundColor(it.appBarsAndItemBackgroundColor)
@@ -128,7 +118,11 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        // 设置按钮状态
+    }
+
+    @Suppress("DEPRECATION")
+    override fun initLayout() {
+
         lifecycleScope.launch {
             state.autoCleanerState.collect {
                 binding.autoCleaner.setSwitchChecked(it)
@@ -142,36 +136,7 @@ class HomeFragment : BaseFragment() {
                 }
             }
         }
-    }
 
-    private fun intoClickListener() {
-        // 接受按钮当前状态
-        binding.autoCleaner.setSwitchListener {
-            state.viewModelScope.launch {
-                state.setAutoCleaner(this@HomeFragment.requireContext(), it)
-            }
-        }
-
-        binding.autoCleanerText.setOnClickListener {
-            TimeDialog(model, state.autoCleanerTimeState.value).show(parentFragmentManager, "")
-        }
-        // 配置按钮
-        binding.configChevrItem.setOnClickListener {
-            navigatePage(R.id.action_homeFragment_to_configFragment)
-        }
-        binding.themeChevrItem.setOnClickListener {
-            ThemeDialog(model).show(parentFragmentManager, "")
-        }
-        // 关于页面
-        binding.aboutChevrItem.setOnClickListener {
-            navigatePage(R.id.action_homeFragment_to_aboutFragment)
-        }
-
-
-    }
-
-    @Suppress("DEPRECATION")
-    private fun setOnApplyWindowInsetsListener() {
         binding.root.setOnApplyWindowInsetsListener { _, insets ->
             // 设置顶栏边距
             binding.topBar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -188,6 +153,38 @@ class HomeFragment : BaseFragment() {
                     else if (checkDeviceHasNavigationBar()) getNavigationBarHeight() else 0) + 24.dpInt
             }
             insets
+        }
+    }
+
+
+    override fun initListener() {
+
+        binding.autoCleaner.setSwitchListener {
+            state.viewModelScope.launch {
+                state.setAutoCleaner(this@HomeFragment.requireContext(), it)
+            }
+        }
+
+        binding.autoCleanerText.setOnClickListener {
+            TimeDialogFragment(state.autoCleanerTimeState).apply {
+                setOnSuccessListener { autoTime ->
+                    state.setAutoCleanerTime(requireContext(), autoTime)
+                    animateDismiss()
+                }
+
+            }.show(parentFragmentManager, "")
+
+        }
+        // 配置按钮
+        binding.configChevrItem.setOnClickListener {
+            navigatePage(R.id.action_homeFragment_to_configFragment)
+        }
+        binding.themeChevrItem.setOnClickListener {
+            ThemeDialogFragment().show(parentFragmentManager, "")
+        }
+        // 关于页面
+        binding.aboutChevrItem.setOnClickListener {
+            navigatePage(R.id.action_homeFragment_to_aboutFragment)
         }
     }
 
@@ -225,5 +222,4 @@ class HomeFragment : BaseFragment() {
         }
 
     }
-
 }

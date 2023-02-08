@@ -1,55 +1,26 @@
 package me.kyuubiran.qqcleaner.page
 
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.AboutFragmentBinding
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
-import me.kyuubiran.qqcleaner.uitls.navigatePage
+import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 
+class AboutFragment : BaseFragment<AboutFragmentBinding>(AboutFragmentBinding::inflate),
+    ThemeFragmentRegistry {
 
-class AboutFragment : BaseFragment() {
-    private val binding get() = _binding!! as AboutFragmentBinding
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = AboutFragmentBinding.inflate(inflater, container, false)
-
-        intoLayout()
-
-
-        binding.aboutVersion.text = getVersionName()
-
-        binding.githubItem.setOnClickListener {
-            CustomTabsIntent.Builder().build()
-                .launchUrl(requireContext(), Uri.parse("https://github.com/KitsunePie/QQCleaner"))
-        }
-        binding.tgChannelItem.setOnClickListener {
-            CustomTabsIntent.Builder().build()
-                .launchUrl(requireContext(), Uri.parse("https://t.me/QQCleaner"))
-        }
-        binding.tgGroupItem.setOnClickListener {
-            CustomTabsIntent.Builder().build()
-                .launchUrl(requireContext(), Uri.parse("https://t.me/QQCleanerChat"))
-        }
-        binding.developerItem.setOnClickListener {
-            navigatePage(R.id.action_aboutFragment_to_developerFragment)
-        }
-        return binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initFragment()
     }
 
-    private fun intoLayout() {
-        // 设置主题颜色
+
+    override fun initColor() {
         lifecycleScope.launch {
             model.colorPalette.collect {
 
@@ -60,13 +31,6 @@ class AboutFragment : BaseFragment() {
                     setIconColor(it.firstTextColor)
                 }
 
-
-                binding.aboutLogo.setImageResource(
-                    if (it == LightColorPalette)
-                        R.drawable.ic_home_qqcleaner
-                    else
-                        R.drawable.ic_home_qqcleaner_dark
-                )
 
                 binding.aboutText.setTextColor(it.firstTextColor)
 
@@ -97,6 +61,38 @@ class AboutFragment : BaseFragment() {
                     setIconColor(it.itemRightIconColor)
                 }
             }
+        }
+    }
+
+    override fun initDrawable() {
+        lifecycleScope.launch {
+            model.colorPalette.collect {
+                binding.aboutLogo.setImageResource(
+                    if (it == LightColorPalette)
+                        R.drawable.ic_home_qqcleaner
+                    else
+                        R.drawable.ic_home_qqcleaner_dark
+                )
+            }
+        }
+    }
+
+    override fun initLayout() {
+        binding.aboutVersion.text = getVersionName()
+    }
+
+    override fun initListener() {
+        binding.githubItem.setOnClickListener {
+            openUrlInBrowser("https://github.com/KitsunePie/QQCleaner")
+        }
+        binding.tgChannelItem.setOnClickListener {
+            openUrlInBrowser("https://t.me/QQCleaner")
+        }
+        binding.tgGroupItem.setOnClickListener {
+            openUrlInBrowser("https://t.me/QQCleanerChat")
+        }
+        binding.developerItem.setOnClickListener {
+            navigatePage(R.id.action_aboutFragment_to_developerFragment)
         }
     }
 

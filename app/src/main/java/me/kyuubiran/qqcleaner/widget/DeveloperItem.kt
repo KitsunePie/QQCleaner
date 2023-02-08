@@ -6,9 +6,9 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
+import com.dylanc.viewbinding.nonreflection.inflate
 import group.infotech.drawable.dsl.shapeDrawable
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.DeveloperItemBinding
@@ -25,11 +25,7 @@ class DeveloperItem(context: Context, attr: AttributeSet) : LinearLayout(context
     lateinit var name: String
     private lateinit var image: Drawable
 
-    private val binding = DeveloperItemBinding.inflate(
-        LayoutInflater.from(getContext()),
-        this,
-        true
-    )
+    private val binding = inflate(DeveloperItemBinding::inflate)
 
     init {
         initAttrs(attr)

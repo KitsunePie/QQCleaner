@@ -91,4 +91,7 @@ dependencies {
     implementation("com.github.liangjingkanji:BRV:1.3.90")
 
     implementation("com.github.infotech-group:android-drawable-dsl:0.3.0")
+
+    implementation("com.github.DylanCaiCoding.ViewBindingKTX:viewbinding-nonreflection-ktx:2.1.0")
+    implementation("com.github.DylanCaiCoding.ViewBindingKTX:viewbinding-base:2.1.0")
 }
