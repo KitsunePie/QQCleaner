@@ -1,7 +1,9 @@
 package me.kyuubiran.qqcleaner.dialog
 
 import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.app.Dialog
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
@@ -39,17 +41,17 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
     lateinit var dialogLayout: View
 
     private var height: Float = 0f
-
+    private lateinit var baseBinding: BaseDialogBinding
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 随便设置一个空主题，这是一个带动画的主题
         val dialog = Dialog(requireContext(), android.R.style.Animation_Dialog)
 
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val binding = BaseDialogBinding.inflate(layoutInflater)
 
-        dialogLayout = binding.dialogLayout
-        binding.dialogLayout.addView(
+        baseBinding = BaseDialogBinding.inflate(layoutInflater)
+        dialogLayout = baseBinding.dialogLayout
+        baseBinding.dialogLayout.addView(
             layout,
             0,
             LayoutParams(MATCH_PARENT, WRAP_CONTENT)
@@ -57,15 +59,15 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
 
         // 内部填充
         @Suppress("DEPRECATION")
-        binding.navMargin.setOnApplyWindowInsetsListener { _, insets ->
-            binding.navMargin.updateLayoutParams {
+        baseBinding.navMargin.setOnApplyWindowInsetsListener { _, insets ->
+            baseBinding.navMargin.updateLayoutParams {
                 height =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.navigationBars()).bottom
                     else if (checkDeviceHasNavigationBar()) getNavigationBarHeight() else 0
             }
 
-            binding.dialogLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            baseBinding.dialogLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
                         insets.getInsets(WindowInsets.Type.ime()).bottom
@@ -75,11 +77,12 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
             insets
         }
 
-        dialog.setContentView(binding.root)
+        dialog.setContentView(baseBinding.root)
         dialog.setCanceledOnTouchOutside(false)
 
         dialog.window!!.apply {
             WindowCompat.setDecorFitsSystemWindows(this, false)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             @Suppress("DEPRECATION")
             setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
             // 设置导航栏透明
@@ -90,8 +93,8 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
                 model.colorPalette.collect {
                     statusBarLightMode(it == LightColorPalette)
                     navigationBarLightMode(it == LightColorPalette)
-                    binding.dialogLayout.setBackgroundColor(it.dialogBackgroundColor)
-                    setBackgroundDrawable(ColorDrawable(it.maskColor))
+                    baseBinding.dialogLayout.setBackgroundColor(it.dialogBackgroundColor)
+                    baseBinding.root.setBackgroundColor(it.maskColor)
                 }
             }
 
@@ -104,24 +107,31 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
         }
 
         fun dialogEnterAnim(height: Float) {
+            val markColor = model.colorPalette.value.maskColor
+            val animator = ObjectAnimator.ofArgb(
+                baseBinding.root,
+                "backgroundColor",
+                Color.TRANSPARENT,
+                markColor
+            )
+            animator.start()
             this.height = height
             dialogLayout.translationY = height
             dialogLayout.animate()
                 .translationY(0f)
         }
 
-        val viewTreeObserver = dialogLayout.viewTreeObserver
-        val heightListener = object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                if (dialogLayout.height != 0) {
-                    dialogEnterAnim(dialogLayout.height.toFloat())
-                    if (viewTreeObserver.isAlive) {
-                        viewTreeObserver.removeOnGlobalLayoutListener(this)
+        dialogLayout.viewTreeObserver.addOnGlobalLayoutListener(
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    if (dialogLayout.height != 0) {
+                        dialogEnterAnim(dialogLayout.height.toFloat())
+                        if (dialogLayout.viewTreeObserver.isAlive) {
+                            dialogLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        }
                     }
                 }
-            }
-        }
-        viewTreeObserver.addOnGlobalLayoutListener(heightListener)
+            })
 
         return dialog
     }
@@ -132,9 +142,17 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
             if (keyCode == KeyEvent.KEYCODE_BACK) {
 
                 if (event!!.action != KeyEvent.ACTION_DOWN) true else {
+                    val markColor = model.colorPalette.value.maskColor
+                    val animator = ObjectAnimator.ofArgb(
+                        baseBinding.root,
+                        "backgroundColor",
+                        markColor,
+                        Color.TRANSPARENT
+                    )
+                    animator.start()
                     dialogLayout.animate()
                         .translationY(height)
-                        .setListener(object : Animator.AnimatorListener{
+                        .setListener(object : Animator.AnimatorListener {
                             override fun onAnimationStart(animation: Animator) {
                             }
 
