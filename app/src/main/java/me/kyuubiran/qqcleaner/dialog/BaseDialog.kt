@@ -1,14 +1,17 @@
 package me.kyuubiran.qqcleaner.dialog
 
+import android.animation.Animator
 import android.app.Dialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.ViewTreeObserver
 import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -29,16 +32,19 @@ import me.kyuubiran.qqcleaner.uitls.setStatusBarTranslation
 import me.kyuubiran.qqcleaner.uitls.statusBarLightMode
 
 
-
 open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragment() {
 
     lateinit var layout: View
 
     lateinit var dialogLayout: View
 
+    private var height: Float = 0f
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 随便设置一个空主题，这是一个带动画的主题
         val dialog = Dialog(requireContext(), android.R.style.Animation_Dialog)
+
+
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val binding = BaseDialogBinding.inflate(layoutInflater)
 
@@ -69,7 +75,6 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
             insets
         }
 
-
         dialog.setContentView(binding.root)
         dialog.setCanceledOnTouchOutside(false)
 
@@ -85,9 +90,8 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
                 model.colorPalette.collect {
                     statusBarLightMode(it == LightColorPalette)
                     navigationBarLightMode(it == LightColorPalette)
-                    binding.dialogLayout.background =
-                        ColorDrawable(model.colorPalette.value.dialogBackgroundColor)
-                    setBackgroundDrawable(ColorDrawable(model.colorPalette.value.maskColor))
+                    binding.dialogLayout.setBackgroundColor(it.dialogBackgroundColor)
+                    setBackgroundDrawable(ColorDrawable(it.maskColor))
                 }
             }
 
@@ -98,7 +102,59 @@ open class BaseDialog(val model: MainActivity.MainActivityStates) : DialogFragme
 
             attributes = wlp
         }
+
+        fun dialogEnterAnim(height: Float) {
+            this.height = height
+            dialogLayout.translationY = height
+            dialogLayout.animate()
+                .translationY(0f)
+        }
+
+        val viewTreeObserver = dialogLayout.viewTreeObserver
+        val heightListener = object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (dialogLayout.height != 0) {
+                    dialogEnterAnim(dialogLayout.height.toFloat())
+                    if (viewTreeObserver.isAlive) {
+                        viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    }
+                }
+            }
+        }
+        viewTreeObserver.addOnGlobalLayoutListener(heightListener)
+
         return dialog
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dialog!!.setOnKeyListener { dialog, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                if (event!!.action != KeyEvent.ACTION_DOWN) true else {
+                    dialogLayout.animate()
+                        .translationY(height)
+                        .setListener(object : Animator.AnimatorListener{
+                            override fun onAnimationStart(animation: Animator) {
+                            }
+
+                            override fun onAnimationEnd(animation: Animator) {
+                                dialog.dismiss()
+                            }
+
+                            override fun onAnimationCancel(animation: Animator) {
+                            }
+
+                            override fun onAnimationRepeat(animation: Animator) {
+
+                            }
+
+                        })
+                        .start()
+                    true // pretend we've processed it
+                }
+            } else false // pass on to be processed as normal
+        }
     }
 
     open class StateHolder : ViewModel()
