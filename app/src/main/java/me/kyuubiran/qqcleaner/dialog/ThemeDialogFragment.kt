@@ -27,8 +27,13 @@ class ThemeDialogFragment : BaseDialogFragment(), ThemeFragmentRegistry {
 
     private val state: ThemeStates by viewModels()
     lateinit var binding: ThemeDialogBinding
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         state.initViewModel(model)
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = ThemeDialogBinding.inflate(layoutInflater)
         layout = binding.root
         initFragment()

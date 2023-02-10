@@ -26,6 +26,7 @@
             android:layout_height="wrap_content" />
     </com.gcssloop.widget.RCLinearLayout>
     <!-- 居中问题，目前暂时无法在屏幕中央，因为当前布局是内容布局，只能在内容布局中居中 -->
+
     <LinearLayout
         android:id="@+id/empty_layout"
         android:layout_width="match_parent"
@@ -34,20 +35,15 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/list_empty"
-            android:src="@drawable/ic_list_empty" />
-
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/list_empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="24dp"
+            android:drawablePadding="24dp"
             android:text="@string/config_empty"
             android:textSize="16sp" />
+
     </LinearLayout>
 
     <com.lihang.ShadowLayout

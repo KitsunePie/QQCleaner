@@ -2,26 +2,30 @@ package me.kyuubiran.qqcleaner.page
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.viewModels
+
 import androidx.lifecycle.lifecycleScope
+import com.drake.brv.utils.addModels
 import com.drake.brv.utils.linear
-import com.drake.brv.utils.models
 import com.drake.brv.utils.setup
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ConfigFragmentBinding
 import me.kyuubiran.qqcleaner.databinding.ConfigItemBinding
+import me.kyuubiran.qqcleaner.theme.LightColorPalette
 import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
+import me.kyuubiran.qqcleaner.uitls.dpInt
 
 
 class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding::inflate),
     ThemeFragmentRegistry {
-    private val configList: List<ConfigModel> = listOf(
-        //ConfigModel("新配置", "我", true)
-    )
-
+     private val state: ConfigStates by viewModels<ConfigStates>()
+    var configList: MutableList<ConfigModel> = mutableListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFragment()
+        state
     }
 
     override fun initColor() {
@@ -33,13 +37,31 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
     }
 
     override fun initDrawable() {
+        lifecycleScope.launch {
+            model.colorPalette.collect {
+                binding.listEmptyText.setCompoundDrawables(
+                    null,
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        if (it == LightColorPalette)
+                            R.drawable.ic_list_empty
+                        else
+                            R.drawable.ic_list_empty_dark
+                    )!!.apply {
+                        setBounds(0, 0, 96.dpInt, 96.dpInt)
+                    },
+                    null,
+                    null
+                )
+            }
+        }
 
     }
 
     override fun initLayout() {
         if (configList.isNotEmpty()) {
             val configRecyclerView = binding.configRecyclerView
-            this.binding.configLayout.visibility = View.VISIBLE
+            this@ConfigFragment.binding.configLayout.visibility = View.VISIBLE
             configRecyclerView.apply {
                 // 因为宽高不会发生变换，所以使用 setHasFixedSize 减少测绘次数
                 setHasFixedSize(true)
@@ -53,19 +75,22 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
                             configName.text = getModel<ConfigModel>().title
                             authorName.text = getModel<ConfigModel>().author
                         }
-
                     }
-                }
-                models = configList
+                }.models = configList
             }
         } else {
-            this.binding.emptyLayout.visibility = View.VISIBLE
+            this@ConfigFragment.binding.emptyLayout.visibility = View.VISIBLE
         }
+
+
     }
 
     override fun initListener() {
         binding.addConfigBtn.setOnClickListener {
-            navigatePage(R.id.action_configFragment_to_editFragment)
+            binding.configRecyclerView.addModels(listOf(ConfigModel("新配置", "我", true)))
+
+            // ConfigAddDialogFragment().showNow(parentFragmentManager, "")
+            // navigatePage(R.id.action_configFragment_to_editFragment)
         }
     }
 
@@ -75,7 +100,11 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
         val enable: Boolean
     )
 
-    private class ConfigStates() : StateHolder() {
+    private class ConfigStates : StateHolder() {
+
+        fun initViewModel() {
+
+        }
 //        fun getConfig(context: Context): Config? {
 //            // json 解析测试
 //            val text = context.resources.assets.open("qq.json").readBytes()

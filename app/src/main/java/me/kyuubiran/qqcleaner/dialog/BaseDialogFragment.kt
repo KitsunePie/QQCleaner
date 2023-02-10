@@ -1,5 +1,6 @@
 package me.kyuubiran.qqcleaner.dialog
 
+import android.R.style.Animation_Dialog
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.app.Dialog
@@ -14,7 +15,7 @@ import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.ViewTreeObserver
-import android.view.Window
+import android.view.Window.FEATURE_NO_TITLE
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.core.view.WindowCompat
@@ -48,10 +49,9 @@ open class BaseDialogFragment : DialogFragment() {
     private lateinit var baseBinding: BaseDialogBinding
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 随便设置一个空主题，这是一个带动画的主题
-        val dialog = Dialog(requireContext(), android.R.style.Animation_Dialog)
+        val dialog = Dialog(requireContext(), Animation_Dialog)
 
-
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.requestWindowFeature(FEATURE_NO_TITLE)
 
         baseBinding = BaseDialogBinding.inflate(layoutInflater)
         dialogLayout = baseBinding.dialogLayout

@@ -9,7 +9,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.TypedValue
+import android.util.TypedValue.COMPLEX_UNIT_SP
 import android.view.Gravity
 import androidx.annotation.ColorInt
 import androidx.annotation.Keep
@@ -44,7 +44,6 @@ class ThemeItem(context: Context, attr: AttributeSet) : AppCompatTextView(contex
 
     var itemBackgroundColorPress = Color.TRANSPARENT
 
-
     private val chosenDrawable = getDrawable(context, ic_chosen)!!.apply {
         setBounds(0, 0, 24.dpInt, 24.dpInt)
     }
@@ -54,7 +53,7 @@ class ThemeItem(context: Context, attr: AttributeSet) : AppCompatTextView(contex
         setPadding(16.dpInt, 16.dpInt, 16.dpInt, 16.dpInt)
         gravity = Gravity.CENTER_VERTICAL
         isSingleLine = true
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+        setTextSize(COMPLEX_UNIT_SP, 16f)
     }
 
     fun setIconDrawable(icon: Drawable) {

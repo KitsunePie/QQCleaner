@@ -65,7 +65,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.0")
 
-    val lifecycleVersion = "2.6.0-alpha05"
+    val lifecycleVersion = "2.6.0-beta01"
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
 

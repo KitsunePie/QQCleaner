@@ -12,14 +12,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.NavHostFragment
 import androidx.viewbinding.ViewBinding
-import me.kyuubiran.qqcleaner.MainActivity
+import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 
 
 open class BaseFragment<VB : ViewBinding>(
     private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB
 ) : Fragment() {
 
-    protected val model: MainActivity.MainActivityStates by activityViewModels()
+    protected val model: MainActivityStates by activityViewModels()
 
     private var _binding: VB? = null
     val binding: VB get() = _binding!!
