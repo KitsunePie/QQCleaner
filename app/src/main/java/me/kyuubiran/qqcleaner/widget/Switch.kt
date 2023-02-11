@@ -14,6 +14,7 @@ import me.kyuubiran.qqcleaner.R
 class Switch(context: Context, attr: AttributeSet) : ImageView(context, attr) {
 
     private var isRun = false
+
     fun setChecked(on: Boolean, isWhite: Boolean, isDark: Boolean, hasAnim: Boolean) {
         this.contentDescription = getContentDescriptionRes(on)
         if (hasAnim) {
@@ -21,7 +22,6 @@ class Switch(context: Context, attr: AttributeSet) : ImageView(context, attr) {
         } else {
             setImageResource(getAnimateImageRes(!on, isWhite, isDark))
         }
-
     }
 
     private fun getContentDescriptionRes(on: Boolean): String {

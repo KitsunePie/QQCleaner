@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
-
 import androidx.lifecycle.lifecycleScope
-import com.drake.brv.utils.addModels
 import com.drake.brv.utils.linear
+import com.drake.brv.utils.setDifferModels
 import com.drake.brv.utils.setup
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ConfigFragmentBinding
 import me.kyuubiran.qqcleaner.databinding.ConfigItemBinding
+import me.kyuubiran.qqcleaner.dialog.ConfigEditDialogFragment
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
 import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 import me.kyuubiran.qqcleaner.uitls.dpInt
@@ -20,12 +21,10 @@ import me.kyuubiran.qqcleaner.uitls.dpInt
 
 class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding::inflate),
     ThemeFragmentRegistry {
-     private val state: ConfigStates by viewModels<ConfigStates>()
-    var configList: MutableList<ConfigModel> = mutableListOf()
+    private val state: ConfigStates by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFragment()
-        state
     }
 
     override fun initColor() {
@@ -59,27 +58,39 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
     }
 
     override fun initLayout() {
-        if (configList.isNotEmpty()) {
-            val configRecyclerView = binding.configRecyclerView
-            this@ConfigFragment.binding.configLayout.visibility = View.VISIBLE
-            configRecyclerView.apply {
-                // 因为宽高不会发生变换，所以使用 setHasFixedSize 减少测绘次数
-                setHasFixedSize(true)
-                linear().setup {
-                    // 数据和对应的布局
-                    addType<ConfigModel>(R.layout.config_item)
-                    onBind {
-                        val binding = getBinding<ConfigItemBinding>()
-                        binding.apply {
-                            // 设置属性
-                            configName.text = getModel<ConfigModel>().title
-                            authorName.text = getModel<ConfigModel>().author
+
+        val configRecyclerView = binding.configRecyclerView
+
+        lifecycleScope.launch {
+            state.configList.collect {
+                if (it.isNotEmpty()) {
+                    binding.emptyLayout.visibility = View.GONE
+                    binding.configLayout.visibility = View.VISIBLE
+                    configRecyclerView.apply {
+                        // 因为宽高不会发生变换，所以使用 setHasFixedSize 减少测绘次数
+                        setHasFixedSize(true)
+                        linear().setup {
+                            // 数据和对应的布局
+                            addType<ConfigModel>(R.layout.config_item)
+                            onBind {
+                                val binding = getBinding<ConfigItemBinding>()
+                                binding.apply {
+                                    root.setOnClickListener {
+                                        ConfigEditDialogFragment().showNow(parentFragmentManager, "")
+                                    }
+
+                                    // 设置属性
+                                    configName.text = getModel<ConfigModel>().title
+                                    authorName.text = getModel<ConfigModel>().author
+                                }
+                            }
                         }
-                    }
-                }.models = configList
+                    }.setDifferModels(it)
+                } else {
+                    this@ConfigFragment.binding.configLayout.visibility = View.GONE
+                    this@ConfigFragment.binding.emptyLayout.visibility = View.VISIBLE
+                }
             }
-        } else {
-            this@ConfigFragment.binding.emptyLayout.visibility = View.VISIBLE
         }
 
 
@@ -87,9 +98,11 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
 
     override fun initListener() {
         binding.addConfigBtn.setOnClickListener {
-            binding.configRecyclerView.addModels(listOf(ConfigModel("新配置", "我", true)))
+            lifecycleScope.launch {
+                state.configList.emit(listOf(ConfigModel("新配置", "我", true)).toMutableList())
+            }
 
-            // ConfigAddDialogFragment().showNow(parentFragmentManager, "")
+            //ConfigAddDialogFragment().showNow(parentFragmentManager, "")
             // navigatePage(R.id.action_configFragment_to_editFragment)
         }
     }
@@ -100,7 +113,9 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
         val enable: Boolean
     )
 
-    private class ConfigStates : StateHolder() {
+    class ConfigStates : StateHolder() {
+        val configList: MutableStateFlow<MutableList<ConfigModel>> =
+            MutableStateFlow(mutableListOf())
 
         fun initViewModel() {
 
