@@ -19,26 +19,30 @@ import me.kyuubiran.qqcleaner.uitls.rippleDrawable
  * @param context 对应的 Context 参数
  * @param attr 对应的 AttributeSet 参数
  */
-class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
+class SwitchItem(context: Context, attr: AttributeSet?) : LinearLayout(context, attr) {
 
-    private var checked: Boolean = false
+    private var checked = false
 
-    private var isWhite: Boolean = false
+    private var isWhite = false
 
-    private var isDark: Boolean = false
+    private var isDark = false
 
 
-    lateinit var text: String
+    var text = ""
+        set(value) {
+            field = value
+            binding.switchText.text = text
+        }
 
     private lateinit var listener: (Boolean) -> Unit
 
     private val binding = inflate(ItemSwitchBinding::inflate)
 
     init {
-        initAttrs(attr)
-
+        if (attr != null) {
+            initAttrs(attr)
+        }
         // 设置默认值，防止为空
-        binding.switchText.text = text
         binding.switchImg.setChecked(checked, isWhite, isDark, false)
 
         // 设置点击事件
@@ -59,7 +63,22 @@ class SwitchItem(context: Context, attr: AttributeSet) : LinearLayout(context, a
                 setColor(Color.WHITE)
             }
         )
+    }
 
+    fun setRippleColor(@ColorInt color: Int, contentColor: Int) {
+        background = rippleDrawable(
+            color,
+            shapeDrawable {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 10.dp
+                setColor(contentColor)
+            },
+            shapeDrawable {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 10.dp
+                setColor(Color.WHITE)
+            }
+        )
     }
 
     fun setTextColor(color: Int) {

@@ -38,16 +38,16 @@
         android:name="me.kyuubiran.qqcleaner.page.ConfigFragment"
         android:label="ConfigFragment">
         <action
-            android:id="@+id/action_configFragment_to_editFragment"
+            android:id="@+id/action_configFragment_to_sortFragment"
             app:destination="@id/editFragment"
              />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
-        android:name="me.kyuubiran.qqcleaner.page.EditFragment"
+        android:name="me.kyuubiran.qqcleaner.page.SortFragment"
         android:label="EditFragment">
         <action
-            android:id="@+id/action_editFragment_to_fileFragment"
+            android:id="@+id/action_sortFragment_to_fileFragment"
             app:destination="@id/fileFragment" />
     </fragment>
 </navigation>

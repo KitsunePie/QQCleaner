@@ -9,23 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="56dp" />
 
-    <com.gcssloop.widget.RCLinearLayout
+
+    <me.kyuubiran.qqcleaner.widget.SwitchItem
         android:id="@+id/config_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tool_bar"
         android:layout_margin="24dp"
-        android:background="#ffffff"
-        app:clip_background="true"
-        app:round_corner="10dp">
-
-        <me.kyuubiran.qqcleaner.widget.SwitchItem
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:text="@string/item_cleaner" />
-    </com.gcssloop.widget.RCLinearLayout>
+        app:text="@string/item_cleaner" />
 
     <com.gcssloop.widget.RCLinearLayout
+        android:id="@+id/sort_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/config_switch"
@@ -33,6 +27,11 @@
         android:background="#ffffff"
         app:clip_background="true"
         app:round_corner="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sort_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </com.gcssloop.widget.RCLinearLayout>
 

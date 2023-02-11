@@ -13,42 +13,47 @@ import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 import me.kyuubiran.qqcleaner.data.Config
 import me.kyuubiran.qqcleaner.databinding.ConfigItemBinding
 import me.kyuubiran.qqcleaner.dialog.ConfigEditDialogFragment
+import me.kyuubiran.qqcleaner.page.ConfigFragment
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
 import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.rippleDrawable
 
 class ConfigAdapter(
     private val model: MainActivityStates,
-    private val dataSet: ArrayList<Config>
-) :
-    RecyclerView.Adapter<ConfigAdapter.ViewHolder>() {
+    private val configState: ConfigFragment.ConfigStates
+) : RecyclerView.Adapter<ConfigAdapter.ViewHolder>() {
+
     class ViewHolder(
         private val itemBinding: ConfigItemBinding,
-        private val model: MainActivityStates
+        private val model: MainActivityStates,
+        private val configState: ConfigFragment.ConfigStates
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(itemBean: Config) {
             itemBinding.configName.text = itemBean.title
             itemBinding.authorName.text = itemBean.author
+
+            itemBinding.layout.setOnClickListener {
+                configState.selectConfig = itemBean
+                ConfigEditDialogFragment.newInstance(
+                    itemBean.title
+                ).showNow(
+                    (itemBinding.root.context as FragmentActivity).supportFragmentManager,
+                    ""
+                )
+            }
             model.viewModelScope.launch {
-                model.colorPalette.collect { color ->
+                model.colorPalette.collect { colors ->
                     itemBinding.switchImg.setChecked(
                         itemBean.enable,
                         isWhite = false,
-                        isDark = color != LightColorPalette,
+                        isDark = colors != LightColorPalette,
                         hasAnim = false
                     )
-                    itemBinding.layout.setOnClickListener {
-                        ConfigEditDialogFragment.newInstance(
-                            itemBean.title
-                        ).showNow(
-                            (itemBinding.root.context as FragmentActivity).supportFragmentManager,
-                            ""
-                        )
-                    }
-                    itemBinding.configName.setTextColor(color.firstTextColor)
-                    itemBinding.authorName.setTextColor(color.thirdTextColor)
+
+                    itemBinding.configName.setTextColor(colors.firstTextColor)
+                    itemBinding.authorName.setTextColor(colors.thirdTextColor)
                     itemBinding.layout.background = rippleDrawable(
-                        color.rippleColor,
+                        colors.rippleColor,
                         null,
                         shapeDrawable {
 
@@ -66,14 +71,14 @@ class ConfigAdapter(
                             setColor(Color.WHITE)
                         }
                     )
-                    itemBinding.divider.setBackgroundColor(color.switchLineColor)
+                    itemBinding.divider.setBackgroundColor(colors.switchLineColor)
 
                     itemBinding.switchImg.setOnClickListener {
                         itemBean.enable = !itemBean.enable
                         itemBinding.switchImg.setChecked(
                             itemBean.enable,
                             isWhite = false,
-                            isDark = color != LightColorPalette,
+                            isDark = colors != LightColorPalette,
                             hasAnim = true
                         )
                     }
@@ -87,31 +92,31 @@ class ConfigAdapter(
         val itemBinding =
             ConfigItemBinding.inflate(from(parent.context), parent, false)
 
-        return ViewHolder(itemBinding, model)
+        return ViewHolder(itemBinding, model, configState)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val itemBean = dataSet[position]
+        val itemBean = configState.configList[position]
         viewHolder.bind(itemBean)
     }
 
     //  添加数据
     fun addConfig(value: Config) {
-        dataSet.add(value)
-        notifyItemInserted(dataSet.size)
+        configState.configList.add(value)
+        notifyItemInserted(configState.configList.size)
     }
 
     fun removeConfigAt(position: Int) {
-        dataSet.removeAt(position)
+        configState.configList.removeAt(position)
         //删除动画
         notifyItemRemoved(position);
     }
 
     fun removeConfig(value: Config) {
-        dataSet.remove(value)
+        configState.configList.remove(value)
         //删除动画
-        notifyItemRemoved(dataSet.indexOf(value))
+        notifyItemRemoved(configState.configList.indexOf(value))
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = configState.configList.size
 }

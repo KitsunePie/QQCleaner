@@ -24,13 +24,16 @@ import me.kyuubiran.qqcleaner.uitls.rippleDrawable
  * @param attr 对应的 AttributeSet 参数
  */
 class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr) {
-    private lateinit var text: String
+    var title: String = ""
+        set(value) {
+            field = value
+            binding.titleText.text = field
+        }
 
     private val binding = inflate(ToolbarBinding::inflate)
 
     init {
         initAttrs(attr)
-        binding.titleText.text = text
         binding.backBackground.apply {
             setOnClickListener {
                 val fragment =
@@ -60,7 +63,8 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
     fun setIconColor(@ColorInt color: Int) {
         binding.backIcon.imageTintList = ColorStateList.valueOf(color)
     }
-    fun setIconRippleColor(@ColorInt color: Int){
+
+    fun setIconRippleColor(@ColorInt color: Int) {
         binding.backBackground.apply {
             background = rippleDrawable(
                 color,
@@ -72,11 +76,12 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
             )
         }
     }
+
     private fun initAttrs(attrs: AttributeSet) {
         // 加载对应的 AttributeSet
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ToolBar)
         // 获取对应 text 属性的内容
-        text = typedArray.getString(R.styleable.ToolBar_title).toString()
+        title = typedArray.getString(R.styleable.ToolBar_title).toString()
         typedArray.recycle()
     }
 }

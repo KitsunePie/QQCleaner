@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.updateLayoutParams
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.moshi.Moshi
@@ -28,7 +28,7 @@ import java.nio.charset.Charset
 class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding::inflate),
     ThemeFragmentRegistry {
 
-    private val state: ConfigStates by viewModels()
+    private val state: ConfigStates by activityViewModels()
 
     private lateinit var adapter: ConfigAdapter
 
@@ -84,19 +84,26 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
 
         val configRecyclerView = binding.configRecyclerView
 
-
         for (i in 1..100) {
             val itemBean = state.getConfig(requireContext())
             if (itemBean != null) {
                 state.configList.add(itemBean)
             }
         }
-        adapter = ConfigAdapter(dataSet = state.configList, model = model)
+
+        adapter = ConfigAdapter(model = model, configState = state)
         configRecyclerView.setHasFixedSize(true)
         configRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         configRecyclerView.adapter = adapter
 
+
         binding.root.setOnApplyWindowInsetsListener { _, insets ->
+            binding.configLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin =
+                    (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                        insets.getInsets(WindowInsets.Type.navigationBars()).bottom
+                    else if (checkDeviceHasNavigationBar()) getNavigationBarHeight() else 0) + 24.dpInt
+            }
             // 设置按钮边距
             binding.addConfigBtn.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin =
@@ -121,6 +128,9 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
 
     class ConfigStates : StateHolder() {
 
+        // 选中的 List<ConfigContent>
+
+        lateinit var selectConfig: Config
         val configList = ArrayList<Config>()
 
         // 仅仅作为演示

@@ -4,10 +4,13 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import group.infotech.drawable.dsl.shapeDrawable
 import kotlinx.coroutines.launch
+import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ConfigEditDialogBinding
 import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 import me.kyuubiran.qqcleaner.uitls.dp
@@ -33,7 +36,6 @@ class ConfigEditDialogFragment : EditDialogFragment(), ThemeFragmentRegistry {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = ConfigEditDialogBinding.inflate(layoutInflater)
         layout = binding.root
-
         initFragment()
         return super.onCreateDialog(savedInstanceState)
     }
@@ -121,7 +123,15 @@ class ConfigEditDialogFragment : EditDialogFragment(), ThemeFragmentRegistry {
 
         binding.openItem.setOnClickListener { }
 
-        binding.editItem.setOnClickListener { }
+        binding.editItem.setOnClickListener {
+            val fragment =
+                (requireContext() as FragmentActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
+            val navController = NavHostFragment.findNavController(fragment)
+            navController.navigate(
+                R.id.action_configFragment_to_sortFragment
+            )
+            animateDismiss()
+        }
 
         binding.editNameItem.setOnClickListener { }
 

@@ -15,7 +15,7 @@ data class Config(
 @JsonClass(generateAdapter = true)
 data class ConfigContent(
     val title: String,
-    val enable: Boolean,
+    var enable: Boolean,
     @Json(name = "path") val pathList: List<Path>
 )
 

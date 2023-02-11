@@ -73,7 +73,6 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.0-alpha04")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
 
-    implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     // 阴影

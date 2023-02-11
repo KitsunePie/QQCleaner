@@ -9,6 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="56dp" />
 
+    <com.gcssloop.widget.RCLinearLayout
+        android:id="@+id/file_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tool_bar"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:background="#ffffff"
+        app:clip_background="true"
+        app:round_corner="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/file_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.gcssloop.widget.RCLinearLayout>
+
     <com.lihang.ShadowLayout
         android:id="@+id/add_file_btn"
         android:layout_width="wrap_content"

@@ -64,7 +64,6 @@ class MainActivity : FragmentActivity() {
         lifecycleScope.launch {
             dataStore.data.first()
         }
-
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
