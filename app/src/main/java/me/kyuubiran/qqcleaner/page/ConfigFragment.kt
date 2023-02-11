@@ -9,12 +9,14 @@ import com.drake.brv.utils.linear
 import com.drake.brv.utils.setDifferModels
 import com.drake.brv.utils.setup
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
 import me.kyuubiran.qqcleaner.databinding.ConfigFragmentBinding
 import me.kyuubiran.qqcleaner.databinding.ConfigItemBinding
 import me.kyuubiran.qqcleaner.dialog.ConfigEditDialogFragment
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
+import me.kyuubiran.qqcleaner.theme.QQCleanerColors
 import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 import me.kyuubiran.qqcleaner.uitls.dpInt
 
@@ -57,40 +59,62 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
 
     }
 
+    class Mix(val list: MutableList<ConfigModel>, val colorPalette: QQCleanerColors)
+
     override fun initLayout() {
 
         val configRecyclerView = binding.configRecyclerView
 
         lifecycleScope.launch {
-            state.configList.collect {
-                if (it.isNotEmpty()) {
-                    binding.emptyLayout.visibility = View.GONE
-                    binding.configLayout.visibility = View.VISIBLE
-                    configRecyclerView.apply {
-                        // 因为宽高不会发生变换，所以使用 setHasFixedSize 减少测绘次数
-                        setHasFixedSize(true)
-                        linear().setup {
-                            // 数据和对应的布局
-                            addType<ConfigModel>(R.layout.config_item)
-                            onBind {
-                                val binding = getBinding<ConfigItemBinding>()
-                                binding.apply {
-                                    root.setOnClickListener {
-                                        ConfigEditDialogFragment().showNow(parentFragmentManager, "")
-                                    }
+            state.configList.combine(model.colorPalette) { state, colorPalette ->
+                Mix(state, colorPalette)
+            }.collect { mix ->
+                    if (mix.list.isNotEmpty()) {
+                        binding.emptyLayout.visibility = View.GONE
+                        binding.configLayout.visibility = View.VISIBLE
+                        configRecyclerView.apply {
+                            // 因为宽高不会发生变换，所以使用 setHasFixedSize 减少测绘次数
+                            setHasFixedSize(true)
+                            linear().setup {
+                                // 数据和对应的布局
+                                addType<ConfigModel>(R.layout.config_item)
+                                onBind {
+                                    val binding = getBinding<ConfigItemBinding>()
+                                    binding.apply {
+                                        layout.setOnClickListener {
+                                            ConfigEditDialogFragment().showNow(
+                                                parentFragmentManager,
+                                                ""
+                                            )
+                                        }
+                                        switchImg.setOnClickListener {
 
-                                    // 设置属性
-                                    configName.text = getModel<ConfigModel>().title
-                                    authorName.text = getModel<ConfigModel>().author
+                                            switchImg.setChecked(
+                                                getModel<ConfigModel>().enable,
+                                                isWhite = false,
+                                                isDark = mix.colorPalette != LightColorPalette,
+                                                hasAnim = true
+                                            )
+                                        }
+
+                                        // 设置属性
+                                        configName.text = getModel<ConfigModel>().title
+                                        authorName.text = getModel<ConfigModel>().author
+                                        switchImg.setChecked(
+                                            getModel<ConfigModel>().enable,
+                                            isWhite = false,
+                                            isDark = mix.colorPalette != LightColorPalette,
+                                            hasAnim = false
+                                        )
+                                    }
                                 }
                             }
-                        }
-                    }.setDifferModels(it)
-                } else {
-                    this@ConfigFragment.binding.configLayout.visibility = View.GONE
-                    this@ConfigFragment.binding.emptyLayout.visibility = View.VISIBLE
+                        }.setDifferModels(mix.list)
+                    } else {
+                        this@ConfigFragment.binding.configLayout.visibility = View.GONE
+                        this@ConfigFragment.binding.emptyLayout.visibility = View.VISIBLE
+                    }
                 }
-            }
         }
 
 
