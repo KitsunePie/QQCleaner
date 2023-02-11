@@ -14,7 +14,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.viewbinding.ViewBinding
 import me.kyuubiran.qqcleaner.MainActivity.MainActivityStates
 
-
 open class BaseFragment<VB : ViewBinding>(
     private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB
 ) : Fragment() {

@@ -32,6 +32,16 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
 
     private lateinit var adapter: ConfigAdapter
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val itemBean = state.getConfig(requireContext())
+        // 需要放在 ConfigStates init 中，否则会多次 add
+        if (itemBean != null) {
+            state.configList.add(itemBean)
+        }
+        adapter = ConfigAdapter(model = model, configState = state)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFragment()
@@ -81,17 +91,8 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
     }
 
     override fun initLayout() {
-
         val configRecyclerView = binding.configRecyclerView
 
-        for (i in 1..100) {
-            val itemBean = state.getConfig(requireContext())
-            if (itemBean != null) {
-                state.configList.add(itemBean)
-            }
-        }
-
-        adapter = ConfigAdapter(model = model, configState = state)
         configRecyclerView.setHasFixedSize(true)
         configRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         configRecyclerView.adapter = adapter
@@ -127,7 +128,9 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
 
 
     class ConfigStates : StateHolder() {
+        init {
 
+        }
         // 选中的 List<ConfigContent>
 
         lateinit var selectConfig: Config
