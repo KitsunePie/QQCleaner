@@ -79,21 +79,24 @@ class SortFragment : BaseFragment<SortFragmentBinding>(SortFragmentBinding::infl
                 binding.sortLayout.setBackgroundColor(colors.appBarsAndItemBackgroundColor)
 
                 binding.configSwitch.apply {
-                    this.setTextColor(colors.whiteColor)
-                    this.setSwitchColor(true, colors != LightColorPalette)
-                    this.setRippleColor(colors.whiteColor, colors.mainThemeColor)
+                    setTextColor(colors.whiteColor)
+                    setSwitchColor(true, colors != LightColorPalette)
+                    setRippleColor(colors.whiteColor, colors.mainThemeColor)
 
 
-                    binding.configSwitch.setSwitchListener {
-                        this.setTextColor(if (it) colors.firstTextColor else colors.whiteColor)
-                        this.setSwitchColor(!it, colors != LightColorPalette)
-                        this.setRippleColor(
+                    setSwitchListener {
+                        setTextColor(if (it) colors.firstTextColor else colors.whiteColor)
+                        setSwitchColor(!it, colors != LightColorPalette)
+                        setRippleColor(
                             if (it) colors.rippleColor else colors.whiteColor,
                             if (it) colors.whiteColor else colors.mainThemeColor
                         )
 
                     }
                 }
+                binding.addSortBtn.setLayoutBackground(colors.mainThemeColor)
+                binding.addSortBtn.setLayoutBackgroundTrue(colors.whiteColor)
+                binding.addSortBtn.setShadowColor(colors.sixtyThreePercentThemeColor)
             }
         }
     }
