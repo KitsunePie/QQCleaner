@@ -4,15 +4,16 @@ import android.app.Dialog
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import group.infotech.drawable.dsl.shapeDrawable
 import group.infotech.drawable.dsl.solidColor
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.databinding.TimeDialogBinding
+import me.kyuubiran.qqcleaner.page.HomeFragment
 import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
 import me.kyuubiran.qqcleaner.uitls.dp
 import me.kyuubiran.qqcleaner.uitls.setTextCursorDrawableColor
@@ -21,14 +22,15 @@ import me.kyuubiran.qqcleaner.uitls.setTextSelectHandleLeftColor
 import me.kyuubiran.qqcleaner.uitls.setTextSelectHandleRightColor
 
 
-class TimeDialogFragment(private val time: StateFlow<Int>) : EditDialogFragment(),
+class TimeDialogFragment : EditDialogFragment(),
     ThemeFragmentRegistry {
 
     private val state: TimeStates by viewModels()
 
+    // 与 HomeFragment 共享一个 ViewModels
+    private val homeStates: HomeFragment.HomeStates by activityViewModels()
     lateinit var binding: TimeDialogBinding
 
-    private var onSuccessListener: (Int) -> Unit = {}
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 把当前值发送给保存起来
 
@@ -42,9 +44,12 @@ class TimeDialogFragment(private val time: StateFlow<Int>) : EditDialogFragment(
 
     override fun initLayout() {
         lifecycleScope.launch {
-            state.tempTime.emit(time.value)
+            state.tempTime.emit(homeStates.autoCleanerTimeState.value)
         }
-        binding.timeEdit.setText(if (time.value == 24) "" else time.value.toString())
+        homeStates.autoCleanerTimeState.value.apply {
+            binding.timeEdit.setText(if (this == 24) "" else this.toString())
+
+        }
 
     }
 
@@ -62,14 +67,14 @@ class TimeDialogFragment(private val time: StateFlow<Int>) : EditDialogFragment(
             animateDismiss()
         }
         lifecycleScope.launch {
-            state.tempTime.combine(time) { new, old -> new != old }
+            state.tempTime.combine(homeStates.autoCleanerTimeState) { new, old -> new != old }
                 .collect {
                     binding.timeSelect.modify = it
                 }
         }
 
         binding.timeSelect.setOnClickListener {
-            onSuccessListener(state.tempTime.value)
+            homeStates.setAutoCleanerTime(requireContext(), state.tempTime.value)
         }
     }
 
@@ -111,10 +116,6 @@ class TimeDialogFragment(private val time: StateFlow<Int>) : EditDialogFragment(
 
             }
         }
-    }
-
-    fun setOnSuccessListener(onSuccessListener: (Int) -> Unit) {
-        this.onSuccessListener = onSuccessListener
     }
 
     class TimeStates : StateHolder() {

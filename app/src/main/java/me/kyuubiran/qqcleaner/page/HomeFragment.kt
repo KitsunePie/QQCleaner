@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import androidx.core.view.updateLayoutParams
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import group.infotech.drawable.dsl.shapeDrawable
@@ -36,7 +36,7 @@ import me.kyuubiran.qqcleaner.uitls.getNavigationBarHeight
 class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::inflate),
     ThemeFragmentRegistry {
 
-    private val state: HomeStates by viewModels()
+    private val state: HomeStates by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,13 +166,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
         }
 
         binding.autoCleanerText.setOnClickListener {
-            TimeDialogFragment(state.autoCleanerTimeState).apply {
-                setOnSuccessListener { autoTime ->
-                    state.setAutoCleanerTime(requireContext(), autoTime)
-                    animateDismiss()
-                }
-
-            }.show(parentFragmentManager, "")
+            TimeDialogFragment().show(parentFragmentManager, "")
 
         }
         // 配置按钮

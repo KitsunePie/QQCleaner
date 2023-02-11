@@ -73,6 +73,6 @@
         android:layout_marginTop="24dp"
         android:gravity="center"
         android:padding="16dp"
-        android:text="@string/theme_select"
+        android:text="@string/cancel"
         android:textSize="16sp" />
 </LinearLayout>

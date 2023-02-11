@@ -49,5 +49,8 @@ open class BaseFragment<VB : ViewBinding>(
     }
 
 
+    /**
+     * 用来存储相关的变量
+     */
     open class StateHolder : ViewModel()
 }

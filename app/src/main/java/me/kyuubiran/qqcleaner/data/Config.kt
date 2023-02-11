@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 data class Config(
     val title: String,
     val author: String,
-    val enable: Boolean,
+    var enable: Boolean,
     val hostApp: String,
     val content: List<ConfigContent>
 )

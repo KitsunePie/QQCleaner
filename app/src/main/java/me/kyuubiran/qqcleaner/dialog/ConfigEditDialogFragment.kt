@@ -18,11 +18,31 @@ class ConfigEditDialogFragment : EditDialogFragment(), ThemeFragmentRegistry {
     private val state: ConfigEditStates by viewModels()
 
     lateinit var binding: ConfigEditDialogBinding
+
+    companion object {
+        fun newInstance(title: String): ConfigEditDialogFragment {
+            val args = Bundle().apply {
+                putString("title", title)
+            }
+            return ConfigEditDialogFragment().apply {
+                arguments = args
+            }
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = ConfigEditDialogBinding.inflate(layoutInflater)
         layout = binding.root
+
         initFragment()
         return super.onCreateDialog(savedInstanceState)
+    }
+
+    override fun initLayout() {
+        super.initLayout()
+        if (arguments != null) {
+            binding.topBar.setTitle(requireArguments().getString("title")!!)
+        }
     }
 
     override fun initColor() {

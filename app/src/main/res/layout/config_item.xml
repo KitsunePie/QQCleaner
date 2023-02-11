@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="18dp">
+    android:orientation="horizontal">
 
     <RelativeLayout
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingVertical="18dp"
         android:id="@+id/layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,10 +30,12 @@
             android:layout_below="@+id/config_name"
             android:gravity="center_vertical"
             android:singleLine="true"
+            android:layout_marginTop="2dp"
             android:textSize="12sp" />
     </RelativeLayout>
 
     <View
+        android:id="@+id/divider"
         android:layout_width="2dp"
         android:layout_height="28dp"
         android:layout_marginHorizontal="22dp"
@@ -40,6 +43,8 @@
         android:background="#202124" />
 
     <me.kyuubiran.qqcleaner.widget.Switch
+        android:layout_marginEnd="16dp"
+        android:layout_marginVertical="18dp"
         android:id="@+id/switch_img"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />

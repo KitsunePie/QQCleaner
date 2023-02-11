@@ -1,29 +1,37 @@
 package me.kyuubiran.qqcleaner.page
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowInsets
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.drake.brv.utils.linear
-import com.drake.brv.utils.setDifferModels
-import com.drake.brv.utils.setup
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.launch
 import me.kyuubiran.qqcleaner.R
+import me.kyuubiran.qqcleaner.adapter.ConfigAdapter
+import me.kyuubiran.qqcleaner.data.Config
 import me.kyuubiran.qqcleaner.databinding.ConfigFragmentBinding
-import me.kyuubiran.qqcleaner.databinding.ConfigItemBinding
-import me.kyuubiran.qqcleaner.dialog.ConfigEditDialogFragment
 import me.kyuubiran.qqcleaner.theme.LightColorPalette
-import me.kyuubiran.qqcleaner.theme.QQCleanerColors
 import me.kyuubiran.qqcleaner.theme.ThemeFragmentRegistry
+import me.kyuubiran.qqcleaner.uitls.checkDeviceHasNavigationBar
 import me.kyuubiran.qqcleaner.uitls.dpInt
+import me.kyuubiran.qqcleaner.uitls.getNavigationBarHeight
+import java.nio.charset.Charset
 
 
 class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding::inflate),
     ThemeFragmentRegistry {
+
     private val state: ConfigStates by viewModels()
+
+    private lateinit var adapter: ConfigAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFragment()
@@ -40,6 +48,15 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
     override fun initDrawable() {
         lifecycleScope.launch {
             model.colorPalette.collect {
+                binding.root.setBackgroundColor(it.pageBackgroundColor)
+                binding.configLayout.setBackgroundColor(it.appBarsAndItemBackgroundColor)
+
+                binding.toolBar.apply {
+                    setIconRippleColor(it.rippleColor)
+                    setTitleColor(it.firstTextColor)
+                    setIconColor(it.firstTextColor)
+                }
+
                 binding.listEmptyText.setCompoundDrawables(
                     null,
                     AppCompatResources.getDrawable(
@@ -54,104 +71,64 @@ class ConfigFragment : BaseFragment<ConfigFragmentBinding>(ConfigFragmentBinding
                     null,
                     null
                 )
+
+                binding.addConfigBtn.setLayoutBackground(it.mainThemeColor)
+                binding.addConfigBtn.setLayoutBackgroundTrue(it.whiteColor)
+                binding.addConfigBtn.setShadowColor(it.sixtyThreePercentThemeColor)
             }
         }
 
     }
-
-    class Mix(val list: MutableList<ConfigModel>, val colorPalette: QQCleanerColors)
 
     override fun initLayout() {
 
         val configRecyclerView = binding.configRecyclerView
 
-        lifecycleScope.launch {
-            state.configList.combine(model.colorPalette) { state, colorPalette ->
-                Mix(state, colorPalette)
-            }.collect { mix ->
-                    if (mix.list.isNotEmpty()) {
-                        binding.emptyLayout.visibility = View.GONE
-                        binding.configLayout.visibility = View.VISIBLE
-                        configRecyclerView.apply {
-                            // 因为宽高不会发生变换，所以使用 setHasFixedSize 减少测绘次数
-                            setHasFixedSize(true)
-                            linear().setup {
-                                // 数据和对应的布局
-                                addType<ConfigModel>(R.layout.config_item)
-                                onBind {
-                                    val binding = getBinding<ConfigItemBinding>()
-                                    binding.apply {
-                                        layout.setOnClickListener {
-                                            ConfigEditDialogFragment().showNow(
-                                                parentFragmentManager,
-                                                ""
-                                            )
-                                        }
-                                        switchImg.setOnClickListener {
 
-                                            switchImg.setChecked(
-                                                getModel<ConfigModel>().enable,
-                                                isWhite = false,
-                                                isDark = mix.colorPalette != LightColorPalette,
-                                                hasAnim = true
-                                            )
-                                        }
-
-                                        // 设置属性
-                                        configName.text = getModel<ConfigModel>().title
-                                        authorName.text = getModel<ConfigModel>().author
-                                        switchImg.setChecked(
-                                            getModel<ConfigModel>().enable,
-                                            isWhite = false,
-                                            isDark = mix.colorPalette != LightColorPalette,
-                                            hasAnim = false
-                                        )
-                                    }
-                                }
-                            }
-                        }.setDifferModels(mix.list)
-                    } else {
-                        this@ConfigFragment.binding.configLayout.visibility = View.GONE
-                        this@ConfigFragment.binding.emptyLayout.visibility = View.VISIBLE
-                    }
-                }
+        for (i in 1..100) {
+            val itemBean = state.getConfig(requireContext())
+            if (itemBean != null) {
+                state.configList.add(itemBean)
+            }
         }
+        adapter = ConfigAdapter(dataSet = state.configList, model = model)
+        configRecyclerView.setHasFixedSize(true)
+        configRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        configRecyclerView.adapter = adapter
 
+        binding.root.setOnApplyWindowInsetsListener { _, insets ->
+            // 设置按钮边距
+            binding.addConfigBtn.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin =
+                    (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                        insets.getInsets(WindowInsets.Type.navigationBars()).bottom
+                    else if (checkDeviceHasNavigationBar()) getNavigationBarHeight() else 0) + 24.dpInt
+            }
+            insets
+        }
 
     }
 
     override fun initListener() {
         binding.addConfigBtn.setOnClickListener {
-            lifecycleScope.launch {
-                state.configList.emit(listOf(ConfigModel("新配置", "我", true)).toMutableList())
-            }
+            adapter.removeConfigAt(1)
 
             //ConfigAddDialogFragment().showNow(parentFragmentManager, "")
             // navigatePage(R.id.action_configFragment_to_editFragment)
         }
     }
 
-    class ConfigModel(
-        val title: String,
-        val author: String,
-        val enable: Boolean
-    )
 
     class ConfigStates : StateHolder() {
-        val configList: MutableStateFlow<MutableList<ConfigModel>> =
-            MutableStateFlow(mutableListOf())
 
-        fun initViewModel() {
+        val configList = ArrayList<Config>()
 
+        // 仅仅作为演示
+        fun getConfig(context: Context): Config? {
+            // json 解析测试
+            val text = context.resources.assets.open("qq.json").readBytes()
+                .toString(Charset.defaultCharset())
+            return Moshi.Builder().build().adapter(Config::class.java).fromJson(text)
         }
-//        fun getConfig(context: Context): Config? {
-//            // json 解析测试
-//            val text = context.resources.assets.open("qq.json").readBytes()
-//                .toString(Charset.defaultCharset())
-//            Log.d("Json", text)
-//            return Moshi.Builder().build().adapter(Config::class.java).fromJson(text)
-//        }
     }
-
-
 }

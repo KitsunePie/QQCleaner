@@ -33,6 +33,11 @@ class DialogTopBar(context: Context, attr: AttributeSet) : LinearLayout(context,
         binding.titleText.setTextColor(color)
     }
 
+    fun setTitle(title: String) {
+        text = title
+        binding.titleText.text = title
+    }
+
     fun setIconColor(@ColorInt color: Int) {
         binding.backIcon.imageTintList = ColorStateList.valueOf(color)
     }

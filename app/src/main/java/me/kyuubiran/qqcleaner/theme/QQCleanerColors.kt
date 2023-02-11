@@ -138,7 +138,7 @@ class QQCleanerColors(
     val itemRightIconColor: Int,
     val itemRightTextColor: Int,
 
-    switchLineColor: Int,
+    val switchLineColor: Int,
     switchOffColor: Int,
     switchWhiteOnColor: Int,
     switchWhiteOnLineColor: Int

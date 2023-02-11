@@ -87,9 +87,6 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 
-    // RecyclerView框架
-    implementation("com.github.liangjingkanji:BRV:1.3.90")
-
     implementation("com.github.infotech-group:android-drawable-dsl:0.3.0")
 
     implementation("com.github.DylanCaiCoding.ViewBindingKTX:viewbinding-nonreflection-ktx:2.1.0")
