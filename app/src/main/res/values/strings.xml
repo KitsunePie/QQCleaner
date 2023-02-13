@@ -105,6 +105,7 @@
     <string name="clean_finished">瘦身完毕！</string>
 
     <string name="top_bar_back_icon_tip">返回图标</string>
+    <string name="top_bar_save_icon_tip">保存图标</string>
     <string name="switch_on_tip">开关状态：开</string>
     <string name="switch_off_tip">开关状态：关</string>
     <string name="developer_chevron">装饰箭头</string>

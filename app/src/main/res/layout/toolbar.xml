@@ -30,4 +30,20 @@
         android:singleLine="true"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/save_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/save_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/top_bar_save_icon_tip"
+            android:src="@drawable/ic_save" />
+    </RelativeLayout>
 </LinearLayout>

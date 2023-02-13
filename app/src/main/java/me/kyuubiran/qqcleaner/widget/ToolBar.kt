@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.util.AttributeSet
+import android.view.View
 import android.view.WindowInsets
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
@@ -42,7 +43,7 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
                 navController.popBackStack()
             }
         }
-
+        binding.saveBackground.visibility = View.GONE
         // 顶栏边距
         @Suppress("DEPRECATION")
         binding.root.rootView.setOnApplyWindowInsetsListener { _, insets ->
@@ -62,9 +63,26 @@ class ToolBar(context: Context, attr: AttributeSet) : LinearLayout(context, attr
 
     fun setIconColor(@ColorInt color: Int) {
         binding.backIcon.imageTintList = ColorStateList.valueOf(color)
+        binding.saveIcon.imageTintList = ColorStateList.valueOf(color)
+    }
+
+    fun setSaveOnClickListener(onClickListener: (View) -> Unit) {
+        binding.saveBackground.visibility = View.VISIBLE
+        binding.saveBackground.setOnClickListener(onClickListener)
     }
 
     fun setIconRippleColor(@ColorInt color: Int) {
+        binding.saveBackground.apply {
+            background = rippleDrawable(
+                color,
+                null,
+                shapeDrawable {
+                    shape = GradientDrawable.OVAL
+                    setColor(Color.WHITE)
+                }
+            )
+        }
+
         binding.backBackground.apply {
             background = rippleDrawable(
                 color,

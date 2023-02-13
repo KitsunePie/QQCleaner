@@ -38,11 +38,16 @@ class SortFragment : BaseFragment<SortFragmentBinding>(SortFragmentBinding::infl
     override fun initLayout() {
         super.initLayout()
         binding.toolBar.title = configState.selectConfig.title
+
         adapter = SortAdapter(
             model = model,
             sortState = state,
             dataSet = configState.selectConfig.content
         )
+        binding.toolBar.setSaveOnClickListener{
+
+        }
+
         val sortRecyclerView = binding.sortRecyclerView
 
         sortRecyclerView.setHasFixedSize(true)

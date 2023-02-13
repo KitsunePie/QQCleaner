@@ -29,11 +29,15 @@ class FileFragment : BaseFragment<FileFragmentBinding>(FileFragmentBinding::infl
     override fun initLayout() {
         super.initLayout()
         binding.toolBar.title = sortState.configContent.title
+
         val fileRecyclerView = binding.fileRecyclerView
         adapter = FileAdapter(
             model = model,
             dataSet = sortState.configContent.pathList
         )
+        binding.toolBar.setSaveOnClickListener {
+
+        }
         fileRecyclerView.setHasFixedSize(true)
         fileRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         fileRecyclerView.adapter = adapter
