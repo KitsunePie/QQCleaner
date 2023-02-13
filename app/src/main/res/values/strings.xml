@@ -63,6 +63,7 @@
     <string name="dialog_title_config">瘦身配置</string>
     <string name="dialog_title_time">设置自动瘦身时长</string>
     <string name="dialog_title_edit_config">编辑配置信息</string>
+    <string name="dialog_title_delete">删除确认</string>
     <string name="dialog_icon_clone">取消</string>
     <string name="executing_config">正在执行配置文件：%s</string>
     <string name="no_config_enabled">瘦身失败，你还没有启用任何配置文件！</string>
@@ -72,6 +73,7 @@
     <string name="list_empty">空视图</string>
     <string name="dialog_del_title">删除确定</string>
 
+    <string name="del_confirm">删除确认</string>
     <string name="sort_empty_tip">点击按钮添加路径</string>
     <string name="dev_org">组织</string>
     <string name="dev_org_name">KitsunePie</string>

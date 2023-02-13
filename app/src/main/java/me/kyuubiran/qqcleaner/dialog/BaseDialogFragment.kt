@@ -46,7 +46,7 @@ open class BaseDialogFragment : DialogFragment() {
 
     protected val model: MainActivity.MainActivityStates by activityViewModels()
 
-    private lateinit var baseBinding: BaseDialogBinding
+    lateinit var baseBinding: BaseDialogBinding
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 随便设置一个空主题，这是一个带动画的主题
         val dialog = Dialog(requireContext(), Animation_Dialog)
